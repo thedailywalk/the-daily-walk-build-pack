@@ -1,5 +1,7 @@
 import Link from "next/link";
 import SignupForm from "@/components/SignupForm";
+import GoodNewsCard from "@/components/GoodNewsCard";
+import { goodNews } from "@/lib/content";
 import { site } from "@/lib/site";
 
 const features = [
@@ -32,24 +34,6 @@ const features = [
     icon: "🤝",
     title: "Walk together",
     body: "A free, welcoming community to share, ask questions, and encourage each other along the way.",
-  },
-];
-
-const goodNews = [
-  {
-    category: "Generosity",
-    headline:
-      "A cab driver lost everything in a riot — then strangers gave back $75,000",
-  },
-  {
-    category: "Community",
-    headline:
-      "A man mowed a widow's lawn for free — viewers turned it into $685,000",
-  },
-  {
-    category: "Restoration",
-    headline:
-      "After a 2-year wait, an orangutan crossed a rope bridge — a world first",
   },
 ];
 
@@ -144,13 +128,7 @@ export default function HomePage() {
           </p>
           <div className="gngrid">
             {goodNews.map((g) => (
-              <div className="gncard" key={g.headline}>
-                <div className="gnimg" aria-hidden="true" />
-                <div className="gnbody">
-                  <span className="gnpill">{g.category}</span>
-                  <div className="gnh">{g.headline}</div>
-                </div>
-              </div>
+              <GoodNewsCard item={g} key={g.headline} />
             ))}
           </div>
         </div>

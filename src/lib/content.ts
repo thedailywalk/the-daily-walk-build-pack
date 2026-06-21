@@ -58,21 +58,41 @@ export const features = [
   },
 ];
 
-export const goodNews = [
+export type GoodNewsItem = {
+  category: string;
+  headline: string;
+  image: string;
+  href: string;
+  source: string;
+};
+
+export const goodNews: GoodNewsItem[] = [
   {
     category: "Generosity",
     headline:
       "A cab driver lost everything in a riot — then strangers gave back $75,000",
+    image:
+      "https://www.goodnewsnetwork.org/wp-content/uploads/2026/06/Cab-driver-French-Montana-GoFundMe-page-by-New-York-Taxi-Workers-Alliance-1024x547.jpg",
+    href: "https://www.goodnewsnetwork.org/nyc-taxi-driver-gets-75000-helping-hand-after-knicks-fans-destroyed-his-car/",
+    source: "Good News Network",
   },
   {
     category: "Community",
     headline:
       "A man mowed a widow's lawn for free — viewers turned it into $685,000",
+    image:
+      "https://www.goodnewsnetwork.org/wp-content/uploads/2026/06/Debbie-and-Spencer-in-the-overgrown-lawn-credit-SB-Mowing-via-GoFundMe.jpg",
+    href: "https://www.goodnewsnetwork.org/just-by-mowing-a-lawn-social-media-star-raises-685000-for-bereaved-senior-who-fell-behind-on-rent/",
+    source: "Good News Network",
   },
   {
     category: "Restoration",
     headline:
       "After a 2-year wait, an orangutan crossed a rope bridge — a world first",
+    image:
+      "https://www.goodnewsnetwork.org/wp-content/uploads/2026/04/Screenshot-2026-04-28-171546-1024x545.jpg",
+    href: "https://www.goodnewsnetwork.org/celebrations-as-sumatran-orangutan-uses-rope-bridge-to-cross-road-for-the-first-time-ever/",
+    source: "Good News Network",
   },
 ];
 
