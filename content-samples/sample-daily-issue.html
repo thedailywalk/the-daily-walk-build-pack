@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Daily Walk — Sample Issue</title>
+<style>
+  body{margin:0;padding:0;background:#E8E2D4;font-family:Georgia,'Times New Roman',serif;color:#2B2B2B;}
+  .wrap{max-width:600px;margin:0 auto;background:#FAF6EE;}
+  .pad{padding:0 34px;}
+  a{color:#9A7723;}
+  .sans{font-family:Arial,Helvetica,sans-serif;}
+  .masthead{background:#1F3A5F;text-align:center;padding:30px 20px 24px;}
+  .logo{font-family:Arial,Helvetica,sans-serif;letter-spacing:5px;font-size:13px;color:#C9A24B;font-weight:bold;}
+  .title{font-family:Arial,Helvetica,sans-serif;color:#fff;font-size:30px;font-weight:bold;margin:8px 0 4px;letter-spacing:1px;}
+  .tag{font-family:Arial,Helvetica,sans-serif;color:#AFc0d6;font-size:12px;font-style:italic;}
+  .meta{font-family:Arial,Helvetica,sans-serif;text-align:center;font-size:12px;color:#8a8270;letter-spacing:1px;text-transform:uppercase;padding:16px 0 4px;}
+  .week{font-family:Arial,Helvetica,sans-serif;text-align:center;font-size:13px;color:#1F3A5F;font-weight:bold;padding-bottom:18px;}
+  .kicker{font-family:Arial,Helvetica,sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#B8902E;font-weight:bold;margin:0 0 6px;}
+  h2.sec{font-family:Arial,Helvetica,sans-serif;font-size:20px;color:#1F3A5F;margin:0 0 10px;}
+  p{font-size:16px;line-height:1.62;}
+  .ref{font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#6a6452;font-weight:bold;}
+  .rule{height:1px;background:#DDD3BC;margin:26px 0;}
+  .verse{border-left:4px solid #C9A24B;background:#F3ECDA;padding:14px 18px;margin:16px 0;font-style:italic;color:#1F3A5F;font-size:16px;line-height:1.55;}
+  .prayer{background:#1F3A5F;color:#F3ECDA;border-radius:8px;padding:22px 24px;margin:6px 0;}
+  .prayer p{color:#EDE6D4;font-style:italic;font-size:16px;line-height:1.6;margin:0;}
+  .question{background:#F3ECDA;border-radius:8px;padding:16px 20px;font-family:Arial,Helvetica,sans-serif;color:#1F3A5F;font-size:15px;font-weight:bold;}
+  .pastor{border:1px solid #E0D6BF;border-radius:8px;padding:6px 22px 18px;background:#fff;}
+  .pastorhead{font-family:Arial,Helvetica,sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#fff;background:#B8902E;display:inline-block;padding:5px 12px;border-radius:0 0 6px 6px;}
+  .byline{font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#8a8270;font-style:italic;}
+  .goodnews{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin:10px 0 2px;}
+  .gn-card{display:flex;flex-direction:column;border:1px solid #E4DAC4;border-radius:10px;overflow:hidden;background:#fff;text-decoration:none;color:inherit;}
+  .gn-imgwrap{height:108px;background:linear-gradient(135deg,#1F3A5F 0%,#2E5481 55%,#C9A24B 100%);}
+  .gn-photo{width:100%;height:100%;object-fit:cover;display:block;}
+  .gn-content{padding:10px 11px 11px;display:flex;flex-direction:column;flex:1;}
+  .gn-pill{align-self:flex-start;font-family:Arial,Helvetica,sans-serif;font-size:8.5px;letter-spacing:1px;text-transform:uppercase;color:#B8902E;border:1px solid #E3C786;padding:2px 7px;border-radius:20px;font-weight:700;}
+  .gn-head{font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#1F3A5F;font-weight:700;line-height:1.28;margin:8px 0 5px;}
+  .gn-body{font-size:11.5px;color:#3c4350;line-height:1.45;margin:0 0 9px;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;}
+  .gn-foot{margin-top:auto;}
+  .gn-src{display:block;font-family:Arial,Helvetica,sans-serif;font-size:9.5px;color:#8a8270;}
+  .gn-readmore{display:inline-block;margin-top:3px;font-family:Arial,Helvetica,sans-serif;font-size:9.5px;letter-spacing:.5px;text-transform:uppercase;color:#B8902E;font-weight:700;}
+  .gn-close{grid-column:1/-1;font-style:italic;color:#1F3A5F;font-size:14px;text-align:center;padding:12px 6px 2px;}
+  @media(max-width:480px){.goodnews{grid-template-columns:1fr 1fr;}}
+  .cta{text-align:center;padding:6px 0 4px;}
+  .btn{font-family:Arial,Helvetica,sans-serif;display:inline-block;background:#C9A24B;color:#1F3A5F;font-weight:bold;text-decoration:none;padding:13px 30px;border-radius:30px;font-size:15px;}
+  .footer{background:#1F3A5F;color:#9fb0c6;font-family:Arial,Helvetica,sans-serif;text-align:center;font-size:12px;line-height:1.7;padding:26px 30px;}
+  .footer a{color:#C9A24B;text-decoration:none;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Masthead -->
+  <div class="masthead">
+    <div class="logo">DAILY DEVOTIONAL</div>
+    <div class="title">The Daily Walk</div>
+    <div class="tag">walking with God in real life</div>
+  </div>
+
+  <div class="meta">Wednesday · Day 10</div>
+  <div class="week">This Week's Focus: Meet Jesus — who He really is</div>
+
+  <div class="pad">
+
+    <!-- Today's Reading -->
+    <div class="kicker">Today's Reading</div>
+    <h2 class="sec">The whole reason it was written down</h2>
+    <p class="ref">📖 Main: John 19–20 &nbsp;·&nbsp; Be real with God: sit honestly with Psalm 27</p>
+    <p>We started this journey in John for a reason. Before you try to <em>do</em> anything with faith, you need to actually meet Jesus — watch how He talks, how He moves, how He treats people the world had written off. Today we reach the end of John's account, and he stops to tell us exactly why he wrote all of it down:</p>
+    <div class="verse">"But these are written so that you may believe that Jesus is the Messiah, the Son of God, and that by believing you may have life in his name." — John 20:31</div>
+    <p>That's the whole point. Not information — life. Notice too that the risen Jesus doesn't shame Thomas for his doubt; He steps toward it and says, "Put your finger here." Wherever you are today — all in, unsure, or just curious — that's the Jesus you're being introduced to. One who moves toward honest questions, not away from them.</p>
+
+    <div class="rule"></div>
+
+    <!-- Make It Real -->
+    <div class="kicker">Make It Real</div>
+    <h2 class="sec">So what, for today?</h2>
+    <p>Belief in the Bible isn't pretending to be certain. Thomas believed <em>because</em> he was honest about his doubt, not in spite of it. You don't have to have it all figured out to take one real step toward God today.</p>
+    <div class="question">👉 Where are you waiting to feel certain before you'll take a step? What's one honest sentence you could say to God about that right now?</div>
+
+    <div class="rule"></div>
+
+    <!-- Prayer -->
+    <div class="kicker">A Prayer for Today</div>
+    <div class="prayer">
+      <p>Jesus, I don't have everything figured out, and I'm learning I don't have to. Thank You for stepping toward my questions instead of away from them. Help me believe — not perfectly, just honestly — and to find real life in You today. Amen.</p>
+    </div>
+
+    <div class="rule"></div>
+
+    <!-- Pastor's Take (Wednesday) -->
+    <div class="kicker" style="text-align:center;">— Midweek —</div>
+  </div>
+
+  <div style="text-align:center;"><span class="pastorhead">Pastor's Take · Wednesdays</span></div>
+  <div class="pad">
+    <div class="pastor">
+      <p>"Most people think faith is the absence of doubt. It isn't. Faith is what you do with your doubt. You can carry a hundred questions to Jesus and still take the next step — that's not weak faith, that's exactly the kind He keeps showing up for. Don't wait until you're sure. Walk, and let the seeing come on the way."</p>
+      <p class="byline">— featured perspective, shared with attribution. Rotate a different pastor or teacher each Wednesday and link to their full message.</p>
+    </div>
+  </div>
+
+  <div class="pad">
+    <div class="rule"></div>
+
+    <!-- Community CTA -->
+    <div class="kicker" style="text-align:center;">Walk together</div>
+    <p style="text-align:center;">You weren't meant to do this alone. We're talking through today's question in the community — come share your honest sentence to God, or just read along.</p>
+    <div class="cta"><a href="#" class="btn">Join the conversation →</a></div>
+    <div style="height:18px;"></div>
+  </div>
+
+  <div class="pad">
+    <div class="rule"></div>
+
+    <!-- Good News -->
+    <div class="kicker">Good News</div>
+    <h2 class="sec">3 reasons for hope from around the world</h2>
+    <p class="ref" style="margin-top:-4px;">Real stories. Real sources. Tap any headline to read the full article.</p>
+    <div class="goodnews">
+
+      <a class="gn-card" href="https://www.goodnewsnetwork.org/nyc-taxi-driver-gets-75000-helping-hand-after-knicks-fans-destroyed-his-car/" target="_blank" rel="noopener">
+        <div class="gn-imgwrap">
+          <img class="gn-photo" loading="lazy" onerror="this.style.display='none'" alt="NYC taxi driver Noureddine Bitat" src="https://www.goodnewsnetwork.org/wp-content/uploads/2026/06/Cab-driver-French-Montana-GoFundMe-page-by-New-York-Taxi-Workers-Alliance-1024x547.jpg">
+        </div>
+        <div class="gn-content">
+          <span class="gn-pill">Generosity</span>
+          <div class="gn-head">A NYC cab driver lost everything in a riot — then strangers gave back $75,000</div>
+          <p class="gn-body">After Noureddine Bitat's taxi was destroyed by a celebrating crowd, rapper French Montana teamed up with the drivers' union to launch a fundraiser. In days it passed $75,000 — enough to cover months of expenses and help him rebuild.</p>
+          <div class="gn-foot"><span class="gn-src">Good News Network · Jun 19, 2026</span><span class="gn-readmore">Read more →</span></div>
+        </div>
+      </a>
+
+      <a class="gn-card" href="https://www.goodnewsnetwork.org/just-by-mowing-a-lawn-social-media-star-raises-685000-for-bereaved-senior-who-fell-behind-on-rent/" target="_blank" rel="noopener">
+        <div class="gn-imgwrap">
+          <img class="gn-photo" loading="lazy" onerror="this.onerror=null;this.src='https://www.goodnewsnetwork.org/wp-content/uploads/2026/06/Debbie-and-Spencer-in-the-overgrown-lawn-credit-SB-Mowing-via-GoFundMe-218x150.jpg'" alt="A widow named Debbie with the volunteer who mowed her lawn" src="https://www.goodnewsnetwork.org/wp-content/uploads/2026/06/Debbie-and-Spencer-in-the-overgrown-lawn-credit-SB-Mowing-via-GoFundMe.jpg">
+        </div>
+        <div class="gn-content">
+          <span class="gn-pill">Community</span>
+          <div class="gn-head">A man mowed a grieving widow's lawn for free — viewers turned it into $685,000</div>
+          <p class="gn-body">A social-media creator who quietly mows overgrown yards for free spotlighted Debbie, a widow who had fallen behind on rent. Strangers moved by her story turned one afternoon of yard work into more than $685,000 to get her back on her feet.</p>
+          <div class="gn-foot"><span class="gn-src">Good News Network · Jun 2026</span><span class="gn-readmore">Read more →</span></div>
+        </div>
+      </a>
+
+      <a class="gn-card" href="https://www.goodnewsnetwork.org/celebrations-as-sumatran-orangutan-uses-rope-bridge-to-cross-road-for-the-first-time-ever/" target="_blank" rel="noopener">
+        <div class="gn-imgwrap">
+          <img class="gn-photo" loading="lazy" onerror="this.style.display='none'" alt="A Sumatran orangutan crossing a canopy rope bridge" src="https://www.goodnewsnetwork.org/wp-content/uploads/2026/04/Screenshot-2026-04-28-171546-1024x545.jpg">
+        </div>
+        <div class="gn-content">
+          <span class="gn-pill">Restoration</span>
+          <div class="gn-head">After a 2-year wait, an orangutan crossed a rope bridge over a road — a world first</div>
+          <p class="gn-body">A road had split a population of 350 critically endangered Sumatran orangutans in two. Conservationists strung canopy bridges and waited. This spring, a camera trap finally caught one crossing safely — reconnecting a divided forest home.</p>
+          <div class="gn-foot"><span class="gn-src">Good News Network · Apr 28, 2026</span><span class="gn-readmore">Read more →</span></div>
+        </div>
+      </a>
+
+      <div class="gn-close">Even when the world feels heavy, God is still moving. Keep your eyes open today.</div>
+    </div>
+    <div style="height:16px;"></div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <strong style="color:#C9A24B;">The Daily Walk</strong><br>
+    A daily guide for walking with God in real life.<br>
+    Missed a day? Don't restart — just pick up where you left off. The goal is 365 days <em>in</em> Scripture, not 365 days in a row.<br><br>
+    <a href="#">Today's full plan</a> &nbsp;·&nbsp; <a href="#">Community</a> &nbsp;·&nbsp; <a href="#">Forward to a friend</a><br><br>
+    You're receiving this because you signed up at thedailywalk.<br>
+    <a href="#">Update preferences</a> · <a href="#">Unsubscribe</a>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,374 @@
+/* Alternate design B — "Modern": split hero + product preview, SaaS cards.
+   Scoped via CSS Modules; reuses brand tokens from globals. */
+
+.page {
+  background: #fff;
+}
+
+/* ---------- Split hero ---------- */
+.hero {
+  background: linear-gradient(180deg, var(--cream) 0%, #fff 100%);
+  padding: 64px 0 72px;
+  border-bottom: 1px solid var(--line2);
+}
+.heroGrid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 48px;
+  align-items: center;
+}
+.pill {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--gold-deep);
+  background: #fff;
+  border: 1px solid var(--line);
+  padding: 6px 14px;
+  border-radius: 20px;
+}
+.heroText h1 {
+  font-family: var(--serif);
+  font-weight: 700;
+  color: var(--navy);
+  font-size: clamp(34px, 4.6vw, 54px);
+  line-height: 1.08;
+  margin: 18px 0 16px;
+  letter-spacing: -0.5px;
+}
+.heroText .lead {
+  font-size: 18px;
+  color: #444c58;
+  max-width: 520px;
+  margin: 0 0 26px;
+}
+.reassure {
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--grey);
+}
+.reassure b {
+  color: var(--ink);
+}
+
+/* ---------- Email preview mockup ---------- */
+.preview {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: 0 24px 60px rgba(31, 58, 95, 0.16);
+  overflow: hidden;
+  transform: rotate(0.5deg);
+}
+.pvBar {
+  background: var(--navy);
+  color: #fff;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.pvBrand {
+  font-family: var(--sans);
+  font-weight: 800;
+  letter-spacing: 2px;
+  font-size: 11px;
+  color: #fff;
+}
+.pvDate {
+  font-size: 11px;
+  color: #bcd0e6;
+}
+.pvBody {
+  padding: 20px 20px 22px;
+}
+.pvLabel {
+  font-family: var(--sans);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--gold-deep);
+}
+.pvVerse {
+  font-family: var(--serif);
+  font-size: 19px;
+  color: var(--navy);
+  line-height: 1.35;
+  margin: 8px 0 6px;
+}
+.pvRef {
+  font-size: 12px;
+  color: var(--grey);
+  margin-bottom: 16px;
+}
+.pvText {
+  font-size: 13.5px;
+  color: #3c4350;
+  line-height: 1.55;
+  margin: 0 0 18px;
+}
+.pvGn {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.pvCard {
+  border: 1px solid var(--line2);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.pvImg {
+  height: 38px;
+  background: linear-gradient(135deg, #1f3a5f, #2e5481 55%, #c9a24b);
+}
+.pvCap {
+  font-size: 9px;
+  color: var(--navy);
+  font-weight: 700;
+  padding: 6px 7px;
+  line-height: 1.25;
+}
+
+/* ---------- Section scaffolding ---------- */
+.section {
+  padding: 76px 0;
+}
+.kicker {
+  font-family: var(--sans);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--gold-deep);
+  text-align: center;
+}
+.h2 {
+  font-family: var(--serif);
+  text-align: center;
+  font-size: clamp(28px, 3.6vw, 38px);
+  color: var(--navy);
+  margin: 8px 0 12px;
+  font-weight: 700;
+}
+.intro {
+  text-align: center;
+  color: var(--grey);
+  max-width: 600px;
+  margin: 0 auto 44px;
+  font-size: 16px;
+}
+
+/* ---------- Feature grid ---------- */
+.feats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+.feat {
+  background: #fff;
+  border: 1px solid var(--line2);
+  border-radius: 16px;
+  padding: 26px;
+  transition: box-shadow 0.18s, transform 0.18s;
+}
+.feat:hover {
+  box-shadow: 0 14px 34px rgba(31, 58, 95, 0.1);
+  transform: translateY(-3px);
+}
+.chip {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: var(--cream);
+  border: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  margin-bottom: 14px;
+}
+.feat h4 {
+  font-family: var(--serif);
+  font-size: 18px;
+  color: var(--navy);
+  margin: 0 0 6px;
+}
+.feat p {
+  font-size: 14px;
+  color: var(--grey);
+  margin: 0;
+}
+
+/* ---------- Two rhythms band (navy) ---------- */
+.band {
+  background: var(--navy);
+  color: #fff;
+}
+.band .kicker {
+  color: var(--gold);
+}
+.band .h2 {
+  color: #fff;
+}
+.band .intro {
+  color: #c4d2e4;
+}
+.rgrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.rcard {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 16px;
+  padding: 28px;
+}
+.rtag {
+  font-family: var(--sans);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--gold);
+}
+.rcard h3 {
+  font-family: var(--serif);
+  font-size: 22px;
+  color: #fff;
+  margin: 8px 0 10px;
+}
+.rcard p {
+  font-size: 15px;
+  color: #d6e0ee;
+  margin: 0 0 12px;
+}
+.rcard .who {
+  font-size: 13px;
+  color: #9fb3cc;
+  font-style: italic;
+}
+
+/* ---------- Pricing cards ---------- */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+.card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 28px 26px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+  position: relative;
+}
+.card.hot {
+  border-color: var(--gold);
+  box-shadow: 0 16px 40px rgba(184, 144, 46, 0.16);
+}
+.badge {
+  position: absolute;
+  top: -11px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--gold);
+  color: #fff;
+  font-family: var(--sans);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  padding: 5px 13px;
+  border-radius: 20px;
+}
+.cname {
+  font-family: var(--sans);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--navy);
+}
+.camt {
+  font-family: var(--serif);
+  font-size: 38px;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 8px 0 2px;
+}
+.camt small {
+  font-family: var(--sans);
+  font-size: 14px;
+  color: var(--grey);
+  font-weight: 600;
+}
+.cnote {
+  font-size: 12.5px;
+  color: var(--grey);
+  min-height: 17px;
+  margin-bottom: 16px;
+}
+.clist {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 22px;
+}
+.clist li {
+  font-size: 13.5px;
+  color: #3c4350;
+  padding: 6px 0 6px 24px;
+  position: relative;
+}
+.clist li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--green);
+  font-weight: 800;
+}
+
+/* ---------- CTA ---------- */
+.cta {
+  text-align: center;
+  padding: 80px 0;
+  background: var(--cream);
+}
+.cta h2 {
+  font-family: var(--serif);
+  color: var(--navy);
+  font-size: clamp(26px, 4vw, 38px);
+  margin: 0 0 12px;
+}
+.cta p {
+  color: var(--grey);
+  margin: 0 0 24px;
+}
+.ctaForm {
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 860px) {
+  .heroGrid,
+  .rgrid,
+  .feats,
+  .cards {
+    grid-template-columns: 1fr;
+  }
+  .feats {
+    grid-template-columns: 1fr 1fr;
+  }
+  .preview {
+    max-width: 440px;
+    margin: 8px auto 0;
+  }
+}
+@media (max-width: 520px) {
+  .feats {
+    grid-template-columns: 1fr;
+  }
+}
