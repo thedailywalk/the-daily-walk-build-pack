@@ -88,3 +88,78 @@ export async function createBeehiivSubscription(
     message: "Something went wrong signing you up. Please try again.",
   };
 }
+
+export type Tier = "free" | "premium" | "patron";
+
+export type Entitlement = {
+  tier: Tier;
+  status: string | null; // active, inactive, validating, …
+  /** raw premium tier names from Beehiiv, for display/debugging */
+  tierNames: string[];
+  onList: boolean; // is this email a subscriber at all?
+};
+
+/**
+ * Look up a subscriber by email and map their Beehiiv premium tiers to our
+ * Free/Premium/Patron model. Beehiiv is the source of truth for "who paid".
+ * Tier names are matched case-insensitively against "patron"/"premium".
+ */
+export async function getEntitlement(email: string): Promise<Entitlement> {
+  const apiKey = process.env.BEEHIIV_API_KEY;
+  const pubId = process.env.BEEHIIV_PUBLICATION_ID;
+  const fallback: Entitlement = {
+    tier: "free",
+    status: null,
+    tierNames: [],
+    onList: false,
+  };
+
+  if (!apiKey || !pubId) return fallback;
+
+  const url =
+    `${API_BASE}/publications/${pubId}/subscriptions/by_email/` +
+    `${encodeURIComponent(email)}?expand[]=subscription_premium_tiers`;
+
+  let res: Response;
+  try {
+    res = await fetch(url, {
+      headers: { Authorization: `Bearer ${apiKey}` },
+      cache: "no-store",
+    });
+  } catch {
+    return fallback;
+  }
+
+  if (res.status === 404) return fallback; // not on the list
+  if (!res.ok) return fallback;
+
+  const json = (await res.json().catch(() => null)) as {
+    data?: {
+      status?: string;
+      subscription_premium_tier_names?: string[];
+      subscription_premium_tiers?: Array<{ name?: string }>;
+    };
+  } | null;
+
+  const data = json?.data;
+  if (!data) return fallback;
+
+  const names = (
+    data.subscription_premium_tier_names ??
+    data.subscription_premium_tiers?.map((t) => t?.name ?? "") ??
+    []
+  )
+    .filter(Boolean)
+    .map((n) => n.toLowerCase());
+
+  let tier: Tier = "free";
+  if (names.some((n) => n.includes("patron"))) tier = "patron";
+  else if (names.some((n) => n.includes("premium"))) tier = "premium";
+
+  return {
+    tier,
+    status: data.status ?? null,
+    tierNames: names,
+    onList: true,
+  };
+}

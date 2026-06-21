@@ -1,0 +1,140 @@
+import type { Metadata } from "next";
+import { redirect } from "next/navigation";
+import Link from "next/link";
+import { getUser, supabaseConfigured } from "@/lib/supabase/server";
+import { getEntitlement } from "@/lib/beehiiv";
+import { site } from "@/lib/site";
+
+export const metadata: Metadata = {
+  title: "My account",
+  robots: { index: false },
+};
+
+const TIER_LABEL: Record<string, string> = {
+  free: "Free",
+  premium: "Premium",
+  patron: "Patron",
+};
+
+export default async function AccountPage() {
+  if (!supabaseConfigured) redirect("/");
+  const user = await getUser();
+
+  // Gate: must be signed in.
+  if (!user?.email) redirect("/login");
+
+  const ent = await getEntitlement(user.email);
+  const isPaid = ent.tier === "premium" || ent.tier === "patron";
+
+  return (
+    <section>
+      <div className="wrap" style={{ maxWidth: 720 }}>
+        <div className="sec-tag" style={{ textAlign: "left" }}>
+          My account
+        </div>
+        <h1 style={{ fontSize: 32, color: "var(--navy)", margin: "8px 0 18px" }}>
+          Welcome back
+        </h1>
+
+        {/* Status card */}
+        <div className="rcard" style={{ marginBottom: 20 }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              flexWrap: "wrap",
+              gap: 12,
+            }}
+          >
+            <div>
+              <div className="rk">Signed in as</div>
+              <div style={{ fontSize: 16, color: "var(--navy)", marginTop: 4 }}>
+                {user.email}
+              </div>
+            </div>
+            <span
+              style={{
+                fontFamily: "var(--sans)",
+                fontWeight: 800,
+                fontSize: 12,
+                letterSpacing: 1,
+                textTransform: "uppercase",
+                color: "#fff",
+                background: isPaid ? "var(--gold)" : "var(--grey)",
+                padding: "6px 14px",
+                borderRadius: 20,
+              }}
+            >
+              {TIER_LABEL[ent.tier] ?? "Free"} plan
+            </span>
+          </div>
+        </div>
+
+        {/* Entitlement-gated content */}
+        {isPaid ? (
+          <div className="rcard" style={{ marginBottom: 20 }}>
+            <div className="rk">Your Bible-in-a-Year journey</div>
+            <p style={{ color: "#3c4350", fontSize: 15, margin: "8px 0 14px" }}>
+              You&apos;re all set with {TIER_LABEL[ent.tier]}. Your guided journey
+              and daily audio arrive by email, starting on your Day 1. The
+              full&nbsp;
+              <strong>My Journey</strong> dashboard — progress, today&apos;s
+              reading, and the archive — is coming here next.
+            </p>
+            <span className="muted" style={{ fontSize: 13 }}>
+              Subscription status: {ent.status ?? "active"}
+            </span>
+          </div>
+        ) : (
+          <div
+            className="rcard"
+            style={{ marginBottom: 20, background: "var(--cream)" }}
+          >
+            <div className="rk">Unlock the guided journey</div>
+            <p style={{ color: "#3c4350", fontSize: 15, margin: "8px 0 14px" }}>
+              You&apos;re on the <strong>Free</strong> plan — the daily
+              newsletter, prayer, and Good News. Upgrade to{" "}
+              <strong>Premium</strong> for the guided Bible-in-a-Year journey
+              from your Day 1, daily audio, the weekend deep-dive, and the full
+              archive.
+            </p>
+            <Link href="/pricing" className="btn btn-gold">
+              See Premium →
+            </Link>
+          </div>
+        )}
+
+        {/* Billing + account actions */}
+        <div className="rcard" style={{ marginBottom: 20 }}>
+          <div className="rk">Billing &amp; subscription</div>
+          <p style={{ color: "#3c4350", fontSize: 15, margin: "8px 0 14px" }}>
+            {isPaid
+              ? "Manage your payment method, plan, or cancel anytime."
+              : "No paid subscription yet."}
+          </p>
+          {site.beehiiv.manageUrl ? (
+            <a
+              href={site.beehiiv.manageUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="btn btn-ghost"
+            >
+              Manage billing →
+            </a>
+          ) : (
+            <span className="muted" style={{ fontSize: 13 }}>
+              Billing portal link coming soon.
+            </span>
+          )}
+        </div>
+
+        <form action="/auth/signout" method="post">
+          <button type="submit" className="btn btn-ghost">
+            Sign out
+          </button>
+        </form>
+      </div>
+    </section>
+  );
+}
