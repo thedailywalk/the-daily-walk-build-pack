@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getStudyDay } from "@/lib/studyGuide";
 import StudyGuide from "@/components/StudyGuide";
 import StudySideCards from "@/components/StudySideCards";
+import StudyTips from "@/components/StudyTips";
 
 export const metadata: Metadata = {
   title: "Study Guide preview",
@@ -27,6 +28,7 @@ export default function StudyPreviewPage() {
             Preview · this is how a day in the guided journey will look for
             members.
           </p>
+          <StudyTips />
           <StudyGuide entry={entry} />
         </div>
 

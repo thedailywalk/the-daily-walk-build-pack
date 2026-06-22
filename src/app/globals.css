@@ -1940,6 +1940,84 @@ hr.div {
   color: var(--grey);
   margin: 0 0 16px;
 }
+/* Compact "how to study" carousel (member portal + preview) */
+.tipx {
+  background: linear-gradient(180deg, #fffdf8 0%, #fbf4e2 100%);
+  border: 1px solid #efe4c4;
+  border-radius: 14px;
+  padding: 12px 16px 13px;
+  margin-bottom: 16px;
+  box-shadow: 0 10px 22px -20px rgba(184, 144, 46, 0.5);
+}
+.tipx-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 7px;
+}
+.tipx-tag {
+  font-family: var(--sans);
+  font-weight: 800;
+  letter-spacing: 1px;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+.tipx-ctrls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.tipx-arrow {
+  background: none;
+  border: none;
+  color: var(--navy);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 2px;
+}
+.tipx-arrow:hover {
+  color: var(--gold-deep);
+}
+.tipx-dots {
+  display: flex;
+  gap: 5px;
+}
+.tipx-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: none;
+  background: #e2d6b8;
+  cursor: pointer;
+  padding: 0;
+}
+.tipx-dot.on {
+  background: var(--gold);
+}
+.tipx-body {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  min-height: 46px;
+}
+.tipx-ic {
+  font-size: 20px;
+  line-height: 1.4;
+  flex: 0 0 auto;
+}
+.tipx-text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ink);
+}
+.tipx-text strong {
+  color: var(--navy);
+}
+
 /* Sunrise header band */
 .sg-head {
   position: relative;

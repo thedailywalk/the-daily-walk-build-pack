@@ -10,6 +10,7 @@ import { listWorkbookMonths } from "@/lib/workbook";
 import { daysCompleted, progressPercent, TOTAL_DAYS } from "@/lib/journey";
 import StudyGuide from "@/components/StudyGuide";
 import StudySideCards from "@/components/StudySideCards";
+import StudyTips from "@/components/StudyTips";
 import {
   markCompleteAction,
   restartAction,
@@ -111,6 +112,7 @@ async function TodayTab(
             🎉 You finished the whole journey — all 365 days. Amen.
           </div>
         )}
+        <StudyTips />
         <StudyGuide entry={entry} synced initial={notes} />
         <div className="sg-dayactions">
           <div className="sg-dayprogress">
