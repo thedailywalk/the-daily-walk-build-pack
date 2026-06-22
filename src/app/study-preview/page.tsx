@@ -3,6 +3,7 @@ import { getStudyDay } from "@/lib/studyGuide";
 import StudyGuide from "@/components/StudyGuide";
 import StudySideCards from "@/components/StudySideCards";
 import StudyTips from "@/components/StudyTips";
+import StudyEncourage from "@/components/StudyEncourage";
 
 export const metadata: Metadata = {
   title: "Study Guide preview",
@@ -30,6 +31,7 @@ export default function StudyPreviewPage() {
           </p>
           <StudyTips />
           <StudyGuide entry={entry} />
+          <StudyEncourage />
         </div>
 
         <aside className="sg-side sg-side-right">

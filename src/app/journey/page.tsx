@@ -11,6 +11,7 @@ import { daysCompleted, progressPercent, TOTAL_DAYS } from "@/lib/journey";
 import StudyGuide from "@/components/StudyGuide";
 import StudySideCards from "@/components/StudySideCards";
 import StudyTips from "@/components/StudyTips";
+import StudyEncourage from "@/components/StudyEncourage";
 import {
   markCompleteAction,
   restartAction,
@@ -131,6 +132,7 @@ async function TodayTab(
             </button>
           </form>
         </div>
+        <StudyEncourage />
       </div>
       <aside className="sg-side sg-side-right">
         <StudySideCards

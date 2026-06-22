@@ -2034,6 +2034,47 @@ hr.div {
   color: var(--grey);
   margin: 0 0 16px;
 }
+/* Navy encouragement band — ties the portal to the homepage mission band */
+.sg-encourage {
+  background: var(--navy);
+  border-radius: 18px;
+  padding: 34px 34px 36px;
+  text-align: center;
+  margin-top: 26px;
+  box-shadow: 0 26px 52px -38px rgba(31, 58, 95, 0.6);
+}
+.sg-encourage .sec-tag {
+  color: var(--gold);
+}
+.sg-encourage h3 {
+  font-family: var(--serif);
+  color: #fff;
+  font-size: 24px;
+  margin: 6px 0 12px;
+}
+.sg-encourage p {
+  color: #cdd8e6;
+  font-size: 16px;
+  line-height: 1.7;
+  max-width: 560px;
+  margin: 0 auto;
+}
+.sg-encourage-verse {
+  margin-top: 16px;
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--gold);
+  font-size: 15px;
+}
+@media (max-width: 560px) {
+  .sg-encourage {
+    padding: 26px 20px 28px;
+  }
+  .sg-encourage h3 {
+    font-size: 21px;
+  }
+}
+
 /* Compact "how to study" carousel (member portal + preview) */
 .tipx {
   background: linear-gradient(180deg, #fffdf8 0%, #fbf4e2 100%);
