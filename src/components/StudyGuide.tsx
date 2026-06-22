@@ -104,25 +104,27 @@ export default function StudyGuide({ entry }: { entry: StudyDay }) {
 
       {/* The study guide */}
       <div className="sg-grid">
-        <Block label="Quick context" body={entry.context} />
-        <Block label="What's happening (plain English)" body={entry.plainEnglish} />
-        <Block label="What it shows about God" body={entry.aboutGod} />
-        <Block label="What it shows about people" body={entry.aboutPeople} />
-        <Block label="Real life" body={entry.realLife} />
-        <Block label="Verse to carry today" body={entry.verse} accent />
-        <Block label="Reflection" body={entry.reflection} />
-        <Block label="A short prayer" body={entry.prayer} accent />
-        <Block label="One small step" body={entry.step} />
+        <Block icon="🧭" label="Quick context" body={entry.context} />
+        <Block icon="💬" label="What's happening (plain English)" body={entry.plainEnglish} />
+        <Block icon="✨" label="What it shows about God" body={entry.aboutGod} />
+        <Block icon="❤️" label="What it shows about people" body={entry.aboutPeople} />
+        <Block icon="🌱" label="Real life" body={entry.realLife} />
+        <Block icon="📌" label="Verse to carry today" body={entry.verse} accent />
+        <Block icon="🤔" label="Reflection" body={entry.reflection} />
+        <Block icon="🙏" label="A short prayer" body={entry.prayer} accent />
+        <Block icon="👣" label="One small step" body={entry.step} />
       </div>
     </div>
   );
 }
 
 function Block({
+  icon,
   label,
   body,
   accent,
 }: {
+  icon: string;
   label: string;
   body: string;
   accent?: boolean;
@@ -130,7 +132,12 @@ function Block({
   const paras = body.split(/\n\n+/);
   return (
     <div className={`sg-block${accent ? " sg-accent" : ""}`}>
-      <div className="sg-block-label">{label}</div>
+      <div className="sg-block-head">
+        <span className="sg-ic" aria-hidden="true">
+          {icon}
+        </span>
+        <div className="sg-block-label">{label}</div>
+      </div>
       {paras.map((p, i) => (
         <p className="sg-block-body" key={i}>
           {p}
