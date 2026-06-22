@@ -1401,7 +1401,7 @@ hr.div {
   max-width: 660px;
   margin: 0 auto 44px;
   background: linear-gradient(180deg, #ffffff 0%, #fcfaf4 100%);
-  border: 1.5px solid var(--navy);
+  border: 1px solid var(--line);
   border-radius: 20px;
   box-shadow:
     0 18px 40px -20px rgba(31, 58, 95, 0.26),
