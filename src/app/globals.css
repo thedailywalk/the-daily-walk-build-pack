@@ -1355,6 +1355,160 @@ hr.div {
 }
 
 /* ============================================================
+   BIBLE-IN-A-YEAR STUDY GUIDE
+   ============================================================ */
+.sg-section {
+  padding-top: 36px;
+}
+.sg-preview-note {
+  text-align: center;
+  font-size: 12.5px;
+  color: var(--grey);
+  margin: 0 0 16px;
+}
+/* Sunrise header band */
+.sg-head {
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  padding: 34px 32px;
+  color: #fff;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(15, 26, 46, 0.74) 0%,
+      rgba(17, 32, 56, 0.4) 55%,
+      rgba(31, 58, 95, 0.66) 100%
+    ),
+    radial-gradient(
+      120% 120% at 50% 120%,
+      #f6cf86 0%,
+      #e3a85a 18%,
+      #b9763f 36%,
+      #5b4f63 60%,
+      #243a5d 82%,
+      #1b3050 100%
+    );
+}
+.sg-kicker {
+  font-family: var(--sans);
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+.sg-head h1 {
+  color: #fff;
+  font-size: 34px;
+  margin: 0;
+}
+.sg-reading {
+  color: rgba(255, 255, 255, 0.82);
+  font-weight: 400;
+}
+
+/* Bible text panel */
+.sg-bible {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 20px 22px;
+  margin: 18px 0 24px;
+  box-shadow: 0 12px 28px -20px rgba(31, 58, 95, 0.3);
+}
+.sg-bible-note {
+  font-size: 14px;
+  color: #3c4350;
+  margin: 0 0 14px;
+  line-height: 1.55;
+}
+.sg-toggle {
+  display: inline-flex;
+  gap: 4px;
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 4px;
+}
+.sg-tab {
+  border: none;
+  background: none;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--navy);
+  padding: 7px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.sg-tab.is-on {
+  background: var(--navy);
+  color: #fff;
+}
+.sg-passage {
+  margin-top: 16px;
+  border-top: 1px solid var(--line2);
+  padding-top: 16px;
+}
+.sg-verses {
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--ink);
+  margin: 0;
+}
+.sg-vnum {
+  color: var(--gold-deep);
+  font-weight: 700;
+  font-size: 11px;
+  margin-right: 2px;
+}
+.sg-own {
+  font-size: 15px;
+  color: #3c4350;
+  margin: 0;
+}
+
+/* 12-field guide */
+.sg-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.sg-block {
+  padding: 16px 4px;
+  border-bottom: 1px solid var(--line2);
+}
+.sg-block-label {
+  font-family: var(--sans);
+  font-weight: 800;
+  letter-spacing: 1px;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  margin-bottom: 6px;
+}
+.sg-block-body {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--ink);
+}
+.sg-accent {
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin: 6px 0;
+}
+.sg-accent .sg-block-body {
+  font-family: var(--serif);
+  color: var(--navy);
+}
+
+/* ============================================================
    PRAYER WALL
    ============================================================ */
 /* Sunrise ground (navy -> warm), matching the homepage hero & About */
