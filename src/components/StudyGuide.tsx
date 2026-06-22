@@ -9,6 +9,8 @@ import {
   type ReactNode,
 } from "react";
 import type { StudyDay } from "@/lib/studyGuide";
+import type { NotesData } from "@/lib/studyData";
+import { saveStudyNotesAction } from "@/app/journey/actions";
 
 type Mode = "web" | "kjv" | "own";
 type Verse = { ref: string; text: string };
@@ -32,9 +34,19 @@ function sectionsOf(e: StudyDay) {
   ];
 }
 
-export default function StudyGuide({ entry }: { entry: StudyDay }) {
+export default function StudyGuide({
+  entry,
+  synced = false,
+  initial,
+}: {
+  entry: StudyDay;
+  /** When true, journal + check-offs save to the member's account. */
+  synced?: boolean;
+  initial?: NotesData;
+}) {
   const dayKey = `tdw_sg_${entry.day}`;
   const sections = sectionsOf(entry);
+  const loadedRef = useRef(false);
 
   // Bible chooser
   const [mode, setMode] = useState<Mode | null>(null);
@@ -53,16 +65,39 @@ export default function StudyGuide({ entry }: { entry: StudyDay }) {
   const [cheers, setCheers] = useState<Cheer[]>([]);
   const seq = useRef(0);
 
+  // Load: prefer the account copy when signed in; else the browser copy.
   useEffect(() => {
-    try {
-      setDone(JSON.parse(localStorage.getItem(`${dayKey}_done`) || "{}"));
-      setStood(localStorage.getItem(`${dayKey}_stood`) || "");
-      setTakeaway(localStorage.getItem(`${dayKey}_take`) || "");
-      setNotes(localStorage.getItem(`${dayKey}_notes`) || "");
-    } catch {
-      /* ignore */
+    if (synced && initial) {
+      setDone(initial.checked ?? {});
+      setStood(initial.stood ?? "");
+      setTakeaway(initial.takeaway ?? "");
+      setNotes(initial.notes ?? "");
+    } else {
+      try {
+        setDone(JSON.parse(localStorage.getItem(`${dayKey}_done`) || "{}"));
+        setStood(localStorage.getItem(`${dayKey}_stood`) || "");
+        setTakeaway(localStorage.getItem(`${dayKey}_take`) || "");
+        setNotes(localStorage.getItem(`${dayKey}_notes`) || "");
+      } catch {
+        /* ignore */
+      }
     }
-  }, [dayKey]);
+    loadedRef.current = true;
+  }, [dayKey, synced, initial]);
+
+  // Sync to the account (debounced) whenever the journal changes.
+  useEffect(() => {
+    if (!synced || !loadedRef.current) return;
+    const t = setTimeout(() => {
+      saveStudyNotesAction(entry.day, { checked: done, stood, takeaway, notes })
+        .then(() => {
+          setSaved(true);
+          setTimeout(() => setSaved(false), 1400);
+        })
+        .catch(() => {});
+    }, 700);
+    return () => clearTimeout(t);
+  }, [synced, entry.day, done, stood, takeaway, notes]);
 
   useEffect(() => {
     if (mode !== "web" && mode !== "kjv") return;

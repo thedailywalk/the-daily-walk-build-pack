@@ -574,6 +574,37 @@ const AUTHORED: Record<number, Omit<StudyDay, "day" | "reading" | "arc" | "autho
   },
 };
 
+/** The 6 arcs of the plan, for the Reading Plan tab. */
+export const ARCS = [
+  { name: "Start with Jesus", reading: "John", days: "Days 1–21" },
+  { name: "Why Jesus came", reading: "Romans", days: "Days 22–37" },
+  { name: "Honest prayer", reading: "Psalms", days: "Days 38–87" },
+  { name: "Everyday wisdom", reading: "Proverbs", days: "Days 88–118" },
+  { name: "The church in action", reading: "Acts", days: "Days 119–146" },
+  { name: "The whole story", reading: "Genesis → Revelation", days: "Days 147–365" },
+];
+
+/** First day each Bible book appears, in plan order — for "jump to a book". */
+export function getBookStarts(): { book: string; day: number }[] {
+  const BOOKS = [
+    "Genesis","Exodus","Leviticus","Numbers","Deuteronomy","Joshua","Judges",
+    "Ruth","1 Samuel","2 Samuel","1 Kings","2 Kings","1 Chronicles","2 Chronicles",
+    "Ezra","Nehemiah","Esther","Job","Psalms","Proverbs","Ecclesiastes",
+    "Song of Solomon","Isaiah","Jeremiah","Lamentations","Ezekiel","Daniel","Hosea",
+    "Joel","Amos","Obadiah","Jonah","Micah","Nahum","Habakkuk","Zephaniah","Haggai",
+    "Zechariah","Malachi","Matthew","Mark","Luke","John","Acts","Romans",
+    "1 Corinthians","2 Corinthians","Galatians","Ephesians","Philippians","Colossians",
+    "1 Thessalonians","2 Thessalonians","1 Timothy","2 Timothy","Titus","Philemon",
+    "Hebrews","James","1 Peter","2 Peter","1 John","2 John","3 John","Jude","Revelation",
+  ];
+  const rows = plan();
+  return BOOKS.map((book) => {
+    const re = new RegExp(`(^|[,·]\\s*)${book.replace(/ /g, "\\s")}\\s`);
+    const row = rows.find((r) => re.test(r.reading));
+    return { book, day: row?.day ?? 1 };
+  });
+}
+
 export function getStudyDay(day: number): StudyDay {
   const row = plan().find((r) => r.day === day) ?? plan()[0];
   const a = AUTHORED[day];
