@@ -134,6 +134,18 @@ export default async function PrayerWallPage() {
             ))}
           </div>
         )}
+
+        <div className="prayer-band">
+          <h2>You&apos;re never praying alone.</h2>
+          <p>
+            Every request here is lifted up by this community. Add yours above,
+            or pray over someone else&apos;s today.
+          </p>
+          <div className="verse">
+            &ldquo;The prayer of a righteous person is powerful and
+            effective.&rdquo; — James 5:16
+          </div>
+        </div>
       </div>
     </section>
   );
