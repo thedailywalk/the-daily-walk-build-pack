@@ -1367,12 +1367,26 @@ hr.div {
   padding: 0 24px;
   display: grid;
   grid-template-columns: 1fr minmax(0, 720px) 1fr;
-  gap: 28px;
+  gap: 32px;
   align-items: start;
 }
+/* Soft tinted "trays" group each side rail into its own calm zone.
+   White cards sit inside, so the blocking stays gentle, not loud. */
 .sg-side {
   position: sticky;
   top: 84px;
+  padding: 16px 15px 18px;
+  border-radius: 20px;
+}
+.sg-side-left {
+  background: linear-gradient(180deg, #f4f5fc 0%, #eef1fb 100%);
+  border: 1px solid #e5e8f5;
+  box-shadow: 0 18px 42px -34px rgba(46, 64, 120, 0.5);
+}
+.sg-side-right {
+  background: linear-gradient(180deg, #fdf8ec 0%, #fbf3dd 100%);
+  border: 1px solid #efe4c4;
+  box-shadow: 0 18px 42px -34px rgba(150, 120, 40, 0.42);
 }
 .sg-sidegroup {
   display: flex;
@@ -1551,6 +1565,12 @@ hr.div {
 .sg-tabnav.is-on {
   color: var(--navy);
   border-bottom-color: var(--gold);
+  background: linear-gradient(
+    180deg,
+    rgba(201, 162, 75, 0.13),
+    rgba(201, 162, 75, 0)
+  );
+  border-radius: 10px 10px 0 0;
 }
 .sg-tabwrap {
   max-width: 760px;
@@ -1763,10 +1783,11 @@ hr.div {
   font-weight: 400;
 }
 
-/* Bible text panel */
+/* Bible text panel — soft cream so the "how to read" zone reads as
+   its own warm setup area, distinct from the white walk-through steps. */
 .sg-bible {
-  background: #fff;
-  border: 1px solid var(--line);
+  background: linear-gradient(180deg, #fdfaf2 0%, #fbf5e8 100%);
+  border: 1px solid #eee1c6;
   border-radius: 16px;
   padding: 20px 22px;
   margin: 18px 0 24px;
@@ -1983,10 +2004,26 @@ hr.div {
 }
 
 .sg-walk {
+  display: flex;
+  align-items: center;
+  gap: 14px;
   text-align: center;
   font-size: 13.5px;
   color: var(--grey);
-  margin: 26px 0 14px;
+  margin: 28px 0 16px;
+}
+.sg-walk::before,
+.sg-walk::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--line) 40%,
+    var(--line) 60%,
+    transparent
+  );
 }
 
 /* Check button + done state */
