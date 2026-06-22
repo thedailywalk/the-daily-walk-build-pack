@@ -572,6 +572,390 @@ const AUTHORED: Record<number, Omit<StudyDay, "day" | "reading" | "arc" | "autho
     ],
     sideReflection: "What have I counted myself out of that Jesus might be standing on the shore, ready to restore?",
   },
+
+  22: {
+    context:
+      "After the gospels showed you who Jesus is, Romans explains why it all matters — written by Paul, a man so changed by grace he went from hunting Christians to dying for the faith. Chapter 1 opens with his bold thesis: this good news is God's power to rescue anyone.",
+    plainEnglish:
+      "Paul says he's “not ashamed” of the gospel — because it's not advice, it's power. Then he describes what happens when people push God out: they don't become free, they just trade the Creator for cheaper things and slowly come apart. It's less a finger-wag and more a doctor's honest diagnosis.",
+    aboutGod: "He's strong enough to save anyone — no past is too far gone for His power.",
+    aboutPeople: "We're all wired to worship something; when it's not God, it quietly runs us into the ground.",
+    realLife: "Whatever you've made “god” in your life, it can't carry the weight only God can.",
+    verse:
+      "“For I am not ashamed of the Good News... for it is the power of God for salvation for everyone who believes.” — Romans 1:16",
+    reflection: "What have you been looking to — besides God — to give you worth, safety, or peace?",
+    prayer: "God, I've handed Your place to smaller things. Take it back. Be the One I actually build my life on. Amen.",
+    step: "Name one “small g” god you've been leaning on, and consciously hand that spot back to God today.",
+    keyWords: [
+      { word: "Gospel", meaning: "Literally “good news” — not “try harder,” but an announcement of what God already did. It's the power that rescues, not a to-do list that exhausts." },
+      { word: "Righteousness", meaning: "Being made right with God — not by your performance, but received as a gift. It's a standing you're given, not a score you earn." },
+    ],
+    verses: [
+      { ref: "2 Timothy 1:7", text: "For God didn't give us a spirit of fear, but of power, love, and self-control.", meaning: "Whatever fear is loud in you today, it didn't come from God. He hands you power, love, and a steady mind instead." },
+      { ref: "Psalm 62:5", text: "My soul, wait in silence for God alone, for my expectation is from him.", meaning: "Rest comes when your hope stops bouncing between lesser things and settles on God alone. He's a foundation that holds." },
+    ],
+    sideReflection: "Where am I quietly ashamed of my faith — and what would it look like to stop hiding it today?",
+  },
+
+  23: {
+    context:
+      "Romans 2 is uncomfortable in a good way: Paul turns to the religious crowd — the people sure they're fine — and says judgment isn't just for “those sinners.” The point isn't to crush you. It's to level the ground so everyone needs the same grace.",
+    plainEnglish:
+      "Paul warns the self-righteous: don't judge others for what you secretly do too. God sees the heart, not the highlight reel. And here's the surprise — it's God's kindness, not His anger, that actually melts people and turns them around.",
+    aboutGod: "He's perfectly fair, and stunningly kind — His goodness is what draws hearts home.",
+    aboutPeople: "We're quick to spot others' sin and slow to see our own.",
+    realLife: "You don't get changed by being shamed — you get changed by being loved.",
+    verse:
+      "“...not knowing that the kindness of God leads you to repentance?” — Romans 2:4",
+    reflection: "Where have you believed God is mostly disappointed in you — when His kindness is what's been pursuing you?",
+    prayer: "God, thank You that Your kindness — not Your anger — is what's been drawing me. Soften the places I've gone hard. Amen.",
+    step: "Drop the judgment you've been holding toward one person today. Extend the grace you've been given.",
+    keyWords: [
+      { word: "Kindness", meaning: "Not God overlooking wrong, but God being gentle enough with us that we finally feel safe to turn around. His kindness disarms what His anger never could." },
+      { word: "Repentance", meaning: "Not groveling — just turning. A change of direction, walking back toward the God who's been kind to you the whole time." },
+    ],
+    verses: [
+      { ref: "Joel 2:13", text: "Tear your heart and not your garments... for he is gracious and merciful, slow to anger, and abundant in loving kindness.", meaning: "God isn't after a dramatic performance of sorrow. He wants your real heart — and He's far more patient and tender than you fear." },
+      { ref: "Matthew 7:1", text: "Don't judge, so that you won't be judged.", meaning: "The grace you withhold from others has a way of hardening you. Letting people off the hook keeps your own heart soft." },
+    ],
+    sideReflection: "Who am I judging right now — and have I forgotten how much grace I've been handed myself?",
+  },
+
+  24: {
+    context:
+      "This is the great leveler of the whole Bible: everyone has fallen short, and everyone is offered the same free grace. If you've ever felt “too far gone” or secretly “better than most,” Romans 3 meets you both in the same place.",
+    plainEnglish:
+      "Paul lands the verdict: no one is good enough on their own — “all have sinned.” But he doesn't stop at bad news. The very next breath is the best news: we're “justified freely by his grace” through Jesus. The gap we could never close, God closed Himself.",
+    aboutGod: "He's both perfectly just and the one who justifies — He didn't lower the standard, He met it for us.",
+    aboutPeople: "We swing between “I'm fine” and “I'm hopeless” — the truth is we're all loved sinners.",
+    realLife: "You can stop pretending you've earned it. It was always a gift.",
+    verse:
+      "“for all have sinned, and fall short of the glory of God; being justified freely by his grace through the redemption that is in Christ Jesus.” — Romans 3:23-24",
+    reflection: "Are you exhausted from trying to be “good enough”? What if it's already been handled?",
+    prayer: "God, I've been striving to earn what You freely give. I receive it today — grace, not a grade. Thank You. Amen.",
+    step: "Each time you catch yourself “earning” God's love today, pause and whisper: “freely given.”",
+    keyWords: [
+      { word: "Justified", meaning: "A courtroom word: declared “not guilty” — and even “in right standing.” Not because you're innocent, but because Jesus took your place. The gavel already fell, in your favor." },
+      { word: "Redemption", meaning: "To buy back, to set free. You were bought back at a price — not because you were cheap, but because to God you were worth everything." },
+    ],
+    verses: [
+      { ref: "Ephesians 2:8", text: "for by grace you have been saved through faith, and that not of yourselves; it is the gift of God.", meaning: "Read it slowly: a gift. Not wages, not a reward. You receive it the way you receive any gift — with open hands, not a résumé." },
+      { ref: "Titus 3:5", text: "not by works of righteousness which we did ourselves, but according to his mercy, he saved us.", meaning: "Your salvation never rested on your performance. It rests on His mercy — which means a bad week can't undo it." },
+    ],
+    sideReflection: "Where am I still trying to be “good enough” for God instead of receiving what's free?",
+  },
+
+  25: {
+    context:
+      "Paul reaches way back to Abraham to prove grace isn't a New Testament invention — God has always counted faith, not flawless behavior, as what makes us right with Him. This chapter is for anyone who thinks faith means having it all figured out.",
+    plainEnglish:
+      "Abraham simply believed God's promise, and God “credited it to him as righteousness” — before he'd done anything to deserve it. Paul's point: it was never about rule-keeping. It's about trusting the God who keeps promises, even when the math doesn't add up yet.",
+    aboutGod: "He counts your trust as treasure — He'd rather have your faith than your flawless record.",
+    aboutPeople: "We think God wants our performance; He wants our trust.",
+    realLife: "Faith isn't certainty about everything — it's trusting the One who promised.",
+    verse:
+      "“He didn't waver through unbelief... being fully assured that what he had promised, he was also able to perform.” — Romans 4:20-21",
+    reflection: "What promise of God's are you struggling to trust because you can't yet see how it works out?",
+    prayer: "God, I don't have it all figured out, but I trust You. Count my shaky faith as enough, the way You did Abraham's. Amen.",
+    step: "Name one area you've been trying to control, and choose to trust God with it for today.",
+    keyWords: [
+      { word: "Credited", meaning: "An accounting term — God “deposits” righteousness into your account on the basis of faith. You didn't earn the balance; He put it there." },
+      { word: "Faith", meaning: "Not pretending to feel certain — trusting a trustworthy God with what you can't yet see. Abraham's faith wasn't tidy; it just kept leaning on God." },
+    ],
+    verses: [
+      { ref: "Proverbs 3:5", text: "Trust in Yahweh with all your heart, and don't lean on your own understanding.", meaning: "You don't have to understand the whole plan to trust the One who does. Leaning on Him is the rest your over-thinking has been missing." },
+      { ref: "Hebrews 11:1", text: "Now faith is assurance of things hoped for, proof of things not seen.", meaning: "Faith isn't the absence of unknowns — it's confidence in God in the middle of them. You can hold trust and questions at the same time." },
+    ],
+    sideReflection: "Where am I leaning on my own understanding instead of trusting the God who keeps His promises?",
+  },
+
+  26: {
+    context:
+      "Romans 5 holds one of the most staggering sentences in the Bible about how and when God loved us — and then it does something surprising with our suffering. This is a chapter for weary, struggling people.",
+    plainEnglish:
+      "Because we're made right with God, we have peace with Him — the war is over. Then Paul says the line that levels everyone: Christ died for us “while we were still sinners,” not after we cleaned up. He even reframes suffering: it's not wasted; God grows perseverance, character, and hope out of it.",
+    aboutGod: "He loved you at your worst — His love was never a response to your performance.",
+    aboutPeople: "We assume love must be earned; God proved His before we'd done a thing.",
+    realLife: "Your hard season isn't pointless — God is growing something durable in it.",
+    verse:
+      "“But God commends his own love toward us, in that while we were yet sinners, Christ died for us.” — Romans 5:8",
+    reflection: "Can you believe God loved you at your worst — not the cleaned-up version, but the real you?",
+    prayer: "Jesus, You died for me before I deserved a thing. Let that love settle the fight in me. Use even this hard season. Amen.",
+    step: "When suffering tempts you to despair today, name one thing God might be growing in you through it.",
+    keyWords: [
+      { word: "Peace with God", meaning: "Not just calm feelings — the war is actually over. You're no longer on the outs with God, striving to get back in His good graces. You're already in." },
+      { word: "Perseverance", meaning: "The strength that only grows under weight. God doesn't waste your hard seasons; He's forging something in you that comfort never could." },
+    ],
+    verses: [
+      { ref: "James 1:2", text: "Count it all joy, my brothers, when you fall into various temptations.", meaning: "Not “fake happiness about pain,” but trust that the hard thing isn't meaningless. God is doing real work in the middle of it." },
+      { ref: "Romans 5:5", text: "and hope doesn't disappoint us, because God's love has been poured out into our hearts.", meaning: "Hope in God won't leave you embarrassed. His love isn't a trickle into your heart — it's poured out, more than enough for today." },
+    ],
+    sideReflection: "What suffering am I tempted to call pointless that God might be using to grow something in me?",
+  },
+
+  27: {
+    context:
+      "If grace is really free, won't people just abuse it? Paul tackles that head-on in Romans 6. Spoiler: grace doesn't make you want to sin more — it sets you free from the thing that was killing you.",
+    plainEnglish:
+      "Paul says when you came to Jesus, your old self “died” and you were raised to a brand-new life — so why crawl back into the grave? Sin isn't a fun freedom you're missing out on; it's a slavery Jesus broke you out of. Grace isn't permission to stay stuck. It's the power to walk out.",
+    aboutGod: "He doesn't just forgive your sin — He breaks its grip so it's no longer your master.",
+    aboutPeople: "We confuse our chains for freedom and our freedom for loss.",
+    realLife: "You're not who you used to be — you don't have to keep living like it.",
+    verse:
+      "“For the wages of sin is death, but the free gift of God is eternal life in Christ Jesus our Lord.” — Romans 6:23",
+    reflection: "What old pattern keeps pulling you back to a “grave” Jesus already raised you out of?",
+    prayer: "Jesus, I'm not who I was — help me stop living like it. Break sin's grip and walk me into the new life You bought. Amen.",
+    step: "Identify one “old self” habit and take one concrete step today to walk in your new life instead.",
+    keyWords: [
+      { word: "Dead to sin", meaning: "Not that you'll never be tempted, but that sin no longer owns you. You can finally say no to what used to call the shots." },
+      { word: "New life", meaning: "Not a tidied-up version of the old you — a genuinely new self, raised with Christ. Your past doesn't get to define your present." },
+    ],
+    verses: [
+      { ref: "Galatians 5:1", text: "Stand firm therefore in the liberty by which Christ has made us free, and don't be entangled again with a yoke of bondage.", meaning: "Jesus didn't free you so you'd crawl back into chains. The freedom is real — you're allowed to live like it." },
+      { ref: "2 Corinthians 5:17", text: "if anyone is in Christ, he is a new creation. The old things have passed away.", meaning: "When shame whispers “you'll never change,” this is your answer: in Christ, you already have. The old is gone." },
+    ],
+    sideReflection: "What chain have I mistaken for freedom — and what would walking in my new life actually look like?",
+  },
+
+  28: {
+    context:
+      "Romans 7 is the most honest chapter about the war inside every believer. If you've ever thought “why do I keep doing the thing I hate?” — Paul wrote this one for you. You're not crazy, and you're not alone.",
+    plainEnglish:
+      "Paul, an apostle, openly confesses the struggle: “I don't do the good I want to do — I do the very thing I hate.” He names the exhausting tug-of-war between knowing what's right and actually living it. Then, at his lowest cry — “who will rescue me?” — he answers his own question: Jesus.",
+    aboutGod: "He's not shocked by your struggle — and He's already the rescue you keep needing.",
+    aboutPeople: "We're all fighting battles inside that we'd be embarrassed to admit.",
+    realLife: "The struggle doesn't disqualify you. The struggle is proof you're alive and fighting.",
+    verse:
+      "“What a wretched man I am! Who will deliver me...? Thanks be to God through Jesus Christ our Lord!” — Romans 7:24-25",
+    reflection: "What's the inner battle you keep losing — and have you brought it honestly to Jesus, or just hidden it?",
+    prayer: "Jesus, I keep doing what I hate and it wears me out. Thank You that You're my rescue, not my judge. Help me. Amen.",
+    step: "Stop hiding one private struggle. Confess it honestly to God — and, if you can, one safe person.",
+    keyWords: [
+      { word: "Wretched", meaning: "Paul's raw word for the exhaustion of trying and failing. Naming the struggle honestly isn't weakness — it's the doorway to grace." },
+      { word: "Deliver", meaning: "To rescue someone who can't rescue themselves. The answer to your inner war was never “try harder” — it's a Person who pulls you out." },
+    ],
+    verses: [
+      { ref: "Psalm 40:1", text: "I waited patiently for Yahweh. He turned to me, and heard my cry.", meaning: "Your honest cry doesn't annoy God — it moves Him. He turns toward the struggling, not away from them." },
+      { ref: "Hebrews 4:16", text: "Let's therefore draw near with boldness to the throne of grace, that we may receive mercy and find grace for help in time of need.", meaning: "You don't have to clean up before you come. Come mid-struggle, boldly — mercy is exactly what's waiting." },
+    ],
+    sideReflection: "What battle am I hiding out of shame, when honesty is the very thing that lets grace in?",
+  },
+
+  29: {
+    context:
+      "This is the mountaintop of Romans — maybe of the whole New Testament. Romans 8 begins with “no condemnation” and ends with “nothing can separate you from God's love.” If you only memorize one chapter all year, let it be this one.",
+    plainEnglish:
+      "Paul declares there is now zero condemnation for those in Christ — the guilty verdict is gone. The Spirit lives in you, helps you, even prays for you when you have no words. And he ends with a promise that has carried people through every dark night: nothing — not failure, fear, or death — can separate you from God's love.",
+    aboutGod: "His love for you is unbreakable, unloseable, and stronger than anything that scares you.",
+    aboutPeople: "We live braced for rejection; God says nothing can pull you out of His hand.",
+    realLife: "On your worst day, the verdict over your life is still: loved, kept, not condemned.",
+    verse:
+      "“For I am persuaded that neither death, nor life... will be able to separate us from God's love which is in Christ Jesus our Lord.” — Romans 8:38-39",
+    reflection: "What have you feared could separate you from God's love — and can you believe today that nothing can?",
+    prayer: "God, there is no condemnation for me and nothing can separate me from Your love. Let that truth go all the way down. Amen.",
+    step: "Write Romans 8:1 — “no condemnation” — somewhere you'll see it, and read it whenever shame speaks.",
+    keyWords: [
+      { word: "No condemnation", meaning: "Not “less” condemnation — none. The case against you is closed. You can stop living braced for God's disappointment." },
+      { word: "More than conquerors", meaning: "Not that you avoid hard things, but that you come through them held. The struggle doesn't get the last word — His love does." },
+    ],
+    verses: [
+      { ref: "Romans 8:28", text: "We know that all things work together for good for those who love God.", meaning: "Not that everything is good — but that nothing is wasted. God weaves even the hard threads into something good you can't see yet." },
+      { ref: "Zephaniah 3:17", text: "He will rejoice over you with joy. He will calm you in his love. He will rejoice over you with singing.", meaning: "You're not merely tolerated by God — you're delighted in. He sings over you. Let that be louder than the shame today." },
+    ],
+    sideReflection: "What fear keeps telling me I could lose God's love — and what changes if I believe nothing can separate me from it?",
+  },
+
+  30: {
+    context:
+      "Romans 9 is a heavier chapter — Paul wrestles with God's sovereignty and grieves for people he loves who don't yet know Jesus. It's okay if some of it is hard to understand. The heart underneath it is mercy.",
+    plainEnglish:
+      "Paul is heartbroken over his own people who've missed Jesus — he'd trade his own salvation for theirs. He wrestles with the big question of why God chooses and shows mercy as He does, and lands on this: salvation rests on God's mercy, not human effort or merit. We're all here by grace.",
+    aboutGod: "He is sovereign and merciful — both bigger than we can grasp and kinder than we deserve.",
+    aboutPeople: "We want to earn our place; mercy means we never could and never had to.",
+    realLife: "If you're in, it's mercy. So carry that mercy gently toward everyone still outside.",
+    verse:
+      "“So then it is not of him who wills, nor of him who runs, but of God who has mercy.” — Romans 9:16",
+    reflection: "Who do you carry a heavy heart for — and have you brought them honestly to God?",
+    prayer: "God, Your ways are bigger than mine. Thank You for the mercy I didn't earn. Soften my heart for those who don't know You yet. Amen.",
+    step: "Pray by name today for one person you long to see come to know God's mercy.",
+    keyWords: [
+      { word: "Mercy", meaning: "Not getting the bad we've earned. Everything good in your standing with God traces back to mercy — which is exactly why it can't be bragged about, only shared." },
+      { word: "Sovereign", meaning: "God is in charge in ways we can't fully map. That can feel heavy — but a sovereign God who is also merciful is the safest place your story could land." },
+    ],
+    verses: [
+      { ref: "Lamentations 3:22", text: "It is because of Yahweh's loving kindnesses that we are not consumed, because his compassion doesn't fail.", meaning: "The reason you're still standing isn't your strength — it's His mercy, fresh again this morning, never running out." },
+      { ref: "2 Peter 3:9", text: "The Lord is... patient with us, not wishing that any should perish, but that all should come to repentance.", meaning: "God's patience with the people you're praying for is even greater than yours. He's not done pursuing them." },
+    ],
+    sideReflection: "Whose name do I need to keep bringing to a merciful God — including, maybe, my own?",
+  },
+
+  31: {
+    context:
+      "After the heavy questions of chapter 9, Romans 10 opens the door wide: the same Lord is generous to everyone who calls on Him. No insider status required. This is one of the clearest “how do I actually come to God?” chapters in the Bible.",
+    plainEnglish:
+      "Paul says salvation isn't earned by religious effort — it's as close as your own mouth and heart: believe Jesus is Lord, trust that God raised Him, and call on Him. “Everyone who calls” — no exceptions, no fine print. And faith grows by hearing the good news, which is why telling it matters.",
+    aboutGod: "He's near and generous — close enough to call on, rich enough for everyone.",
+    aboutPeople: "We assume there's a secret password; the door is simply “call on Him.”",
+    realLife: "Whatever your background, you qualify. The invitation includes you.",
+    verse:
+      "“For ‘whoever will call on the name of the Lord will be saved.’” — Romans 10:13",
+    reflection: "Is there a part of you that still believes you don't quite qualify for God's grace?",
+    prayer: "Lord, thank You that “whoever” includes me. I call on You today — no password, no résumé. Just You. Amen.",
+    step: "Say a simple, out-loud prayer today, “Jesus, I'm calling on You” — and share the invitation with someone.",
+    keyWords: [
+      { word: "Whoever", meaning: "The most inclusive word in the gospel. Not the qualified, the polished, or the deserving — whoever. That word was put there on purpose to include you." },
+      { word: "Confess", meaning: "To say out loud what you believe — “Jesus is Lord.” Faith isn't only private; speaking it makes it real and roots it deeper." },
+    ],
+    verses: [
+      { ref: "Acts 2:21", text: "It will be that whoever will call on the name of the Lord will be saved.", meaning: "The very first sermon of the church said the same thing: just call. The door God opened has never once been shut on the honest." },
+      { ref: "Isaiah 55:1", text: "Come, everyone who thirsts, to the waters!", meaning: "God's invitation has no entry fee. If you're thirsty, you're invited — that's the whole requirement." },
+    ],
+    sideReflection: "What lie tells me I don't quite qualify — and what would it mean to simply call on God today?",
+  },
+
+  32: {
+    context:
+      "Romans 11 ends Paul's deep section on God's plan with worship instead of answers. After chapters of wrestling, he basically throws up his hands and says: God's wisdom is too deep to fully figure out — and that's good news.",
+    plainEnglish:
+      "Paul shows that God's mercy is wider than anyone expected — He “grafts in” outsiders like a wild branch onto a healthy tree, and He's not finished with anyone. Then Paul stops explaining and starts praising: God's wisdom and ways are deeper than we can trace. Sometimes worship is the wisest response to mystery.",
+    aboutGod: "His plans are deeper than your understanding — and that depth is a comfort, not a threat.",
+    aboutPeople: "We want every answer; peace often comes from trusting the One who has them.",
+    realLife: "You don't have to figure everything out to worship the God who has.",
+    verse:
+      "“Oh the depth of the riches both of the wisdom and the knowledge of God! How unsearchable are his judgments...” — Romans 11:33",
+    reflection: "What unanswered question are you holding — and could you bring it to God as worship instead of worry?",
+    prayer: "God, I don't understand everything, and I don't have to. You're deeper and wiser than my questions. I trust You. Amen.",
+    step: "Take one nagging “why?” today and turn it into a moment of worship instead of anxiety.",
+    keyWords: [
+      { word: "Grafted in", meaning: "A picture of being joined to God's family even though you started as an outsider. You don't belong because of your roots — you belong because of His mercy." },
+      { word: "Unsearchable", meaning: "Some of God's ways are too deep to fully map — and that's a comfort. A God you could completely figure out would be too small to trust with your life." },
+    ],
+    verses: [
+      { ref: "Isaiah 55:9", text: "For as the heavens are higher than the earth, so are my ways higher than your ways.", meaning: "When God's plan doesn't match yours, it isn't a flaw — it's a sign He sees more. Higher ways are exactly what you'd want from God." },
+      { ref: "Proverbs 3:6", text: "In all your ways acknowledge him, and he will make your paths straight.", meaning: "You don't have to see the whole road. Keep turning to Him, and He straightens the path one faithful step at a time." },
+    ],
+    sideReflection: "What question am I demanding an answer to that God might be inviting me to simply trust Him with?",
+  },
+
+  33: {
+    context:
+      "Romans shifts here from “what God did” to “so how do I live?” Chapter 12 is the hinge — and it doesn't start with rules. It starts with offering your whole self to God in response to His mercy. Everything practical flows from that.",
+    plainEnglish:
+      "Paul says: in light of all that mercy, offer your everyday life to God as worship. Don't let the world squeeze you into its mold — let God reshape how you think from the inside out. Then comes a rapid-fire list of what love actually looks like: serve, bless, forgive, don't repay evil with evil.",
+    aboutGod: "He wants your real, daily self — not a religious performance once a week.",
+    aboutPeople: "We get quietly conformed to the world's thinking without noticing.",
+    realLife: "Transformation starts in the mind — guard what's renewing it.",
+    verse:
+      "“Don't be conformed to this world, but be transformed by the renewing of your mind.” — Romans 12:2",
+    reflection: "What's been shaping your thinking most lately — and is it forming you into who God made you to be?",
+    prayer: "God, renew my mind. Reshape the way I think so my everyday life becomes worship back to You. Amen.",
+    step: "Swap one mind-shaping input today (a feed, a show, a worry-spiral) for something that renews you in God.",
+    keyWords: [
+      { word: "Living sacrifice", meaning: "Not a one-time dramatic gesture but a daily yielding — your ordinary life, offered up. The hard part of a living sacrifice is that it keeps wanting to climb off the altar; grace keeps inviting you back." },
+      { word: "Renewing", meaning: "Real change starts upstream, in how you think. God reshapes your mind, and your life follows — which is why what you feed your mind matters so much." },
+    ],
+    verses: [
+      { ref: "Philippians 4:8", text: "whatever things are true... noble... pure... lovely... think about these things.", meaning: "Your mind becomes what it keeps chewing on. Aim your attention at what's good, and watch your inner world slowly heal." },
+      { ref: "2 Corinthians 10:5", text: "bringing every thought into captivity to the obedience of Christ.", meaning: "You're not at the mercy of every thought that storms in. You get to take the lie captive and hand the mic back to truth." },
+    ],
+    sideReflection: "What thought pattern keeps forming me into the world's mold — and what truth could renew it?",
+  },
+
+  34: {
+    context:
+      "Romans 13 covers how faith touches the public square — government, neighbors, daily conduct — and then pulls it all back to one word that fulfills everything: love. It's about living wide awake in how you treat people.",
+    plainEnglish:
+      "Paul says to live with integrity toward those in authority and to owe no one anything except love. Why? Because love already fulfills every command — you can't truly love your neighbor and harm them at the same time. He ends with a wake-up call: live in the light, “put on” Christ like clothing.",
+    aboutGod: "He measures a faithful life less by what we avoid and more by how we love.",
+    aboutPeople: "We can keep all the rules and still miss the whole point: love.",
+    realLife: "If love is the goal, your faith gets tested in how you treat the person in front of you.",
+    verse:
+      "“Owe no one anything, except to love one another; for he who loves his neighbor has fulfilled the law.” — Romans 13:8",
+    reflection: "Where is your faith strong on “rules” but weak on actually loving someone in front of you?",
+    prayer: "God, I don't want to just avoid wrong — I want to love well. Make my love the proof of my faith today. Amen.",
+    step: "Do one concrete act of love today for someone it'd be easier to ignore.",
+    keyWords: [
+      { word: "Love", meaning: "Paul's shorthand for the whole point. You can technically keep the rules and still wound people — but you can't genuinely love someone and harm them. Love is the rule under all the rules." },
+      { word: "Put on Christ", meaning: "Like getting dressed each morning, you choose to “wear” His character — His patience, His kindness — into the day. It's a daily decision, not a one-time download." },
+    ],
+    verses: [
+      { ref: "1 Corinthians 13:4", text: "Love is patient and is kind... doesn't seek its own way, is not provoked.", meaning: "When “love” feels fuzzy, this is the checklist. Patient, kind, slow to take offense — that's the love you've been given, and the love you get to give." },
+      { ref: "1 John 3:18", text: "let's not love in word only, or with the tongue only, but in deed and truth.", meaning: "Love that stays theoretical isn't quite love yet. The smallest concrete act of kindness says more than the most beautiful words." },
+    ],
+    sideReflection: "Who in my life needs love in action from me today — not just in theory?",
+  },
+
+  35: {
+    context:
+      "Romans 14 is about how we treat fellow believers who see secondary things differently. In a divided, opinion-loud world, this chapter is a gentle masterclass in holding your convictions without crushing other people.",
+    plainEnglish:
+      "Some early Christians argued over food and special days. Paul's counsel is striking: stop judging each other over disputable matters. We each answer to God, not to one another's preferences. Make the goal peace and building people up, not winning the argument.",
+    aboutGod: "He's the only true Judge — which frees us from playing that role with each other.",
+    aboutPeople: "We elevate our preferences into tests of who's really faithful.",
+    realLife: "You can hold a conviction firmly and still treat someone gently who disagrees.",
+    verse:
+      "“So who are you who judge another's servant?... Therefore let's not judge one another anymore.” — Romans 14:4,13",
+    reflection: "Where have you let a secondary issue become a wall between you and another believer?",
+    prayer: "God, You're the Judge, not me. Help me hold my convictions with humility and treat those who differ with grace. Amen.",
+    step: "Choose peace over being right in one conversation today. Build the person up instead of winning.",
+    keyWords: [
+      { word: "Disputable", meaning: "Matters Scripture doesn't nail down, where sincere believers land differently. Paul says: hold these loosely, and hold people gently." },
+      { word: "Build up", meaning: "The goal isn't to win — it's to leave the other person stronger. Ask not “am I right?” but “did that help them?”" },
+    ],
+    verses: [
+      { ref: "Romans 14:19", text: "So then, let's follow after things which make for peace, and things by which we may build one another up.", meaning: "Aim at peace on purpose. Most arguments aren't worth the closeness they cost — choose the relationship over the win." },
+      { ref: "Colossians 3:13", text: "bearing with one another, and forgiving each other... Even as Christ forgave you, so you also do.", meaning: "The grace you've received sets the bar for the grace you give. Bear with people the patient way God has borne with you." },
+    ],
+    sideReflection: "Where am I making a secondary issue a wall — and could I choose peace and grace instead?",
+  },
+
+  36: {
+    context:
+      "As Romans winds down, Paul lands on the heart of community: accept one another the way Christ accepted you. And he leaves them with a blessing so warm it's worth memorizing — a benediction of hope, joy, and peace.",
+    plainEnglish:
+      "Paul urges the strong to carry the weak, and everyone to welcome each other the way Jesus welcomed them — no merit test. He shares his mission heart, then prays one of Scripture's most beautiful blessings: that the God of hope would fill them with joy and peace so they'd overflow with hope by the Spirit's power.",
+    aboutGod: "He's the God of hope — and He means to fill you, not just inform you.",
+    aboutPeople: "We accept others conditionally; Christ accepted us before we earned it.",
+    realLife: "Welcome someone the way you've been welcomed — fully, freely, first.",
+    verse:
+      "“Now may the God of hope fill you with all joy and peace in believing, that you may abound in hope...” — Romans 15:13",
+    reflection: "Who needs to be “welcomed” by you — fully accepted — the way Christ welcomed you?",
+    prayer: "God of hope, fill me with joy and peace as I trust You, until I overflow with hope onto everyone around me. Amen.",
+    step: "Welcome one person today — really welcome them — without making them earn it first.",
+    keyWords: [
+      { word: "Accept", meaning: "To fully welcome, not merely tolerate. Christ didn't wait for you to be impressive before He took you in — and that's the bar for how we receive each other." },
+      { word: "Hope", meaning: "Not wishful thinking, but confident expectation rooted in God. He's literally called “the God of hope” — He's the source you keep refilling from." },
+    ],
+    verses: [
+      { ref: "Romans 15:7", text: "Therefore accept one another, as Christ also accepted you, to the glory of God.", meaning: "The way you were received by Jesus — fully, before you cleaned up — is exactly how He's asking you to receive the people around you." },
+      { ref: "Jeremiah 29:11", text: "‘For I know the thoughts that I think toward you,’ says Yahweh, ‘thoughts of peace, and not of evil, to give you hope and a future.’", meaning: "God's thoughts toward you are good. Whatever this season holds, His intention is a future and a hope — not your harm." },
+    ],
+    sideReflection: "Where am I making someone earn my acceptance, when Christ gave me His for free?",
+  },
+
+  37: {
+    context:
+      "Romans ends not with theology but with a long list of names — the ordinary people behind the mission. It's a quiet reminder that the gospel travels on real, everyday people, and that you're one of them.",
+    plainEnglish:
+      "Paul greets dozens of friends and co-workers by name — men and women, well-known and unknown — thanking them for their part. It's a love letter to the unglamorous, faithful people who carried the early church. Then he ends with grace, the same way he began: it's all grace, start to finish.",
+    aboutGod: "He builds His kingdom through ordinary, named, noticed people — including you.",
+    aboutPeople: "We think we're too small to matter; God writes our names into the story.",
+    realLife: "Your quiet faithfulness counts more than you know — God sees and names it.",
+    verse:
+      "“Now to him who is able to establish you according to my Good News... to the only wise God, through Jesus Christ, to whom be the glory forever.” — Romans 16:25,27",
+    reflection: "Do you believe your small, faithful part actually matters to God's bigger story?",
+    prayer: "God, thank You that You know my name and use ordinary people like me. Make my quiet faithfulness count for You. Amen.",
+    step: "Thank one “behind-the-scenes” person in your life today — and take heart that your own hidden faithfulness matters.",
+    keyWords: [
+      { word: "Greet", meaning: "Paul's long roll-call of names shows the gospel isn't carried by celebrities but by everyday, faithful people. God notices the ones the world overlooks." },
+      { word: "Grace", meaning: "Romans opens and closes with it — because it's the whole story. You started in grace, you stand in grace, and you'll finish in grace." },
+    ],
+    verses: [
+      { ref: "Hebrews 6:10", text: "For God is not unrighteous, so as to forget your work and the love which you showed toward his name.", meaning: "God doesn't overlook your quiet, unseen faithfulness. The things no one claps for, He remembers and treasures." },
+      { ref: "1 Corinthians 15:58", text: "be steadfast, immovable, always abounding in the Lord's work, because you know that your labor is not in vain.", meaning: "On the days it feels like your small efforts don't matter — they do. Nothing done in love for God is ever wasted." },
+    ],
+    sideReflection: "Where have I felt too small to matter — and how does it change things that God knows my name and my work?",
+  },
 };
 
 /** The 6 arcs of the plan, for the Reading Plan tab. */
