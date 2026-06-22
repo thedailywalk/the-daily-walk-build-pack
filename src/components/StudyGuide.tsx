@@ -1,11 +1,18 @@
 "use client";
-/* eslint-disable react-hooks/set-state-in-effect -- loads passage text after fetch resolves */
+/* eslint-disable react-hooks/set-state-in-effect -- restores saved state + loads passage after async work */
 
-import { useEffect, useState } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type MouseEvent,
+  type ReactNode,
+} from "react";
 import type { StudyDay } from "@/lib/studyGuide";
 
 type Mode = "web" | "kjv" | "own";
 type Verse = { ref: string; text: string };
+type Cheer = { id: number; x: number; y: number; emoji: string; dx: number; ty: number; dur: number };
 
 const TABS: { key: Mode; label: string }[] = [
   { key: "web", label: "WEB" },
@@ -13,12 +20,49 @@ const TABS: { key: Mode; label: string }[] = [
   { key: "own", label: "My own Bible" },
 ];
 
+function sectionsOf(e: StudyDay) {
+  return [
+    { key: "context", icon: "🧭", label: "Quick Context", body: e.context, cheer: ["✨", "💫", "✨"] },
+    { key: "plain", icon: "💬", label: "What's Happening, in Plain English", body: e.plainEnglish, cheer: ["💡", "✨", "💫"] },
+    { key: "god", icon: "✨", label: "What This Shows About God", body: e.aboutGod, cheer: ["🕊️", "✨", "🕊️"] },
+    { key: "people", icon: "❤️", label: "What This Shows About People", body: e.aboutPeople, cheer: ["❤️", "💛", "❤️"] },
+    { key: "reflect", icon: "🤔", label: "Personal Reflection", body: e.reflection, cheer: ["🌿", "✨", "🌿"] },
+    { key: "prayer", icon: "🙏", label: "Prayer Prompt", body: e.prayer, accent: true, cheer: ["🙏", "🕊️", "✨"] },
+    { key: "challenge", icon: "👣", label: "Daily Challenge", body: e.step, cheer: ["🎉", "✨", "🎊"] },
+  ];
+}
+
 export default function StudyGuide({ entry }: { entry: StudyDay }) {
-  // Nothing is selected at first — the reader chooses how to read.
+  const dayKey = `tdw_sg_${entry.day}`;
+  const sections = sectionsOf(entry);
+
+  // Bible chooser
   const [mode, setMode] = useState<Mode | null>(null);
   const [verses, setVerses] = useState<Verse[]>([]);
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState(false);
+
+  // Journal state (persists per day in the browser)
+  const [done, setDone] = useState<Record<string, boolean>>({});
+  const [stood, setStood] = useState("");
+  const [takeaway, setTakeaway] = useState("");
+  const [notes, setNotes] = useState("");
+  const [saved, setSaved] = useState(false);
+
+  // Cheer animations
+  const [cheers, setCheers] = useState<Cheer[]>([]);
+  const seq = useRef(0);
+
+  useEffect(() => {
+    try {
+      setDone(JSON.parse(localStorage.getItem(`${dayKey}_done`) || "{}"));
+      setStood(localStorage.getItem(`${dayKey}_stood`) || "");
+      setTakeaway(localStorage.getItem(`${dayKey}_take`) || "");
+      setNotes(localStorage.getItem(`${dayKey}_notes`) || "");
+    } catch {
+      /* ignore */
+    }
+  }, [dayKey]);
 
   useEffect(() => {
     if (mode !== "web" && mode !== "kjv") return;
@@ -28,15 +72,64 @@ export default function StudyGuide({ entry }: { entry: StudyDay }) {
     setVerses([]);
     fetch(`/api/passage?ref=${encodeURIComponent(entry.reading)}&t=${mode}`)
       .then((r) => (r.ok ? r.json() : Promise.reject()))
-      .then((data: { verses: Verse[] }) => {
-        if (alive) setVerses(data.verses ?? []);
-      })
+      .then((d: { verses: Verse[] }) => alive && setVerses(d.verses ?? []))
       .catch(() => alive && setErr(true))
       .finally(() => alive && setLoading(false));
     return () => {
       alive = false;
     };
   }, [mode, entry.reading]);
+
+  function save(suffix: string, val: string) {
+    try {
+      localStorage.setItem(`${dayKey}_${suffix}`, val);
+      setSaved(true);
+      window.clearTimeout((save as unknown as { t?: number }).t);
+      (save as unknown as { t?: number }).t = window.setTimeout(
+        () => setSaved(false),
+        1400
+      );
+    } catch {
+      /* ignore */
+    }
+  }
+
+  function burst(emojis: string[], e: MouseEvent<HTMLElement>) {
+    const r = e.currentTarget.getBoundingClientRect();
+    const bx = r.left + r.width / 2;
+    const by = r.top;
+    const fresh: Cheer[] = emojis.map((emoji, i) => ({
+      id: seq.current++,
+      x: bx + (i - 1) * 10,
+      y: by,
+      emoji,
+      dx: (i - 1) * 26 + (i % 2 ? 10 : -10),
+      ty: -90 - i * 10,
+      dur: 1.1 + (i % 3) * 0.2,
+    }));
+    setCheers((c) => [...c, ...fresh]);
+    fresh.forEach((f) =>
+      setTimeout(
+        () => setCheers((c) => c.filter((x) => x.id !== f.id)),
+        f.dur * 1000 + 160
+      )
+    );
+  }
+
+  function toggle(key: string, cheer: string[], e: MouseEvent<HTMLElement>) {
+    const turningOn = !done[key];
+    const next = { ...done, [key]: turningOn };
+    setDone(next);
+    try {
+      localStorage.setItem(`${dayKey}_done`, JSON.stringify(next));
+    } catch {
+      /* ignore */
+    }
+    if (turningOn) burst(cheer, e);
+  }
+
+  const doneCount = sections.filter((s) => done[s.key]).length;
+  const allDone = doneCount === sections.length;
 
   return (
     <div className="sg">
@@ -46,15 +139,32 @@ export default function StudyGuide({ entry }: { entry: StudyDay }) {
           Day {entry.day}
           <span className="sg-reading"> · {entry.reading}</span>
         </h1>
+        <div className="sg-progress">
+          <span className="sg-progress-track">
+            <span
+              className="sg-progress-fill"
+              style={{ width: `${(doneCount / sections.length) * 100}%` }}
+            />
+          </span>
+          <span className="sg-progress-num">
+            {doneCount}/{sections.length} done
+          </span>
+        </div>
       </header>
 
-      {/* Bring your own Bible note + translation chooser */}
+      {/* Key verse */}
+      <div className="sg-keyverse">
+        <span className="sg-keyverse-tag">📌 Key verse</span>
+        <p>{entry.verse}</p>
+      </div>
+
+      {/* Bible chooser */}
       <div className="sg-bible">
         <p className="sg-bible-note">
           <strong>Bring your preferred Bible.</strong> Read{" "}
-          <strong>{entry.reading}</strong> in the translation you already love,
-          or open one of the included public-domain options here — WEB for
-          modern, easy wording, KJV for the classic traditional feel.
+          <strong>{entry.reading}</strong> in the translation you love, or open
+          one of the included public-domain options — WEB for modern wording,
+          KJV for the classic feel.
         </p>
         <div className="sg-toggle" role="tablist" aria-label="How to read">
           {TABS.map((t) => (
@@ -70,7 +180,6 @@ export default function StudyGuide({ entry }: { entry: StudyDay }) {
             </button>
           ))}
         </div>
-
         <div className="sg-passage">
           {mode === null ? (
             <p className="sg-choose">
@@ -79,14 +188,14 @@ export default function StudyGuide({ entry }: { entry: StudyDay }) {
             </p>
           ) : mode === "own" ? (
             <p className="sg-own">
-              Open <strong>{entry.reading}</strong> in your own Bible or app and
-              read it slowly, then come back to the guide below.
+              Open <strong>{entry.reading}</strong> in your own Bible and read it
+              slowly, then come back to walk through it below.
             </p>
           ) : loading ? (
             <p className="muted">Loading {entry.reading}…</p>
           ) : err ? (
             <p className="muted">
-              Couldn&apos;t load the text right now — read{" "}
+              Couldn&apos;t load it right now — read{" "}
               <strong>{entry.reading}</strong> in your own Bible, or try again.
             </p>
           ) : (
@@ -102,47 +211,143 @@ export default function StudyGuide({ entry }: { entry: StudyDay }) {
         </div>
       </div>
 
-      {/* The study guide */}
+      <p className="sg-walk">Walk through it ↓ — tap the circle to check off each step.</p>
+
+      {/* Check-off study sections */}
       <div className="sg-grid">
-        <Block icon="🧭" label="Quick context" body={entry.context} />
-        <Block icon="💬" label="What's happening (plain English)" body={entry.plainEnglish} />
-        <Block icon="✨" label="What it shows about God" body={entry.aboutGod} />
-        <Block icon="❤️" label="What it shows about people" body={entry.aboutPeople} />
-        <Block icon="🌱" label="Real life" body={entry.realLife} />
-        <Block icon="📌" label="Verse to carry today" body={entry.verse} accent />
-        <Block icon="🤔" label="Reflection" body={entry.reflection} />
-        <Block icon="🙏" label="A short prayer" body={entry.prayer} accent />
-        <Block icon="👣" label="One small step" body={entry.step} />
+        {sections.map((s) => (
+          <div
+            key={s.key}
+            className={`sg-block${s.accent ? " sg-accent" : ""}${done[s.key] ? " is-done" : ""}`}
+          >
+            <div className="sg-block-head">
+              <span className="sg-ic" aria-hidden="true">
+                {s.icon}
+              </span>
+              <div className="sg-block-label">{s.label}</div>
+              <button
+                type="button"
+                className="sg-check"
+                aria-pressed={!!done[s.key]}
+                aria-label={done[s.key] ? "Mark not done" : "Mark done"}
+                onClick={(e) => toggle(s.key, s.cheer, e)}
+              >
+                {done[s.key] ? "✓" : ""}
+              </button>
+            </div>
+            {s.body.split(/\n\n+/).map((p, i) => (
+              <p className="sg-block-body" key={i}>
+                {p}
+              </p>
+            ))}
+            {s.key === "prayer" && (
+              <p className="sg-pause">🕊️ Pause here. Read it again — slowly — and make it your own.</p>
+            )}
+          </div>
+        ))}
       </div>
+
+      {allDone && (
+        <div className="sg-complete">
+          🎉 You walked through all of Day {entry.day}. Amen — see you tomorrow.
+        </div>
+      )}
+
+      {/* Journal */}
+      <div className="sg-journal">
+        <div className="sg-journal-title">
+          Your journal{" "}
+          <span className={`sg-saved${saved ? " show" : ""}`}>saved ✓</span>
+        </div>
+
+        <JournalLine
+          label="✍️ What stood out?"
+          placeholder="One line, one phrase, one feeling…"
+          value={stood}
+          onChange={(v) => {
+            setStood(v);
+            save("stood", v);
+          }}
+        />
+        <JournalLine
+          label="🌟 My takeaway"
+          placeholder="If I remember one thing from today…"
+          value={takeaway}
+          onChange={(v) => {
+            setTakeaway(v);
+            save("take", v);
+          }}
+        />
+
+        <div className="sg-notes-wrap">
+          <label className="sg-journal-label" htmlFor="sg-notes">
+            📓 Notes, prayers &amp; thoughts
+          </label>
+          <textarea
+            id="sg-notes"
+            className="sg-notes"
+            rows={5}
+            placeholder="Write freely — this saves automatically and will be here when you come back."
+            value={notes}
+            onChange={(e) => {
+              setNotes(e.target.value);
+              save("notes", e.target.value);
+            }}
+          />
+        </div>
+
+        {entry.realLife && (
+          <div className="sg-reminder">
+            <span className="sg-reminder-tag">🌅 Today&apos;s reminder</span>
+            <p>{entry.realLife}</p>
+          </div>
+        )}
+      </div>
+
+      {/* Floating cheers */}
+      {cheers.map((c) => (
+        <span
+          key={c.id}
+          className="sg-cheer"
+          aria-hidden="true"
+          style={
+            {
+              left: c.x,
+              top: c.y,
+              "--dx": `${c.dx}px`,
+              "--ty": `${c.ty}px`,
+              "--dur": `${c.dur}s`,
+            } as React.CSSProperties
+          }
+        >
+          {c.emoji}
+        </span>
+      ))}
     </div>
   );
 }
 
-function Block({
-  icon,
+function JournalLine({
   label,
-  body,
-  accent,
+  placeholder,
+  value,
+  onChange,
 }: {
-  icon: string;
-  label: string;
-  body: string;
-  accent?: boolean;
+  label: ReactNode;
+  placeholder: string;
+  value: string;
+  onChange: (v: string) => void;
 }) {
-  const paras = body.split(/\n\n+/);
   return (
-    <div className={`sg-block${accent ? " sg-accent" : ""}`}>
-      <div className="sg-block-head">
-        <span className="sg-ic" aria-hidden="true">
-          {icon}
-        </span>
-        <div className="sg-block-label">{label}</div>
-      </div>
-      {paras.map((p, i) => (
-        <p className="sg-block-body" key={i}>
-          {p}
-        </p>
-      ))}
+    <div className="sg-journal-line">
+      <label className="sg-journal-label">{label}</label>
+      <input
+        type="text"
+        className="sg-journal-input"
+        placeholder={placeholder}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+      />
     </div>
   );
 }

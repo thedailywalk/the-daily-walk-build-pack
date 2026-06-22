@@ -1573,6 +1573,247 @@ hr.div {
   color: var(--navy);
 }
 
+/* ---- interactive study journal ---- */
+.sg-progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+}
+.sg-progress-track {
+  flex: 1;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.28);
+  overflow: hidden;
+}
+.sg-progress-fill {
+  display: block;
+  height: 100%;
+  background: var(--gold);
+  border-radius: 999px;
+  transition: width 0.35s ease;
+}
+.sg-progress-num {
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+  white-space: nowrap;
+}
+
+/* Key verse highlight */
+.sg-keyverse {
+  position: relative;
+  margin: 18px 0 0;
+  padding: 18px 22px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #fff7e6 0%, #fbeecb 100%);
+  border: 1px solid #ecdcae;
+  box-shadow: 0 10px 26px -18px rgba(184, 144, 46, 0.5);
+}
+.sg-keyverse-tag {
+  font-family: var(--sans);
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+.sg-keyverse p {
+  margin: 8px 0 0;
+  font-family: var(--serif);
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--navy);
+}
+
+.sg-walk {
+  text-align: center;
+  font-size: 13.5px;
+  color: var(--grey);
+  margin: 26px 0 14px;
+}
+
+/* Check button + done state */
+.sg-block-head {
+  position: relative;
+}
+.sg-check {
+  margin-left: auto;
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid var(--line);
+  background: #fff;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background 0.18s, border-color 0.18s, transform 0.12s;
+}
+.sg-check:hover {
+  border-color: var(--gold);
+}
+.sg-check:active {
+  transform: scale(0.9);
+}
+.sg-block.is-done .sg-check {
+  background: #3c7a5a;
+  border-color: #3c7a5a;
+}
+.sg-block.is-done {
+  border-color: #bfe0cd;
+  background: linear-gradient(180deg, #f6fbf7 0%, #eef7f1 100%);
+}
+.sg-block.is-done .sg-block-label {
+  color: #2f7a55;
+}
+.sg-accent.is-done {
+  background: linear-gradient(180deg, #fffdf8 0%, #f3f6df 100%);
+}
+.sg-pause {
+  margin: 12px 0 0;
+  font-size: 13.5px;
+  color: var(--gold-deep);
+  font-style: italic;
+}
+
+/* "Amen" completion banner */
+.sg-complete {
+  margin-top: 16px;
+  padding: 18px 22px;
+  border-radius: 16px;
+  text-align: center;
+  font-family: var(--serif);
+  font-size: 17px;
+  color: #fff;
+  background: linear-gradient(135deg, #3c7a5a, #2f7a55);
+  box-shadow: 0 14px 30px -18px rgba(47, 122, 85, 0.7);
+}
+
+/* Journal */
+.sg-journal {
+  margin-top: 26px;
+  padding: 22px 22px 24px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #fffdfb 0%, #fbf4ef 100%);
+  border: 1px solid #efe2d8;
+  box-shadow: 0 14px 32px -22px rgba(31, 58, 95, 0.35);
+}
+.sg-journal-title {
+  font-family: var(--serif);
+  font-size: 20px;
+  color: var(--navy);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.sg-saved {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 700;
+  color: #3c7a5a;
+  background: #e7f3ec;
+  padding: 2px 9px;
+  border-radius: 999px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.sg-saved.show {
+  opacity: 1;
+}
+.sg-journal-line {
+  margin-bottom: 14px;
+}
+.sg-journal-label {
+  display: block;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+.sg-journal-input,
+.sg-notes {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  font-family: inherit;
+  font-size: 15px;
+  color: var(--ink);
+  padding: 11px 14px;
+}
+.sg-notes {
+  line-height: 1.6;
+  resize: vertical;
+}
+.sg-journal-input:focus-visible,
+.sg-notes:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 1px;
+  border-color: var(--gold);
+}
+.sg-notes-wrap {
+  margin-bottom: 16px;
+}
+.sg-reminder {
+  border-radius: 14px;
+  padding: 16px 18px;
+  background: #f4eef7;
+  border: 1px dashed #d9c7e2;
+}
+.sg-reminder-tag {
+  font-family: var(--sans);
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #8a6cab;
+}
+.sg-reminder p {
+  margin: 6px 0 0;
+  font-size: 15px;
+  line-height: 1.55;
+  color: #3c4350;
+}
+
+/* Floating cheer emojis on check */
+.sg-cheer {
+  position: fixed;
+  z-index: 9999;
+  pointer-events: none;
+  font-size: 22px;
+  transform: translate(-50%, 0);
+  animation: sgCheer var(--dur, 1.2s) cubic-bezier(0.33, 0, 0.2, 1) forwards;
+  will-change: transform, opacity;
+}
+@keyframes sgCheer {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 0) scale(0.5);
+  }
+  20% {
+    opacity: 1;
+    transform: translate(-50%, -8px) scale(1.1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--dx, 0px)), var(--ty, -90px)) scale(1.1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sg-cheer {
+    display: none;
+  }
+}
+
 /* ============================================================
    PRAYER WALL
    ============================================================ */
