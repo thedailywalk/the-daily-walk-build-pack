@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable react-hooks/set-state-in-effect -- loads passage text after fetch resolves */
 
 import { useEffect, useState } from "react";
 import type { StudyDay } from "@/lib/studyGuide";
