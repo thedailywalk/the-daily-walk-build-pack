@@ -29,9 +29,11 @@ export default async function Header() {
             </Link>
           ))}
           {accountLink && <Link href={accountLink.href}>{accountLink.label}</Link>}
-          <Link href="/subscribe" className="btn btn-gold navcta">
-            Start free
-          </Link>
+          {!user && (
+            <Link href="/subscribe" className="btn btn-gold navcta">
+              Start free
+            </Link>
+          )}
         </nav>
 
         {/* Mobile nav — no-JS disclosure menu */}
@@ -50,9 +52,11 @@ export default async function Header() {
               </Link>
             ))}
             {accountLink && <Link href={accountLink.href}>{accountLink.label}</Link>}
-            <Link href="/subscribe" className="btn btn-gold btn-block">
-              Start free
-            </Link>
+            {!user && (
+              <Link href="/subscribe" className="btn btn-gold btn-block">
+                Start free
+              </Link>
+            )}
           </div>
         </details>
       </div>

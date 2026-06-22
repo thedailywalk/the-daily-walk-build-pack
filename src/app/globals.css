@@ -1334,20 +1334,20 @@ hr.div {
 /* ============================================================
    PRAYER WALL
    ============================================================ */
-/* Navy easing into a warm muted taupe — brand blue + the inspo tone */
+/* Warm muted taupe ground with a slim navy accent across the very top */
 .prayer-wall {
+  border-top: 5px solid var(--navy);
   background:
     radial-gradient(
       130% 80% at 50% 0%,
-      rgba(201, 162, 75, 0.16),
-      transparent 58%
+      rgba(201, 162, 75, 0.18),
+      transparent 60%
     ),
     linear-gradient(
       180deg,
-      #243a5d 0%,
-      #45465b 26%,
-      #685f5f 52%,
-      #847a72 80%,
+      #5e555e 0%,
+      #6f655f 36%,
+      #877d73 70%,
       #9a9082 100%
     );
 }
@@ -1375,7 +1375,7 @@ hr.div {
   max-width: 660px;
   margin: 0 auto 44px;
   background: linear-gradient(180deg, #ffffff 0%, #fcfaf4 100%);
-  border: 1px solid var(--line);
+  border: 1.5px solid var(--navy);
   border-radius: 20px;
   padding: 24px 26px;
   box-shadow:
@@ -1497,7 +1497,7 @@ hr.div {
 }
 .prayer-card {
   background: #fff;
-  border: 1px solid var(--line);
+  border: 1.5px solid var(--navy);
   border-radius: 16px;
   padding: 20px 20px 16px;
   display: flex;
@@ -1603,22 +1603,22 @@ hr.div {
 
 /* ---------- Homepage prayer-wall preview ---------- */
 /* Same sunrise hue as the hero, so the white panel floats above it */
-/* Same navy-into-taupe ground as the Prayer Wall page, so the two match */
+/* Same warm taupe ground + navy top accent as the Prayer Wall, so they match */
 .pwsec {
   position: relative;
   overflow: hidden;
+  border-top: 5px solid var(--navy);
   background:
     radial-gradient(
       130% 80% at 50% 0%,
-      rgba(201, 162, 75, 0.16),
-      transparent 58%
+      rgba(201, 162, 75, 0.18),
+      transparent 60%
     ),
     linear-gradient(
       180deg,
-      #243a5d 0%,
-      #45465b 26%,
-      #685f5f 52%,
-      #847a72 80%,
+      #5e555e 0%,
+      #6f655f 36%,
+      #877d73 70%,
       #9a9082 100%
     );
 }
@@ -1642,7 +1642,7 @@ hr.div {
   max-width: 940px;
   margin: 18px auto 0;
   background: linear-gradient(180deg, #ffffff 0%, #fcfaf4 100%);
-  border: 1px solid var(--line);
+  border: 1.5px solid var(--navy);
   border-radius: 22px;
   padding: 16px 16px 18px;
   box-shadow:
@@ -1736,7 +1736,7 @@ hr.div {
   flex-direction: column;
   gap: 11px;
   background: #fff;
-  border: 1px solid var(--line);
+  border: 1.5px solid var(--navy);
   border-radius: 16px;
   padding: 16px 16px 14px;
   box-shadow:
