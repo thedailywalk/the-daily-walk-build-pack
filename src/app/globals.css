@@ -534,20 +534,53 @@ h2.h {
   gap: 20px;
 }
 .feat {
+  background: #fff;
   border: 1px solid var(--line2);
-  border-radius: 14px;
+  border-radius: 16px;
   padding: 24px;
+  box-shadow:
+    0 1px 2px rgba(31, 58, 95, 0.04),
+    0 12px 26px -18px rgba(31, 58, 95, 0.24);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.feat:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 1px 2px rgba(31, 58, 95, 0.05),
+    0 18px 32px -16px rgba(31, 58, 95, 0.3);
 }
 .feat .ic {
-  width: 44px;
-  height: 44px;
-  border-radius: 11px;
+  width: 46px;
+  height: 46px;
+  border-radius: 13px;
   background: var(--cream);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 21px;
+  font-size: 22px;
   margin-bottom: 12px;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.6),
+    0 4px 10px -4px rgba(31, 58, 95, 0.25);
+}
+/* colored icon tiles — a little life per card */
+.feats .feat:nth-child(1) .ic {
+  background: linear-gradient(135deg, #eaf1fb, #d4e4fb);
+}
+.feats .feat:nth-child(2) .ic {
+  background: linear-gradient(135deg, #fbf2d8, #f6e6b8);
+}
+.feats .feat:nth-child(3) .ic {
+  background: linear-gradient(135deg, #e4f3ea, #cfead9);
+}
+.feats .feat:nth-child(4) .ic {
+  background: linear-gradient(135deg, #f4e9f2, #e9d6e6);
+}
+.feats .feat:nth-child(5) .ic {
+  background: linear-gradient(135deg, #e6f3f2, #d2eae7);
+}
+.feats .feat:nth-child(6) .ic {
+  background: linear-gradient(135deg, #fbece6, #f6ddd1);
 }
 .feat h4 {
   font-family: var(--serif);
@@ -573,12 +606,15 @@ h2.h {
 .gncard {
   background: #fff;
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: 14px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   text-decoration: none;
   color: inherit;
+  box-shadow:
+    0 1px 2px rgba(31, 58, 95, 0.04),
+    0 12px 26px -18px rgba(31, 58, 95, 0.22);
   transition: box-shadow 0.18s, transform 0.18s, border-color 0.18s;
 }
 a.gncard:hover {
@@ -627,10 +663,11 @@ a.gncard:hover .gnh {
   letter-spacing: 1px;
   text-transform: uppercase;
   color: var(--gold-deep);
-  border: 1px solid #e3c786;
-  padding: 3px 9px;
+  background: rgba(201, 162, 75, 0.14);
+  border: 1px solid transparent;
+  padding: 4px 10px;
   border-radius: 20px;
-  font-weight: 700;
+  font-weight: 800;
   font-family: var(--sans);
 }
 .gnh {
@@ -654,11 +691,29 @@ a.gncard:hover .gnh {
   border-radius: 16px;
   padding: 26px 24px;
   background: #fff;
+  box-shadow:
+    0 1px 2px rgba(31, 58, 95, 0.04),
+    0 12px 26px -18px rgba(31, 58, 95, 0.2);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.pt:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 1px 2px rgba(31, 58, 95, 0.05),
+    0 18px 32px -16px rgba(31, 58, 95, 0.26);
 }
 .pt.feat-tier {
   border-color: var(--gold);
-  box-shadow: 0 8px 30px rgba(184, 144, 46, 0.14);
+  box-shadow:
+    0 10px 34px rgba(184, 144, 46, 0.22),
+    0 2px 6px rgba(184, 144, 46, 0.12);
   position: relative;
+}
+.pt.feat-tier:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 18px 42px rgba(184, 144, 46, 0.28),
+    0 2px 6px rgba(184, 144, 46, 0.14);
 }
 .pt .pop {
   position: absolute;
@@ -1415,14 +1470,34 @@ hr.div {
 }
 
 /* ---------- Homepage prayer-wall preview ---------- */
+/* Sunrise backdrop echoing the hero, so the white panel floats above it */
 .pwsec {
   background:
-    radial-gradient(
-      120% 80% at 50% 0%,
-      rgba(201, 162, 75, 0.1) 0%,
-      transparent 55%
+    linear-gradient(
+      180deg,
+      rgba(20, 32, 56, 0.9) 0%,
+      rgba(31, 58, 95, 0.52) 38%,
+      rgba(150, 110, 90, 0.3) 72%,
+      rgba(246, 207, 134, 0.34) 100%
     ),
-    linear-gradient(180deg, var(--cream) 0%, #fff 100%);
+    radial-gradient(
+      130% 95% at 50% 112%,
+      #f8d28c 0%,
+      #e9b06a 14%,
+      #c0814a 30%,
+      #6a5a68 54%,
+      #2a4063 78%,
+      #1d3252 100%
+    );
+}
+.pwsec .sec-tag {
+  color: var(--gold);
+}
+.pwsec .h {
+  color: #fff;
+}
+.pwsec .sub {
+  color: rgba(255, 255, 255, 0.85);
 }
 
 /* The elevated "panel" that gives the section depth */
