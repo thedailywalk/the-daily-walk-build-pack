@@ -402,6 +402,10 @@ h2.h {
   max-width: 760px;
   margin: 0 auto;
 }
+/* About page header reuses the hero look, a touch shorter */
+.hero.sunrise.about-hero {
+  padding: 84px 0 64px;
+}
 .hero .rule {
   width: 54px;
   height: 2px;

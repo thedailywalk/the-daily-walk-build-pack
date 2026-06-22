@@ -28,24 +28,27 @@ const values = [
 
 export default function AboutPage() {
   return (
-    <section>
-      <div className="wrap prose">
-        <div className="sec-tag" style={{ textAlign: "left" }}>
-          About
+    <>
+      <header className="hero sunrise about-hero">
+        <div className="wrap">
+          <div className="inner">
+            <div className="rule" />
+            <div className="eyebrow">About</div>
+            <h1>Walking with God in real life.</h1>
+            <p className="lead">
+              The Daily Walk is a daily Christian newsletter that helps people
+              strengthen their relationship with Jesus in a way that feels real,
+              practical, and relatable to modern life. It&apos;s meant to be
+              welcoming and encouraging for both believers and the curious —
+              easy to understand wherever you are on the journey.
+            </p>
+          </div>
         </div>
-        <h1 style={{ fontSize: 38, margin: "8px 0 18px", color: "var(--navy)" }}>
-          Walking with God in real life.
-        </h1>
+      </header>
 
-        <p className="lead">
-          The Daily Walk is a daily Christian newsletter that helps people
-          strengthen their relationship with Jesus in a way that feels real,
-          practical, and relatable to modern life. It&apos;s meant to be
-          welcoming and encouraging for both believers and the curious — easy to
-          understand wherever you are on the journey.
-        </p>
-
-        <blockquote>The north star: help people find and follow Jesus.</blockquote>
+      <section>
+        <div className="wrap prose">
+          <blockquote>The north star: help people find and follow Jesus.</blockquote>
 
         <h2>What makes it different</h2>
         <div className="values">
@@ -83,7 +86,8 @@ export default function AboutPage() {
           AM PT.
         </p>
         <SignupForm />
-      </div>
-    </section>
+        </div>
+      </section>
+    </>
   );
 }
