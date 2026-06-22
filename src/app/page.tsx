@@ -4,7 +4,7 @@ import GoodNewsCard from "@/components/GoodNewsCard";
 import PrayerWallPreview from "@/components/PrayerWallPreview";
 import { listApprovedPrayers } from "@/lib/prayers";
 import { getDailyGoodNews } from "@/lib/goodNews";
-import { GOOD_NEWS_ENABLED } from "@/lib/flags";
+import { GOOD_NEWS_ENABLED, PRICING_ENABLED } from "@/lib/flags";
 import { site } from "@/lib/site";
 
 const features = [
@@ -163,6 +163,7 @@ export default async function HomePage() {
       )}
 
       {/* PRICING PREVIEW */}
+      {PRICING_ENABLED && (
       <section id="pricing">
         <div className="wrap">
           <div className="sec-tag">Simple pricing</div>
@@ -234,6 +235,7 @@ export default async function HomePage() {
           </p>
         </div>
       </section>
+      )}
 
       {/* MISSION */}
       <section>
