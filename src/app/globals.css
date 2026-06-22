@@ -1359,43 +1359,149 @@ hr.div {
    ============================================================ */
 .sg-section {
   padding-top: 36px;
+}
+/* 3-column layout: side cards | study | side cards */
+.sg-layout {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: 1fr minmax(0, 720px) 1fr;
+  gap: 28px;
+  align-items: start;
+}
+.sg-side {
+  position: sticky;
+  top: 84px;
+}
+.sg-sidegroup {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.sg-side-title {
+  font-family: var(--sans);
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  padding-left: 2px;
+}
+
+/* Side cards */
+.sg-card {
   position: relative;
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 16px 16px 16px 18px;
+  box-shadow:
+    0 1px 2px rgba(31, 58, 95, 0.04),
+    0 12px 26px -20px rgba(31, 58, 95, 0.3);
+  overflow: hidden;
 }
-.sg-section .wrap {
-  position: relative;
-  z-index: 1;
+.sg-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
 }
-/* Side-gutter doodles — only when there's room beside the content column */
-.sg-doodles {
-  display: none;
+.sg-card-word::before {
+  background: linear-gradient(180deg, #5a6aa0, #8aa0d8);
 }
-@media (min-width: 1180px) {
-  .sg-doodles {
-    display: block;
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-  }
-  .sg-doodle {
-    position: absolute;
-    width: 104px;
-    height: 104px;
-    opacity: 0.42;
-  }
-  .sg-doodle.left {
-    left: 3.5%;
-  }
-  .sg-doodle.right {
-    right: 3.5%;
-  }
+.sg-card-verse::before {
+  background: linear-gradient(180deg, var(--gold), #e7c878);
 }
-@media (min-width: 1480px) {
-  .sg-doodle.left {
-    left: 7%;
+.sg-card-reflect::before {
+  background: linear-gradient(180deg, #8a6cab, #b89cd0);
+}
+.sg-card-tag {
+  font-family: var(--sans);
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  font-size: 10px;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+.sg-word {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 6px 0 6px;
+}
+.sg-card-body {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: #3c4350;
+}
+.sg-card-reflect .sg-card-body {
+  font-style: italic;
+  color: var(--navy);
+  margin-top: 6px;
+}
+
+/* Clickable verse card */
+.sg-card-verse {
+  cursor: pointer;
+  transition: box-shadow 0.18s, transform 0.12s;
+  font-family: inherit;
+}
+.sg-card-verse:hover {
+  box-shadow:
+    0 1px 2px rgba(31, 58, 95, 0.05),
+    0 16px 30px -18px rgba(184, 144, 46, 0.45);
+}
+.sg-verse-ref {
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 12px;
+  color: var(--gold-deep);
+  margin: 6px 0 4px;
+}
+.sg-verse-text {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--navy);
+}
+.sg-verse-toggle {
+  display: inline-block;
+  margin-top: 10px;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--gold-deep);
+}
+.sg-verse-meaning {
+  margin: 10px 0 0;
+  padding-top: 10px;
+  border-top: 1px solid var(--line2);
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: #3c4350;
+}
+
+/* Stack on narrower screens */
+@media (max-width: 1080px) {
+  .sg-layout {
+    grid-template-columns: 1fr;
+    max-width: 720px;
+    gap: 18px;
   }
-  .sg-doodle.right {
-    right: 7%;
+  .sg-side {
+    position: static;
+  }
+  .sg-main {
+    order: -1;
   }
 }
 .sg-preview-note {
