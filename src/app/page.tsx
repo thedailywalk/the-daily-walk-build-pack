@@ -231,6 +231,29 @@ export default async function HomePage() {
               </div>
             ))}
           </div>
+
+          {/* Closing moment */}
+          <div className="arm-close">
+            <span className="arm-close-rule" aria-hidden="true" />
+            <p className="arm-close-lead">
+              Everyone says life doesn&apos;t come with an instruction manual.
+              It does — most of us just never opened it.
+            </p>
+            <p className="arm-close-body">
+              God didn&apos;t leave you to guess your way through. His Word is
+              where you learn how to live, how to heal, how to make the braver
+              call, how to fight the battles no one else can see — and how to
+              become the person He made you to be. It was never a religious box
+              to check. It&apos;s wisdom when you&apos;re lost, strength when
+              you&apos;re running on empty, an anchor when you&apos;ve forgotten
+              who you are, and healing for the places nothing else has reached.
+              Pick it up, and you stop walking through life blind.
+            </p>
+            <Link href="/subscribe" className="btn btn-gold arm-cta">
+              Pick up your sword →
+            </Link>
+            <p className="arm-close-sub">Free to start · no card required</p>
+          </div>
         </div>
       </section>
 

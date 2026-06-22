@@ -3,7 +3,7 @@ import Link from "next/link";
 import { getUser, supabaseConfigured } from "@/lib/supabase/server";
 import { getEntitlement } from "@/lib/beehiiv";
 import { getGoodNewsMagazine } from "@/lib/goodNews";
-import { GOOD_NEWS_ENABLED } from "@/lib/flags";
+import { GOOD_NEWS_ENABLED, GOOD_NEWS_ROOM_ENABLED } from "@/lib/flags";
 import GoodNewsReader from "@/components/GoodNewsReader";
 
 export const metadata: Metadata = {
@@ -13,16 +13,17 @@ export const metadata: Metadata = {
 };
 
 export default async function GoodNewsPage() {
-  if (!GOOD_NEWS_ENABLED) {
+  if (!GOOD_NEWS_ENABLED || !GOOD_NEWS_ROOM_ENABLED) {
     return (
       <section>
         <div className="wrap" style={{ maxWidth: 560 }}>
           <div className="sec-tag">Coming soon</div>
-          <h1 className="h">Good News is on its way</h1>
+          <h1 className="h">The full reading room is on its way</h1>
           <p className="sub">
-            We&apos;re lining up permissions so we can share uplifting, sourced
-            stories the right way. Check back soon — in the meantime, the daily
-            devotional and prayer wall are here for you. 🙏
+            Your daily Good News briefing is already in every issue. The full
+            reading room — dozens of uplifting, sourced stories in one calm place
+            — is coming soon. In the meantime, the daily devotional and prayer
+            wall are here for you. 🙏
           </p>
           <div style={{ textAlign: "center", marginTop: 18 }}>
             <Link href="/prayer-wall" className="btn btn-gold">

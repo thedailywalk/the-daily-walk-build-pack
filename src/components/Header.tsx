@@ -9,7 +9,7 @@ export default async function Header() {
   const showAdmin = isAdminEmail(user?.email);
   const navItems = nav.filter(
     (item) =>
-      (GOOD_NEWS_ENABLED || item.href !== "/good-news") &&
+      (GOOD_NEWS_ENABLED || item.href !== "/#good") &&
       (PRICING_ENABLED || item.href !== "/pricing")
   );
   const accountLink =

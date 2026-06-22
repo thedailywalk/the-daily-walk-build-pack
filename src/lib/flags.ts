@@ -10,6 +10,13 @@
 export const GOOD_NEWS_ENABLED = true;
 
 /**
+ * GOOD_NEWS_ROOM_ENABLED — sub-switch for the full Premium /good-news reading
+ * room (30 stories a day). OFF for now: the homepage "Good news" preview stays
+ * live, but the dedicated reading-room page shows a "coming soon" message.
+ */
+export const GOOD_NEWS_ROOM_ENABLED = false;
+
+/**
  * PRICING_ENABLED — master switch for showing prices / paid tiers (the Pricing
  * page, the "Pricing" nav + footer links, and the homepage pricing section).
  * Turned OFF until payments are set up. Flip to `true` to show pricing again.

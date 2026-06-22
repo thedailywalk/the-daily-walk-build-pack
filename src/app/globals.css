@@ -730,6 +730,48 @@ h2.h {
 .tips .feat:nth-child(6) .ic {
   background: linear-gradient(135deg, #fbece6, #f6ddd1);
 }
+/* Closing moment — passage + call to action */
+.arm-close {
+  max-width: 700px;
+  margin: 46px auto 0;
+  text-align: center;
+}
+.arm-close-rule {
+  display: block;
+  width: 60px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--gold);
+  margin: 0 auto 26px;
+}
+.arm-close-lead {
+  font-family: var(--serif);
+  font-size: 24px;
+  line-height: 1.45;
+  color: var(--navy);
+  margin: 0 0 16px;
+}
+.arm-close-body {
+  font-size: 17px;
+  line-height: 1.72;
+  color: var(--ink);
+  margin: 0 auto;
+  max-width: 624px;
+}
+.arm-cta {
+  margin-top: 28px;
+  font-size: 16px;
+}
+.arm-close-sub {
+  font-size: 13px;
+  color: var(--grey);
+  margin: 12px 0 0;
+}
+@media (max-width: 560px) {
+  .arm-close-lead {
+    font-size: 21px;
+  }
+}
 
 /* ---------- Good News preview ---------- */
 .gnsec {
