@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { getUser, supabaseConfigured } from "@/lib/supabase/server";
 import { getEntitlement } from "@/lib/beehiiv";
+import { isAdminEmail } from "@/lib/admin";
 import { site } from "@/lib/site";
 import SetPassword from "@/components/SetPassword";
 
@@ -26,6 +27,7 @@ export default async function AccountPage() {
 
   const ent = await getEntitlement(user.email);
   const isPaid = ent.tier === "premium" || ent.tier === "patron";
+  const isAdmin = isAdminEmail(user.email);
 
   return (
     <section>
@@ -103,6 +105,23 @@ export default async function AccountPage() {
             </p>
             <Link href="/pricing" className="btn btn-gold">
               See Premium →
+            </Link>
+          </div>
+        )}
+
+        {/* Owner-only: prayer wall moderation */}
+        {isAdmin && (
+          <div
+            className="rcard"
+            style={{ marginBottom: 20, background: "var(--cream)" }}
+          >
+            <div className="rk">Prayer Wall · owner tools</div>
+            <p style={{ color: "#3c4350", fontSize: 15, margin: "8px 0 14px" }}>
+              Review and approve member prayer requests before they appear on the
+              public wall.
+            </p>
+            <Link href="/admin/prayers" className="btn btn-navy">
+              Review prayer requests →
             </Link>
           </div>
         )}
