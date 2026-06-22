@@ -125,9 +125,9 @@ export const tiers: Tier[] = [
   },
   {
     name: "Premium",
-    price: "$9.99",
+    price: "$5.99",
     per: "/mo",
-    note: "Just 33¢ a day · or $99/yr",
+    note: "Just 20¢ a day · or $59/yr",
     features: [
       "Everything in Free",
       "Guided Bible-in-a-Year from your Day 1",

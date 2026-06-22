@@ -202,9 +202,75 @@ h3 {
 .navlinks a[aria-current="page"] {
   color: var(--gold-deep);
 }
+/* Mobile disclosure menu (hidden on desktop) */
+.mobilenav {
+  display: none;
+  position: relative;
+}
+.mobilenav summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  display: inline-flex;
+}
+.mobilenav summary::-webkit-details-marker {
+  display: none;
+}
+.mobilenav summary:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 1px;
+}
+.ham {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 24px;
+  height: 18px;
+}
+.ham span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background: var(--navy);
+  border-radius: 2px;
+}
+.mobilepanel {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  min-width: 220px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: 0 12px 30px rgba(31, 58, 95, 0.14);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.mobilepanel a:not(.btn) {
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 15px;
+  padding: 11px 12px;
+  border-radius: 9px;
+}
+.mobilepanel a:not(.btn):hover {
+  background: var(--cream);
+  text-decoration: none;
+}
+.mobilepanel .btn-block {
+  margin-top: 6px;
+}
+
 @media (max-width: 680px) {
-  .navlinks a:not(.navcta) {
+  .navlinks {
     display: none;
+  }
+  .mobilenav {
+    display: block;
   }
 }
 
@@ -1142,5 +1208,239 @@ hr.div {
 @media (max-width: 520px) {
   .feats {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================
+   PRAYER WALL
+   ============================================================ */
+.prayer-wall .sub {
+  margin-bottom: 26px;
+}
+
+/* Submit panel — sits at the top of the wall */
+.prayer-submit {
+  max-width: 640px;
+  margin: 0 auto 40px;
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 22px 24px;
+  box-shadow: 0 1px 0 rgba(31, 58, 95, 0.03);
+}
+.prayer-form {
+  display: block;
+}
+.prayer-label {
+  display: block;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 8px;
+  font-size: 15px;
+}
+.prayer-textarea {
+  width: 100%;
+  padding: 13px 15px;
+  border-radius: 11px;
+  border: 1px solid var(--line);
+  background: #fff;
+  font-size: 15px;
+  font-family: inherit;
+  line-height: 1.55;
+  resize: vertical;
+  color: var(--ink);
+}
+.prayer-textarea:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 1px;
+  border-color: var(--gold);
+}
+.prayer-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+.prayer-name {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 11px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: #fff;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--ink);
+}
+.prayer-name:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 1px;
+  border-color: var(--gold);
+}
+.prayer-count-left {
+  flex: 0 0 auto;
+  font-size: 12px;
+  color: var(--grey);
+  font-variant-numeric: tabular-nums;
+  min-width: 28px;
+  text-align: right;
+}
+.prayer-note {
+  font-size: 12.5px;
+  color: var(--grey);
+  margin: 10px 0 0;
+}
+
+/* Signed-out + thank-you states */
+.prayer-signin,
+.prayer-thanks {
+  text-align: center;
+}
+.prayer-signin h3,
+.prayer-thanks h3 {
+  color: var(--navy);
+  font-size: 20px;
+  margin: 6px 0 8px;
+}
+.prayer-signin p,
+.prayer-thanks p {
+  color: var(--grey);
+  font-size: 14.5px;
+  margin: 0 auto 16px;
+  max-width: 440px;
+  line-height: 1.6;
+}
+.prayer-signin > div {
+  justify-content: center;
+}
+.prayer-thanks-emoji {
+  font-size: 34px;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+/* The wall grid */
+.prayer-empty {
+  text-align: center;
+  padding: 30px 0 10px;
+}
+.prayer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+.prayer-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 20px 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 1px 3px rgba(31, 58, 95, 0.05);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.prayer-card:hover {
+  box-shadow: 0 6px 18px rgba(31, 58, 95, 0.09);
+  transform: translateY(-2px);
+}
+.prayer-body {
+  color: var(--ink);
+  font-size: 15.5px;
+  line-height: 1.6;
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.prayer-meta {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  color: var(--grey);
+  margin-top: auto;
+}
+.prayer-author {
+  font-weight: 600;
+  color: var(--navy);
+}
+.prayer-dot {
+  color: var(--line);
+}
+
+/* Pray button */
+.pray-btn {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--cream);
+  color: var(--navy);
+  font-weight: 600;
+  font-size: 13.5px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, transform 0.1s;
+}
+.pray-btn:hover:not(:disabled) {
+  background: #fff;
+  border-color: var(--gold);
+}
+.pray-btn:active:not(:disabled) {
+  transform: scale(0.96);
+}
+.pray-btn .pray-emoji {
+  font-size: 15px;
+}
+.pray-btn .pray-count {
+  background: rgba(31, 58, 95, 0.08);
+  color: var(--navy);
+  border-radius: 999px;
+  padding: 1px 8px;
+  font-size: 12.5px;
+  font-variant-numeric: tabular-nums;
+}
+.pray-btn.is-prayed {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--navy);
+  cursor: default;
+}
+.pray-btn.is-prayed .pray-count {
+  background: rgba(31, 58, 95, 0.18);
+}
+
+/* Admin approval queue */
+.admin-prayer {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 18px 20px;
+  margin-bottom: 14px;
+}
+.admin-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+@media (max-width: 900px) {
+  .prayer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 620px) {
+  .prayer-grid {
+    grid-template-columns: 1fr;
+  }
+  .prayer-row {
+    flex-wrap: wrap;
+  }
+  .prayer-name {
+    flex-basis: 100%;
   }
 }

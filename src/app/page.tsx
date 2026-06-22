@@ -167,9 +167,9 @@ export default function HomePage() {
                 Premium
               </div>
               <div className="pr">
-                $9.99<small>/mo</small>
+                $5.99<small>/mo</small>
               </div>
-              <div className="pd">Just 33¢ a day · or $99/yr</div>
+              <div className="pd">Just 20¢ a day · or $59/yr</div>
               <ul>
                 <li>Everything in Free</li>
                 <li>Guided Bible-in-a-Year from your Day 1</li>

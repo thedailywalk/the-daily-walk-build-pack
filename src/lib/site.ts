@@ -30,7 +30,7 @@ export const site = {
 
 export const nav = [
   { href: "/#how", label: "How it works" },
-  { href: "/#good", label: "Good News" },
+  { href: "/prayer-wall", label: "Prayer Wall" },
   { href: "/pricing", label: "Pricing" },
   { href: "/about", label: "About" },
 ] as const;

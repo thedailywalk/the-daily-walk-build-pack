@@ -74,14 +74,14 @@ export default function PricingCards() {
           <div className="body">
             <div className="tier">Premium</div>
             <div className="price">
-              {annual ? "$99" : "$9.99"}
+              {annual ? "$59" : "$5.99"}
               <small>{annual ? "/yr" : "/mo"}</small>
             </div>
             <div className="permo">
-              {annual ? "$99/year — about $8.25/mo" : "Billed monthly"}
+              {annual ? "$59/year — about $4.92/mo" : "Billed monthly"}
             </div>
             <div className="perday">
-              Just <b>{annual ? "27¢ a day" : "33¢ a day"}</b>
+              Just <b>{annual ? "16¢ a day" : "20¢ a day"}</b>
             </div>
             <div className="pitch" style={{ marginTop: 14 }}>
               For readers who want to be personally guided through the Bible in
