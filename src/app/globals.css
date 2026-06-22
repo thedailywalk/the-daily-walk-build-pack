@@ -1416,62 +1416,167 @@ hr.div {
 
 /* ---------- Homepage prayer-wall preview ---------- */
 .pwsec {
-  background: var(--cream);
+  background:
+    radial-gradient(
+      120% 80% at 50% 0%,
+      rgba(201, 162, 75, 0.1) 0%,
+      transparent 55%
+    ),
+    linear-gradient(180deg, var(--cream) 0%, #fff 100%);
 }
-.pw-preview {
-  max-width: 640px;
-  margin: 6px auto 0;
+
+/* The elevated "panel" that gives the section depth */
+.pw-panel {
+  position: relative;
+  max-width: 940px;
+  margin: 18px auto 0;
+  background: linear-gradient(180deg, #ffffff 0%, #fcfaf4 100%);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  padding: 16px 16px 18px;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    0 18px 40px -18px rgba(31, 58, 95, 0.28),
+    0 6px 16px -10px rgba(31, 58, 95, 0.18);
 }
-.pw-scroll {
-  max-height: 440px;
-  overflow-y: auto;
+/* gradient accent rail across the top of the panel */
+.pw-panel::before {
+  content: "";
+  position: absolute;
+  left: 22px;
+  right: 22px;
+  top: 0;
+  height: 3px;
+  border-radius: 0 0 4px 4px;
+  background: linear-gradient(90deg, var(--navy), var(--gold) 60%, #e7c878);
+}
+
+.pw-panel-head {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 8px 14px;
+}
+.pw-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #2f8a5b;
+  background: rgba(60, 122, 90, 0.1);
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+.pw-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #34a06a;
+  box-shadow: 0 0 0 0 rgba(52, 160, 106, 0.6);
+  animation: pwPulse 1.8s infinite;
+}
+@keyframes pwPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(52, 160, 106, 0.55);
+  }
+  70% {
+    box-shadow: 0 0 0 7px rgba(52, 160, 106, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(52, 160, 106, 0);
+  }
+}
+.pw-head-title {
+  font-weight: 700;
+  color: var(--navy);
+  font-size: 14.5px;
+}
+.pw-head-link {
+  margin-left: auto;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--gold-deep);
+}
+
+/* Side-by-side tiles */
+.pw-rail {
+  display: flex;
   gap: 14px;
-  padding: 6px 4px;
-  /* soft fade at top + bottom edges */
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    transparent 0,
-    #000 28px,
-    #000 calc(100% - 28px),
-    transparent 100%
-  );
-  mask-image: linear-gradient(
-    to bottom,
-    transparent 0,
-    #000 28px,
-    #000 calc(100% - 28px),
-    transparent 100%
-  );
+  overflow-x: auto;
+  padding: 4px 6px 10px;
+  scroll-snap-type: x proximity;
   scrollbar-width: thin;
 }
-.pw-card {
+.pw-rail::-webkit-scrollbar {
+  height: 6px;
+}
+.pw-rail::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border-radius: 999px;
+}
+.pw-tile {
+  flex: 0 0 300px;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
   background: #fff;
   border: 1px solid var(--line);
   border-radius: 16px;
-  padding: 18px 20px 14px;
-  box-shadow: 0 1px 3px rgba(31, 58, 95, 0.05);
-  flex: 0 0 auto;
+  padding: 16px 16px 14px;
+  box-shadow:
+    0 1px 2px rgba(31, 58, 95, 0.04),
+    0 10px 22px -14px rgba(31, 58, 95, 0.25);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
-.pw-body {
-  color: var(--ink);
-  font-size: 15.5px;
-  line-height: 1.6;
-  margin: 0 0 12px;
-  white-space: pre-wrap;
-  word-break: break-word;
+.pw-tile:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 1px 2px rgba(31, 58, 95, 0.05),
+    0 16px 30px -14px rgba(31, 58, 95, 0.32);
 }
-.pw-foot {
+.pw-tile-top {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  gap: 10px;
+}
+.pw-avatar {
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-weight: 800;
+  font-size: 14px;
+  font-family: var(--sans);
+  box-shadow: 0 2px 6px rgba(31, 58, 95, 0.2);
 }
 .pw-author {
-  font-weight: 600;
-  font-size: 13px;
+  font-weight: 700;
+  font-size: 13.5px;
   color: var(--navy);
+}
+.pw-body {
+  color: #3c4350;
+  font-size: 14.5px;
+  line-height: 1.55;
+  margin: 0;
+  /* condense to keep tiles uniform */
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-break: break-word;
+}
+.pw-tile .pray-btn {
+  align-self: flex-start;
+  margin-top: auto;
 }
 
 /* Floating prayer hands */
@@ -1534,5 +1639,15 @@ hr.div {
   }
   .prayer-name {
     flex-basis: 100%;
+  }
+  .pw-tile {
+    flex-basis: 80vw;
+  }
+  .pw-panel {
+    border-radius: 18px;
+    padding: 14px 12px 14px;
+  }
+  .pw-head-title {
+    display: none;
   }
 }

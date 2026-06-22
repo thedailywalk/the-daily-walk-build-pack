@@ -132,14 +132,11 @@ export default async function HomePage() {
           <div className="wrap">
             <div className="sec-tag">Pray with us</div>
             <h2 className="h">The community is praying</h2>
-            <p className="sub">
+            <p className="sub" style={{ marginBottom: 4 }}>
               Real requests from real people. Tap 🙏 to pray over one — and watch
               the prayers rise.
             </p>
             <PrayerWallPreview prayers={previewPrayers} />
-            <p style={{ textAlign: "center", marginTop: 22 }}>
-              <Link href="/prayer-wall">Visit the full Prayer Wall →</Link>
-            </p>
           </div>
         </section>
       )}

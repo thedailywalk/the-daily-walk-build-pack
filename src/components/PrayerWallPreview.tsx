@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { prayAction } from "@/app/prayer-wall/actions";
 
@@ -13,6 +14,27 @@ export type PreviewPrayer = {
 type Hand = { key: number; x: number; y: number; dx: number; ty: number; dur: number };
 
 const STORE_KEY = "tdw_prayed";
+
+// Warm, on-brand avatar tints — adds a little color without going loud.
+const AVATAR_COLORS = [
+  "#1F3A5F", // navy
+  "#C9A24B", // gold
+  "#3C7A5A", // sage green
+  "#B5654A", // terracotta
+  "#5A6AA0", // dusty blue
+  "#8A6CAB", // muted plum
+];
+
+function avatarColor(name: string | null): string {
+  if (!name?.trim()) return "#9aa1ad";
+  let sum = 0;
+  for (const ch of name) sum += ch.charCodeAt(0);
+  return AVATAR_COLORS[sum % AVATAR_COLORS.length];
+}
+
+function initial(name: string | null): string {
+  return name?.trim() ? name.trim()[0].toUpperCase() : "🙏";
+}
 
 function readPrayed(): string[] {
   try {
@@ -28,7 +50,7 @@ export default function PrayerWallPreview({
 }: {
   prayers: PreviewPrayer[];
 }) {
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const railRef = useRef<HTMLDivElement>(null);
   const pausedRef = useRef(false);
   const handSeq = useRef(0);
 
@@ -38,7 +60,6 @@ export default function PrayerWallPreview({
   const [prayed, setPrayed] = useState<Record<string, boolean>>({});
   const [hands, setHands] = useState<Hand[]>([]);
 
-  // Restore which prayers this person already prayed for.
   useEffect(() => {
     const done = readPrayed();
     if (done.length) {
@@ -47,23 +68,23 @@ export default function PrayerWallPreview({
     }
   }, []);
 
-  // Gentle auto-scroll that drifts down, then back up (pauses on hover/touch).
+  // Gentle side-to-side auto-drift (pauses on hover/touch).
   useEffect(() => {
-    const el = scrollRef.current;
+    const el = railRef.current;
     if (!el) return;
     let dir = 1;
     let raf = 0;
     let last = 0;
-    const speed = 16; // px per second
+    const speed = 22; // px per second
 
     const step = (now: number) => {
       if (last === 0) last = now;
       const dt = Math.min((now - last) / 1000, 0.05);
       last = now;
-      if (!pausedRef.current && el.scrollHeight > el.clientHeight + 4) {
-        el.scrollTop += dir * speed * dt;
-        if (el.scrollTop <= 0) dir = 1;
-        else if (el.scrollTop + el.clientHeight >= el.scrollHeight - 1) dir = -1;
+      if (!pausedRef.current && el.scrollWidth > el.clientWidth + 4) {
+        el.scrollLeft += dir * speed * dt;
+        if (el.scrollLeft <= 0) dir = 1;
+        else if (el.scrollLeft + el.clientWidth >= el.scrollWidth - 1) dir = -1;
       }
       raf = requestAnimationFrame(step);
     };
@@ -76,7 +97,6 @@ export default function PrayerWallPreview({
     const baseX = rect.left + rect.width / 2;
     const baseY = rect.top;
 
-    // Spawn a flurry of prayer hands that float toward the top of the page.
     const fresh: Hand[] = Array.from({ length: 6 }, (_, i) => ({
       key: handSeq.current++,
       x: baseX + (i - 2.5) * 7,
@@ -93,7 +113,6 @@ export default function PrayerWallPreview({
       )
     );
 
-    // Count once per person; persist + record on the server.
     if (!prayed[id]) {
       setPrayed((p) => ({ ...p, [id]: true }));
       setCounts((c) => ({ ...c, [id]: (c[id] ?? 0) + 1 }));
@@ -113,35 +132,53 @@ export default function PrayerWallPreview({
   }
 
   return (
-    <div className="pw-preview">
+    <div className="pw-panel">
+      <div className="pw-panel-head">
+        <span className="pw-live">
+          <span className="pw-dot" aria-hidden="true" />
+          Live
+        </span>
+        <span className="pw-head-title">Prayers from the community</span>
+        <Link href="/prayer-wall" className="pw-head-link">
+          Open wall →
+        </Link>
+      </div>
+
       <div
-        className="pw-scroll"
-        ref={scrollRef}
+        className="pw-rail"
+        ref={railRef}
         onMouseEnter={() => (pausedRef.current = true)}
         onMouseLeave={() => (pausedRef.current = false)}
         onTouchStart={() => (pausedRef.current = true)}
         onTouchEnd={() => (pausedRef.current = false)}
       >
         {prayers.map((p) => (
-          <article className="pw-card" key={p.id}>
-            <p className="pw-body">{p.body}</p>
-            <div className="pw-foot">
+          <article className="pw-tile" key={p.id}>
+            <div className="pw-tile-top">
+              <span
+                className="pw-avatar"
+                style={{ background: avatarColor(p.name) }}
+                aria-hidden="true"
+              >
+                {initial(p.name)}
+              </span>
               <span className="pw-author">
                 {p.name?.trim() ? p.name : "Anonymous"}
               </span>
-              <button
-                type="button"
-                className={`pray-btn${prayed[p.id] ? " is-prayed" : ""}`}
-                onClick={(e) => pray(e, p.id)}
-                aria-label="Pray for this request"
-              >
-                <span className="pray-emoji" aria-hidden="true">
-                  🙏
-                </span>
-                <span>{prayed[p.id] ? "Prayed" : "Pray"}</span>
-                <span className="pray-count">{counts[p.id] ?? 0}</span>
-              </button>
             </div>
+            <p className="pw-body">{p.body}</p>
+            <button
+              type="button"
+              className={`pray-btn${prayed[p.id] ? " is-prayed" : ""}`}
+              onClick={(e) => pray(e, p.id)}
+              aria-label="Pray for this request"
+            >
+              <span className="pray-emoji" aria-hidden="true">
+                🙏
+              </span>
+              <span>{prayed[p.id] ? "Prayed" : "Pray"}</span>
+              <span className="pray-count">{counts[p.id] ?? 0}</span>
+            </button>
           </article>
         ))}
       </div>
