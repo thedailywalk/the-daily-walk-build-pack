@@ -1,4 +1,5 @@
 import "server-only";
+import { unstable_cache } from "next/cache";
 import {
   goodNews as FALLBACK,
   pinnedGoodNews as PINNED,
@@ -138,17 +139,14 @@ export async function getGoodNewsCandidates(limit = 20): Promise<
   try {
     const pages = await Promise.all(CANDIDATE_FEEDS.map(fetchFeed));
     const picked = interleave(pages, limit);
-    const withImages = await Promise.all(
-      picked.map(async (it) => ({
-        category: it.category,
-        headline: it.headline,
-        href: it.href,
-        source: it.source,
-        faith: it.faith,
-        image: (await ogImage(it.href)) ?? "",
-      }))
-    );
-    return withImages;
+    return await mapLimit(picked, 6, async (it) => ({
+      category: it.category,
+      headline: it.headline,
+      href: it.href,
+      source: it.source,
+      faith: it.faith,
+      image: await ogImage(it.href),
+    }));
   } catch (err) {
     console.error("getGoodNewsCandidates:", (err as Error).message);
     return [];
@@ -222,26 +220,24 @@ export async function getGoodNewsMagazine(limit = 30): Promise<MagazineItem[]> {
   try {
     const pages = await Promise.all(CANDIDATE_FEEDS.map(fetchFeed));
     const picked = interleave(pages, limit);
-    return await Promise.all(
-      picked.map(async (it) => ({
-        category: it.category,
-        headline: it.headline,
-        href: it.href,
-        source: it.source,
-        faith: it.faith,
-        mood: it.mood,
-        excerpt: it.excerpt,
-        date: it.date,
-        dateLabel: it.date
-          ? new Date(it.date).toLocaleDateString("en-US", {
-              month: "long",
-              day: "numeric",
-              year: "numeric",
-            })
-          : "",
-        image: (await ogImage(it.href)) ?? "",
-      }))
-    );
+    return await mapLimit(picked, 6, async (it) => ({
+      category: it.category,
+      headline: it.headline,
+      href: it.href,
+      source: it.source,
+      faith: it.faith,
+      mood: it.mood,
+      excerpt: it.excerpt,
+      date: it.date,
+      dateLabel: it.date
+        ? new Date(it.date).toLocaleDateString("en-US", {
+            month: "long",
+            day: "numeric",
+            year: "numeric",
+          })
+        : "",
+      image: await ogImage(it.href),
+    }));
   } catch (err) {
     console.error("getGoodNewsMagazine:", (err as Error).message);
     return [];
@@ -313,26 +309,73 @@ function readCategories(block: string): string[] {
   return out;
 }
 
-async function ogImage(url: string): Promise<string | null> {
-  try {
-    const res = await fetch(url, {
-      headers: { "User-Agent": UA },
-      next: { revalidate: DAY, tags: ["good-news"] },
-      signal: AbortSignal.timeout(9000),
-    });
-    if (!res.ok) return null;
-    const html = await res.text();
-    const m =
-      /<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i.exec(
-        html
-      ) ||
-      /<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i.exec(
-        html
-      );
-    return m ? decode(m[1]) : null;
-  } catch {
-    return null;
+function matchOgImage(html: string): string | null {
+  const m =
+    /<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i.exec(
+      html
+    ) ||
+    /<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i.exec(
+      html
+    );
+  return m ? decode(m[1]) : null;
+}
+
+/**
+ * Reads just the top of an article (where og:image lives) and stops early —
+ * GNN pages are ~240KB but the image tag is in the first ~60KB. Result is
+ * cached per-URL for a day so each story's image is fetched at most once.
+ */
+const ogImage = unstable_cache(
+  async (url: string): Promise<string> => {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 7000);
+    try {
+      const res = await fetch(url, {
+        headers: { "User-Agent": UA },
+        cache: "no-store",
+        signal: controller.signal,
+      });
+      if (!res.ok || !res.body) return "";
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let html = "";
+      while (html.length < 90000) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        html += decoder.decode(value, { stream: true });
+        const found = matchOgImage(html);
+        if (found) {
+          controller.abort();
+          return found;
+        }
+      }
+      return matchOgImage(html) ?? "";
+    } catch {
+      return "";
+    } finally {
+      clearTimeout(timer);
+    }
+  },
+  ["gnn-og-image"],
+  { revalidate: DAY, tags: ["good-news"] }
+);
+
+/** Run async tasks with bounded concurrency (keeps batch fetches snappy). */
+async function mapLimit<T, R>(
+  items: T[],
+  limit: number,
+  fn: (item: T) => Promise<R>
+): Promise<R[]> {
+  const out: R[] = new Array(items.length);
+  let i = 0;
+  async function worker() {
+    while (i < items.length) {
+      const idx = i++;
+      out[idx] = await fn(items[idx]);
+    }
   }
+  await Promise.all(Array.from({ length: Math.min(limit, items.length) }, worker));
+  return out;
 }
 
 function stripCdata(s: string): string {
