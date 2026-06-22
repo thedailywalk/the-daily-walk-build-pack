@@ -31,15 +31,18 @@ export default async function AccountPage() {
   const isAdmin = isAdminEmail(user.email);
 
   return (
-    <section>
-      <div className="wrap" style={{ maxWidth: 720 }}>
-        <div className="sec-tag" style={{ textAlign: "left" }}>
-          My account
+    <>
+      <header className="hero sunrise portal-hero">
+        <div className="wrap">
+          <div className="inner">
+            <div className="rule" />
+            <div className="eyebrow">My account</div>
+            <h1>Welcome back</h1>
+          </div>
         </div>
-        <h1 style={{ fontSize: 32, color: "var(--navy)", margin: "8px 0 18px" }}>
-          Welcome back
-        </h1>
-
+      </header>
+      <section>
+      <div className="wrap" style={{ maxWidth: 720 }}>
         {/* Status card */}
         <div className="rcard" style={{ marginBottom: 20 }}>
           <div
@@ -176,6 +179,7 @@ export default async function AccountPage() {
           </button>
         </form>
       </div>
-    </section>
+      </section>
+    </>
   );
 }

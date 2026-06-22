@@ -406,6 +406,16 @@ h2.h {
 .hero.sunrise.about-hero {
   padding: 84px 0 64px;
 }
+/* Portal/utility page headers — slimmer hero band */
+.hero.sunrise.portal-hero {
+  padding: 64px 0 52px;
+}
+.hero.sunrise.portal-hero h1 {
+  font-size: 40px;
+}
+.hero.sunrise.portal-hero .inner {
+  max-width: 820px;
+}
 .hero .rule {
   width: 54px;
   height: 2px;

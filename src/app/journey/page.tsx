@@ -28,18 +28,26 @@ export default async function JourneyPage() {
   const completed = progress.status === "completed";
 
   return (
-    <section>
-      <div className="wrap" style={{ maxWidth: 760 }}>
-        <div className="sec-tag" style={{ textAlign: "left" }}>
-          My Journey · Bible in a Year
+    <>
+      <header className="hero sunrise portal-hero">
+        <div className="wrap">
+          <div className="inner">
+            <div className="rule" />
+            <div className="eyebrow">My Journey · Bible in a Year</div>
+            <h1>
+              {completed
+                ? "You finished the journey! 🎉"
+                : `Day ${progress.currentDay} of ${TOTAL_DAYS}`}
+            </h1>
+            <p className="lead" style={{ margin: "6px 0 0" }}>
+              This week:{" "}
+              <strong style={{ color: "var(--gold)" }}>{today.weekTheme}</strong>
+            </p>
+          </div>
         </div>
-        <h1 style={{ fontSize: 34, color: "var(--navy)", margin: "8px 0 4px" }}>
-          {completed ? "You finished the journey! 🎉" : `Day ${progress.currentDay} of ${TOTAL_DAYS}`}
-        </h1>
-        <p className="muted" style={{ margin: "0 0 16px" }}>
-          This week: <strong style={{ color: "var(--navy)" }}>{today.weekTheme}</strong>
-        </p>
-
+      </header>
+      <section>
+      <div className="wrap" style={{ maxWidth: 760 }}>
         {/* Progress bar */}
         <div
           style={{
@@ -119,6 +127,7 @@ export default async function JourneyPage() {
           <Link href="/account">← Back to my account</Link>
         </p>
       </div>
-    </section>
+      </section>
+    </>
   );
 }

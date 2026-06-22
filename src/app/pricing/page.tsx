@@ -106,22 +106,25 @@ function No() {
 export default function PricingPage() {
   if (!PRICING_ENABLED) {
     return (
-      <section>
-        <div className="wrap" style={{ maxWidth: 560 }}>
-          <div className="sec-tag">Coming soon</div>
-          <h1 className="h">Subscriptions are on the way</h1>
-          <p className="sub">
-            The Daily Walk is free to start right now. Paid plans (with the
-            guided Bible-in-a-Year journey and more) are coming soon — join free
-            today and you&apos;ll be first to know when they open. 🙏
-          </p>
-          <div style={{ textAlign: "center", marginTop: 18 }}>
-            <Link href="/subscribe" className="btn btn-gold">
-              Join free
-            </Link>
+      <header className="hero sunrise portal-hero">
+        <div className="wrap">
+          <div className="inner">
+            <div className="rule" />
+            <div className="eyebrow">Coming soon</div>
+            <h1>Subscriptions are on the way</h1>
+            <p className="lead">
+              The Daily Walk is free to start right now. Paid plans (with the
+              guided Bible-in-a-Year journey and more) are coming soon — join
+              free today and you&apos;ll be first to know when they open. 🙏
+            </p>
+            <div style={{ marginTop: 22 }}>
+              <Link href="/subscribe" className="btn btn-gold">
+                Join free
+              </Link>
+            </div>
           </div>
         </div>
-      </section>
+      </header>
     );
   }
 
