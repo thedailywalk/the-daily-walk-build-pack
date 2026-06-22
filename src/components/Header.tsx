@@ -1,9 +1,13 @@
 import Link from "next/link";
 import { site, nav } from "@/lib/site";
 import { getUser, supabaseConfigured } from "@/lib/supabase/server";
+import { GOOD_NEWS_ENABLED } from "@/lib/flags";
 
 export default async function Header() {
   const user = await getUser();
+  const navItems = nav.filter(
+    (item) => GOOD_NEWS_ENABLED || item.href !== "/good-news"
+  );
   const accountLink =
     supabaseConfigured &&
     (user ? { href: "/account", label: "My account" } : { href: "/login", label: "Sign in" });
@@ -17,7 +21,7 @@ export default async function Header() {
 
         {/* Desktop nav */}
         <nav className="navlinks" aria-label="Primary">
-          {nav.map((item) => (
+          {navItems.map((item) => (
             <Link key={item.href} href={item.href}>
               {item.label}
             </Link>
@@ -38,7 +42,7 @@ export default async function Header() {
             </span>
           </summary>
           <div className="mobilepanel">
-            {nav.map((item) => (
+            {navItems.map((item) => (
               <Link key={item.href} href={item.href}>
                 {item.label}
               </Link>

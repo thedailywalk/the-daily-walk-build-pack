@@ -4,6 +4,7 @@ import Link from "next/link";
 import { getUser, supabaseConfigured } from "@/lib/supabase/server";
 import { getEntitlement } from "@/lib/beehiiv";
 import { isAdminEmail } from "@/lib/admin";
+import { GOOD_NEWS_ENABLED } from "@/lib/flags";
 import { site } from "@/lib/site";
 import SetPassword from "@/components/SetPassword";
 
@@ -123,7 +124,7 @@ export default async function AccountPage() {
             <Link href="/admin/prayers" className="btn btn-navy">
               Review prayer requests →
             </Link>
-            <div style={{ marginTop: 16 }}>
+            <div style={{ marginTop: 16, display: GOOD_NEWS_ENABLED ? "block" : "none" }}>
               <div className="rk">Homepage Good News</div>
               <p style={{ color: "#3c4350", fontSize: 15, margin: "8px 0 14px" }}>
                 Pick which three Good News stories appear on the{" "}

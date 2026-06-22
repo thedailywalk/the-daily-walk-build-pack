@@ -5,6 +5,7 @@ import { getUser, supabaseConfigured } from "@/lib/supabase/server";
 import { isAdminEmail } from "@/lib/admin";
 import { getGoodNewsCandidates } from "@/lib/goodNews";
 import { getFeaturedGoodNews } from "@/lib/featuredGoodNews";
+import { GOOD_NEWS_ENABLED } from "@/lib/flags";
 import GoodNewsCurator, {
   type CandidateItem,
 } from "@/components/GoodNewsCurator";
@@ -19,6 +20,26 @@ export default async function GoodNewsStudioPage() {
   const user = await getUser();
   if (!user?.email) redirect("/login");
   if (!isAdminEmail(user.email)) redirect("/");
+
+  if (!GOOD_NEWS_ENABLED) {
+    return (
+      <section>
+        <div className="wrap" style={{ maxWidth: 640 }}>
+          <div className="sec-tag" style={{ textAlign: "left" }}>
+            Admin · Homepage Good News
+          </div>
+          <h1 style={{ fontSize: 32, color: "var(--navy)", margin: "8px 0 6px" }}>
+            Paused for now
+          </h1>
+          <p className="muted" style={{ margin: "0 0 16px", maxWidth: 600 }}>
+            The Good News features are turned off while we line up permission
+            from Good News Network. Once that&apos;s sorted, this picker comes
+            right back. <Link href="/account">← Back to account</Link>
+          </p>
+        </div>
+      </section>
+    );
+  }
 
   const [pool, featured] = await Promise.all([
     getGoodNewsCandidates(20),
