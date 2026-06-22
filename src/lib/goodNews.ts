@@ -1,5 +1,4 @@
 import "server-only";
-import { unstable_cache } from "next/cache";
 import {
   goodNews as FALLBACK,
   pinnedGoodNews as PINNED,
@@ -111,15 +110,12 @@ export async function getDailyGoodNews(count = 3): Promise<GoodNewsItem[]> {
       }
     }
 
-    const items: GoodNewsItem[] = [...featured, ...pinned, ...chosen].slice(0, count);
-    const withImages = await Promise.all(
-      items.map(async (it) => ({
-        ...it,
-        image: it.image || (await ogImage(it.href)) || "",
-      }))
-    );
-    if (withImages.length < count) throw new Error("too few stories");
-    return withImages;
+    // No third-party images — we link out and show branded tiles instead.
+    const items: GoodNewsItem[] = [...featured, ...pinned, ...chosen]
+      .slice(0, count)
+      .map((it) => ({ ...it, image: "" }));
+    if (items.length < count) throw new Error("too few stories");
+    return items;
   } catch (err) {
     console.error("getDailyGoodNews:", (err as Error).message);
     if (featured.length) {
@@ -139,13 +135,13 @@ export async function getGoodNewsCandidates(limit = 20): Promise<
   try {
     const pages = await Promise.all(CANDIDATE_FEEDS.map(fetchFeed));
     const picked = interleave(pages, limit);
-    return await mapLimit(picked, 6, async (it) => ({
+    return picked.map((it) => ({
       category: it.category,
       headline: it.headline,
       href: it.href,
       source: it.source,
       faith: it.faith,
-      image: await ogImage(it.href),
+      image: "",
     }));
   } catch (err) {
     console.error("getGoodNewsCandidates:", (err as Error).message);
@@ -220,7 +216,7 @@ export async function getGoodNewsMagazine(limit = 30): Promise<MagazineItem[]> {
   try {
     const pages = await Promise.all(CANDIDATE_FEEDS.map(fetchFeed));
     const picked = interleave(pages, limit);
-    return await mapLimit(picked, 6, async (it) => ({
+    return picked.map((it) => ({
       category: it.category,
       headline: it.headline,
       href: it.href,
@@ -236,7 +232,7 @@ export async function getGoodNewsMagazine(limit = 30): Promise<MagazineItem[]> {
             year: "numeric",
           })
         : "",
-      image: await ogImage(it.href),
+      image: "",
     }));
   } catch (err) {
     console.error("getGoodNewsMagazine:", (err as Error).message);
@@ -306,75 +302,6 @@ function readCategories(block: string): string[] {
   const out: string[] = [];
   let m: RegExpExecArray | null;
   while ((m = re.exec(block))) out.push(decode(m[1]));
-  return out;
-}
-
-function matchOgImage(html: string): string | null {
-  const m =
-    /<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i.exec(
-      html
-    ) ||
-    /<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i.exec(
-      html
-    );
-  return m ? decode(m[1]) : null;
-}
-
-/**
- * Reads just the top of an article (where og:image lives) and stops early —
- * GNN pages are ~240KB but the image tag is in the first ~60KB. Result is
- * cached per-URL for a day so each story's image is fetched at most once.
- */
-const ogImage = unstable_cache(
-  async (url: string): Promise<string> => {
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 7000);
-    try {
-      const res = await fetch(url, {
-        headers: { "User-Agent": UA },
-        cache: "no-store",
-        signal: controller.signal,
-      });
-      if (!res.ok || !res.body) return "";
-      const reader = res.body.getReader();
-      const decoder = new TextDecoder();
-      let html = "";
-      while (html.length < 90000) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        html += decoder.decode(value, { stream: true });
-        const found = matchOgImage(html);
-        if (found) {
-          controller.abort();
-          return found;
-        }
-      }
-      return matchOgImage(html) ?? "";
-    } catch {
-      return "";
-    } finally {
-      clearTimeout(timer);
-    }
-  },
-  ["gnn-og-image"],
-  { revalidate: DAY, tags: ["good-news"] }
-);
-
-/** Run async tasks with bounded concurrency (keeps batch fetches snappy). */
-async function mapLimit<T, R>(
-  items: T[],
-  limit: number,
-  fn: (item: T) => Promise<R>
-): Promise<R[]> {
-  const out: R[] = new Array(items.length);
-  let i = 0;
-  async function worker() {
-    while (i < items.length) {
-      const idx = i++;
-      out[idx] = await fn(items[idx]);
-    }
-  }
-  await Promise.all(Array.from({ length: Math.min(limit, items.length) }, worker));
   return out;
 }
 

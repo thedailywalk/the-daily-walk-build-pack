@@ -684,6 +684,15 @@ a.gncard:focus-visible {
   object-fit: cover;
   display: block;
 }
+/* Branded tile (no third-party photo) */
+.gntile {
+  display: grid;
+  place-items: center;
+}
+.gntile-mark {
+  font-size: 40px;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));
+}
 .gnbody {
   padding: 14px 16px;
   display: flex;

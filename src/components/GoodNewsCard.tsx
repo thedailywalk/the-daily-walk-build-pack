@@ -1,11 +1,7 @@
-"use client";
-
-import { useState } from "react";
 import type { GoodNewsItem } from "@/lib/content";
 
+// Branded tile (no third-party image) — links out to the original article.
 export default function GoodNewsCard({ item }: { item: GoodNewsItem }) {
-  const [imgOk, setImgOk] = useState(Boolean(item.image));
-
   return (
     <a
       className="gncard"
@@ -13,21 +9,13 @@ export default function GoodNewsCard({ item }: { item: GoodNewsItem }) {
       target="_blank"
       rel="noopener noreferrer"
     >
-      <div className="gnimg">
-        {imgOk ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={item.image}
-            alt=""
-            loading="lazy"
-            onError={() => setImgOk(false)}
-          />
-        ) : null}
+      <div className="gnimg gntile" aria-hidden="true">
+        <span className="gntile-mark">🌅</span>
       </div>
       <div className="gnbody">
         <span className="gnpill">{item.category}</span>
         <div className="gnh">{item.headline}</div>
-        <span className="gnsource">{item.source} →</span>
+        <span className="gnsource">Read at {item.source} →</span>
       </div>
     </a>
   );

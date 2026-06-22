@@ -115,11 +115,10 @@ export default function GoodNewsCurator({
               onClick={() => toggle(c.href)}
               aria-pressed={on}
             >
-              <div className="gnc-thumb">
-                {c.image ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={c.image} alt="" loading="lazy" />
-                ) : null}
+              <div className="gnc-thumb gntile">
+                <span className="gntile-mark" aria-hidden="true">
+                  🌅
+                </span>
                 {on && <span className="gnc-num">{idx + 1}</span>}
                 {c.faith && (
                   <span className="gnc-faith" title="Christian faith story">

@@ -200,12 +200,10 @@ export default function GoodNewsReader({
 }
 
 function Thumb({ item }: { item: MagazineItem }) {
+  // Branded tile — no third-party photo.
   return (
-    <div className="gnr-thumb">
-      {item.image ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={item.image} alt="" loading="lazy" />
-      ) : null}
+    <div className="gnr-thumb gntile" aria-hidden="true">
+      <span className="gntile-mark">🌅</span>
       {item.faith && <span className="gnr-faith-tag">✝</span>}
     </div>
   );
