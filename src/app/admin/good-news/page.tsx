@@ -10,7 +10,7 @@ import GoodNewsCurator, {
 } from "@/components/GoodNewsCurator";
 
 export const metadata: Metadata = {
-  title: "Good News studio",
+  title: "Homepage Good News",
   robots: { index: false },
 };
 
@@ -46,17 +46,17 @@ export default async function GoodNewsStudioPage() {
     <section>
       <div className="wrap" style={{ maxWidth: 1040 }}>
         <div className="sec-tag" style={{ textAlign: "left" }}>
-          Admin · Good News studio
+          Admin · Homepage Good News
         </div>
         <h1 style={{ fontSize: 32, color: "var(--navy)", margin: "8px 0 6px" }}>
-          Today&apos;s Good News
+          Choose the homepage stories
         </h1>
         <p className="muted" style={{ margin: "0 0 8px", maxWidth: 640 }}>
-          A fresh batch of uplifting stories every morning. Leave it on{" "}
-          <strong>automatic</strong> and the homepage picks the day&apos;s best
-          three (always trying to include a ✝ faith story) — or tap up to{" "}
-          <strong>three</strong> below to feature them yourself. Your picks stay
-          until you change them or switch back to automatic.
+          These are the three Good News stories shown on the{" "}
+          <strong>homepage</strong>. Leave it <strong>automatic</strong> and it
+          picks the day&apos;s best three (always trying to include a ✝ faith
+          story) — or tap up to <strong>three</strong> below to feature them
+          yourself. Your picks stay until you change them.
         </p>
         <p className="muted" style={{ margin: "0 0 18px", fontSize: 13 }}>
           {candidates.length === 0

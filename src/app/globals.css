@@ -287,6 +287,7 @@ section {
   text-transform: uppercase;
   font-family: var(--sans);
 }
+h1.h,
 h2.h {
   text-align: center;
   font-size: 31px;
@@ -1332,19 +1333,47 @@ hr.div {
 /* ============================================================
    PRAYER WALL
    ============================================================ */
+/* Warm, soft backdrop with a pop of gold — echoes the homepage */
+.prayer-wall {
+  background:
+    radial-gradient(
+      120% 70% at 50% 0%,
+      rgba(201, 162, 75, 0.14),
+      transparent 55%
+    ),
+    linear-gradient(180deg, #faf6ee 0%, #ffffff 62%);
+}
 .prayer-wall .sub {
   margin-bottom: 26px;
+  max-width: 620px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* Submit panel — sits at the top of the wall */
+/* Submit panel — an elevated, dimensional card like the homepage */
 .prayer-submit {
-  max-width: 640px;
-  margin: 0 auto 40px;
-  background: var(--cream);
+  position: relative;
+  overflow: hidden;
+  max-width: 660px;
+  margin: 0 auto 44px;
+  background: linear-gradient(180deg, #ffffff 0%, #fcfaf4 100%);
   border: 1px solid var(--line);
-  border-radius: 16px;
-  padding: 22px 24px;
-  box-shadow: 0 1px 0 rgba(31, 58, 95, 0.03);
+  border-radius: 20px;
+  padding: 24px 26px;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    0 18px 40px -20px rgba(31, 58, 95, 0.26),
+    0 6px 16px -10px rgba(31, 58, 95, 0.16);
+}
+.prayer-submit::before {
+  content: "";
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  top: 0;
+  height: 3px;
+  border-radius: 0 0 4px 4px;
+  background: linear-gradient(90deg, var(--navy), var(--gold) 60%, #e7c878);
 }
 .prayer-form {
   display: block;
@@ -1455,13 +1484,17 @@ hr.div {
   padding: 20px 20px 16px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  box-shadow: 0 1px 3px rgba(31, 58, 95, 0.05);
-  transition: box-shadow 0.2s, transform 0.2s;
+  gap: 14px;
+  box-shadow:
+    0 1px 2px rgba(31, 58, 95, 0.04),
+    0 12px 26px -16px rgba(31, 58, 95, 0.22);
+  transition: box-shadow 0.18s, transform 0.18s;
 }
 .prayer-card:hover {
-  box-shadow: 0 6px 18px rgba(31, 58, 95, 0.09);
-  transform: translateY(-2px);
+  box-shadow:
+    0 1px 2px rgba(31, 58, 95, 0.05),
+    0 18px 32px -16px rgba(31, 58, 95, 0.3);
+  transform: translateY(-3px);
 }
 .prayer-body {
   color: var(--ink);
@@ -1474,17 +1507,35 @@ hr.div {
 .prayer-meta {
   display: flex;
   align-items: center;
-  gap: 7px;
-  font-size: 13px;
-  color: var(--grey);
+  gap: 10px;
   margin-top: auto;
 }
-.prayer-author {
-  font-weight: 600;
-  color: var(--navy);
+.prayer-avatar {
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-weight: 800;
+  font-size: 14px;
+  font-family: var(--sans);
+  box-shadow: 0 2px 6px rgba(31, 58, 95, 0.2);
 }
-.prayer-dot {
-  color: var(--line);
+.prayer-byline {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+.prayer-author {
+  font-weight: 700;
+  color: var(--navy);
+  font-size: 13.5px;
+}
+.prayer-time {
+  font-size: 12px;
+  color: var(--grey);
 }
 
 /* Pray button */

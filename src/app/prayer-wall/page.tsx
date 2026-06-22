@@ -12,6 +12,19 @@ export const metadata: Metadata = {
     "Share what's on your heart and pray for one another. A welcoming wall of prayer requests from The Daily Walk community.",
 };
 
+const AVATAR_COLORS = [
+  "#1F3A5F", "#C9A24B", "#3C7A5A", "#B5654A", "#5A6AA0", "#8A6CAB",
+];
+function avatarColor(name: string | null): string {
+  if (!name?.trim()) return "#9aa1ad";
+  let sum = 0;
+  for (const ch of name) sum += ch.charCodeAt(0);
+  return AVATAR_COLORS[sum % AVATAR_COLORS.length];
+}
+function initial(name: string | null): string {
+  return name?.trim() ? name.trim()[0].toUpperCase() : "🙏";
+}
+
 function timeAgo(iso: string): string {
   const then = new Date(iso).getTime();
   const secs = Math.max(0, Math.floor((Date.now() - then) / 1000));
@@ -102,13 +115,19 @@ export default async function PrayerWallPage() {
               <article className="prayer-card" key={p.id}>
                 <p className="prayer-body">{p.body}</p>
                 <div className="prayer-meta">
-                  <span className="prayer-author">
-                    {p.name?.trim() ? p.name : "Anonymous"}
+                  <span
+                    className="prayer-avatar"
+                    style={{ background: avatarColor(p.name) }}
+                    aria-hidden="true"
+                  >
+                    {initial(p.name)}
                   </span>
-                  <span className="prayer-dot" aria-hidden="true">
-                    ·
+                  <span className="prayer-byline">
+                    <span className="prayer-author">
+                      {p.name?.trim() ? p.name : "Anonymous"}
+                    </span>
+                    <span className="prayer-time">{timeAgo(p.createdAt)}</span>
                   </span>
-                  <span className="prayer-time">{timeAgo(p.createdAt)}</span>
                 </div>
                 <PrayButton id={p.id} count={p.prayCount} />
               </article>

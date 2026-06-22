@@ -124,13 +124,14 @@ export default async function AccountPage() {
               Review prayer requests →
             </Link>
             <div style={{ marginTop: 16 }}>
-              <div className="rk">Good News studio</div>
+              <div className="rk">Homepage Good News</div>
               <p style={{ color: "#3c4350", fontSize: 15, margin: "8px 0 14px" }}>
-                Browse this morning&apos;s uplifting stories and choose which
-                three appear on the homepage — or leave it automatic.
+                Pick which three Good News stories appear on the{" "}
+                <strong>homepage</strong> — or leave it automatic (it always
+                tries to include a faith story).
               </p>
               <Link href="/admin/good-news" className="btn btn-ghost">
-                Choose Good News stories →
+                Choose homepage stories →
               </Link>
             </div>
           </div>
