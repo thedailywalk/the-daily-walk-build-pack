@@ -56,7 +56,7 @@ export default function LoginPage() {
     }
 
     // signup
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: { emailRedirectTo: `${window.location.origin}/auth/callback` },
@@ -64,6 +64,15 @@ export default function LoginPage() {
     setBusy(false);
     if (error) {
       setError(error.message);
+      return;
+    }
+    // Supabase returns an obfuscated user with empty identities when the email
+    // already has an account — no confirmation email is sent. Route them to sign in.
+    if (data.user && data.user.identities && data.user.identities.length === 0) {
+      setMode("signin");
+      setError(
+        "You already have an account with this email. Sign in below — or use “Email me a sign-in code” if you haven't set a password yet."
+      );
       return;
     }
     setVerifyType("signup");
