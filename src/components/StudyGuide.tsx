@@ -7,23 +7,25 @@ import type { StudyDay } from "@/lib/studyGuide";
 type Mode = "web" | "kjv" | "own";
 type Verse = { ref: string; text: string };
 
-const LABELS: Record<Mode, string> = {
-  web: "WEB",
-  kjv: "KJV",
-  own: "My own Bible",
-};
+const TABS: { key: Mode; label: string }[] = [
+  { key: "web", label: "WEB" },
+  { key: "kjv", label: "KJV" },
+  { key: "own", label: "My own Bible" },
+];
 
 export default function StudyGuide({ entry }: { entry: StudyDay }) {
-  const [mode, setMode] = useState<Mode>("web");
+  // Nothing is selected at first — the reader chooses how to read.
+  const [mode, setMode] = useState<Mode | null>(null);
   const [verses, setVerses] = useState<Verse[]>([]);
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState(false);
 
   useEffect(() => {
-    if (mode === "own") return;
+    if (mode !== "web" && mode !== "kjv") return;
     let alive = true;
     setLoading(true);
     setErr(false);
+    setVerses([]);
     fetch(`/api/passage?ref=${encodeURIComponent(entry.reading)}&t=${mode}`)
       .then((r) => (r.ok ? r.json() : Promise.reject()))
       .then((data: { verses: Verse[] }) => {
@@ -46,56 +48,61 @@ export default function StudyGuide({ entry }: { entry: StudyDay }) {
         </h1>
       </header>
 
-      {/* Bring your own Bible note + translation toggle */}
+      {/* Bring your own Bible note + translation chooser */}
       <div className="sg-bible">
         <p className="sg-bible-note">
-          <strong>Bring your preferred Bible.</strong> Use the translation you
-          already love, or read one of the included public-domain options below.
-          We recommend <strong>WEB</strong> for modern, easy wording and{" "}
-          <strong>KJV</strong> for the classic traditional feel.
+          <strong>Bring your preferred Bible.</strong> Read{" "}
+          <strong>{entry.reading}</strong> in the translation you already love,
+          or open one of the included public-domain options here — WEB for
+          modern, easy wording, KJV for the classic traditional feel.
         </p>
-        <div className="sg-toggle" role="tablist" aria-label="Bible translation">
-          {(["web", "kjv", "own"] as Mode[]).map((m) => (
+        <div className="sg-toggle" role="tablist" aria-label="How to read">
+          {TABS.map((t) => (
             <button
-              key={m}
+              key={t.key}
               type="button"
               role="tab"
-              aria-selected={mode === m}
-              className={`sg-tab${mode === m ? " is-on" : ""}`}
-              onClick={() => setMode(m)}
+              aria-selected={mode === t.key}
+              className={`sg-tab${mode === t.key ? " is-on" : ""}`}
+              onClick={() => setMode(t.key)}
             >
-              {LABELS[m]}
+              {t.label}
             </button>
           ))}
         </div>
 
         <div className="sg-passage">
-          {mode === "own" ? (
+          {mode === null ? (
+            <p className="sg-choose">
+              Choose how you&apos;d like to read{" "}
+              <strong>{entry.reading}</strong> above. 📖
+            </p>
+          ) : mode === "own" ? (
             <p className="sg-own">
-              Open <strong>{entry.reading}</strong> in your own Bible or app, and
-              read it slowly before the guide below.
+              Open <strong>{entry.reading}</strong> in your own Bible or app and
+              read it slowly, then come back to the guide below.
             </p>
           ) : loading ? (
             <p className="muted">Loading {entry.reading}…</p>
           ) : err ? (
             <p className="muted">
-              Couldn&apos;t load the text right now — read <strong>{entry.reading}</strong>{" "}
-              in your own Bible, or try again.
+              Couldn&apos;t load the text right now — read{" "}
+              <strong>{entry.reading}</strong> in your own Bible, or try again.
             </p>
           ) : (
-            <p className="sg-verses">
+            <div className="sg-verses">
               {verses.map((v) => (
-                <span key={v.ref}>
+                <p key={v.ref} className="sg-verse">
                   <sup className="sg-vnum">{v.ref.split(":")[1]}</sup>
-                  {v.text}{" "}
-                </span>
+                  {v.text}
+                </p>
               ))}
-            </p>
+            </div>
           )}
         </div>
       </div>
 
-      {/* The 12-field study guide */}
+      {/* The study guide */}
       <div className="sg-grid">
         <Block label="Quick context" body={entry.context} />
         <Block label="What's happening (plain English)" body={entry.plainEnglish} />
@@ -120,10 +127,15 @@ function Block({
   body: string;
   accent?: boolean;
 }) {
+  const paras = body.split(/\n\n+/);
   return (
     <div className={`sg-block${accent ? " sg-accent" : ""}`}>
       <div className="sg-block-label">{label}</div>
-      <p className="sg-block-body">{body}</p>
+      {paras.map((p, i) => (
+        <p className="sg-block-body" key={i}>
+          {p}
+        </p>
+      ))}
     </div>
   );
 }

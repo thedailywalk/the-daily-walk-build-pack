@@ -1453,22 +1453,33 @@ hr.div {
   padding-top: 16px;
 }
 .sg-verses {
+  max-width: 60ch;
+}
+.sg-verse {
   font-family: var(--serif);
   font-size: 17px;
-  line-height: 1.7;
+  line-height: 1.8;
   color: var(--ink);
-  margin: 0;
+  margin: 0 0 10px;
+}
+.sg-verse:last-child {
+  margin-bottom: 0;
 }
 .sg-vnum {
   color: var(--gold-deep);
   font-weight: 700;
   font-size: 11px;
-  margin-right: 2px;
+  margin-right: 4px;
+  vertical-align: super;
 }
-.sg-own {
+.sg-own,
+.sg-choose {
   font-size: 15px;
   color: #3c4350;
   margin: 0;
+}
+.sg-choose {
+  color: var(--grey);
 }
 
 /* 12-field guide */
@@ -1491,10 +1502,13 @@ hr.div {
   margin-bottom: 6px;
 }
 .sg-block-body {
-  margin: 0;
+  margin: 0 0 10px;
   font-size: 16px;
-  line-height: 1.6;
+  line-height: 1.65;
   color: var(--ink);
+}
+.sg-block-body:last-child {
+  margin-bottom: 0;
 }
 .sg-accent {
   background: var(--cream);

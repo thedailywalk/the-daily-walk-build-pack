@@ -41,9 +41,9 @@ function plan(): PlanRow[] {
 const AUTHORED: Record<number, Omit<StudyDay, "day" | "reading" | "arc" | "authored">> = {
   1: {
     context:
-      "John doesn't start with a manger — it starts before time itself, written by one of Jesus' closest friends. It's the clearest “here's who Jesus actually is” in the whole Bible. Best possible place to begin.",
+      "Most stories about Jesus start with a baby in a manger. John doesn't. He rewinds all the way past the manger, past history, past the very first sunrise — back to before there was a “before.”\n\nThis was written by John: one of Jesus' closest friends, the guy who literally leaned on Him at dinner. He's not handing you a rulebook or a religion. He's introducing you to a Person — like a friend grabbing your shoulder and saying, “Before you decide what you think about Jesus, let me actually show you who He is.”\n\nThat's why we start here. Not with rules. Not with “try harder.” With Him.",
     plainEnglish:
-      "John calls Jesus “the Word” — God's own voice that spoke the universe into being, now showing up as a real person you could share a meal with. Light walks into a dark room. Most people miss it. Some don't.",
+      "John reaches for the biggest word he can find and calls Jesus “the Word” — the voice behind everything. The same voice that said “let there be light” and a whole universe showed up. Now picture that voice… in sandals. Getting tired. Eating breakfast with fishermen. The God who spoke galaxies into existence didn't stay safely far away — He stepped into the room.\n\nAnd John keeps using one picture: light. Not a lecture about light — light itself, walking into a pitch-black room. Here's the thing about a dark room: you don't have to fix the dark, argue with it, or tidy up before the light comes. You just stop blocking the window.\n\nJohn says most people kept the curtains shut and walked right past Him. But some didn't. Some let the light in — and it rewrote who they were allowed to become: not God's employees earning a paycheck, but God's actual kids who already belong.",
     aboutGod: "He didn't stay distant. He moved into the neighborhood.",
     aboutPeople:
       "We're prone to miss God even when He's standing right in front of us — and grace comes looking anyway.",
