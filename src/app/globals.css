@@ -1334,19 +1334,20 @@ hr.div {
 /* ============================================================
    PRAYER WALL
    ============================================================ */
-/* Warm, muted dark backdrop (taupe/mauve) so the white panel + cards float */
+/* Navy easing into a warm muted taupe — brand blue + the inspo tone */
 .prayer-wall {
   background:
     radial-gradient(
       130% 80% at 50% 0%,
-      rgba(201, 162, 75, 0.18),
-      transparent 60%
+      rgba(201, 162, 75, 0.16),
+      transparent 58%
     ),
     linear-gradient(
       180deg,
-      #5e555e 0%,
-      #6f655f 36%,
-      #877d73 70%,
+      #243a5d 0%,
+      #45465b 26%,
+      #685f5f 52%,
+      #847a72 80%,
       #9a9082 100%
     );
 }
@@ -1602,21 +1603,22 @@ hr.div {
 
 /* ---------- Homepage prayer-wall preview ---------- */
 /* Same sunrise hue as the hero, so the white panel floats above it */
-/* Same warm muted-taupe ground as the Prayer Wall page, so the two match */
+/* Same navy-into-taupe ground as the Prayer Wall page, so the two match */
 .pwsec {
   position: relative;
   overflow: hidden;
   background:
     radial-gradient(
       130% 80% at 50% 0%,
-      rgba(201, 162, 75, 0.18),
-      transparent 60%
+      rgba(201, 162, 75, 0.16),
+      transparent 58%
     ),
     linear-gradient(
       180deg,
-      #5e555e 0%,
-      #6f655f 36%,
-      #877d73 70%,
+      #243a5d 0%,
+      #45465b 26%,
+      #685f5f 52%,
+      #847a72 80%,
       #9a9082 100%
     );
 }
