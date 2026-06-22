@@ -956,6 +956,1206 @@ const AUTHORED: Record<number, Omit<StudyDay, "day" | "reading" | "arc" | "autho
     ],
     sideReflection: "Where have I felt too small to matter — and how does it change things that God knows my name and my work?",
   },
+
+  38: {
+    context:
+      "Welcome to the Psalms — the Bible's prayer book and song book. After the gospels and Romans gave you the foundation, here's where faith learns to feel. Psalm 1 opens the whole collection with a simple picture: two ways to live.",
+    plainEnglish:
+      "Psalm 1 says the person who soaks in God's word is like a tree planted by water — steady, fruitful, not blown over by every storm. Psalm 3 is David praying while his own son hunts him down, and he still calls God “a shield around me.” That's the Psalms: real life, real prayer.",
+    aboutGod: "He's a shield around you — protection that surrounds, not just stands in front.",
+    aboutPeople: "What we plant our roots in decides whether we stand or topple.",
+    realLife: "You become like whatever you stay near. Stay near God.",
+    verse:
+      "“He will be like a tree planted by the streams of water, that produces its fruit in its season...” — Psalm 1:3",
+    reflection: "What are you currently rooted in — and is it deep enough to hold you when life shakes?",
+    prayer: "God, plant me by Your streams. Let my roots go deep into You so I'm steady when storms come. Be the shield around me. Amen.",
+    step: "Pick one short Psalm to “soak in” this week — read it slowly each morning instead of rushing past.",
+    keyWords: [
+      { word: "Planted", meaning: "Not a wildflower that blew in by chance — deliberately placed by water. God roots you on purpose, in the one place you'll actually thrive." },
+      { word: "Shield", meaning: "David's word for God surrounding him on every side. Not a wall in front of you, but protection all the way around — even when the threat is close." },
+    ],
+    verses: [
+      { ref: "Jeremiah 17:8", text: "For he will be as a tree planted by the waters... and will not fear when heat comes... neither will cease from yielding fruit.", meaning: "Roots near God mean you don't dry up when the heat comes. You can keep bearing fruit even in a hard season — the source isn't the weather, it's the water." },
+      { ref: "Psalm 3:5", text: "I laid myself down and slept. I awakened, for Yahweh sustains me.", meaning: "David slept soundly while being hunted — because he trusted who was holding him. You can rest tonight; God stays awake on your behalf." },
+    ],
+    sideReflection: "What have I been planting my life beside — and is it a stream, or will it run dry on me?",
+  },
+
+  39: {
+    context:
+      "Psalms 4–6 are evening, morning, and tear-soaked prayers. They give you permission to bring God your sleeplessness, your mornings, and your weeping — nothing is off-limits in honest prayer.",
+    plainEnglish:
+      "Psalm 4 ends with David lying down in peace because his safety is in God, not his circumstances. Psalm 5 is a morning prayer — laying the day before God first thing. Psalm 6 is raw: David is worn out from crying, and he prays right through the tears instead of waiting to feel better first.",
+    aboutGod: "He's near in your sleepless nights and your soaked-pillow mornings alike.",
+    aboutPeople: "We think we have to compose ourselves before we pray; we don't.",
+    realLife: "You can pray honestly while you're still crying. That IS the prayer.",
+    verse:
+      "“In peace I will both lay myself down and sleep, for you, Yahweh alone, make me live in safety.” — Psalm 4:8",
+    reflection: "What are you carrying to bed at night that you could hand to God instead?",
+    prayer: "God, I bring You my real self — tired, teary, unsettled. Let me lie down in Your peace and wake up in Your care. Amen.",
+    step: "Tonight, name one worry out loud to God before you sleep, and physically open your hands as you let it go.",
+    keyWords: [
+      { word: "Lament", meaning: "Honest prayer that complains, weeps, and questions — and still talks to God. The Psalms are full of it because God can handle your real feelings, not just your polished ones." },
+      { word: "Safety", meaning: "Not the absence of trouble, but being held by God in the middle of it. David sleeps in peace not because the threat is gone, but because God isn't." },
+    ],
+    verses: [
+      { ref: "Psalm 6:8", text: "Yahweh has heard the voice of my weeping.", meaning: "Your tears aren't ignored — they're heard. God doesn't wait for you to compose yourself; He listens to the crying itself." },
+      { ref: "Psalm 56:8", text: "You count my wanderings. You put my tears into your container.", meaning: "Not one tear of yours has been wasted or missed. God treasures them, bottles them, remembers every one." },
+    ],
+    sideReflection: "What would change if I prayed before I had it together, instead of waiting until after?",
+  },
+
+  40: {
+    context:
+      "In the middle of Psalms 7–9 sits one of the most wonder-filled questions in the Bible: when David looks at the stars, he asks why God would even think about someone as small as us. The answer is staggering.",
+    plainEnglish:
+      "Psalm 8 has David gazing at the night sky, feeling tiny — and instead of feeling worthless, he's floored that the God who made all of it actually cares about him. Psalm 9 answers with thanksgiving and trust: God doesn't forget the ones the world overlooks.",
+    aboutGod: "The Maker of galaxies knows your name and thinks about you on purpose.",
+    aboutPeople: "We swing between feeling too big and too small; the truth is we're small and treasured.",
+    realLife: "Your sense of worth isn't measured against the universe — it's measured by who made you.",
+    verse:
+      "“What is man, that you think of him? What is the son of man, that you care for him?” — Psalm 8:4",
+    reflection: "When you feel small or forgotten, can you believe the God of the stars is thinking of you?",
+    prayer: "God, You made the heavens and You still think of me. Let that truth quiet the voice that says I don't matter. Amen.",
+    step: "Tonight, step outside and look up — and let the size of the sky remind you how intentionally you were made.",
+    keyWords: [
+      { word: "Mindful", meaning: "To hold someone in mind, to think of them on purpose. The God who didn't need to notice you chooses to — you're not an afterthought to Him." },
+      { word: "Refuge", meaning: "A safe place to run when you're overwhelmed. Psalm 9 calls God a stronghold for the oppressed — the smaller and weaker you feel, the more He's for you." },
+    ],
+    verses: [
+      { ref: "Psalm 9:9", text: "Yahweh will also be a high tower for the oppressed; a high tower in times of trouble.", meaning: "When life is crushing you, God isn't distant — He's the high place you run to. The harder the trouble, the closer the refuge." },
+      { ref: "Luke 12:7", text: "But the very hairs of your head are all numbered. Therefore don't be afraid.", meaning: "God's attention to you is detailed down to the strands of your hair. You are known that closely — so fear loses its grip." },
+    ],
+    sideReflection: "Where do I feel overlooked — and what shifts if the Maker of the stars is mindful of me?",
+  },
+
+  41: {
+    context:
+      "Psalms 10–12 don't pretend everything is fine. They ask the hard question out loud — why does God sometimes feel far away when things are wrong? This is faith brave enough to be honest.",
+    plainEnglish:
+      "Psalm 10 opens bluntly: “Why do you stand far off, Lord?” It's a prayer about injustice and feeling abandoned — and it's right there in the Bible. By the end, David remembers that God does see, does hear the helpless, and won't let it stand forever. Honest doubt and deep trust can live in the same prayer.",
+    aboutGod: "He sees the wrong you think He's missing — and He defends the helpless.",
+    aboutPeople: "We're afraid our doubts disqualify us; God invited them into His own song book.",
+    realLife: "You're allowed to ask God “why” and “how long.” That's not the opposite of faith — it's faith talking.",
+    verse:
+      "“Yahweh, you have heard the desire of the humble. You will prepare their heart. You will cause your ear to hear.” — Psalm 10:17",
+    reflection: "What honest question or frustration have you been afraid to bring to God?",
+    prayer: "God, sometimes You feel far and I don't understand. But I'm bringing it to You instead of away from You. You see. You hear. I trust that. Amen.",
+    step: "Write God one honest sentence about something that doesn't feel fair — and trust Him with it.",
+    keyWords: [
+      { word: "Humble", meaning: "The ones at the end of their strength, who can't fix it themselves. God leans toward exactly these people — your weakness is what draws His ear." },
+      { word: "Honest prayer", meaning: "Prayer that doesn't fake it — that brings the doubt, the anger, the “why.” The Psalms prove God would rather have your real questions than your polite silence." },
+    ],
+    verses: [
+      { ref: "Psalm 10:14", text: "But you do see trouble and grief, to repay it with your hand. The helpless commits himself to you.", meaning: "What you think God is missing, He actually sees. You can hand Him the unfair thing — He's the defender of the helpless." },
+      { ref: "Psalm 34:18", text: "Yahweh is near to those who have a broken heart, and saves those who have a crushed spirit.", meaning: "Feeling far from God doesn't mean He's far from you. He draws closest to the broken — nearness you feel most when you need it most." },
+    ],
+    sideReflection: "What “why” have I been swallowing — and what would it mean to actually pray it?",
+  },
+
+  42: {
+    context:
+      "Psalm 13 famously asks “How long, Lord?” four times in a row. If you've ever felt stuck in a season that won't end, this is your prayer. Psalm 15 then paints the kind of life that gets to dwell close to God.",
+    plainEnglish:
+      "David is exhausted from waiting and says so — “How long will you forget me?” But watch the turn: by the end of the same short psalm, he's choosing to trust God's unfailing love anyway. He didn't wait to feel better to worship; he worshiped his way back to trust.",
+    aboutGod: "His love doesn't run out while you wait — even when the waiting feels endless.",
+    aboutPeople: "We assume long waits mean God forgot us; usually they're growing our trust.",
+    realLife: "You can be honest about how long it's been AND choose to trust. Both, at once.",
+    verse:
+      "“But I trust in your loving kindness. My heart rejoices in your salvation.” — Psalm 13:5",
+    reflection: "What have you been waiting on so long you've started to wonder if God forgot?",
+    prayer: "God, I'm tired of waiting and I'll say so honestly. But I still trust Your love. Carry me through the “how long.” Amen.",
+    step: "Name your “how long” to God today — then say out loud, like David, “but I trust in Your love.”",
+    keyWords: [
+      { word: "How long", meaning: "The honest cry of the waiting. The Bible never scolds this question — it sanctifies it. You can ask it and still be a person of deep faith." },
+      { word: "Loving kindness", meaning: "God's steadfast, covenant love that doesn't quit. The Hebrew word is *hesed* — loyal love that stays when feelings and circumstances don't." },
+    ],
+    verses: [
+      { ref: "Lamentations 3:25", text: "Yahweh is good to those who wait for him, to the soul who seeks him.", meaning: "Waiting on God is never wasted. He's good to the ones still seeking Him in the delay — the wait itself is doing something in you." },
+      { ref: "Isaiah 40:31", text: "But those who wait for Yahweh will renew their strength. They will mount up with wings like eagles.", meaning: "Waiting isn't passive collapse — it's where new strength is given. The ones who wait on God don't run out; they rise." },
+    ],
+    sideReflection: "Can I hold both my honest “how long” and my trust in God's love in the same breath?",
+  },
+
+  43: {
+    context:
+      "Psalms 16–18 overflow with the joy and security of being close to God. Psalm 16 gives one of the most beautiful lines about God's presence; Psalm 18 piles up image after image of God as rescuer.",
+    plainEnglish:
+      "Psalm 16 says the fullest joy and the deepest pleasures are found in God's presence — not somewhere else we keep chasing. Psalm 18 opens, “I love you, Lord, my strength,” and calls God a rock, fortress, and deliverer. This is what it sounds like when someone has tasted that God is truly enough.",
+    aboutGod: "His presence is where real, lasting joy actually lives.",
+    aboutPeople: "We keep hunting joy in things that can't hold it.",
+    realLife: "The joy you've been chasing has an address: nearness to God.",
+    verse:
+      "“You will show me the path of life. In your presence is fullness of joy. In your right hand there are pleasures forever more.” — Psalm 16:11",
+    reflection: "Where have you been looking for joy that only God's presence can actually give?",
+    prayer: "God, I've chased joy everywhere but Your presence. Lead me back. Be my rock, my strength, my fullness of joy. Amen.",
+    step: "Spend five quiet minutes simply being with God today — no agenda, no asking, just presence.",
+    keyWords: [
+      { word: "Fullness", meaning: "Not a sip of joy but the whole cup, overflowing. The Psalms locate it in one place — God's presence — so you can stop searching everywhere else." },
+      { word: "Rock", meaning: "David's go-to picture for God: solid, unmovable, something to stand on when everything else shifts. A rock doesn't change when your circumstances do." },
+    ],
+    verses: [
+      { ref: "Psalm 18:2", text: "Yahweh is my rock, my fortress, and my deliverer; my God, my rock, in whom I take refuge.", meaning: "When everything feels like sand, God is the rock under your feet. He's not one of many supports — He's the one that holds when the others give way." },
+      { ref: "Psalm 16:8", text: "I have set Yahweh always before me. Because he is at my right hand, I shall not be moved.", meaning: "Keep God in front of you, and the things that used to topple you lose their power. He's right beside you — steady enough to keep you standing." },
+    ],
+    sideReflection: "What have I been chasing for joy — and what would it look like to seek it in God's presence instead?",
+  },
+
+  44: {
+    context:
+      "Psalm 19 is a two-part masterpiece: first the skies preach a silent sermon about God, then God's word is praised as more precious than gold. It ends with a prayer so good people still pray it before they speak.",
+    plainEnglish:
+      "David says creation itself declares God's glory — the sunrise is a daily sermon without words. Then he turns to Scripture, calling it sweeter than honey and worth more than gold. He closes asking God to make even his words and thoughts pleasing — a prayer for an honest inside, not just a clean outside.",
+    aboutGod: "He speaks — through the skies above you and the Scriptures in front of you.",
+    aboutPeople: "We miss the sermon creation preaches every single morning.",
+    realLife: "God is communicating all the time; the question is whether we're listening.",
+    verse:
+      "“Let the words of my mouth and the meditation of my heart be acceptable in your sight, Yahweh, my rock and my redeemer.” — Psalm 19:14",
+    reflection: "Where might God be speaking to you that you've been too busy to notice?",
+    prayer: "God, open my eyes to see You in creation and Your word. Make my words and even my private thoughts pleasing to You. Amen.",
+    step: "Watch one sunrise or sunset this week without your phone — and let it preach to you.",
+    keyWords: [
+      { word: "Meditation", meaning: "Not emptying your mind, but filling it — slowly turning God's truth over like food, until it nourishes you. The opposite of skimming." },
+      { word: "Redeemer", meaning: "One who buys back and restores. David ends on it because even his best efforts need redeeming — and God is the one who does it." },
+    ],
+    verses: [
+      { ref: "Psalm 19:1", text: "The heavens declare the glory of God. The expanse shows his handiwork.", meaning: "Every sky is a sermon. You don't have to read to hear from God today — just look up and let creation point you back to its Maker." },
+      { ref: "Romans 1:20", text: "For the invisible things of him since the creation of the world are clearly seen, being perceived through the things that are made.", meaning: "Creation isn't random — it's a fingerprint. The world around you is constant evidence of a God who is really there." },
+    ],
+    sideReflection: "What sermon has creation been preaching to me that I've been too rushed to hear?",
+  },
+
+  45: {
+    context:
+      "This day holds two of the most famous psalms in the world: Psalm 22, which Jesus quoted from the cross, and Psalm 23, the Shepherd psalm. Together they hold both the darkest cry and the deepest comfort.",
+    plainEnglish:
+      "Psalm 22 begins, “My God, my God, why have you forsaken me?” — the exact words Jesus prayed while dying. It shows God isn't scared of our most abandoned moments; He entered them. Then Psalm 23 answers with the gentlest picture in Scripture: God as a shepherd who leads, feeds, and walks with us even through the darkest valley.",
+    aboutGod: "He's the Shepherd who walks WITH you through the valley — not around it.",
+    aboutPeople: "We fear the dark valleys most; the promise isn't no valley, but His presence in it.",
+    realLife: "Even in the worst stretch, you are not walking alone.",
+    verse:
+      "“Even though I walk through the valley of the shadow of death, I will fear no evil, for you are with me.” — Psalm 23:4",
+    reflection: "What “valley” are you walking through — and can you sense the Shepherd walking it with you?",
+    prayer: "Shepherd, lead me. Even in this dark valley, You're beside me, so I won't be afraid. Restore my soul. Amen.",
+    step: "Read Psalm 23 slowly, out loud, putting your own name and situation into it.",
+    keyWords: [
+      { word: "Shepherd", meaning: "Not a distant boss but a hands-on caretaker who knows each sheep, leads to food and water, and goes after the one that strays. That's how God tends you." },
+      { word: "Forsaken", meaning: "To feel utterly abandoned. Jesus prayed Psalm 22's opening line on the cross — so He could meet you in your most forsaken moment, having been there Himself." },
+    ],
+    verses: [
+      { ref: "Psalm 23:6", text: "Surely goodness and loving kindness shall follow me all the days of my life.", meaning: "You're not just being led forward — goodness and mercy are pursuing you from behind. You're surrounded by God's care, coming and going." },
+      { ref: "Isaiah 41:10", text: "Don't be afraid, for I am with you. Don't be dismayed, for I am your God. I will strengthen you.", meaning: "The cure for fear in the valley isn't a way out — it's a Person with you. “I am with you” is the promise that quiets the dread." },
+    ],
+    sideReflection: "What valley am I in right now — and what changes when I remember the Shepherd is walking it beside me?",
+  },
+
+  46: {
+    context:
+      "Psalms 25–27 are prayers for guidance and courage. Psalm 27 contains a famous declaration of fearlessness and one beautiful “one thing” David asks of God above everything else.",
+    plainEnglish:
+      "Psalm 25 keeps lifting the soul to God and asking to be taught His ways. Psalm 27 declares, “The Lord is my light and my salvation — whom shall I fear?” and then narrows everything down to a single desire: just to be with God. When you know God is your light, the dark gets a lot less scary.",
+    aboutGod: "He's your light — the One who makes the unknown walkable.",
+    aboutPeople: "We let fear shrink our lives; nearness to God expands them.",
+    realLife: "Fear gets quieter the closer you get to the Light.",
+    verse:
+      "“Yahweh is my light and my salvation. Whom shall I fear? Yahweh is the strength of my life. Of whom shall I be afraid?” — Psalm 27:1",
+    reflection: "What fear has been running your decisions — and how would God being your “light” change it?",
+    prayer: "God, be my light in what feels dark and uncertain. Teach me Your way. The “one thing” I want is more of You. Amen.",
+    step: "Name one fear-driven decision you've been making, and ask God to lead it instead of fear.",
+    keyWords: [
+      { word: "Light", meaning: "What makes the next step visible. You don't need the whole road lit — just enough to take the step in front of you, and God is that light." },
+      { word: "One thing", meaning: "David's life boiled down to a single desire: to be near God. When the main thing is settled, a thousand smaller fears lose their grip." },
+    ],
+    verses: [
+      { ref: "Psalm 27:4", text: "One thing I have asked of Yahweh, that I will seek after: that I may dwell in Yahweh's house all the days of my life.", meaning: "When your deepest “one thing” is God Himself, everything else finds its proper size. Simplify your wanting down to Him." },
+      { ref: "Psalm 27:14", text: "Wait for Yahweh. Be strong, and let your heart take courage. Yes, wait for Yahweh.", meaning: "Courage and waiting aren't opposites. Sometimes the bravest, strongest thing you can do is keep waiting on God." },
+    ],
+    sideReflection: "What fear would shrink if I truly believed God is my light and the strength of my life?",
+  },
+
+  47: {
+    context:
+      "Psalms 28–30 move from crying out to bursting with thanks. Psalm 30 gives one of Scripture's most hope-filled lines about grief: it doesn't get the final word.",
+    plainEnglish:
+      "Psalm 30 is David's testimony after God lifted him out of a pit. He says weeping may camp out for the night, but joy arrives in the morning — and that God turned his mourning into dancing. It's not a denial of grief; it's a promise that grief has an expiration date in God's hands.",
+    aboutGod: "He's in the business of turning mourning into dancing.",
+    aboutPeople: "In the long night we forget morning is coming; it always is.",
+    realLife: "This season of weeping is real — and it is not the end of your story.",
+    verse:
+      "“Weeping may stay for the night, but joy comes in the morning.” — Psalm 30:5",
+    reflection: "What grief are you in the “night” of right now — and can you trust that morning is coming?",
+    prayer: "God, this night of weeping is heavy. Thank You that You turn mourning into dancing. Bring my morning in Your time. Amen.",
+    step: "If you're grieving, let yourself feel it honestly today — and write down one hope you're holding onto for the morning.",
+    keyWords: [
+      { word: "Mourning to dancing", meaning: "God's specialty isn't erasing your grief but transforming it. The same God who holds you in the weeping is preparing the dancing." },
+      { word: "Morning", meaning: "In the Psalms, morning is a promise — the night of sorrow has a limit. Whatever you're in, it is a chapter, not the whole book." },
+    ],
+    verses: [
+      { ref: "Psalm 30:11", text: "You have turned my mourning into dancing for me. You have removed my sackcloth, and clothed me with gladness.", meaning: "God doesn't just comfort grief — He reverses it. The same hands that hold you in sorrow will one day trade your mourning clothes for joy." },
+      { ref: "Revelation 21:4", text: "He will wipe away every tear from their eyes. Death will be no more; neither will there be mourning, nor crying.", meaning: "There's a morning coming with no more night at all. Every tear personally wiped away — that's where your story is headed." },
+    ],
+    sideReflection: "What night am I in — and what would it mean to trust that God has a morning planned for me?",
+  },
+
+  48: {
+    context:
+      "Psalms 31–33 include Psalm 32, David's relief after finally confessing sin he'd been hiding. If guilt has been quietly weighing on you, this day is pure good news.",
+    plainEnglish:
+      "Psalm 32 describes how keeping sin hidden was wearing David down physically — until he came clean with God and felt the weight lift. He calls the forgiven person “blessed.” This is the freedom of stopping the pretending: confession isn't God shaming you, it's God unburdening you.",
+    aboutGod: "He's not waiting to shame you — He's waiting to lift the weight off you.",
+    aboutPeople: "We think hiding sin protects us; it just quietly crushes us.",
+    realLife: "What you bring into the light with God loses its power to weigh you down.",
+    verse:
+      "“I acknowledged my sin to you. I didn't hide my iniquity... and you forgave the iniquity of my sin.” — Psalm 32:5",
+    reflection: "What have you been hiding from God — that He's actually inviting you to bring into the light?",
+    prayer: "God, I'm done hiding. I bring it all to You. Thank You that confession leads to freedom, not shame. Lift the weight. Amen.",
+    step: "Name one thing you've been carrying in secret — confess it honestly to God today and receive the relief.",
+    keyWords: [
+      { word: "Confession", meaning: "Simply agreeing with God about what's true — no spin, no hiding. It feels scary but it's the doorway out of the weight you've been carrying alone." },
+      { word: "Blessed", meaning: "Deeply, settledly happy — the word David uses for the forgiven. Not because they're sinless, but because they're free of the burden of pretending." },
+    ],
+    verses: [
+      { ref: "1 John 1:9", text: "If we confess our sins, he is faithful and righteous to forgive us the sins, and to cleanse us from all unrighteousness.", meaning: "Confession isn't a gamble — God's response is guaranteed. Bring it honestly and forgiveness is certain, every time." },
+      { ref: "Psalm 32:7", text: "You are my hiding place. You will preserve me from trouble. You will surround me with songs of deliverance.", meaning: "When you stop hiding from God, you discover He's the place to hide in. Honesty doesn't expose you to danger — it surrounds you with safety." },
+    ],
+    sideReflection: "What am I keeping in the dark that would finally feel lighter if I brought it to God?",
+  },
+
+  49: {
+    context:
+      "Psalms 34–36 are full of invitations to experience God's goodness firsthand. Psalm 34 holds a tender promise specifically for the brokenhearted and crushed.",
+    plainEnglish:
+      "Psalm 34 says, “Taste and see that the Lord is good” — faith isn't just an idea to agree with, it's something to experience. And it makes a promise to the hurting: God is close to the brokenhearted and saves the crushed in spirit. Your broken heart doesn't push God away; it's exactly where He draws near.",
+    aboutGod: "He's nearest to the brokenhearted — not despite the breaking, but in it.",
+    aboutPeople: "We hide our brokenness; God is drawn to it.",
+    realLife: "Being crushed doesn't disqualify you from God — it's where He meets you.",
+    verse:
+      "“Yahweh is near to those who have a broken heart, and saves those who have a crushed spirit.” — Psalm 34:18",
+    reflection: "Where are you broken right now — and can you believe that's exactly where God is closest?",
+    prayer: "God, my heart is broken in places. Thank You that this is where You come close. Save me, hold me, let me taste Your goodness. Amen.",
+    step: "Stop hiding one broken place today. Bring it openly to God and let Him near it.",
+    keyWords: [
+      { word: "Taste and see", meaning: "Faith you experience, not just believe. God invites you to test His goodness in real life — to find out He's good by living it, like tasting food rather than reading the menu." },
+      { word: "Brokenhearted", meaning: "The ones whose hearts are shattered by loss or pain. Far from being kept at arm's length, they're the very people God draws closest to." },
+    ],
+    verses: [
+      { ref: "Psalm 34:8", text: "Oh taste and see that Yahweh is good. Blessed is the man who takes refuge in him.", meaning: "Don't just study God from a distance — try Him. The goodness you doubt becomes real the moment you actually run to Him." },
+      { ref: "Matthew 5:4", text: "Blessed are those who mourn, for they shall be comforted.", meaning: "Jesus calls the grieving “blessed” — not because mourning is good, but because comfort is coming, straight from the heart of God." },
+    ],
+    sideReflection: "What broken place have I been hiding that God might want to come close to?",
+  },
+
+  50: {
+    context:
+      "Psalms 37–39 wrestle with a question we all face: why do people who do wrong seem to do just fine? Psalm 37 answers with one of the calmest, most freeing commands in Scripture.",
+    plainEnglish:
+      "Psalm 37 repeats: don't fret, don't envy people who get ahead by doing wrong — it doesn't last. Instead, “delight yourself in the Lord,” trust Him, and “be still” before Him. It's a prescription for the anxious, comparing, scrolling heart: stop fretting, start trusting.",
+    aboutGod: "He's worth delighting in more than anything you're tempted to envy.",
+    aboutPeople: "We exhaust ourselves comparing and fretting over what others have.",
+    realLife: "Most of your peace is stolen by fretting over things God already has handled.",
+    verse:
+      "“Also delight yourself in Yahweh, and he will give you the desires of your heart.” — Psalm 37:4",
+    reflection: "What have you been fretting over or envying that's quietly stealing your peace?",
+    prayer: "God, I let go of the comparing and the fretting. Help me delight in You instead. Reshape what my heart even wants. Amen.",
+    step: "Notice one moment of envy or fretting today — and consciously turn it into a prayer of trust instead.",
+    keyWords: [
+      { word: "Delight", meaning: "To take real pleasure in God Himself. As you delight in Him, He doesn't just grant your wishes — He reshapes what you want until it lines up with what's truly good." },
+      { word: "Be still", meaning: "To stop striving, comparing, and scrambling — and rest in God's hands. Stillness isn't laziness; it's trust with its hands open." },
+    ],
+    verses: [
+      { ref: "Psalm 37:7", text: "Rest in Yahweh, and wait patiently for him. Don't fret because of him who prospers in his way.", meaning: "Someone else getting ahead unfairly isn't your burden to carry. Rest, wait, and let God handle what you can't control." },
+      { ref: "Matthew 6:33", text: "But seek first God's Kingdom and his righteousness; and all these things will be given to you as well.", meaning: "Put God first and the things you're anxiously chasing fall into place. The cure for fretting is reordering what you seek first." },
+    ],
+    sideReflection: "What am I fretting over or envying — and what would delighting in God instead actually look like today?",
+  },
+
+  51: {
+    context:
+      "Psalms 40–42 hold the rescue-from-the-pit testimony and the famous “as the deer pants” cry of a thirsty soul. Psalm 42 is a masterclass in talking to yourself when your heart is downcast.",
+    plainEnglish:
+      "Psalm 40 testifies: God lifted David out of the mud and set his feet on a rock. Psalm 42 captures the spiritual thirst we all feel — “as the deer pants for water, so my soul pants for you” — and then does something powerful: David preaches to his own downcast heart, telling it to put its hope in God.",
+    aboutGod: "He lifts people out of the pit and sets them on solid ground.",
+    aboutPeople: "Our souls get thirsty and downcast; we can either feed the despair or preach hope to it.",
+    realLife: "You don't have to just believe your feelings — you can talk back to them with truth.",
+    verse:
+      "“Why are you in despair, my soul? Why are you disturbed within me? Hope in God!” — Psalm 42:5",
+    reflection: "What has your soul been thirsty for — and have you been feeding your despair or preaching hope to it?",
+    prayer: "God, my soul is thirsty and sometimes downcast. I choose to preach hope to myself: I will yet praise You. Lift me to the rock. Amen.",
+    step: "When discouragement hits today, talk back to it like David: “Why so downcast? Hope in God.”",
+    keyWords: [
+      { word: "Downcast", meaning: "Bowed down, heavy, discouraged. The Psalms model not ignoring this feeling but speaking truth to it — you can address your own soul instead of just obeying it." },
+      { word: "Pant / thirst", meaning: "A deep, physical longing — the soul's craving for God. That restlessness you feel isn't a flaw; it's a thirst only God can satisfy." },
+    ],
+    verses: [
+      { ref: "Psalm 40:2", text: "He brought me up also out of a horrible pit, out of the miry clay. He set my feet on a rock.", meaning: "God doesn't just visit you in the pit — He lifts you out and gives you solid ground. The mud you're stuck in is not your final address." },
+      { ref: "Psalm 42:8", text: "Yahweh will command his loving kindness in the daytime. In the night his song shall be with me.", meaning: "God's love covers your daylight hours, and His song stays with you through the night. You're held around the clock." },
+    ],
+    sideReflection: "What is my soul truly thirsty for — and how can I preach hope to myself instead of believing the despair?",
+  },
+
+  52: {
+    context:
+      "Psalms 43–45 include a prayer that's perfect for confusing seasons: “Send me your light and your truth — let them lead me.” It's a prayer for direction when you can't see the way.",
+    plainEnglish:
+      "Psalm 43 picks up Psalm 42's downcast theme and asks God to send out His light and truth as guides home. It's a humble admission: I can't find my own way — lead me. Psalm 45 then lifts into a royal wedding song that the New Testament applies to Christ the King.",
+    aboutGod: "He sends light and truth to lead you when you can't see the path.",
+    aboutPeople: "We try to navigate by feelings; we need His light and truth to guide.",
+    realLife: "When you're lost, the prayer isn't “show me everything” — it's “lead me.”",
+    verse:
+      "“Oh, send out your light and your truth. Let them lead me. Let them bring me to your holy hill...” — Psalm 43:3",
+    reflection: "Where do you feel directionless — and have you asked God to lead, instead of figuring it out alone?",
+    prayer: "God, send Your light and truth to lead me. I can't navigate this alone. Bring me back to You. Amen.",
+    step: "Name one decision you feel lost in, and pray specifically: “God, send Your light and truth to lead me here.”",
+    keyWords: [
+      { word: "Light", meaning: "God's guidance that makes the path visible. You ask not for the whole journey lit at once, but for enough light to follow Him one step at a time." },
+      { word: "Lead me", meaning: "A prayer of surrender — admitting you can't find the way yourself. Real direction starts with letting God go first." },
+    ],
+    verses: [
+      { ref: "Psalm 119:105", text: "Your word is a lamp to my feet, and a light for my path.", meaning: "God's word is a lamp, not a stadium floodlight — it shows the next step, not the whole map. That's enough to keep walking with Him." },
+      { ref: "John 8:12", text: "I am the light of the world. He who follows me will not walk in the darkness, but will have the light of life.", meaning: "Jesus is the light David prayed for. Follow Him and you won't be left fumbling in the dark — He lights the way as you go." },
+    ],
+    sideReflection: "Where am I trying to navigate by my own feelings instead of asking God to lead with His light and truth?",
+  },
+
+  53: {
+    context:
+      "Psalms 46–48 are bold declarations that God is our refuge and stronghold. Psalm 46 holds one of the most quoted lines in the whole Bible — words for the overwhelmed.",
+    plainEnglish:
+      "Psalm 46 says even if the earth gives way and mountains fall into the sea, God is our refuge and strength — a very present help in trouble. Then it gives the famous command: “Be still, and know that I am God.” When everything's shaking, the call isn't to scramble harder; it's to stop and remember who God is.",
+    aboutGod: "He's a refuge that holds even when everything else is collapsing.",
+    aboutPeople: "Our instinct in chaos is to scramble; God's invitation is to be still.",
+    realLife: "You don't have to fix everything right now. You can be still and trust who God is.",
+    verse:
+      "“Be still, and know that I am God.” — Psalm 46:10",
+    reflection: "What's shaking in your life right now — and what would it look like to “be still” in the middle of it?",
+    prayer: "God, things feel like they're falling apart. Help me stop scrambling and be still. You are my refuge and my very present help. Amen.",
+    step: "Take 60 seconds of literal stillness today — breathe, and repeat: “Be still, and know that I am God.”",
+    keyWords: [
+      { word: "Refuge", meaning: "A shelter you run into when the storm hits. God isn't a last resort — He's the first place to run, the stronghold that holds when everything shakes." },
+      { word: "Be still", meaning: "Literally “let go, cease striving.” The command in chaos isn't to try harder but to stop, breathe, and remember God is still God." },
+    ],
+    verses: [
+      { ref: "Psalm 46:1", text: "God is our refuge and strength, a very present help in trouble.", meaning: "Not a help that arrives eventually — a *very present* one, here now, in the trouble itself. God doesn't show up after the storm; He's with you inside it." },
+      { ref: "Exodus 14:14", text: "Yahweh will fight for you, and you shall be still.", meaning: "Sometimes the most faith-filled thing you can do is stop fighting and let God fight for you. Stillness can be the bravest move." },
+    ],
+    sideReflection: "What am I scrambling to control that God is inviting me to be still and trust Him with?",
+  },
+
+  54: {
+    context:
+      "Psalms 49–51 climax in Psalm 51 — David's raw prayer of repentance after his worst failure. If you've ever wondered whether you've gone too far, this psalm is for you.",
+    plainEnglish:
+      "After a devastating moral failure, David doesn't hide or excuse it — he pours out Psalm 51: “Create in me a clean heart, O God.” He asks not just for forgiveness but for renewal from the inside. And he discovers God wants a broken, honest heart far more than a polished performance.",
+    aboutGod: "He can create a clean heart in anyone honest enough to ask.",
+    aboutPeople: "We think our worst failures put us out of reach; David proves they don't.",
+    realLife: "No failure is too big for a God who creates clean hearts from scratch.",
+    verse:
+      "“Create in me a clean heart, O God. Renew a right spirit within me.” — Psalm 51:10",
+    reflection: "Is there a failure you've believed put you beyond God's reach? What if it didn't?",
+    prayer: "God, create in me a clean heart. I bring You my broken, honest self — not a performance. Renew me from the inside. Amen.",
+    step: "Bring one failure you've been carrying to God honestly, and ask Him to create a clean heart in you.",
+    keyWords: [
+      { word: "Create", meaning: "The same word used for God making the world from nothing. He doesn't just patch up your heart — He can make a brand-new clean one out of nothing." },
+      { word: "Broken and contrite", meaning: "A heart that's honest about its failure, not defending itself. David learned this is the “sacrifice” God treasures most — your realness over your performance." },
+    ],
+    verses: [
+      { ref: "Psalm 51:17", text: "The sacrifices of God are a broken spirit. A broken and contrite heart, O God, you will not despise.", meaning: "You don't have to clean up before coming to God — a broken, honest heart is exactly what He welcomes. He never turns that away." },
+      { ref: "Ezekiel 36:26", text: "I will give you a new heart, and I will put a new spirit within you.", meaning: "God's promise isn't behavior modification — it's a heart transplant. He gives you a new heart, not just a fresh set of rules." },
+    ],
+    sideReflection: "What failure have I believed I'm beyond forgiveness for — and what if God is ready to create a clean heart in me?",
+  },
+
+  55: {
+    context:
+      "Psalms 52–54 are wartime prayers — David surrounded by enemies, trusting God as his helper. Psalm 54 distills the whole thing into a simple, steadying confidence.",
+    plainEnglish:
+      "Psalm 52 contrasts those who trust in wealth and power with David, who trusts in God's unfailing love “forever and ever.” Psalm 54 is short and certain: “Behold, God is my helper.” When opposition closes in, David doesn't size up the threat — he sizes up his Helper.",
+    aboutGod: "He's your helper — present and on your side when you're outnumbered.",
+    aboutPeople: "We measure our problems; faith measures our Helper.",
+    realLife: "It's not about how big the threat is — it's about how big your God is.",
+    verse:
+      "“Behold, God is my helper. The Lord is the one who sustains my soul.” — Psalm 54:4",
+    reflection: "What are you facing that feels bigger than you — and have you sized up your Helper, or just the threat?",
+    prayer: "God, You are my helper. Whatever's against me, You're for me and You sustain me. I trust Your unfailing love. Amen.",
+    step: "Write down one thing that feels too big for you, then under it write: “But God is my helper.”",
+    keyWords: [
+      { word: "Helper", meaning: "One who comes alongside to do what you can't do alone. God isn't a distant supervisor — He rolls up His sleeves and helps." },
+      { word: "Sustains", meaning: "To hold up, to keep from collapsing. On the days you feel like you can't carry on, God is the one quietly holding your soul together." },
+    ],
+    verses: [
+      { ref: "Psalm 52:8", text: "But as for me, I am like a green olive tree in God's house. I trust in God's loving kindness forever and ever.", meaning: "While others wither chasing power, the one rooted in God's love stays green and thriving. Trust in His love is what keeps you flourishing." },
+      { ref: "Hebrews 13:6", text: "So that with good courage we say, 'The Lord is my helper. I will not fear.'", meaning: "Because God helps you, fear loses its authority. You can face what's ahead with courage borrowed from your Helper." },
+    ],
+    sideReflection: "Am I sizing up the threat in front of me, or the God who is my helper?",
+  },
+
+  56: {
+    context:
+      "Psalms 55–57 are prayers from real distress — betrayal, fear, hiding in a cave. They hand us two of the most comforting promises in Scripture: cast your cares on God, and He keeps your tears.",
+    plainEnglish:
+      "Psalm 55 says, “Cast your burden on the Lord, and he will sustain you.” Psalm 56, written when David was seized by enemies, pictures God collecting every tear in a bottle and writing them in His book. Your burdens aren't meant to be carried alone, and your tears aren't unnoticed.",
+    aboutGod: "He carries your burdens and treasures every tear you cry.",
+    aboutPeople: "We white-knuckle our worries instead of handing them over.",
+    realLife: "The weight you're carrying was never meant to be yours alone.",
+    verse:
+      "“Cast your burden on Yahweh and he will sustain you. He will never allow the righteous to be moved.” — Psalm 55:22",
+    reflection: "What burden have you been gripping that God is asking you to actually hand over?",
+    prayer: "God, I cast this burden on You — I've carried it alone too long. Thank You that You hold it, and that You keep every tear. Amen.",
+    step: "Name the heaviest thing you're carrying, and pray a deliberate “handing-over” of it to God today.",
+    keyWords: [
+      { word: "Cast", meaning: "To throw, to hurl off your shoulders onto God's. Not set it down gently and pick it back up — actually release it to the One strong enough to carry it." },
+      { word: "Tears in a bottle", meaning: "An image of God treasuring your sorrows. Not one of your tears is wasted or unseen — He keeps them like something precious." },
+    ],
+    verses: [
+      { ref: "1 Peter 5:7", text: "casting all your worries on him, because he cares for you.", meaning: "The reason you can hand God your worries is simple: He actually cares. You're not bothering Him — you're trusting Someone who wants the weight off you." },
+      { ref: "Psalm 56:8", text: "You count my wanderings. You put my tears into your container. Aren't they in your book?", meaning: "God keeps a record of your sorrows because they matter to Him. Nothing you've cried over has gone unnoticed by heaven." },
+    ],
+    sideReflection: "What burden have I refused to cast on God — and what would it feel like to finally let it go?",
+  },
+
+  57: {
+    context:
+      "Psalms 58–60 are prayers in times of trouble. Psalm 59, written while David's house was being watched by men sent to kill him, turns fear into a song about God as a fortress.",
+    plainEnglish:
+      "Psalm 59 is composed under literal threat — and David's response is to sing about God being his fortress and refuge in times of trouble. He resolves to “sing of your strength in the morning.” He doesn't deny the danger; he just keeps a bigger truth in view: God is a stronghold nothing can breach.",
+    aboutGod: "He's a fortress — a high, safe place when trouble surrounds you.",
+    aboutPeople: "In trouble we fixate on the threat; faith sings about the fortress.",
+    realLife: "Praise in the middle of trouble isn't denial — it's defiance.",
+    verse:
+      "“But I will sing of your strength. Yes, I will sing aloud of your loving kindness in the morning... for you are my high tower, a refuge in the day of my distress.” — Psalm 59:16",
+    reflection: "What trouble is surrounding you — and could you choose to sing about God's strength in the middle of it?",
+    prayer: "God, You're my fortress in this trouble. I won't just stare at the threat — I'll sing about Your strength. You are my refuge. Amen.",
+    step: "Play or sing one worship song today in the middle of whatever's troubling you — make praise your defiance.",
+    keyWords: [
+      { word: "Fortress", meaning: "A fortified, high place no enemy can storm. When trouble surrounds you, God is the unbreachable safety you run up into." },
+      { word: "Sing in the morning", meaning: "Choosing praise before the trouble lifts. David sings about God's strength while still in danger — worship that defies the circumstances instead of waiting on them." },
+    ],
+    verses: [
+      { ref: "Proverbs 18:10", text: "Yahweh's name is a strong tower: the righteous run to him, and are safe.", meaning: "God's name itself is a tower you can run into. Safety isn't a feeling you manufacture — it's a Person you run to." },
+      { ref: "Psalm 59:17", text: "To you, my strength, I will sing praises. For God is my high tower, the God of my mercy.", meaning: "When you're weak, God is your strength — and the right response is to sing. Praise turns your eyes from the danger to the fortress." },
+    ],
+    sideReflection: "What would it look like to sing about God's strength while I'm still in the trouble, not after?",
+  },
+
+  58: {
+    context:
+      "Psalms 61–63 are some of the most intimate in the whole book — written from the wilderness, longing for God. They contain the famous “my soul finds rest in God alone.”",
+    plainEnglish:
+      "Psalm 61 prays, “Lead me to the rock that is higher than I.” Psalm 62 declares that the soul finds rest in God alone — not in people, success, or circumstances. Psalm 63 is David thirsting for God in a dry desert, saying His love is “better than life.” These psalms keep narrowing it down: God alone.",
+    aboutGod: "He alone is the resting place the soul keeps searching for.",
+    aboutPeople: "We look for rest in a dozen places that can't provide it.",
+    realLife: "Real rest isn't found in more — it's found in God alone.",
+    verse:
+      "“My soul rests in God alone. My salvation is from him.” — Psalm 62:1",
+    reflection: "Where have you been seeking rest that only God can truly give?",
+    prayer: "God, my soul rests in You alone. Not in success, not in people's approval — in You. Lead me to the rock higher than I. Amen.",
+    step: "Identify one thing you've been leaning on for rest, and intentionally bring that need to God instead today.",
+    keyWords: [
+      { word: "Alone", meaning: "God isn't one rest among many — He's the only one that holds. The word strips away every backup plan and points your soul to its true home." },
+      { word: "Rock higher than I", meaning: "A vantage point above your circumstances, beyond your own strength. When you're overwhelmed, you don't need more effort — you need lifting to higher ground." },
+    ],
+    verses: [
+      { ref: "Psalm 63:3", text: "Because your loving kindness is better than life, my lips shall praise you.", meaning: "God's love is worth more than life itself — so even on your hardest day, you have a reason to praise. His love outweighs everything else on the scale." },
+      { ref: "Matthew 11:28", text: "Come to me, all you who labor and are heavily burdened, and I will give you rest.", meaning: "The rest your soul keeps hunting for is a Person, and He's inviting you. Stop searching everywhere else — come to Jesus." },
+    ],
+    sideReflection: "What am I leaning on for rest that can't hold me — and what would resting in God alone feel like?",
+  },
+
+  59: {
+    context:
+      "Psalms 64–66 turn toward gratitude and testimony. Psalm 65 celebrates God's abundant provision, and Psalm 66 invites everyone to “come and see what God has done.”",
+    plainEnglish:
+      "Psalm 65 praises God for crowning the year with goodness — the rains, the harvest, the overflowing provision. Psalm 66 is a call to come and see God's works and to tell others what He's done in your own life. Gratitude here isn't private; it overflows into testimony.",
+    aboutGod: "He's generous — crowning ordinary years with quiet, daily goodness.",
+    aboutPeople: "We rush past blessings without naming them.",
+    realLife: "Naming what God has done turns a normal day into worship.",
+    verse:
+      "“You crown the year with your bounty. Your carts overflow with abundance.” — Psalm 65:11",
+    reflection: "What good in your life have you been treating as ordinary that's actually God's provision?",
+    prayer: "God, thank You for the goodness I've rushed past. Open my eyes to Your provision. I'll come and see — and tell others — what You've done. Amen.",
+    step: "Write down three specific things God has provided this year, and thank Him for each by name.",
+    keyWords: [
+      { word: "Bounty", meaning: "Overflowing, generous provision. God doesn't just meet the minimum — He crowns ordinary years with goodness we often forget to notice." },
+      { word: "Come and see", meaning: "Gratitude that becomes testimony. What God has done in your life isn't meant to stay private — it's meant to be shared so others see Him too." },
+    ],
+    verses: [
+      { ref: "Psalm 66:16", text: "Come and hear, all you who fear God. I will declare what he has done for my soul.", meaning: "Your story of what God has done is worth telling out loud. Someone's faith may grow just from hearing what He did for you." },
+      { ref: "James 1:17", text: "Every good gift and every perfect gift is from above, coming down from the Father of lights.", meaning: "Trace every good thing in your life back far enough and you find God. The ordinary blessings you overlook are gifts from His hand." },
+    ],
+    sideReflection: "What everyday goodness have I failed to call what it is — God's provision worth thanking Him for?",
+  },
+
+  60: {
+    context:
+      "Psalms 67–69 hold a tender picture of who God is for the overlooked: a father to the fatherless, a defender of the lonely. Psalm 69 is also a raw cry from someone drowning in trouble.",
+    plainEnglish:
+      "Psalm 68 calls God “a father to the fatherless” and the one who “sets the lonely in families.” Psalm 69 is David crying out as the floodwaters rise around him — “save me, the waters have come up to my neck.” Together they say: God specially defends the alone, and you can cry out to Him when you're going under.",
+    aboutGod: "He's a father to the fatherless and a home for the lonely.",
+    aboutPeople: "We feel most forgotten when we're alone; that's where God draws nearest.",
+    realLife: "If you feel alone, you have God's special attention, not His absence.",
+    verse:
+      "“A father of the fatherless, and a defender of the widows, is God in his holy habitation. God sets the lonely in families.” — Psalm 68:5-6",
+    reflection: "Where do you feel alone or unprotected — and can you receive God as your defender there?",
+    prayer: "God, You're a father to the fatherless and a home for the lonely. Where I feel alone, be near. Where I'm sinking, save me. Amen.",
+    step: "If you know someone who's lonely, reach out today — be part of how God “sets the lonely in families.”",
+    keyWords: [
+      { word: "Father to the fatherless", meaning: "God personally takes up the cause of those with no one to protect them. The places in your life where support is missing, He steps in to fill." },
+      { word: "Sets the lonely in families", meaning: "God's heart is to bring the isolated into belonging. Loneliness isn't where He leaves you — it's where He goes to work." },
+    ],
+    verses: [
+      { ref: "Psalm 68:6", text: "God sets the lonely in families. He brings out the prisoners with singing.", meaning: "God moves the lonely into belonging and the trapped into freedom — and there's singing involved. He's writing your isolation into community." },
+      { ref: "Psalm 27:10", text: "When my father and my mother forsake me, then Yahweh will take me up.", meaning: "Even if the people who should have been there weren't, God picks you up. His care fills the gap that human love left empty." },
+    ],
+    sideReflection: "Where do I feel alone — and how might God be wanting to father me, or use me to reach someone else who is?",
+  },
+
+  61: {
+    context:
+      "Psalms 70–72 include a moving prayer about aging and lifelong faithfulness. Psalm 71 is the voice of someone who has walked with God since youth and refuses to stop now.",
+    plainEnglish:
+      "Psalm 71 prays, “Do not cast me away when I am old.” It's the testimony of someone who learned to trust God young and is still leaning on Him in gray-haired years. The takeaway: God is faithful across an entire lifetime — He doesn't lose interest as we age, and our job is to keep declaring His goodness to the next generation.",
+    aboutGod: "He's faithful from your first breath to your last — He never ages out of caring.",
+    aboutPeople: "We fear being forgotten as we grow older; God never forgets.",
+    realLife: "Whatever season of life you're in, God's faithfulness reaches the whole way.",
+    verse:
+      "“You have taught me from my youth. Until now, I have declared your wondrous works.” — Psalm 71:17",
+    reflection: "Can you look back and trace God's faithfulness across the seasons of your life so far?",
+    prayer: "God, You've been faithful all my life — from my youth until now. Stay close as I age, and let me keep declaring Your goodness. Amen.",
+    step: "Tell someone younger one specific story of how God has been faithful in your life.",
+    keyWords: [
+      { word: "Lifelong", meaning: "God's faithfulness isn't a season — it spans your whole life. The God who held you at the beginning will hold you all the way through." },
+      { word: "Declare", meaning: "To tell out loud what God has done. Faith grows when one generation passes its stories to the next — your testimony is a gift to those behind you." },
+    ],
+    verses: [
+      { ref: "Isaiah 46:4", text: "Even to old age I am he, and even to gray hairs I will carry you.", meaning: "God doesn't hand you off as you age — He carries you the whole way, all the way to gray hairs. His care has no retirement date." },
+      { ref: "Psalm 71:18", text: "Yes, even when I am old and gray-haired, God, don't forsake me, until I have declared your strength to the next generation.", meaning: "Your purpose doesn't expire — there's always a next generation who needs to hear what God has done. Your story still matters." },
+    ],
+    sideReflection: "Where can I trace God's faithfulness across my own story — and who needs to hear it from me?",
+  },
+
+  62: {
+    context:
+      "Psalm 73 is brutally honest about a faith crisis: David's friend Asaph nearly lost his faith watching wicked people prosper — until he stepped into God's presence and everything reframed.",
+    plainEnglish:
+      "Asaph admits he almost slipped: the arrogant seemed to have it all while he, trying to do right, kept struggling. It nearly broke him — “until I entered God's sanctuary.” In God's presence he remembered what lasts, and landed on a line of pure devotion: even if everything else fails, God is the strength of his heart forever.",
+    aboutGod: "He's the one possession that can never be lost — the strength of your heart forever.",
+    aboutPeople: "We almost lose faith comparing our lot to people who seem to cheat and win.",
+    realLife: "Perspective changes everything — and it's found in God's presence, not in the comparison.",
+    verse:
+      "“My flesh and my heart fails, but God is the strength of my heart and my portion forever.” — Psalm 73:26",
+    reflection: "Whose “success” has nearly shaken your faith — and what would change if you saw it from God's presence?",
+    prayer: "God, I've nearly slipped comparing my life to others. Bring me back into Your presence, where I remember You are enough — forever. Amen.",
+    step: "When comparison hits today, step away for a moment of prayer — let God's presence reframe what you're seeing.",
+    keyWords: [
+      { word: "Portion", meaning: "Your share, your inheritance, what you get to keep. Asaph realized God Himself is his portion — and unlike everything else, that can never be taken away." },
+      { word: "Sanctuary", meaning: "God's presence, where perspective gets restored. The crisis didn't resolve through more analysis but through worship — proximity to God changed how he saw everything." },
+    ],
+    verses: [
+      { ref: "Psalm 73:25", text: "Whom do I have in heaven? There is no one on earth whom I desire besides you.", meaning: "When God becomes your deepest desire, the things you envied lose their pull. Nothing on earth compares to having Him." },
+      { ref: "Psalm 73:28", text: "But it is good for me to come close to God. I have made the Lord Yahweh my refuge.", meaning: "The answer to a shaken faith isn't distance — it's drawing near. Closeness to God is where everything gets steady again." },
+    ],
+    sideReflection: "Whose life have I been envying — and what shifts when I view it from inside God's presence?",
+  },
+
+  63: {
+    context:
+      "Psalms 76–78 are about remembering. Psalm 77 models what to do when you're too distressed to feel God — and Psalm 78 retells God's faithfulness so the next generation won't forget.",
+    plainEnglish:
+      "In Psalm 77, the writer can't sleep and feels like God has forgotten him — until he deliberately starts remembering: “I will remember the deeds of the Lord.” Recalling God's past faithfulness pulls him out of the spiral. Psalm 78 then urges telling the next generation, so they'll put their hope in God too.",
+    aboutGod: "His track record of faithfulness is your evidence when feelings say otherwise.",
+    aboutPeople: "We forget what God has done and panic as if He's never come through.",
+    realLife: "When you can't feel God, remember Him — recall what He's already done.",
+    verse:
+      "“I will remember Yah's deeds; for I will remember your wonders of old.” — Psalm 77:11",
+    reflection: "When did God come through for you before — and have you forgotten it in this current worry?",
+    prayer: "God, when I can't feel You, help me remember You. Bring to mind every time You came through. I'll put my hope in You again. Amen.",
+    step: "Make a short “remember” list of times God has been faithful to you, and revisit it when doubt creeps in.",
+    keyWords: [
+      { word: "Remember", meaning: "Actively recalling God's past faithfulness as a weapon against present fear. Memory is a spiritual discipline — it preaches truth to your panicking heart." },
+      { word: "Next generation", meaning: "The people coming after us who need to know what God has done. Faith is passed down by retelling — your remembering becomes their foundation." },
+    ],
+    verses: [
+      { ref: "Lamentations 3:21", text: "This I recall to my mind; therefore I have hope.", meaning: "Hope is often a choice to recall the right things. What you deliberately bring to mind shapes whether you sink or rise." },
+      { ref: "Psalm 77:14", text: "You are the God who does wonders. You have made your strength known among the peoples.", meaning: "The God who did wonders before is the same God now. His past faithfulness is your reason to trust Him with what's ahead." },
+    ],
+    sideReflection: "What past faithfulness of God have I forgotten that I need to deliberately remember right now?",
+  },
+
+  64: {
+    context:
+      "Psalms 79–81 are prayers for restoration. Psalm 80 repeats a beautiful refrain three times — a cry for God to restore us and let His face shine on us again.",
+    plainEnglish:
+      "Psalm 80 is a community in a rough season pleading, “Restore us, O God; let your face shine, that we may be saved.” It's the prayer for a comeback — for God's favor and nearness to return. The repeated refrain teaches us it's okay to keep asking God for the same thing until restoration comes.",
+    aboutGod: "His shining face — His favor and nearness — is what truly restores us.",
+    aboutPeople: "We settle for getting our circumstances fixed; what we really need is His face.",
+    realLife: "Restoration isn't mainly about your situation changing — it's about God's presence returning.",
+    verse:
+      "“Turn us again, God. Cause your face to shine, and we will be saved.” — Psalm 80:3",
+    reflection: "What part of your life needs God's restoration — and are you asking for His presence, or just a fix?",
+    prayer: "God, restore me. Let Your face shine on me again. I don't just want my circumstances fixed — I want You near. Amen.",
+    step: "Pray Psalm 80's refrain over one area of your life that feels like it needs a comeback.",
+    keyWords: [
+      { word: "Restore", meaning: "To bring back to wholeness what was broken or lost. God isn't only in the business of fixing — He restores, returning things to better than mere repair." },
+      { word: "Face shine", meaning: "A picture of God's favor and warm attention turned toward you. The deepest restoration isn't a changed situation — it's God's presence returning to you." },
+    ],
+    verses: [
+      { ref: "Joel 2:25", text: "I will restore to you the years that the swarming locust has eaten.", meaning: "God can give back even what felt permanently lost. The wasted years aren't beyond His power to redeem and restore." },
+      { ref: "Numbers 6:25", text: "Yahweh make his face to shine on you, and be gracious to you.", meaning: "This is God's heart for you: His face turned toward you, full of grace. You're not under His frown — you're meant to live under His smile." },
+    ],
+    sideReflection: "What needs restoring in my life — and am I asking God for His presence, not just a quick fix?",
+  },
+
+  65: {
+    context:
+      "Psalms 82–84 include one of the most love-soaked psalms about longing for God's presence. Psalm 84 says a single day near God beats a thousand anywhere else.",
+    plainEnglish:
+      "Psalm 84 aches with homesickness for God's house: “Better is one day in your courts than a thousand elsewhere.” It calls blessed the people whose strength is in God, who go “from strength to strength.” This is the heart that has discovered there's no better place to be than near God.",
+    aboutGod: "His presence is so good that one day there outweighs a thousand anywhere else.",
+    aboutPeople: "We pour our longing into a hundred lesser places.",
+    realLife: "Nothing this world offers can match a day spent near God.",
+    verse:
+      "“For a day in your courts is better than a thousand. I would rather be a doorkeeper in God's house than dwell in the tents of wickedness.” — Psalm 84:10",
+    reflection: "What are you longing for most right now — and how does it compare to longing for God's presence?",
+    prayer: "God, one day with You is better than a thousand anywhere else. Make my heart homesick for You. Be my strength. Amen.",
+    step: "Protect a little “courts” time today — an unhurried space just to be with God, and notice how it compares.",
+    keyWords: [
+      { word: "Courts", meaning: "The space of God's presence — where His people gather near Him. The psalmist would rather have the lowest spot there than the best seat anywhere else." },
+      { word: "Strength to strength", meaning: "Growing stronger as you go, not weaker. The journey toward God doesn't drain you — drawing near to Him renews you step by step." },
+    ],
+    verses: [
+      { ref: "Psalm 84:5", text: "Blessed are those whose strength is in you, who have set their hearts on a pilgrimage.", meaning: "When your strength comes from God, the journey itself becomes blessed. You're not running on your own reserves — you're drawing on His." },
+      { ref: "Psalm 84:11", text: "For Yahweh God is a sun and a shield. Yahweh will give grace and glory. He withholds no good thing from those who walk blamelessly.", meaning: "God is both your warmth and your protection, and He holds back no good thing from those who walk with Him. You can trust His generosity." },
+    ],
+    sideReflection: "What am I longing for most — and have I tasted that one day near God outshines it all?",
+  },
+
+  66: {
+    context:
+      "Psalms 85–87 include Psalm 86, where David asks God for one of the most needed gifts: an undivided heart — a heart that isn't pulled in a hundred directions.",
+    plainEnglish:
+      "Psalm 86 praises God as “compassionate and gracious, slow to anger, abounding in love,” and then asks for something deeply honest: “Give me an undivided heart, that I may fear your name.” David knows his heart gets split between God and a dozen other loyalties — and he asks God to make it whole and single again.",
+    aboutGod: "He's compassionate and gracious — and able to unify a divided heart.",
+    aboutPeople: "Our hearts get split between God and countless competing loves.",
+    realLife: "Peace comes from a unified heart, not one pulled in every direction.",
+    verse:
+      "“Teach me your way, Yahweh. I will walk in your truth. Make my heart undivided to fear your name.” — Psalm 86:11",
+    reflection: "What's dividing your heart right now — pulling your devotion in competing directions?",
+    prayer: "God, my heart is so divided. Make it whole. Unite it to love and trust You above everything pulling at me. Amen.",
+    step: "Name the main thing competing with God for your heart, and ask Him today to make your heart undivided.",
+    keyWords: [
+      { word: "Undivided heart", meaning: "A heart unified around one love instead of split among many. So much of our anxiety comes from a divided heart — wholeness is found in singular devotion to God." },
+      { word: "Slow to anger", meaning: "How David describes God — patient, not quick to give up on us. The God you're asking to unify your heart is gentle and abounding in love." },
+    ],
+    verses: [
+      { ref: "Psalm 86:15", text: "But you, Lord, are a merciful and gracious God, slow to anger, and abundant in loving kindness and truth.", meaning: "When you come to God with your divided, messy heart, this is who meets you — merciful, gracious, patient, overflowing with love." },
+      { ref: "Matthew 6:24", text: "No one can serve two masters... You can't serve both God and Mammon.", meaning: "A divided heart eventually tears you apart. Jesus is honest: peace requires choosing one master — and only One is worthy of it all." },
+    ],
+    sideReflection: "What is dividing my heart — and what would an undivided devotion to God feel like?",
+  },
+
+  67: {
+    context:
+      "Psalms 88–90 include the Bible's darkest psalm and one of its most sobering. Psalm 88 ends without resolution — proof that even unanswered grief belongs in prayer. Psalm 90 teaches us to treasure our days.",
+    plainEnglish:
+      "Psalm 88 is striking: it's a prayer of deep depression that never resolves into a happy ending — and God put it in the Bible anyway, validating the seasons where the darkness doesn't lift on cue. Psalm 90 zooms out on how short life is and prays, “teach us to number our days,” so we live them wisely and fully.",
+    aboutGod: "He's big enough to hold your prayers even when they don't resolve.",
+    aboutPeople: "We feel ashamed of unresolved grief; God put a whole psalm of it in Scripture.",
+    realLife: "Faith doesn't require a tidy ending — sometimes it's just keeping the conversation with God open.",
+    verse:
+      "“So teach us to count our days, that we may gain a heart of wisdom.” — Psalm 90:12",
+    reflection: "Is there a grief that hasn't resolved — and can you keep praying through it without a tidy ending?",
+    prayer: "God, even when the darkness doesn't lift, I'll keep talking to You. Teach me to number my days and live them well. Amen.",
+    step: "If you're in an unresolved season, keep praying anyway today — honesty without a happy ending is still faith.",
+    keyWords: [
+      { word: "Number our days", meaning: "To live aware that life is short and precious. Counting your days isn't morbid — it's what makes you spend them on what truly matters." },
+      { word: "Unresolved", meaning: "Psalm 88 ends in darkness with no neat resolution — and that's okay. God includes the prayers that don't tie up neatly, so you know yours belong too." },
+    ],
+    verses: [
+      { ref: "Psalm 90:14", text: "Satisfy us in the morning with your loving kindness, that we may rejoice and be glad all our days.", meaning: "Even Psalm 90's sober look at life's brevity ends in hope: God's love can satisfy you and bring gladness to the days you have." },
+      { ref: "Psalm 88:1", text: "Yahweh, the God of my salvation, I have cried day and night before you.", meaning: "Even the darkest psalm is still addressed to God. As long as you keep crying out to Him, your faith is alive — direction matters more than resolution." },
+    ],
+    sideReflection: "Can I keep talking honestly to God through a grief that hasn't lifted — and number my days as a gift?",
+  },
+
+  68: {
+    context:
+      "Psalms 91–93 are some of the most quoted promises of protection in Scripture. Psalm 91 paints God as a shelter, a refuge, a covering of wings.",
+    plainEnglish:
+      "Psalm 91 promises that whoever “dwells in the shelter of the Most High” will rest in His shadow. It piles up images of safety — refuge, fortress, covering wings — for the person who makes God their dwelling place. It's not a magic charm against all hardship, but a deep assurance that you are held by God through it.",
+    aboutGod: "He's a shelter you can actually live in — not just visit in emergencies.",
+    aboutPeople: "We treat God as an emergency exit instead of a dwelling place.",
+    realLife: "Safety isn't the absence of danger — it's dwelling in God through it.",
+    verse:
+      "“He who dwells in the secret place of the Most High will rest in the shadow of the Almighty.” — Psalm 91:1",
+    reflection: "Do you visit God in crisis, or actually “dwell” in Him as your everyday shelter?",
+    prayer: "God, be my dwelling place, not just my emergency exit. I rest in Your shelter, under the shadow of Your wings. Amen.",
+    step: "Build one small daily rhythm of “dwelling” with God this week — same time, same quiet, returning to your shelter.",
+    keyWords: [
+      { word: "Dwell", meaning: "To live somewhere, not just visit. God offers to be your permanent home, not a place you run to only when things fall apart." },
+      { word: "Shadow of the Almighty", meaning: "An image of intimate closeness — near enough to be in His shade, under His wings. Real safety is found in nearness, not distance." },
+    ],
+    verses: [
+      { ref: "Psalm 91:4", text: "He will cover you with his feathers. Under his wings you will take refuge.", meaning: "God's protection is tender, like a bird sheltering its young. You're not just defended — you're gently covered and kept close." },
+      { ref: "Psalm 91:2", text: "I will say of Yahweh, 'He is my refuge and my fortress; my God, in whom I trust.'", meaning: "Notice the personal words — *my* refuge, *my* God. Safety becomes real when God isn't just powerful in general, but yours in particular." },
+    ],
+    sideReflection: "Am I treating God as an emergency exit or as the shelter I actually live in?",
+  },
+
+  69: {
+    context:
+      "Psalms 94–96 call us to worship with fresh wonder. Psalm 96 commands a “new song” — a reminder that gratitude shouldn't go stale.",
+    plainEnglish:
+      "Psalm 95 invites us to come before God with thanksgiving and bow down before our Maker. Psalm 96 says, “Sing to the Lord a new song” — not because the old songs were bad, but because God is doing new things worth fresh praise. Worship is meant to stay alive, not become a routine you sleepwalk through.",
+    aboutGod: "He's always doing new things worthy of fresh praise.",
+    aboutPeople: "Our worship goes stale and routine if we let it.",
+    realLife: "Find a “new song” — a fresh reason to thank God — today.",
+    verse:
+      "“Sing to Yahweh a new song! Sing to Yahweh, all the earth.” — Psalm 96:1",
+    reflection: "Has your gratitude gone stale — and what's a fresh, specific reason to praise God today?",
+    prayer: "God, keep my worship alive. Give me a new song today — fresh wonder at who You are and what You're doing. Amen.",
+    step: "Thank God for one brand-new thing today — something you've never specifically thanked Him for before.",
+    keyWords: [
+      { word: "New song", meaning: "Fresh praise for fresh mercies. God's faithfulness shows up in new ways daily, so worship is meant to stay alive, never a stale routine." },
+      { word: "Worship", meaning: "Bowing your heart before your Maker. It's not about feeling impressive but about rightly responding to the One who is — gratitude, awe, surrender." },
+    ],
+    verses: [
+      { ref: "Lamentations 3:23", text: "They are new every morning. Great is your faithfulness.", meaning: "God's mercies arrive fresh each morning — which means there's always a new reason to praise. Today's grace isn't yesterday's leftovers." },
+      { ref: "Psalm 95:2", text: "Let's come before his presence with thanksgiving. Let's extol him with songs.", meaning: "Thanksgiving is the doorway into God's presence. Gratitude isn't just polite — it's how you draw near to Him." },
+    ],
+    sideReflection: "Has my gratitude gone on autopilot — and what fresh “new song” could I sing to God today?",
+  },
+
+  70: {
+    context:
+      "Psalms 97–99 declare a steadying truth for anxious times: “The Lord reigns.” Whatever the headlines say, God is still on the throne.",
+    plainEnglish:
+      "These psalms repeat that the Lord reigns — He is King, holy, and in control. Psalm 99 emphasizes His holiness, calling people to worship. When the world feels chaotic and out of control, these psalms re-anchor us: there is a good God on the throne, and He hasn't been voted out.",
+    aboutGod: "He reigns — holy, sovereign, and unshaken by the chaos that shakes us.",
+    aboutPeople: "We panic as if no one's in charge; God is, always.",
+    realLife: "You can face uncertain times steady, because God still reigns.",
+    verse:
+      "“Yahweh reigns! Let the earth rejoice! Let the multitude of islands be glad!” — Psalm 97:1",
+    reflection: "What feels out of control in your life or the world — and does it change things that God still reigns?",
+    prayer: "God, You reign. When everything feels chaotic, I anchor here: You're holy, You're King, and You're in control. I can rest. Amen.",
+    step: "When anxious news or worry hits today, pause and say: “The Lord reigns” — and let it re-anchor you.",
+    keyWords: [
+      { word: "Reigns", meaning: "God is actively King right now — not retired, not overthrown. However out of control things feel, the throne is occupied by a good God." },
+      { word: "Holy", meaning: "God is utterly pure, set apart, in a category by Himself. His holiness means He's perfectly good — so His reign is something to celebrate, not fear." },
+    ],
+    verses: [
+      { ref: "Psalm 93:1", text: "Yahweh reigns! He is clothed with majesty!... The world also is established. It can't be moved.", meaning: "The world rests on the rule of a God who can't be toppled. When your footing feels shaky, His reign is the ground that doesn't move." },
+      { ref: "Daniel 4:34", text: "His dominion is an everlasting dominion, and his kingdom from generation to generation.", meaning: "Earthly powers rise and fall, but God's reign never ends. The One in charge today will still be in charge for every generation to come." },
+    ],
+    sideReflection: "What feels out of control right now — and how does “the Lord reigns” steady me in it?",
+  },
+
+  71: {
+    context:
+      "Psalms 100–102 swing from pure thanksgiving to deep affliction — and that range is the point. Psalm 100 is exuberant praise; Psalm 102 is a prayer of the afflicted. Both are real worship.",
+    plainEnglish:
+      "Psalm 100 bursts with joy: “Enter his gates with thanksgiving!” Psalm 102 is titled “a prayer of the afflicted when overwhelmed.” Putting them side by side shows that worship has room for both the mountaintop and the valley — you can come to God with thanks AND with your overwhelm.",
+    aboutGod: "He welcomes both your thanksgiving and your overwhelm — both are worship.",
+    aboutPeople: "We think only happy prayers count; God receives the overwhelmed too.",
+    realLife: "Thanksgiving is the way in, even on the days you're barely holding on.",
+    verse:
+      "“Enter into his gates with thanksgiving, and into his courts with praise. Give thanks to him, and bless his name.” — Psalm 100:4",
+    reflection: "Whether you're on a high or barely holding on, what can you thank God for as you come to Him today?",
+    prayer: "God, on my good days and my overwhelmed days, I come to You. Thank You that both are welcome. I enter Your gates with thanks. Amen.",
+    step: "Begin your prayer time today with thanksgiving — name three things — no matter how you're feeling.",
+    keyWords: [
+      { word: "Thanksgiving", meaning: "The doorway into God's presence, available on any kind of day. You don't have to feel grateful to start being grateful — and it opens the gate." },
+      { word: "Afflicted", meaning: "Crushed, overwhelmed, worn down. Psalm 102 shows even this state is welcome in prayer — God doesn't only take your highlight reel." },
+    ],
+    verses: [
+      { ref: "1 Thessalonians 5:18", text: "In everything give thanks, for this is the will of God in Christ Jesus toward you.", meaning: "Not thanks *for* everything, but *in* everything — gratitude you can practice even mid-struggle. There's always something to thank God for." },
+      { ref: "Psalm 102:17", text: "He has responded to the prayer of the destitute, and has not despised their prayer.", meaning: "When you're at your lowest and your prayer feels weak, God doesn't despise it — He responds. The desperate prayer is heard just as clearly." },
+    ],
+    sideReflection: "Whether I'm grateful or overwhelmed today, what can I thank God for as I come to Him?",
+  },
+
+  72: {
+    context:
+      "Psalm 103 is one of the most beloved chapters in the Bible — a soul-stirring list of God's benefits, including the most freeing picture of forgiveness ever written.",
+    plainEnglish:
+      "David tells his own soul to “bless the Lord” and not forget His benefits: He forgives all your sins, heals your diseases, redeems your life, crowns you with love. Then the stunner — He removes our sins “as far as the east is from the west.” Not east from west (which meet), but east from west — a distance with no end. Your forgiven sins are gone for good.",
+    aboutGod: "He removes your sins so far they can never be counted against you again.",
+    aboutPeople: "We keep re-reading our old failures; God has already filed them away forever.",
+    realLife: "What God has forgiven, you're allowed to stop carrying.",
+    verse:
+      "“As far as the east is from the west, so far has he removed our transgressions from us.” — Psalm 103:12",
+    reflection: "What forgiven failure are you still carrying that God has already removed “as far as the east is from the west”?",
+    prayer: "God, thank You that my sins are removed as far as east from west. Help me stop carrying what You've already taken away. Bless Your name. Amen.",
+    step: "Name one old failure you keep replaying, and choose to leave it where God put it — gone.",
+    keyWords: [
+      { word: "Benefits", meaning: "The everyday gifts of being God's — forgiveness, healing, redemption, love. David lists them to remind his soul not to take grace for granted." },
+      { word: "As far as east from west", meaning: "An infinite distance — east and west never meet, unlike north and south. It's God's way of saying your forgiven sin is gone with no limit, never to return." },
+    ],
+    verses: [
+      { ref: "Psalm 103:13", text: "Like a father has compassion on his children, so Yahweh has compassion on those who fear him.", meaning: "God isn't a harsh judge tallying your faults — He's a compassionate Father. He relates to you with the tenderness of the best dad imaginable." },
+      { ref: "Micah 7:19", text: "He will again have compassion on us. He will tread our iniquities under foot; and you will cast all their sins into the depths of the sea.", meaning: "God throws your sins into the deep sea — not the shallows where they wash back up. What He forgives, He disposes of completely." },
+    ],
+    sideReflection: "What forgiven failure am I still dragging around that God has already removed beyond reach?",
+  },
+
+  73: {
+    context:
+      "Psalms 106–108 retell God's repeated rescues. Psalm 107 has a refrain inviting the “redeemed of the Lord” to tell their story — and a beautiful line about God healing with His word.",
+    plainEnglish:
+      "Psalm 107 calls on “the redeemed of the Lord” to say so — to tell about the times God brought them out of trouble. It describes people in every kind of distress crying out and being rescued, including one who “sent his word and healed them.” Your rescue story isn't just yours to keep — it's meant to be told.",
+    aboutGod: "He rescues, redeems, and heals — and loves when His people tell about it.",
+    aboutPeople: "We stay quiet about what God's done; He invites us to say so.",
+    realLife: "Your testimony of God's rescue could be exactly what someone else needs to hear.",
+    verse:
+      "“Let the redeemed by Yahweh say so, whom he has redeemed from the hand of the adversary.” — Psalm 107:2",
+    reflection: "What's a “rescue story” in your life that God might want you to actually tell someone?",
+    prayer: "God, You've rescued me more times than I can count. Give me courage to say so — to tell my story and point others to You. Amen.",
+    step: "Tell one person this week about a time God rescued or came through for you.",
+    keyWords: [
+      { word: "Redeemed", meaning: "Bought back, rescued, set free. If God has brought you out of any pit, this word is your identity — and your story is worth telling." },
+      { word: "Say so", meaning: "Speak up about what God has done. Your testimony isn't bragging — it's evidence that points others to the God who rescues." },
+    ],
+    verses: [
+      { ref: "Psalm 107:20", text: "He sends his word, and heals them, and delivers them from their graves.", meaning: "God's word carries healing power. The same word that spoke the world into being can speak life into your deepest places." },
+      { ref: "Revelation 12:11", text: "They overcame him because of the Lamb's blood, and because of the word of their testimony.", meaning: "Your testimony is a weapon. Telling what God has done doesn't just encourage others — it defeats the lies the enemy whispers." },
+    ],
+    sideReflection: "What rescue story has God written in my life that someone else needs to hear me say out loud?",
+  },
+
+  74: {
+    context:
+      "Psalms 109–111 move toward awe. Psalm 111 ends with a foundational truth repeated throughout Scripture: reverence for God is where real wisdom begins.",
+    plainEnglish:
+      "Psalm 111 praises God's works as great, gracious, and trustworthy, then closes with the famous line: “The fear of the Lord is the beginning of wisdom.” This “fear” isn't being scared — it's awe, reverence, taking God seriously. And it's the starting point for living wisely; everything good begins by rightly honoring God.",
+    aboutGod: "He's worthy of awe — and honoring Him is where wisdom starts.",
+    aboutPeople: "We chase wisdom everywhere but its actual starting point: reverence for God.",
+    realLife: "A wise life doesn't start with information — it starts with awe of God.",
+    verse:
+      "“The fear of Yahweh is the beginning of wisdom. All those who do his work have a good understanding.” — Psalm 111:10",
+    reflection: "Where do you need wisdom right now — and does it start with seeking God or just seeking answers?",
+    prayer: "God, You're worthy of all my awe. Give me a reverent heart, because that's where real wisdom begins. Teach me to take You seriously. Amen.",
+    step: "Before your next big decision, pause to honor God first — invite His wisdom before you weigh the options.",
+    keyWords: [
+      { word: "Fear of the Lord", meaning: "Not terror, but reverent awe — taking God seriously as God. It's the respect that reorients your whole life and opens the door to real wisdom." },
+      { word: "Wisdom", meaning: "Skill at living well, not just knowing facts. It begins not with information but with rightly honoring God — everything wise flows from there." },
+    ],
+    verses: [
+      { ref: "Proverbs 9:10", text: "The fear of Yahweh is the beginning of wisdom. The knowledge of the Holy One is understanding.", meaning: "Real understanding starts with knowing God, not just knowing things. Put Him first, and the rest of life comes into focus." },
+      { ref: "James 1:5", text: "But if any of you lacks wisdom, let him ask of God, who gives to all liberally without reproach.", meaning: "When you need wisdom, you don't have to figure it out alone — just ask. God gives it generously, without making you feel foolish for asking." },
+    ],
+    sideReflection: "Where am I seeking answers without first seeking the God who is the beginning of wisdom?",
+  },
+
+  75: {
+    context:
+      "Psalms 112–114 describe the settled, fearless life of someone who trusts God. Psalm 112 contains a striking promise about facing bad news.",
+    plainEnglish:
+      "Psalm 112 describes the person who delights in God: they're gracious, generous, and — remarkably — they “will have no fear of bad news” because their heart is steadfast, trusting in the Lord. Psalm 113 celebrates a God who lifts the poor from the dust. The picture is a heart so anchored in God it can face hard news without being shaken apart.",
+    aboutGod: "He's a steady anchor that lets you face bad news unshaken.",
+    aboutPeople: "We brace for the worst; a heart anchored in God can stay steady.",
+    realLife: "You can't always control the news — but you can be anchored before it comes.",
+    verse:
+      "“He will not be afraid of evil tidings. His heart is steadfast, trusting in Yahweh.” — Psalm 112:7",
+    reflection: "What “bad news” are you bracing for — and how anchored in God is your heart for it?",
+    prayer: "God, anchor my heart in You so deeply that even bad news can't shake me apart. I trust You — steady me before it comes. Amen.",
+    step: "Strengthen your anchor today: spend time in God's word now, before the hard news of life arrives.",
+    keyWords: [
+      { word: "Steadfast", meaning: "Firmly fixed, not easily shaken. A heart anchored in God ahead of time can meet bad news without being knocked over by it." },
+      { word: "No fear of bad news", meaning: "Not that hard news never comes, but that it can't destroy you. When your trust is settled in God, you face the worst from a place of stability." },
+    ],
+    verses: [
+      { ref: "Psalm 112:8", text: "His heart is established. He will not be afraid in the end.", meaning: "A heart established in God isn't ruled by what-ifs. You can live with an inner steadiness that fear can't override." },
+      { ref: "John 16:33", text: "In the world you have trouble; but cheer up! I have overcome the world.", meaning: "Jesus doesn't promise a trouble-free life — He promises He's bigger than the trouble. You can have peace because He's already overcome it." },
+    ],
+    sideReflection: "What bad news am I bracing for — and is my heart anchored enough in God to face it unshaken?",
+  },
+
+  76: {
+    context:
+      "Psalms 115–117 include the deeply personal Psalm 116 (“I love the Lord, because he hears me”) and the shortest chapter in the whole Bible, Psalm 117.",
+    plainEnglish:
+      "Psalm 116 is intimate: “I love the Lord, because he has heard my voice.” The writer was at death's door, cried out, and God listened — and now love pours out in response. Psalm 117, just two verses, calls all nations to praise God for His great love. Being heard by God is enough to make a heart fall in love with Him.",
+    aboutGod: "He actually listens — He bends down to hear your voice.",
+    aboutPeople: "We feel unheard by people and assume God's the same; He isn't.",
+    realLife: "Being truly heard by God is one of the deepest comforts there is.",
+    verse:
+      "“I love Yahweh, because he listens to my voice, and my cries for mercy.” — Psalm 116:1",
+    reflection: "When did God hear you in a moment you felt unheard by everyone else?",
+    prayer: "God, thank You that You actually listen — that You bend down to hear my voice. I love You because You hear me. Amen.",
+    step: "Pray honestly today, fully believing God is listening — then notice the comfort of simply being heard.",
+    keyWords: [
+      { word: "He hears", meaning: "God genuinely listens to your voice and your cries. In a world where you often feel unheard, this is the comfort that turns into love." },
+      { word: "Inclined his ear", meaning: "A picture of God bending down to listen, the way you lean toward someone you care about. He doesn't hear you from a distance — He draws close to listen." },
+    ],
+    verses: [
+      { ref: "Psalm 116:2", text: "Because he has turned his ear to me, therefore I will call on him as long as I live.", meaning: "Knowing God turns His ear toward you changes everything about prayer. Why stay silent when the God of the universe leans in to listen?" },
+      { ref: "1 John 5:14", text: "This is the boldness which we have toward him, that if we ask anything according to his will, he listens to us.", meaning: "You can pray with confidence, not hesitation. God isn't half-listening — He hears you, and that's reason to come boldly." },
+    ],
+    sideReflection: "Where have I felt unheard — and what changes when I believe God truly listens to my voice?",
+  },
+
+  77: {
+    context:
+      "Psalm 118 is the joyful centerpiece here — it holds the famous “this is the day the Lord has made” and a prophecy about Jesus as “the stone the builders rejected.”",
+    plainEnglish:
+      "Psalm 118 repeatedly declares that God's love “endures forever,” recounts being rescued, and celebrates with “this is the day the Lord has made; let us rejoice and be glad in it.” It also predicts the rejected stone becoming the cornerstone — which the New Testament applies to Jesus, rejected by people but made the foundation of everything.",
+    aboutGod: "His love endures forever, and He makes something foundational out of the rejected.",
+    aboutPeople: "We wait for a “better day” to rejoice; God gives us today.",
+    realLife: "This day — the actual one you're in — is a gift to rejoice in, not endure.",
+    verse:
+      "“This is the day that Yahweh has made. We will rejoice and be glad in it.” — Psalm 118:24",
+    reflection: "Are you waiting for a “better day” to be glad — when this day is the one God made for you?",
+    prayer: "God, this is the day You made — help me rejoice in it instead of wishing it away. Thank You that Your love endures forever. Amen.",
+    step: "Find one specific thing to rejoice in TODAY — not someday — and thank God for this exact day.",
+    keyWords: [
+      { word: "This is the day", meaning: "Today — not a hypothetical better one — is God's gift to rejoice in. Gladness isn't reserved for ideal circumstances; it's available in the day you actually have." },
+      { word: "Cornerstone", meaning: "The foundational stone that everything is built on and aligned to. Jesus was rejected by people but became the cornerstone — what others discard, God can make essential." },
+    ],
+    verses: [
+      { ref: "Psalm 118:22", text: "The stone which the builders rejected has become the cornerstone.", meaning: "God specializes in making the rejected essential. What the world tossed aside — including, sometimes, you — He builds His work upon." },
+      { ref: "Psalm 118:1", text: "Give thanks to Yahweh, for he is good, for his loving kindness endures forever.", meaning: "God's love has no expiration date — it endures forever. Whatever today holds, that steady, unending love is the ground under your feet." },
+    ],
+    sideReflection: "Am I postponing joy for a “better day” when God made this one for me to rejoice in?",
+  },
+
+  78: {
+    context:
+      "Psalms 121–123 are “songs of ascents” — sung by travelers heading up to worship. Psalm 121 is the beloved one that lifts our eyes to where our help truly comes from.",
+    plainEnglish:
+      "Psalm 121 begins, “I lift up my eyes to the hills — where does my help come from? My help comes from the Lord.” It promises a God who watches over you and never sleeps on the job — your keeper, your shade, watching your coming and going. It's the prayer of someone who looked up and remembered where real help is.",
+    aboutGod: "He's your keeper — watching over you and never once falling asleep.",
+    aboutPeople: "We look everywhere for help before we look up.",
+    realLife: "When you don't know where help will come from, look up first.",
+    verse:
+      "“I will lift up my eyes to the hills. Where does my help come from? My help comes from Yahweh, who made heaven and earth.” — Psalm 121:1-2",
+    reflection: "Where have you been looking for help — and have you looked up to God first?",
+    prayer: "God, I lift my eyes to You. My help comes from You — the maker of heaven and earth, who never sleeps. Watch over me. Amen.",
+    step: "Today, when you feel stuck or helpless, physically look up and pray: “My help comes from the Lord.”",
+    keyWords: [
+      { word: "Lift up my eyes", meaning: "A deliberate shift of focus — from the problem down here to the God up there. Help begins when you stop staring at the trouble and look to Him." },
+      { word: "Keeper", meaning: "One who guards and watches over you. God isn't a distant overseer — He's your personal keeper, attentive to your every coming and going." },
+    ],
+    verses: [
+      { ref: "Psalm 121:3", text: "He who keeps you will not slumber. Behold, he who keeps Israel will neither slumber nor sleep.", meaning: "God never dozes off on watch. While you sleep tonight, He's wide awake, keeping you — you're never unguarded." },
+      { ref: "Psalm 121:8", text: "Yahweh will keep your going out and your coming in, from this time forward, and forever more.", meaning: "God's watch over you covers every direction and every season — going out, coming in, now and always. You're never outside His care." },
+    ],
+    sideReflection: "Where have I been searching for help on my own instead of lifting my eyes to God first?",
+  },
+
+  79: {
+    context:
+      "Psalms 124–126 celebrate God's deliverance. Psalm 126 holds a tender promise for anyone in a season of tears: the planting won't be wasted.",
+    plainEnglish:
+      "Psalm 126 remembers a time God restored His people and their mouths were “filled with laughter.” Then comes the promise for the still-grieving: “Those who sow in tears will reap with songs of joy.” The tears you're sowing now aren't pointless — they're seeds, and a harvest of joy is coming.",
+    aboutGod: "He turns tearful sowing into a harvest of joy.",
+    aboutPeople: "We feel our tears are wasted; God treats them as seeds.",
+    realLife: "The grief you're carrying isn't the end — it's seed for a coming joy.",
+    verse:
+      "“Those who sow in tears will reap in joy.” — Psalm 126:5",
+    reflection: "What “tears” are you sowing right now that feel wasted — but might be seeds of a coming harvest?",
+    prayer: "God, these tears feel wasted, but You call them seeds. I trust You're growing a harvest of joy I can't see yet. Amen.",
+    step: "Keep showing up faithfully in your hard season today — trust you're sowing seeds, not just shedding tears.",
+    keyWords: [
+      { word: "Sow in tears", meaning: "Faithfully doing the hard, painful work even while grieving. Your tears aren't wasted — they're seeds, and God promises a harvest from them." },
+      { word: "Reap in joy", meaning: "The harvest that follows faithful, tearful sowing. The grief isn't the final word — joy is what's coming up from the ground you watered with tears." },
+    ],
+    verses: [
+      { ref: "Psalm 126:6", text: "He who goes out weeping, carrying seed for sowing, will assuredly come again with joy, carrying his sheaves.", meaning: "The one who plants through tears comes home celebrating, arms full of harvest. Your weeping today is connected to a coming joy you'll carry home." },
+      { ref: "Galatians 6:9", text: "Let's not be weary in doing good, for we will reap in due season, if we don't give up.", meaning: "Don't quit in the hard season — the harvest comes to those who keep going. Faithfulness now has a payoff you can't yet see." },
+    ],
+    sideReflection: "What tears am I sowing that feel wasted — and can I trust God is growing a harvest from them?",
+  },
+
+  80: {
+    context:
+      "Psalms 127–129 include a short, life-changing truth in Psalm 127: without God, all our striving is exhausting and empty. It's a word for the over-worked and anxious.",
+    plainEnglish:
+      "Psalm 127 says, “Unless the Lord builds the house, the builders labor in vain” — and that God “gives sleep to his beloved,” even while the anxious work themselves to exhaustion. It's not anti-work; it's anti-striving-without-God. The invitation is to stop white-knuckling your life and let God be the builder.",
+    aboutGod: "He's the true builder — and He gives rest to those He loves.",
+    aboutPeople: "We exhaust ourselves building lives God never asked us to carry alone.",
+    realLife: "Effort without God is just exhausting; invite Him into the building.",
+    verse:
+      "“Unless Yahweh builds the house, they who build it labor in vain... for he gives sleep to his loved ones.” — Psalm 127:1-2",
+    reflection: "What are you striving to build on your own that you've never really invited God into?",
+    prayer: "God, I'm tired of building alone. Be the builder of my life. Help me work from rest, not anxiety. Thank You for the sleep You give. Amen.",
+    step: "Identify one thing you've been anxiously striving at, and invite God to be the builder of it today.",
+    keyWords: [
+      { word: "In vain", meaning: "Wasted effort, striving that goes nowhere. Work without God at the center exhausts you without truly building — He has to be the foundation." },
+      { word: "Gives sleep to his beloved", meaning: "God's gift of rest to those He loves. You don't have to earn your worth through endless striving — He invites you to rest in being loved." },
+    ],
+    verses: [
+      { ref: "Matthew 11:29", text: "Take my yoke upon you and learn from me... and you will find rest for your souls.", meaning: "Jesus offers a different way to carry your load — yoked to Him. The striving that wears you out can be traded for a rest that holds." },
+      { ref: "Psalm 127:2", text: "It is vain for you to rise up early, to stay up late, eating the bread of toil, for he gives sleep to his loved ones.", meaning: "Burning the candle at both ends won't build what only God can. He'd rather give you rest than watch you strive yourself empty." },
+    ],
+    sideReflection: "What am I striving to build alone that I need to hand to God, the true builder?",
+  },
+
+  81: {
+    context:
+      "Psalms 130–132 include two gems: Psalm 130's cry “out of the depths,” and Psalm 131's picture of a soul quieted like a contented child.",
+    plainEnglish:
+      "Psalm 130 cries to God “out of the depths” and marvels that if God kept a record of sins, no one could stand — but “with you there is forgiveness.” Psalm 131 is tiny and tender: David calms his striving soul “like a weaned child with its mother,” no longer fussing for what it can't have. From the depths to deep peace, in two short psalms.",
+    aboutGod: "He keeps no record of forgiven sins — and quiets the soul that trusts Him.",
+    aboutPeople: "We either drown in the depths or fuss like restless children; God meets both.",
+    realLife: "You can cry from the depths AND learn to rest like a contented child — both with God.",
+    verse:
+      "“If you, Yah, kept a record of sins, Lord, who could stand? But there is forgiveness with you...” — Psalm 130:3-4",
+    reflection: "Are you crying from the depths, or fussing restlessly — and can you let God quiet your soul today?",
+    prayer: "God, out of the depths I cry — and You meet me with forgiveness, not a record of wrongs. Quiet my soul like a content child. Amen.",
+    step: "Practice Psalm 131 today: when your soul gets restless and fussy, consciously calm it and rest in God.",
+    keyWords: [
+      { word: "Out of the depths", meaning: "Crying to God from your lowest point. The depths aren't too deep for God to hear — His forgiveness reaches all the way down." },
+      { word: "Weaned child", meaning: "A child past fussing for milk, content just to be held. It's a picture of a soul that has stopped demanding and learned to rest in God's presence." },
+    ],
+    verses: [
+      { ref: "Psalm 131:2", text: "Surely I have stilled and quieted my soul, like a weaned child with his mother. My soul is like a weaned child within me.", meaning: "Peace is something you can cultivate — stilling your soul on purpose. Like a content child, you can rest in God without needing to have it all figured out." },
+      { ref: "Psalm 130:7", text: "Israel, hope in Yahweh, for there is loving kindness with Yahweh. Abundant redemption is with him.", meaning: "However deep your pit, God's redemption is more abundant still. There's always more grace in Him than there is mess in you." },
+    ],
+    sideReflection: "Is my soul crying from the depths or fussing restlessly — and how can I let God quiet it today?",
+  },
+
+  82: {
+    context:
+      "Psalms 133–135 celebrate the goodness of God's people living together in unity. Psalm 133 is short but rich — a picture of how good community can be.",
+    plainEnglish:
+      "Psalm 133 opens, “How good and pleasant it is when brothers live together in unity!” and compares it to precious oil and refreshing dew. In a world full of division, this psalm celebrates the rare beauty of real togetherness among God's people — and ties God's blessing to it. We're not meant to walk with God in isolation.",
+    aboutGod: "He pours out blessing where His people live in genuine unity.",
+    aboutPeople: "We drift toward isolation and division; God designed us for togetherness.",
+    realLife: "Walking with God was never meant to be done alone.",
+    verse:
+      "“See how good and how pleasant it is for brothers to live together in unity!” — Psalm 133:1",
+    reflection: "Are you trying to walk with God in isolation — and who could you walk alongside instead?",
+    prayer: "God, thank You for the gift of others to walk with. Help me pursue real unity and community, not isolation. Bless us as we do. Amen.",
+    step: "Reach out to one fellow believer this week — coffee, a call, a message — and invest in walking together.",
+    keyWords: [
+      { word: "Unity", meaning: "People genuinely together, not just in the same room. It's rare and precious — and Scripture says God's blessing flows where it's found." },
+      { word: "Pleasant", meaning: "Delightful, refreshing, life-giving. Real Christian community isn't a duty — at its best it's one of the sweetest gifts of walking with God." },
+    ],
+    verses: [
+      { ref: "Hebrews 10:25", text: "not forsaking our own assembling together, as the custom of some is, but exhorting one another.", meaning: "You're not meant to go it alone. Gathering with others isn't optional extra — it's how faith stays warm and encouraged." },
+      { ref: "Ecclesiastes 4:10", text: "For if they fall, the one will lift up his fellow; but woe to him who is alone when he falls.", meaning: "Everyone falls sometimes — and that's when company matters most. Walking with others means someone's there to help you back up." },
+    ],
+    sideReflection: "Where have I been isolating in my faith — and who could I intentionally walk alongside?",
+  },
+
+  83: {
+    context:
+      "Psalms 136–138 anchor in God's never-ending love. Psalm 136 hammers one refrain 26 times: “his love endures forever” — until it's impossible to forget.",
+    plainEnglish:
+      "Psalm 136 recounts creation, rescue, and provision, and after every single line repeats: “His love endures forever.” The relentless repetition is the point — God wants this truth burned into us. Psalm 138 adds the confidence that when we walk through trouble, God preserves us. His love isn't a mood; it's a constant.",
+    aboutGod: "His love is a constant — it endures forever, through everything.",
+    aboutPeople: "We treat God's love as conditional and fluctuating; it never changes.",
+    realLife: "God's love for you doesn't rise and fall with your day — it endures forever.",
+    verse:
+      "“Give thanks to Yahweh, for he is good, for his loving kindness endures forever.” — Psalm 136:1",
+    reflection: "Do you believe God's love for you endures forever — or does it feel like it depends on your performance?",
+    prayer: "God, Your love endures forever — it doesn't rise and fall with my performance. Burn that truth into me until I stop doubting it. Amen.",
+    step: "Say “His love endures forever” after naming several things today — let the repetition sink in like the psalm intends.",
+    keyWords: [
+      { word: "Endures forever", meaning: "God's love has no end and no off-switch. Repeated 26 times in one psalm so the truth can't be missed — His love is a permanent constant, not a passing mood." },
+      { word: "Refrain", meaning: "A line repeated on purpose so it sinks deep. God knows we forget His love, so He had it sung over and over until it lodges in the heart." },
+    ],
+    verses: [
+      { ref: "Psalm 138:7", text: "Though I walk in the middle of trouble, you will revive me.", meaning: "God doesn't always remove the trouble, but He revives you inside it. His love walks you through the middle, not just around it." },
+      { ref: "Psalm 138:8", text: "Yahweh will fulfill that which concerns me. Your loving kindness, Yahweh, endures forever.", meaning: "God doesn't abandon what He started in you. His enduring love guarantees He'll finish the good work He's doing in your life." },
+    ],
+    sideReflection: "Does God's love feel conditional to me — and what would it mean to believe it truly endures forever?",
+  },
+
+  84: {
+    context:
+      "Psalm 139 is one of the most intimate chapters in all of Scripture — the prayer of someone overwhelmed that God knows them completely and still stays close.",
+    plainEnglish:
+      "Psalm 139 marvels that God knows everything about David — when he sits, what he'll say, every thought — and that he can never go anywhere beyond God's presence. Then the famous line: “I am fearfully and wonderfully made.” To be fully known by God and still fully loved is the deepest security a human heart can have.",
+    aboutGod: "He knows you completely — and stays close anyway.",
+    aboutPeople: "We fear that if we were truly known, we'd be rejected; God proves otherwise.",
+    realLife: "You are fully known by God and fully loved — at the same time.",
+    verse:
+      "“I will give thanks to you, for I am fearfully and wonderfully made. Your works are wonderful. My soul knows that very well.” — Psalm 139:14",
+    reflection: "Do you believe you're “fearfully and wonderfully made” — or have you believed lies about your worth?",
+    prayer: "God, You know me completely and stay close anyway. Thank You that I'm fearfully and wonderfully made. Heal the lies I've believed about myself. Amen.",
+    step: "When a critical thought about yourself surfaces today, replace it with: “I am fearfully and wonderfully made.”",
+    keyWords: [
+      { word: "Fully known", meaning: "God knows every thought, word, and moment of your life — nothing hidden. And the wonder is He stays close anyway; being known by Him doesn't risk rejection." },
+      { word: "Fearfully and wonderfully made", meaning: "You were crafted with awe and care, on purpose. Your worth isn't an accident or up for debate — it's woven into how God made you." },
+    ],
+    verses: [
+      { ref: "Psalm 139:7", text: "Where could I go from your Spirit? Or where could I flee from your presence?", meaning: "There's no place too far, too low, or too dark for God to be with you. Wherever you go, His presence is already there." },
+      { ref: "Psalm 139:17", text: "How precious to me are your thoughts, God! How vast is the sum of them!", meaning: "God thinks about you more than you can count, and His thoughts toward you are precious. You're not on the edge of His mind — you're central to it." },
+    ],
+    sideReflection: "What lies about my worth have I believed that Psalm 139 directly contradicts?",
+  },
+
+  85: {
+    context:
+      "Psalms 142–144 are wilderness prayers — David in a cave, surrounded, desperate. They model running to God as your refuge and asking Him to teach you His way forward.",
+    plainEnglish:
+      "Psalm 142 is David in a cave, crying out, “You are my refuge.” Psalm 143 prays one of the most useful prayers in the Bible: “Teach me to do your will,” and “let me hear of your loving kindness in the morning.” When you're cornered and unsure what to do, the move is to make God your refuge and ask Him to lead the way.",
+    aboutGod: "He's your refuge in the cave — and your teacher when you don't know the way.",
+    aboutPeople: "We hide in caves of fear; God invites us to make Him the refuge instead.",
+    realLife: "When you don't know what to do, ask God to teach you His way.",
+    verse:
+      "“Teach me to do your will, for you are my God. Your Spirit is good. Lead me in the land of uprightness.” — Psalm 143:10",
+    reflection: "What “cave” are you in right now — and have you asked God to teach you the way out?",
+    prayer: "God, You're my refuge in this cave. I don't know the way forward — teach me to do Your will. Lead me by Your good Spirit. Amen.",
+    step: "Pray “teach me to do Your will” over one specific decision today, and stay open to how God leads.",
+    keyWords: [
+      { word: "Refuge", meaning: "A safe place to run when you're cornered. Even in the cave — the lowest, most desperate spot — God is the shelter you can flee to." },
+      { word: "Teach me your will", meaning: "A prayer of humble surrender for guidance. When you don't know the way forward, you don't have to figure it out alone — you can ask God to lead." },
+    ],
+    verses: [
+      { ref: "Psalm 143:8", text: "Cause me to hear your loving kindness in the morning, for I trust in you. Cause me to know the way in which I should walk.", meaning: "Start the day listening for God's love and asking for direction. He's willing to show you the way one morning at a time." },
+      { ref: "Proverbs 3:6", text: "In all your ways acknowledge him, and he will make your paths straight.", meaning: "Bring God into every decision, not just the big ones. As you acknowledge Him, He straightens the path you couldn't map on your own." },
+    ],
+    sideReflection: "What cave am I hiding in — and have I asked God to be my refuge and teach me the way out?",
+  },
+
+  86: {
+    context:
+      "Psalms 145–147 build toward the grand finale of praise. Psalm 145 says God is near to all who call; Psalm 147 reveals a God who tends the brokenhearted and counts the stars.",
+    plainEnglish:
+      "Psalm 145 declares God is near to everyone who calls on Him and faithful in all He does. Psalm 147 holds a stunning pairing: the God who “heals the brokenhearted and binds up their wounds” is the same God who “counts the number of the stars” and names each one. The cosmic and the tender meet in one God.",
+    aboutGod: "He counts the stars AND binds up your wounds — both, with the same hands.",
+    aboutPeople: "We assume a God that big can't be bothered with our small wounds; He is.",
+    realLife: "The God who runs the universe is gentle enough to bandage your heart.",
+    verse:
+      "“He heals the broken in heart, and binds up their wounds. He counts the number of the stars; he calls them all by their names.” — Psalm 147:3-4",
+    reflection: "What wound are you carrying — and can you trust the God of the stars to gently bind it up?",
+    prayer: "God, You count the stars and still bind up my wounds. Bring Your healing to the broken places in me. You're near when I call. Amen.",
+    step: "Name one wound you've been minimizing, and bring it to God for healing instead of pretending it's fine.",
+    keyWords: [
+      { word: "Binds up wounds", meaning: "The image of a gentle healer carefully bandaging an injury. God's power isn't only cosmic — it's tender enough to nurse your broken heart." },
+      { word: "Counts the stars", meaning: "God knows and names every star in the universe. The same infinite attention He gives the cosmos, He gives to you and your wounds." },
+    ],
+    verses: [
+      { ref: "Psalm 145:18", text: "Yahweh is near to all those who call on him, to all who call on him in truth.", meaning: "Nearness to God isn't earned by status — it's available to anyone who calls honestly. The God of the stars is only a sincere prayer away." },
+      { ref: "Psalm 147:5", text: "Great is our Lord, and mighty in power. His understanding is infinite.", meaning: "There's no limit to what God understands — including everything about your situation. The One healing you grasps it more fully than you do." },
+    ],
+    sideReflection: "What wound have I been minimizing that the God of the stars wants to gently bind up?",
+  },
+
+  87: {
+    context:
+      "The Psalms end the only way they could — in pure, exuberant praise. Psalms 148–150 call everything that exists to praise God, building to the final, breathless command.",
+    plainEnglish:
+      "These last psalms summon all of creation — sun, moon, mountains, oceans, animals, young and old — to praise God. Psalm 150 ends the entire book with the climactic line: “Let everything that has breath praise the Lord.” After 150 psalms of honest prayer through every emotion, it all resolves into praise. The journey through the Psalms ends in worship.",
+    aboutGod: "He's worthy of the praise of every living thing — including your every breath.",
+    aboutPeople: "We were made to praise; it's the truest use of the breath we're given.",
+    realLife: "Every breath you have is a reason — and an invitation — to praise God.",
+    verse:
+      "“Let everything that has breath praise Yah! Praise Yah!” — Psalm 150:6",
+    reflection: "After walking through all the honest seasons of the Psalms, what does praise look like for you today?",
+    prayer: "God, after all the honest prayers, it all comes back to this: You are worthy. With every breath You've given me, I praise You. Amen.",
+    step: "Use your literal breath today — sing, speak, or whisper praise to God, the way the Psalms end.",
+    keyWords: [
+      { word: "Everything that has breath", meaning: "The widest possible invitation to worship — if you're breathing, you qualify. Praise isn't for the gifted few; it's the birthright of every living thing." },
+      { word: "Praise", meaning: "The destination of the whole book of Psalms. After every honest emotion — grief, fear, doubt, joy — it all resolves here, in worship of a God who is worthy." },
+    ],
+    verses: [
+      { ref: "Psalm 150:2", text: "Praise him for his mighty acts! Praise him according to his excellent greatness!", meaning: "There are endless reasons to praise God — His acts and His greatness never run dry. The well of worship never empties." },
+      { ref: "Revelation 5:13", text: "I heard every created thing... saying, 'To him who sits on the throne, and to the Lamb be the blessing, the honor, the glory.'", meaning: "One day all creation will praise God together. The worship the Psalms call for is where the whole story is headed — and you get to join it now." },
+    ],
+    sideReflection: "After walking through every honest season with God, what does it look like for me to praise Him today?",
+  },
 };
 
 /** The 6 arcs of the plan, for the Reading Plan tab. */
