@@ -7,12 +7,8 @@ import { getDailyGoodNews } from "@/lib/goodNews";
 import { GOOD_NEWS_ENABLED, PRICING_ENABLED } from "@/lib/flags";
 import { site } from "@/lib/site";
 
-const features = [
-  {
-    icon: "📖",
-    title: "Start with Jesus",
-    body: "The plan opens with John, Romans, and Acts — so Scripture clicks before you ever hit the hard parts.",
-  },
+// Free features — what comes with the daily newsletter (free for everyone).
+const freeFeatures = [
   {
     icon: "🙏",
     title: "A prayer every day",
@@ -24,9 +20,18 @@ const features = [
     body: "Three uplifting, real stories each day — proof that even when the world feels heavy, good is still happening.",
   },
   {
-    icon: "🎧",
-    title: "Listen or read",
-    body: "Premium includes an audio devotional each day — perfect for the commute or the morning coffee.",
+    icon: "🤝",
+    title: "Walk together",
+    body: "A free, welcoming community to share, ask questions, and encourage each other along the way.",
+  },
+];
+
+// Premium features — the guided Bible-in-a-Year journey.
+const premiumFeatures = [
+  {
+    icon: "📖",
+    title: "Start with Jesus",
+    body: "The plan opens with John, Romans, and Acts — so Scripture clicks before you ever hit the hard parts.",
   },
   {
     icon: "🗓️",
@@ -34,9 +39,9 @@ const features = [
     body: "Your plan starts on your Day 1. Miss a day? Just pick up where you left off — nothing resets on you.",
   },
   {
-    icon: "🤝",
-    title: "Walk together",
-    body: "A free, welcoming community to share, ask questions, and encourage each other along the way.",
+    icon: "🎧",
+    title: "Listen or read",
+    body: "Premium includes an audio devotional each day — perfect for the commute or the morning coffee.",
   },
 ];
 
@@ -81,49 +86,100 @@ export default async function HomePage() {
             A daily dose of encouragement for everyone — and a personal, guided
             journey through Scripture for those who want to go deeper.
           </p>
-          <div className="rhythms">
-            <div className="rcard">
-              <div className="rk">Every day · Free</div>
-              <h3>The Daily Walk newsletter</h3>
-              <p>
-                A 2-minute devotional, one honest prayer, three uplifting Good
-                News stories, the Wednesday Pastor&apos;s Take, and a Sunday Rest
-                &amp; Reflect. Encouragement that meets you in real life.
-              </p>
-              <div className="who">
-                For anyone who wants daily encouragement, prayer, and hope.
+          <div className="rhythms tiers">
+            {/* FREE — newsletter + its features */}
+            <div className="tiercol">
+              <div className="rcard">
+                <div className="rk">Every day · Free</div>
+                <h3>The Daily Walk newsletter</h3>
+                <p>
+                  A 2-minute devotional, one honest prayer, three uplifting Good
+                  News stories, the Wednesday Pastor&apos;s Take, and a Sunday
+                  Rest &amp; Reflect. Encouragement that meets you in real life.
+                </p>
+                <div className="who">
+                  For anyone who wants daily encouragement, prayer, and hope.
+                </div>
+              </div>
+              <div className="tierfeats">
+                {freeFeatures.map((f) => (
+                  <div className="feat" key={f.title}>
+                    <div className="ic" aria-hidden="true">
+                      {f.icon}
+                    </div>
+                    <h4>{f.title}</h4>
+                    <p>{f.body}</p>
+                  </div>
+                ))}
               </div>
             </div>
-            <div className="rcard">
-              <div className="rk">Your Day 1 · Premium</div>
-              <h3>The Bible-in-a-Year journey</h3>
-              <p>
-                Read the whole Bible in a year — starting with Jesus, not
-                Genesis. Each day: the reading, a plain-English breakdown, what
-                it shows us about God, real-life application, a question, and
-                audio. Begins the day <em>you</em> join.
-              </p>
-              <div className="who">
-                For readers who want to be personally guided through the Bible.
+
+            {/* PREMIUM — journey + its features */}
+            <div className="tiercol">
+              <div className="rcard">
+                <div className="rk">Your Day 1 · Premium</div>
+                <h3>The Bible-in-a-Year journey</h3>
+                <p>
+                  Read the whole Bible in a year — starting with Jesus, not
+                  Genesis. Each day: the reading, a plain-English breakdown, what
+                  it shows us about God, real-life application, a question, and
+                  audio. Begins the day <em>you</em> join.
+                </p>
+                <div className="who">
+                  For readers who want to be personally guided through the Bible.
+                </div>
+              </div>
+              <div className="tierfeats">
+                {premiumFeatures.map((f) => (
+                  <div className="feat" key={f.title}>
+                    <div className="ic" aria-hidden="true">
+                      {f.icon}
+                    </div>
+                    <h4>{f.title}</h4>
+                    <p>{f.body}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* FEATURES */}
-      <section style={{ paddingTop: 0 }}>
+      {/* WHY READ THE BIBLE */}
+      <section id="why" className="whysec">
         <div className="wrap">
-          <div className="feats">
-            {features.map((f) => (
-              <div className="feat" key={f.title}>
-                <div className="ic" aria-hidden="true">
-                  {f.icon}
-                </div>
-                <h4>{f.title}</h4>
-                <p>{f.body}</p>
-              </div>
-            ))}
+          <div className="why-head">
+            <div className="sec-tag">Why it matters</div>
+            <h2 className="h">Why read the Bible?</h2>
+          </div>
+          <div className="why-copy">
+            <p className="why-lead">
+              You&apos;ll never grow close to someone you never actually talk to.
+              Not your closest friend, not the person you love most — and not God.
+            </p>
+            <p>
+              The Bible isn&apos;t a rulebook to feel guilty about. It&apos;s the
+              clearest way God gave us to actually know Him — how He thinks, how
+              He loves, how He keeps showing up for ordinary people who are sure
+              they&apos;ve blown it.
+            </p>
+            <p>
+              And here&apos;s the honest part: we make time for what we care
+              about. There&apos;s always time for the phone, the feed, the next
+              episode. Ten minutes in Scripture isn&apos;t one more box to check —
+              it&apos;s giving God a real seat in your real day.
+            </p>
+            <p>
+              You don&apos;t start in the deep end. You don&apos;t even start in
+              Genesis. You start with Jesus — who He is, how He treats people,
+              what He came to do — so the rest finally makes sense.
+            </p>
+            <p className="why-kicker">
+              A little, every day, adds up. Ten honest minutes each morning for a
+              year, and you&apos;ll know God in a way that quietly changes
+              everything. You don&apos;t have to have it figured out. You just
+              have to open it.
+            </p>
           </div>
         </div>
       </section>

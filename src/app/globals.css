@@ -639,6 +639,67 @@ h2.h {
   font-size: 14px;
 }
 
+/* ---------- Tiered features: cards grouped under each rhythm ---------- */
+.tiers {
+  align-items: start;
+}
+.tiercol {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.tierfeats {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+/* Premium column keeps the navy accent rail (free stays gold). */
+.tiers .tiercol:nth-child(2) .rcard::before {
+  background: linear-gradient(180deg, var(--navy), #3a5e8a);
+}
+/* Warm icon tiles under Free, cool tiles under Premium — reinforces the tier. */
+.tiers .tiercol:nth-child(1) .feat .ic {
+  background: linear-gradient(135deg, #fbf2d8, #f6e6b8);
+}
+.tiers .tiercol:nth-child(2) .feat .ic {
+  background: linear-gradient(135deg, #eaf1fb, #d4e4fb);
+}
+
+/* ---------- Why read the Bible ---------- */
+.whysec {
+  background: var(--cream);
+}
+.why-head {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.why-copy {
+  max-width: 660px;
+  margin: 22px auto 0;
+}
+.why-copy p {
+  font-size: 17px;
+  line-height: 1.72;
+  color: var(--ink);
+  margin: 0 0 18px;
+}
+.why-copy p:last-child {
+  margin-bottom: 0;
+}
+.why-lead {
+  font-family: var(--serif);
+  font-size: 22px !important;
+  line-height: 1.5 !important;
+  color: var(--navy);
+}
+.why-kicker {
+  border-left: 4px solid var(--gold);
+  padding: 4px 0 4px 18px;
+  color: var(--navy) !important;
+  font-style: italic;
+}
+
 /* ---------- Good News preview ---------- */
 .gnsec {
   background: var(--cream);
