@@ -1348,21 +1348,23 @@ hr.div {
 /* ============================================================
    PRAYER WALL
    ============================================================ */
-/* Warm muted taupe ground with a slim navy accent across the very top */
+/* Sunrise ground (navy -> warm), matching the homepage hero & About */
 .prayer-wall {
-  border-top: 5px solid var(--navy);
   background:
-    radial-gradient(
-      130% 80% at 50% 0%,
-      rgba(201, 162, 75, 0.18),
-      transparent 60%
-    ),
     linear-gradient(
       180deg,
-      #5e555e 0%,
-      #6f655f 36%,
-      #877d73 70%,
-      #9a9082 100%
+      rgba(15, 26, 46, 0.74) 0%,
+      rgba(17, 32, 56, 0.4) 52%,
+      rgba(31, 58, 95, 0.62) 100%
+    ),
+    radial-gradient(
+      120% 78% at 50% 102%,
+      #f6cf86 0%,
+      #e3a85a 17%,
+      #b9763f 33%,
+      #5b4f63 56%,
+      #243a5d 78%,
+      #1b3050 100%
     );
 }
 .prayer-wall .sec-tag {
@@ -1650,23 +1652,25 @@ hr.div {
 
 /* ---------- Homepage prayer-wall preview ---------- */
 /* Same sunrise hue as the hero, so the white panel floats above it */
-/* Same warm taupe ground + navy top accent as the Prayer Wall, so they match */
+/* Same sunrise ground as the Prayer Wall & hero, so it all unifies */
 .pwsec {
   position: relative;
   overflow: hidden;
-  border-top: 5px solid var(--navy);
   background:
-    radial-gradient(
-      130% 80% at 50% 0%,
-      rgba(201, 162, 75, 0.18),
-      transparent 60%
-    ),
     linear-gradient(
       180deg,
-      #5e555e 0%,
-      #6f655f 36%,
-      #877d73 70%,
-      #9a9082 100%
+      rgba(15, 26, 46, 0.74) 0%,
+      rgba(17, 32, 56, 0.4) 52%,
+      rgba(31, 58, 95, 0.62) 100%
+    ),
+    radial-gradient(
+      120% 78% at 50% 102%,
+      #f6cf86 0%,
+      #e3a85a 17%,
+      #b9763f 33%,
+      #5b4f63 56%,
+      #243a5d 78%,
+      #1b3050 100%
     );
 }
 .pwsec .wrap {
