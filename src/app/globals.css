@@ -1533,31 +1533,55 @@ hr.div {
 }
 
 /* ---------- Homepage prayer-wall preview ---------- */
-/* Soft dawn backdrop — a gentle, light echo of the hero sunrise */
+/* Same sunrise hue as the hero, so the white panel floats above it */
 .pwsec {
+  position: relative;
+  overflow: hidden;
   background:
     linear-gradient(
       180deg,
-      #eaf0f7 0%,
-      #f3edf0 42%,
-      #faecdd 74%,
-      #fdf3e2 100%
+      rgba(15, 26, 46, 0.74) 0%,
+      rgba(17, 32, 56, 0.4) 52%,
+      rgba(31, 58, 95, 0.62) 100%
     ),
     radial-gradient(
-      120% 80% at 50% 108%,
-      rgba(246, 207, 134, 0.45) 0%,
-      rgba(227, 168, 90, 0.16) 32%,
-      transparent 62%
+      120% 78% at 50% 102%,
+      #f6cf86 0%,
+      #e3a85a 17%,
+      #b9763f 33%,
+      #5b4f63 56%,
+      #243a5d 78%,
+      #1b3050 100%
     );
 }
+/* horizon glow, matching the hero */
+.pwsec::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -42%;
+  width: 150%;
+  height: 70%;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    50% 60% at 50% 50%,
+    rgba(255, 223, 160, 0.5),
+    transparent 70%
+  );
+  pointer-events: none;
+}
+.pwsec .wrap {
+  position: relative;
+  z-index: 1;
+}
 .pwsec .sec-tag {
-  color: var(--gold-deep);
+  color: var(--gold);
 }
 .pwsec .h {
-  color: var(--navy);
+  color: #fff;
 }
 .pwsec .sub {
-  color: var(--grey);
+  color: rgba(255, 255, 255, 0.85);
 }
 
 /* The elevated "panel" that gives the section depth */
