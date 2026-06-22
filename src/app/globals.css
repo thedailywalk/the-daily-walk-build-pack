@@ -1333,21 +1333,37 @@ hr.div {
 /* ============================================================
    PRAYER WALL
    ============================================================ */
-/* Warm, soft backdrop with a pop of gold — echoes the homepage */
+/* Warm, muted dark backdrop (taupe/mauve) so the white panel + cards float */
 .prayer-wall {
   background:
     radial-gradient(
-      120% 70% at 50% 0%,
-      rgba(201, 162, 75, 0.14),
-      transparent 55%
+      130% 80% at 50% 0%,
+      rgba(201, 162, 75, 0.18),
+      transparent 60%
     ),
-    linear-gradient(180deg, #faf6ee 0%, #ffffff 62%);
+    linear-gradient(
+      180deg,
+      #5e555e 0%,
+      #6f655f 36%,
+      #877d73 70%,
+      #9a9082 100%
+    );
+}
+.prayer-wall .sec-tag {
+  color: var(--gold);
+}
+.prayer-wall .h {
+  color: #fff;
 }
 .prayer-wall .sub {
+  color: rgba(255, 255, 255, 0.84);
   margin-bottom: 26px;
   max-width: 620px;
   margin-left: auto;
   margin-right: auto;
+}
+.prayer-wall .prayer-empty {
+  color: rgba(255, 255, 255, 0.85);
 }
 
 /* Submit panel — an elevated, dimensional card like the homepage */
