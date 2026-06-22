@@ -66,6 +66,24 @@ export type GoodNewsItem = {
   source: string;
 };
 
+/**
+ * PINNED Good News — manually feature a story (e.g. for a holiday).
+ * Anything in this list shows FIRST, ahead of the auto-pulled daily stories.
+ * Leave it empty ([]) for fully automatic. To pin: add an item with a headline,
+ * href, source, a category label, and an image URL (or "" to auto-fetch one).
+ */
+export const pinnedGoodNews: GoodNewsItem[] = [
+  // Example (remove the leading // to activate):
+  // {
+  //   category: "Christmas",
+  //   headline: "A whole town showed up to keep a struggling diner open",
+  //   image: "https://…/photo.jpg",
+  //   href: "https://…/full-article",
+  //   source: "Good News Network",
+  // },
+];
+
+/** Curated fallback — shown only if the live feed can't be reached. */
 export const goodNews: GoodNewsItem[] = [
   {
     category: "Generosity",
