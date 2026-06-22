@@ -1748,6 +1748,79 @@ hr.div {
   padding: 0;
 }
 
+/* Monthly workbook grid */
+.wb-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.wb-card {
+  display: block;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 16px 18px;
+  box-shadow: 0 10px 22px -18px rgba(31, 58, 95, 0.25);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+.wb-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--gold);
+  box-shadow: 0 16px 30px -18px rgba(184, 144, 46, 0.4);
+  text-decoration: none;
+}
+.wb-card.is-here {
+  border-color: var(--gold);
+  background: linear-gradient(180deg, #fffdf8 0%, #fbf4e2 100%);
+}
+.wb-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.wb-month {
+  font-family: var(--serif);
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--navy);
+}
+.wb-here {
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 9.5px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--navy);
+  background: var(--gold);
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+.wb-range {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-top: 4px;
+}
+.wb-covers {
+  font-size: 12.5px;
+  color: var(--grey);
+  margin-top: 2px;
+}
+.wb-dl {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--gold-deep);
+  margin-top: 10px;
+}
+@media (max-width: 520px) {
+  .wb-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Stack on narrower screens */
 @media (max-width: 1080px) {
   .sg-layout {

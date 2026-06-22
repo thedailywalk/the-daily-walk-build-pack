@@ -6,6 +6,7 @@ import { getEntitlement } from "@/lib/beehiiv";
 import { getOrCreateProgress } from "@/lib/progress";
 import { getStudyDay, getBookStarts, ARCS } from "@/lib/studyGuide";
 import { getNotes, listNoteDays, listFavorites } from "@/lib/studyData";
+import { listWorkbookMonths } from "@/lib/workbook";
 import { daysCompleted, progressPercent, TOTAL_DAYS } from "@/lib/journey";
 import StudyGuide from "@/components/StudyGuide";
 import StudySideCards from "@/components/StudySideCards";
@@ -75,7 +76,7 @@ export default async function JourneyPage({
       {tab === "plan" && <PlanTab currentDay={progress.currentDay} />}
       {tab === "notes" && (await NotesTab(user.id))}
       {tab === "favorites" && (await FavoritesTab(user.id))}
-      {tab === "workbook" && <WorkbookTab />}
+      {tab === "workbook" && <WorkbookTab currentDay={progress.currentDay} />}
     </section>
   );
 }
@@ -349,21 +350,42 @@ async function FavoritesTab(userId: string) {
 }
 
 /* ---------------- Workbook ---------------- */
-function WorkbookTab() {
+function WorkbookTab({ currentDay }: { currentDay: number }) {
+  const months = listWorkbookMonths();
   return (
     <div className="sg-tabwrap">
-      <div
-        className="sg-zone sg-zone-warm"
-        style={{ textAlign: "center", padding: "40px 28px" }}
-      >
-        <div style={{ fontSize: 34 }}>📒</div>
-        <h3 style={{ color: "var(--navy)", margin: "8px 0 8px", fontSize: 20 }}>
-          Monthly workbook
-        </h3>
-        <p className="muted" style={{ maxWidth: 460, margin: "0 auto" }}>
-          A printable PDF of each month&apos;s readings, key words, verses, and
-          journal prompts is coming soon — so you can take your journey offline,
-          into a binder, or onto your iPad.
+      <div className="sg-zone sg-zone-warm">
+        <p className="sg-zone-title">Monthly workbook</p>
+        <p className="muted" style={{ margin: "0 0 18px", maxWidth: 560 }}>
+          A printable PDF for each month of your journey — the readings, key
+          words, verses, and journal prompts, with space to write. Take it
+          offline, into a binder, or onto your iPad.
+        </p>
+        <div className="wb-grid">
+          {months.map((m) => {
+            const here = currentDay >= m.startDay && currentDay <= m.endDay;
+            return (
+              <a
+                key={m.month}
+                href={`/api/workbook/${m.month}`}
+                className={`wb-card${here ? " is-here" : ""}`}
+              >
+                <div className="wb-card-top">
+                  <span className="wb-month">{m.label}</span>
+                  {here && <span className="wb-here">You&apos;re here</span>}
+                </div>
+                <div className="wb-range">
+                  Days {m.startDay}–{m.endDay}
+                </div>
+                <div className="wb-covers">{m.covers}</div>
+                <div className="wb-dl">Download PDF →</div>
+              </a>
+            );
+          })}
+        </div>
+        <p className="muted" style={{ fontSize: 12.5, margin: "16px 0 0" }}>
+          Each workbook opens as a PDF you can save or print. They&apos;re yours
+          as a Premium member — download any month, anytime.
         </p>
       </div>
     </div>
