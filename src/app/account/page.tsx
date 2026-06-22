@@ -76,15 +76,16 @@ export default async function AccountPage() {
           <div className="rcard" style={{ marginBottom: 20 }}>
             <div className="rk">Your Bible-in-a-Year journey</div>
             <p style={{ color: "#3c4350", fontSize: 15, margin: "8px 0 14px" }}>
-              You&apos;re all set with {TIER_LABEL[ent.tier]}. Your guided journey
-              and daily audio arrive by email, starting on your Day 1. The
-              full&nbsp;
-              <strong>My Journey</strong> dashboard — progress, today&apos;s
-              reading, and the archive — is coming here next.
+              You&apos;re all set with {TIER_LABEL[ent.tier]}. Track your progress
+              through the whole Bible — today&apos;s reading, mark days complete,
+              and pick up right where you left off.
             </p>
-            <span className="muted" style={{ fontSize: 13 }}>
+            <Link href="/journey" className="btn btn-gold">
+              Open My Journey →
+            </Link>
+            <div className="muted" style={{ fontSize: 13, marginTop: 12 }}>
               Subscription status: {ent.status ?? "active"}
-            </span>
+            </div>
           </div>
         ) : (
           <div
