@@ -46,7 +46,8 @@ html {
 }
 body {
   margin: 0;
-  background: var(--white);
+  /* a barely-there warm base ties the warm taupe sections to the rest */
+  background: #faf8f4;
   color: var(--ink);
   font-family: var(--sans);
   line-height: 1.6;
@@ -1601,41 +1602,23 @@ hr.div {
 
 /* ---------- Homepage prayer-wall preview ---------- */
 /* Same sunrise hue as the hero, so the white panel floats above it */
+/* Same warm muted-taupe ground as the Prayer Wall page, so the two match */
 .pwsec {
   position: relative;
   overflow: hidden;
   background:
+    radial-gradient(
+      130% 80% at 50% 0%,
+      rgba(201, 162, 75, 0.18),
+      transparent 60%
+    ),
     linear-gradient(
       180deg,
-      rgba(15, 26, 46, 0.74) 0%,
-      rgba(17, 32, 56, 0.4) 52%,
-      rgba(31, 58, 95, 0.62) 100%
-    ),
-    radial-gradient(
-      120% 78% at 50% 102%,
-      #f6cf86 0%,
-      #e3a85a 17%,
-      #b9763f 33%,
-      #5b4f63 56%,
-      #243a5d 78%,
-      #1b3050 100%
+      #5e555e 0%,
+      #6f655f 36%,
+      #877d73 70%,
+      #9a9082 100%
     );
-}
-/* horizon glow, matching the hero */
-.pwsec::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: -42%;
-  width: 150%;
-  height: 70%;
-  transform: translateX(-50%);
-  background: radial-gradient(
-    50% 60% at 50% 50%,
-    rgba(255, 223, 160, 0.5),
-    transparent 70%
-  );
-  pointer-events: none;
 }
 .pwsec .wrap {
   position: relative;
