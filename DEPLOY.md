@@ -45,7 +45,8 @@ your real list; the URLs power footer/pricing links.
 1. Go to **vercel.com** → **Sign up** → **Continue with GitHub** (links the accounts).
 2. **Add New… → Project** → import the `the-daily-walk` repo. Vercel auto-detects Next.js
    (no build settings to change).
-3. **Environment Variables** — add these (paste your real values):
+3. **Environment Variables** — add these (paste your real values). Copy them straight
+   from your local `.env.local` — same names, same values.
 
    | Name | Secret? | Value |
    |---|---|---|
@@ -57,9 +58,24 @@ your real list; the URLs power footer/pricing links.
    | `NEXT_PUBLIC_BEEHIIV_MANAGE_URL` | no | Beehiiv manage URL |
    | `NEXT_PUBLIC_BEEHIIV_PREMIUM_URL` | no | upgrade URL (optional) |
    | `NEXT_PUBLIC_BEEHIIV_PATRON_URL` | no | upgrade URL (optional) |
+   | `NEXT_PUBLIC_SUPABASE_URL` | no | Supabase project URL (member sign-in + DB) |
+   | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | no | Supabase publishable/anon key |
+   | `SUPABASE_SERVICE_ROLE_KEY` | 🔒 yes | Supabase **secret** key (`sb_secret_…`) — powers the Devotional Prep admin saves |
+   | `ADMIN_EMAILS` | no | extra admin emails, comma-separated (owner is always admin) — optional |
+   | `NEXT_PUBLIC_COMMUNITY_URL` | no | community link (optional) |
+   | `COMP_PATRON_EMAILS` | no | emails granted free Patron access, comma-separated — optional |
 
-4. **Deploy.** You get a `the-daily-walk-xxxx.vercel.app` URL. **Test signup there first** —
-   submit your own email and confirm it lands in Beehiiv.
+   > The two 🔒 secret keys must be set, but **never** appear in the code or in chat.
+   > Everything `NEXT_PUBLIC_…` is safe to expose.
+
+4. **Database (Supabase).** If your live site uses the **same Supabase project** you set up
+   locally (project `makaxugtawmuibdkbjju`), the tables already exist — nothing to do. If you
+   ever create a *separate* production project, run each file in **`supabase/`** once in its
+   SQL Editor: `plan_progress`, `prayer-wall`, `good-news`, `study-journal`, `devotionals`.
+
+5. **Deploy.** You get a `the-daily-walk-xxxx.vercel.app` URL. **Test signup there first** —
+   submit your own email and confirm it lands in Beehiiv. Then sign in as the owner and open
+   **Admin → Devotional Prep** to confirm saving works on the live site.
 
 ---
 
