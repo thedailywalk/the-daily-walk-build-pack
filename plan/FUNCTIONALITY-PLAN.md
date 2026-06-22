@@ -100,6 +100,16 @@ Design now (your call). Functional critical path: **E1 (paid tiers live) → E2 
 then the bigger build **E3–E6 (auth + paywall + My Journey + billing) → E7 (journey content)**.
 You can take real money via Beehiiv after E1–E2; the signed-in on-site experience needs E3+.
 
+## G. Phase 2 / future ideas (parked — revisit after launch)
+- **Spanish edition (EN/ES).** Big-audience, on-mission idea. Do it *fully* or not at all: a Spanish
+  toggle on the marketing site **plus** real Spanish devotional content (likely a separate Beehiiv
+  Spanish publication) — translating the marketing shell while the daily product stays English is a
+  bait-and-switch that hurts retention. Sequencing: **launch English first → validate Spanish demand
+  cheaply** (signup geography, or a small "¿Hablas español? avísanos" interest link) → then build the
+  marketing toggle (quality human translations, EN/ES switcher, persists via cookie/locale) and commit
+  to Spanish content. Fast to add later; nothing lost by waiting. Watch: every new English string then
+  needs a Spanish counterpart (maintenance cost during rapid iteration).
+
 ## Sources
 - Paid tiers / Stripe: beehiiv.com/support — "set up multiple premium tiers", "set up Stripe".
 - API status by email: developers.beehiiv.com — "Get subscription by email" (expand `subscription_premium_tiers`).
