@@ -1840,6 +1840,23 @@ hr.div {
   box-shadow: 0 14px 30px -18px rgba(47, 122, 85, 0.7);
 }
 
+/* Journey day actions */
+.sg-dayactions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 26px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line2);
+}
+.sg-dayprogress {
+  flex: 1 1 100%;
+  font-size: 13px;
+  color: var(--grey);
+  font-weight: 600;
+}
+
 /* Journal */
 .sg-journal {
   margin-top: 26px;

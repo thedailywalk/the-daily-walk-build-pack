@@ -4,8 +4,10 @@ import { redirect } from "next/navigation";
 import { getUser, supabaseConfigured } from "@/lib/supabase/server";
 import { getEntitlement } from "@/lib/beehiiv";
 import { getOrCreateProgress } from "@/lib/progress";
-import { getPlanDay } from "@/lib/plan";
+import { getStudyDay } from "@/lib/studyGuide";
 import { daysCompleted, progressPercent, TOTAL_DAYS } from "@/lib/journey";
+import StudyGuide from "@/components/StudyGuide";
+import StudySideCards from "@/components/StudySideCards";
 import { markCompleteAction, restartAction } from "./actions";
 
 export const metadata: Metadata = {
@@ -22,112 +24,61 @@ export default async function JourneyPage() {
   if (ent.tier === "free") redirect("/pricing");
 
   const progress = await getOrCreateProgress(user.id);
-  const today = getPlanDay(progress.currentDay);
+  const entry = getStudyDay(progress.currentDay);
   const done = daysCompleted(progress);
   const pct = progressPercent(progress);
   const completed = progress.status === "completed";
 
   return (
-    <>
-      <header className="hero sunrise portal-hero">
-        <div className="wrap">
-          <div className="inner">
-            <div className="rule" />
-            <div className="eyebrow">My Journey · Bible in a Year</div>
-            <h1>
-              {completed
-                ? "You finished the journey! 🎉"
-                : `Day ${progress.currentDay} of ${TOTAL_DAYS}`}
-            </h1>
-            <p className="lead" style={{ margin: "6px 0 0" }}>
-              This week:{" "}
-              <strong style={{ color: "var(--gold)" }}>{today.weekTheme}</strong>
-            </p>
-          </div>
-        </div>
-      </header>
-      <section>
-      <div className="wrap" style={{ maxWidth: 760 }}>
-        {/* Progress bar */}
-        <div
-          style={{
-            height: 12,
-            background: "var(--cream)",
-            border: "1px solid var(--line)",
-            borderRadius: 20,
-            overflow: "hidden",
-          }}
-          aria-label={`${pct}% complete`}
-        >
-          <div
-            style={{
-              width: `${pct}%`,
-              height: "100%",
-              background: "var(--gold)",
-              transition: "width .3s",
-            }}
+    <section className="sg-section">
+      <div className="sg-layout">
+        <aside className="sg-side sg-side-left">
+          <StudySideCards
+            title="Go deeper"
+            words={entry.keyWords}
+            reflection={entry.sideReflection}
           />
-        </div>
-        <p className="muted" style={{ fontSize: 13, margin: "8px 0 28px" }}>
-          {done} of {TOTAL_DAYS} days complete · {pct}%
-        </p>
+        </aside>
 
-        {/* Today's reading */}
-        {!completed && (
-          <div className="rcard" style={{ marginBottom: 20 }}>
-            <div className="rk">Today&apos;s reading · Day {progress.currentDay}</div>
-            <h3 style={{ color: "var(--navy)", margin: "8px 0 12px", fontSize: 22 }}>
-              📖 {today.main}
-            </h3>
-            <p style={{ color: "#3c4350", fontSize: 15, margin: "0 0 14px" }}>
-              <strong>Be real with God:</strong> {today.companion}
-            </p>
-            <div
-              style={{
-                background: "var(--cream)",
-                border: "1px solid var(--line)",
-                borderRadius: 10,
-                padding: "14px 18px",
-                color: "var(--navy)",
-                fontSize: 15,
-              }}
-            >
-              <strong>Make it real:</strong> {today.prompt}
+        <div className="sg-main">
+          {completed ? (
+            <div className="sg-complete" style={{ marginTop: 0 }}>
+              🎉 You finished the whole journey — all 365 days. Amen. Start
+              again anytime; the goal was always time <em>in</em> Scripture, not
+              days in a row.
             </div>
-          </div>
-        )}
+          ) : null}
 
-        {/* Actions */}
-        <div style={{ display: "flex", gap: 12, flexWrap: "wrap", alignItems: "center" }}>
-          {!completed && (
-            <form action={markCompleteAction}>
-              <button type="submit" className="btn btn-gold">
-                ✓ Mark Day {progress.currentDay} complete
+          <StudyGuide entry={entry} />
+
+          {/* Journey-level actions */}
+          <div className="sg-dayactions">
+            <div className="sg-dayprogress">
+              {done} of {TOTAL_DAYS} days complete · {pct}%
+            </div>
+            {!completed && (
+              <form action={markCompleteAction}>
+                <button type="submit" className="btn btn-gold">
+                  ✓ Mark Day {progress.currentDay} complete →
+                </button>
+              </form>
+            )}
+            <form action={restartAction}>
+              <button type="submit" className="btn btn-ghost">
+                Restart at Day 1
               </button>
             </form>
-          )}
-          <form action={restartAction}>
-            <button type="submit" className="btn btn-ghost">
-              Restart at Day 1
-            </button>
-          </form>
+          </div>
+
+          <p style={{ marginTop: 22, fontSize: 14 }}>
+            <Link href="/account">← Back to my account</Link>
+          </p>
         </div>
 
-        {completed && (
-          <div className="rcard" style={{ marginTop: 20, background: "var(--cream)" }}>
-            <p style={{ margin: 0, color: "#3c4350", fontSize: 15 }}>
-              You read all 365 days — the whole Bible, from Jesus to the very end.
-              Start again anytime; the goal was always 365 days <em>in</em>
-              Scripture, not 365 days in a row. 🙏
-            </p>
-          </div>
-        )}
-
-        <p style={{ marginTop: 28, fontSize: 14 }}>
-          <Link href="/account">← Back to my account</Link>
-        </p>
+        <aside className="sg-side sg-side-right">
+          <StudySideCards title="For your heart" verses={entry.verses} />
+        </aside>
       </div>
-      </section>
-    </>
+    </section>
   );
 }
