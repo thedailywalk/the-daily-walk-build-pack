@@ -29,6 +29,7 @@ export const site = {
 } as const;
 
 export const nav = [
+  { href: "/devotional", label: "Today" },
   { href: "/#how", label: "How it works" },
   { href: "/good-news", label: "Good News" },
   { href: "/prayer-wall", label: "Prayer Wall" },
