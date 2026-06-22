@@ -2,8 +2,8 @@ import Link from "next/link";
 import SignupForm from "@/components/SignupForm";
 import GoodNewsCard from "@/components/GoodNewsCard";
 import PrayerWallPreview from "@/components/PrayerWallPreview";
-import { goodNews } from "@/lib/content";
 import { listApprovedPrayers } from "@/lib/prayers";
+import { getDailyGoodNews } from "@/lib/goodNews";
 import { site } from "@/lib/site";
 
 const features = [
@@ -46,6 +46,7 @@ export default async function HomePage() {
     body: p.body,
     prayCount: p.prayCount,
   }));
+  const goodNews = await getDailyGoodNews();
 
   return (
     <>

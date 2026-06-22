@@ -4,7 +4,7 @@ import { useState } from "react";
 import type { GoodNewsItem } from "@/lib/content";
 
 export default function GoodNewsCard({ item }: { item: GoodNewsItem }) {
-  const [imgOk, setImgOk] = useState(true);
+  const [imgOk, setImgOk] = useState(Boolean(item.image));
 
   return (
     <a
