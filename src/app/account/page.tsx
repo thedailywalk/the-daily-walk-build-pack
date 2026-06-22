@@ -123,6 +123,16 @@ export default async function AccountPage() {
             <Link href="/admin/prayers" className="btn btn-navy">
               Review prayer requests →
             </Link>
+            <div style={{ marginTop: 16 }}>
+              <div className="rk">Good News studio</div>
+              <p style={{ color: "#3c4350", fontSize: 15, margin: "8px 0 14px" }}>
+                Browse this morning&apos;s uplifting stories and choose which
+                three appear on the homepage — or leave it automatic.
+              </p>
+              <Link href="/admin/good-news" className="btn btn-ghost">
+                Choose Good News stories →
+              </Link>
+            </div>
           </div>
         )}
 
