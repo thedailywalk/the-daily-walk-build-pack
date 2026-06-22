@@ -1403,21 +1403,28 @@ hr.div {
   background: linear-gradient(180deg, #ffffff 0%, #fcfaf4 100%);
   border: 1.5px solid var(--navy);
   border-radius: 20px;
-  padding: 24px 26px;
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.9) inset,
     0 18px 40px -20px rgba(31, 58, 95, 0.26),
     0 6px 16px -10px rgba(31, 58, 95, 0.16);
 }
-.prayer-submit::before {
-  content: "";
-  position: absolute;
-  left: 24px;
-  right: 24px;
-  top: 0;
-  height: 3px;
-  border-radius: 0 0 4px 4px;
-  background: linear-gradient(90deg, var(--navy), var(--gold) 60%, #e7c878);
+/* navy header bar — echoes the navy closing band */
+.prayer-submit-head {
+  background: var(--navy);
+  color: #fff;
+  font-family: var(--serif);
+  font-size: 19px;
+  font-weight: 700;
+  padding: 15px 26px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  border-bottom: 3px solid var(--gold);
+}
+.prayer-submit-head span {
+  font-size: 20px;
+}
+.prayer-submit-body {
+  padding: 22px 26px 24px;
 }
 .prayer-form {
   display: block;

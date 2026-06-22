@@ -59,6 +59,10 @@ export default async function PrayerWallPage() {
 
         {/* SUBMIT — kept right at the top so it's the first thing members reach. */}
         <div className="prayer-submit">
+          <div className="prayer-submit-head">
+            <span aria-hidden="true">🙏</span> Lift it up together
+          </div>
+          <div className="prayer-submit-body">
           {!supabaseConfigured ? (
             <p className="muted" style={{ margin: 0 }}>
               The prayer wall is opening soon. 🙏
@@ -101,6 +105,7 @@ export default async function PrayerWallPage() {
               </div>
             </div>
           )}
+          </div>
         </div>
 
         {/* WALL */}
