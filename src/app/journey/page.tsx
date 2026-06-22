@@ -153,54 +153,62 @@ function ProgressTab({
   const books = getBookStarts();
   return (
     <div className="sg-tabwrap">
-      <div className="sg-statgrid">
-        <Stat big={`${progress.currentDay}`} label={`of ${TOTAL_DAYS}`} sub="Current day" />
-        <Stat big={`${done}`} label="days" sub="Completed" />
-        <Stat big={`${pct}%`} label="" sub="Through the Bible" />
-      </div>
-      <div className="sg-progress-track" style={{ height: 12, margin: "4px 0 24px" }}>
-        <span className="sg-progress-fill" style={{ width: `${pct}%` }} />
-      </div>
-
-      <Link href="/journey?tab=today" className="btn btn-gold">
-        Resume where I left off →
-      </Link>
-
-      <div className="rcard" style={{ marginTop: 24 }}>
-        <div className="rk">Jump to a book</div>
-        <p style={{ color: "#3c4350", fontSize: 14, margin: "8px 0 12px" }}>
-          Skip ahead (or back) to where any book begins in the plan.
-        </p>
-        <form action={jumpToDayAction} style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-          <select name="day" className="sg-select" defaultValue={books.find((b) => b.book === "John")?.day}>
-            {books.map((b) => (
-              <option key={b.book} value={b.day}>
-                {b.book} (Day {b.day})
-              </option>
-            ))}
-          </select>
-          <button type="submit" className="btn btn-ghost">
-            Go
-          </button>
-        </form>
+      <div className="sg-zone sg-zone-cool">
+        <p className="sg-zone-title">Where you are</p>
+        <div className="sg-statgrid">
+          <Stat big={`${progress.currentDay}`} label={`of ${TOTAL_DAYS}`} sub="Current day" />
+          <Stat big={`${done}`} label="days" sub="Completed" />
+          <Stat big={`${pct}%`} label="" sub="Through the Bible" />
+        </div>
+        <div className="sg-progress-track" style={{ height: 12, margin: "4px 0 0" }}>
+          <span className="sg-progress-fill" style={{ width: `${pct}%` }} />
+        </div>
       </div>
 
-      <div className="rcard" style={{ marginTop: 16 }}>
-        <div className="rk">Jump to a specific day</div>
-        <form action={jumpToDayAction} style={{ display: "flex", gap: 10, marginTop: 10 }}>
-          <input
-            type="number"
-            name="day"
-            min={1}
-            max={365}
-            defaultValue={progress.currentDay}
-            className="sg-select"
-            style={{ width: 110 }}
-          />
-          <button type="submit" className="btn btn-ghost">
-            Go to day
-          </button>
-        </form>
+      <div style={{ margin: "0 0 18px" }}>
+        <Link href="/journey?tab=today" className="btn btn-gold">
+          Resume where I left off →
+        </Link>
+      </div>
+
+      <div className="sg-zone sg-zone-warm">
+        <p className="sg-zone-title">Jump around the plan</p>
+        <div className="rcard">
+          <div className="rk">Jump to a book</div>
+          <p style={{ color: "#3c4350", fontSize: 14, margin: "8px 0 12px" }}>
+            Skip ahead (or back) to where any book begins in the plan.
+          </p>
+          <form action={jumpToDayAction} style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+            <select name="day" className="sg-select" defaultValue={books.find((b) => b.book === "John")?.day}>
+              {books.map((b) => (
+                <option key={b.book} value={b.day}>
+                  {b.book} (Day {b.day})
+                </option>
+              ))}
+            </select>
+            <button type="submit" className="btn btn-ghost">
+              Go
+            </button>
+          </form>
+        </div>
+
+        <div className="rcard" style={{ marginTop: 14 }}>
+          <div className="rk">Jump to a specific day</div>
+          <form action={jumpToDayAction} style={{ display: "flex", gap: 10, marginTop: 10 }}>
+            <input
+              type="number"
+              name="day"
+              min={1}
+              max={365}
+              defaultValue={progress.currentDay}
+              className="sg-select"
+              style={{ width: 110 }}
+            />
+            <button type="submit" className="btn btn-ghost">
+              Go to day
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );
@@ -226,18 +234,21 @@ function PlanTab({ currentDay }: { currentDay: number }) {
         We don&apos;t start in Genesis. We start with Jesus — so Scripture
         clicks before you ever hit the hard parts. All 66 books, in one year.
       </p>
-      <div className="sg-arclist">
-        {ARCS.map((a, i) => (
-          <div className="sg-arc" key={a.name}>
-            <span className="sg-arc-num">{i + 1}</span>
-            <div>
-              <div className="sg-arc-name">{a.reading}</div>
-              <div className="sg-arc-sub">
-                {a.name} · {a.days}
+      <div className="sg-zone sg-zone-warm">
+        <p className="sg-zone-title">The journey · 6 arcs</p>
+        <div className="sg-arclist">
+          {ARCS.map((a, i) => (
+            <div className="sg-arc" key={a.name}>
+              <span className="sg-arc-num">{i + 1}</span>
+              <div>
+                <div className="sg-arc-name">{a.reading}</div>
+                <div className="sg-arc-sub">
+                  {a.name} · {a.days}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
       <p style={{ marginTop: 18, fontSize: 14 }}>
         You&apos;re on <strong>Day {currentDay}</strong>.{" "}
@@ -253,16 +264,20 @@ async function NotesTab(userId: string) {
   if (days.length === 0) {
     return (
       <div className="sg-tabwrap">
-        <p className="muted">
-          No notes yet. As you journal on each day, they&apos;ll be saved here —
-          and they follow your account across devices.
-        </p>
+        <div className="sg-zone sg-zone-cool">
+          <p className="muted" style={{ margin: 0 }}>
+            No notes yet. As you journal on each day, they&apos;ll be saved here —
+            and they follow your account across devices.
+          </p>
+        </div>
       </div>
     );
   }
   return (
     <div className="sg-tabwrap">
-      <div className="sg-notelist">
+      <div className="sg-zone sg-zone-cool">
+        <p className="sg-zone-title">Saved notes</p>
+        <div className="sg-notelist">
         {days.map(({ day, data }) => {
           const snippet =
             data.notes?.trim() ||
@@ -287,6 +302,7 @@ async function NotesTab(userId: string) {
             </div>
           );
         })}
+        </div>
       </div>
     </div>
   );
@@ -298,16 +314,20 @@ async function FavoritesTab(userId: string) {
   if (favs.length === 0) {
     return (
       <div className="sg-tabwrap">
-        <p className="muted">
-          No saved verses yet. Tap the ♡ on any verse in today&apos;s reading to
-          keep it here.
-        </p>
+        <div className="sg-zone sg-zone-warm">
+          <p className="muted" style={{ margin: 0 }}>
+            No saved verses yet. Tap the ♡ on any verse in today&apos;s reading to
+            keep it here.
+          </p>
+        </div>
       </div>
     );
   }
   return (
     <div className="sg-tabwrap">
-      <div className="sg-favlist">
+      <div className="sg-zone sg-zone-warm">
+        <p className="sg-zone-title">Saved verses</p>
+        <div className="sg-favlist">
         {favs.map((f) => (
           <div className="sg-favcard" key={f.ref}>
             <div className="sg-favcard-head">
@@ -322,6 +342,7 @@ async function FavoritesTab(userId: string) {
             <p className="sg-verse-text">&ldquo;{f.verseText}&rdquo;</p>
           </div>
         ))}
+        </div>
       </div>
     </div>
   );
@@ -331,7 +352,10 @@ async function FavoritesTab(userId: string) {
 function WorkbookTab() {
   return (
     <div className="sg-tabwrap">
-      <div className="rcard" style={{ textAlign: "center", padding: "40px 28px" }}>
+      <div
+        className="sg-zone sg-zone-warm"
+        style={{ textAlign: "center", padding: "40px 28px" }}
+      >
         <div style={{ fontSize: 34 }}>📒</div>
         <h3 style={{ color: "var(--navy)", margin: "8px 0 8px", fontSize: 20 }}>
           Monthly workbook
