@@ -1359,6 +1359,44 @@ hr.div {
    ============================================================ */
 .sg-section {
   padding-top: 36px;
+  position: relative;
+}
+.sg-section .wrap {
+  position: relative;
+  z-index: 1;
+}
+/* Side-gutter doodles — only when there's room beside the content column */
+.sg-doodles {
+  display: none;
+}
+@media (min-width: 1180px) {
+  .sg-doodles {
+    display: block;
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .sg-doodle {
+    position: absolute;
+    width: 104px;
+    height: 104px;
+    opacity: 0.42;
+  }
+  .sg-doodle.left {
+    left: 3.5%;
+  }
+  .sg-doodle.right {
+    right: 3.5%;
+  }
+}
+@media (min-width: 1480px) {
+  .sg-doodle.left {
+    left: 7%;
+  }
+  .sg-doodle.right {
+    right: 7%;
+  }
 }
 .sg-preview-note {
   text-align: center;

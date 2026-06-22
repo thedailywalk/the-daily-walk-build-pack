@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getStudyDay } from "@/lib/studyGuide";
 import StudyGuide from "@/components/StudyGuide";
+import StudyDoodles from "@/components/StudyDoodles";
 
 export const metadata: Metadata = {
   title: "Study Guide preview",
@@ -12,6 +13,7 @@ export default function StudyPreviewPage() {
   const entry = getStudyDay(1);
   return (
     <section className="sg-section">
+      <StudyDoodles />
       <div className="wrap" style={{ maxWidth: 720 }}>
         <p className="sg-preview-note">
           Preview · this is how a day in the guided journey will look for members.
