@@ -100,11 +100,28 @@ export type Entitlement = {
 };
 
 /**
+ * Owner / comp access. These emails get full Patron access regardless of
+ * Beehiiv billing — for the owner testing the product, staff, or free grants.
+ * Edit this list, or add a comma-separated COMP_PATRON_EMAILS env var.
+ */
+const COMP_PATRON_EMAILS = new Set(
+  ["thedailywalknewsletter@gmail.com"]
+    .concat((process.env.COMP_PATRON_EMAILS ?? "").split(","))
+    .map((e) => e.trim().toLowerCase())
+    .filter(Boolean)
+);
+
+/**
  * Look up a subscriber by email and map their Beehiiv premium tiers to our
  * Free/Premium/Patron model. Beehiiv is the source of truth for "who paid".
  * Tier names are matched case-insensitively against "patron"/"premium".
  */
 export async function getEntitlement(email: string): Promise<Entitlement> {
+  // Owner / comp access wins over Beehiiv billing.
+  if (COMP_PATRON_EMAILS.has(email.trim().toLowerCase())) {
+    return { tier: "patron", status: "active", tierNames: ["patron (comp)"], onList: true };
+  }
+
   const apiKey = process.env.BEEHIIV_API_KEY;
   const pubId = process.env.BEEHIIV_PUBLICATION_ID;
   const fallback: Entitlement = {
