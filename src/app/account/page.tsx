@@ -4,6 +4,7 @@ import Link from "next/link";
 import { getUser, supabaseConfigured } from "@/lib/supabase/server";
 import { getEntitlement } from "@/lib/beehiiv";
 import { site } from "@/lib/site";
+import SetPassword from "@/components/SetPassword";
 
 export const metadata: Metadata = {
   title: "My account",
@@ -128,6 +129,14 @@ export default async function AccountPage() {
               Billing portal link coming soon.
             </span>
           )}
+        </div>
+
+        <div className="rcard" style={{ marginBottom: 20 }}>
+          <div className="rk">Sign-in</div>
+          <p style={{ color: "#3c4350", fontSize: 15, margin: "8px 0 14px" }}>
+            Prefer a password over an emailed code? Set one here.
+          </p>
+          <SetPassword />
         </div>
 
         <form action="/auth/signout" method="post">
