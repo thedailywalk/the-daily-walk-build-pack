@@ -111,7 +111,6 @@ export default function GoodNewsReader({
             <a className="gnr-lead-head" href={lead.href} target="_blank" rel="noopener noreferrer">
               {lead.headline}
             </a>
-            {lead.excerpt && <p className="gnr-excerpt">{lead.excerpt}</p>}
             <span className="gnr-date">{lead.dateLabel}</span>
           </div>
           <a className="gnr-hero-img" href={lead.href} target="_blank" rel="noopener noreferrer">
@@ -139,7 +138,6 @@ export default function GoodNewsReader({
               <div className="gnr-row-text">
                 <span className="gnr-date">{it.dateLabel}</span>
                 <span className="gnr-row-head">{it.headline}</span>
-                {it.excerpt && <p className="gnr-excerpt">{it.excerpt}</p>}
               </div>
               <div className="gnr-row-thumb">
                 <Thumb item={it} />
