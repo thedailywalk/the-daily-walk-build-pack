@@ -149,6 +149,7 @@ export default async function HomePage() {
       {/* WHY READ THE BIBLE */}
       <section id="why" className="whysec">
         <div className="wrap">
+          <div className="why-band">
           <div className="why-head">
             <div className="sec-tag">Why it matters</div>
             <h2 className="h">Why read the Bible?</h2>
@@ -189,10 +190,11 @@ export default async function HomePage() {
               have to open it.
             </p>
           </div>
+          </div>
         </div>
       </section>
 
-      {/* ARM YOURSELF — how to actually start */}
+      {/* ARM YOURSELF — practical how-to-start */}
       <section id="arm" className="armsec">
         <div className="wrap">
           <div className="why-head">

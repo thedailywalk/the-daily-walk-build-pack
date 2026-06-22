@@ -700,6 +700,48 @@ h2.h {
   font-style: italic;
 }
 
+/* Elevated navy band treatment (matches the mission card) */
+.why-band {
+  background: var(--navy);
+  border-radius: 24px;
+  padding: 58px 56px 60px;
+  max-width: 960px;
+  margin: 0 auto;
+  text-align: center;
+  box-shadow: 0 34px 64px -42px rgba(31, 58, 95, 0.55);
+}
+.why-band .sec-tag {
+  color: var(--gold);
+}
+.why-band .h {
+  color: #fff;
+}
+.why-band .why-copy {
+  max-width: 700px;
+}
+.why-band .why-copy p {
+  color: #cdd8e6;
+}
+.why-band .why-copy .why-lead {
+  color: #fff !important;
+  font-size: 24px !important;
+}
+.why-band .why-copy .why-kicker {
+  border-left: none;
+  padding: 0;
+  margin-top: 10px;
+  color: var(--gold) !important;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 17px;
+}
+@media (max-width: 560px) {
+  .why-band {
+    padding: 36px 22px 40px;
+    border-radius: 18px;
+  }
+}
+
 /* ---------- Arm yourself: how-to-start tips ---------- */
 .armsec .why-head .sub {
   max-width: 660px;
