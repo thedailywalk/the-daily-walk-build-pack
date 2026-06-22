@@ -26,6 +26,41 @@ const freeFeatures = [
   },
 ];
 
+// "Arm yourself" — practical ways to actually start a daily Bible habit.
+const tips = [
+  {
+    icon: "🌅",
+    title: "Start in the morning",
+    body: "Arm yourself before the day comes at you — first thing, before the noise. Mornings full? Night works too. Just find a window that's yours.",
+  },
+  {
+    icon: "🙏",
+    title: "Pray before you read",
+    body: "Ask God for two things: understanding, so your eyes open to it — and discernment, so you can tell real teaching from someone's own opinion.",
+  },
+  {
+    icon: "✍️",
+    title: "Take notes as you go",
+    body: "A journaling Bible or a simple notebook works. Highlight in colors that contrast ideas — Proverbs is full of wise vs. foolish. Writing it down makes it stick.",
+  },
+  {
+    icon: "🎧",
+    title: "Get the context",
+    body: "A good teacher makes it click. We love David Guzik's Enduring Word — free, chapter-by-chapter and verse-by-verse, with the history behind every passage:",
+    link: { label: "Enduring Word", href: "https://enduringword.com" },
+  },
+  {
+    icon: "📖",
+    title: "Compare translations",
+    body: "Stuck on a verse? Read it in another version — ESV, KJV, NLT side by side — and the meaning often opens right up.",
+  },
+  {
+    icon: "🕊️",
+    title: "Keep a prayer journal",
+    body: "Write your prayers out, don't just say them. It helps you process what you're feeling — and remember what God has done.",
+  },
+];
+
 // Premium features — the guided Bible-in-a-Year journey.
 const premiumFeatures = [
   {
@@ -170,6 +205,13 @@ export default async function HomePage() {
               it&apos;s giving God a real seat in your real day.
             </p>
             <p>
+              There&apos;s a reason the Bible calls Scripture a sword. Ephesians
+              6 says to put on the armor of God every morning — and the one piece
+              you actually fight with is the Word. Start your day with it and you
+              walk into everything else already armed. Do it for a week and
+              you&apos;ll feel the difference.
+            </p>
+            <p>
               You don&apos;t start in the deep end. You don&apos;t even start in
               Genesis. You start with Jesus — who He is, how He treats people,
               what He came to do — so the rest finally makes sense.
@@ -180,6 +222,48 @@ export default async function HomePage() {
               everything. You don&apos;t have to have it figured out. You just
               have to open it.
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ARM YOURSELF — how to actually start */}
+      <section id="arm" className="armsec">
+        <div className="wrap">
+          <div className="why-head">
+            <div className="sec-tag">Arm yourself</div>
+            <h2 className="h">How to actually start</h2>
+            <p className="sub">
+              Ephesians 6 tells us to put on the armor of God every day — and the
+              one weapon in it is the sword of the Spirit, the Word of God. If you
+              do one thing each morning, pick up your sword. Here&apos;s how — it
+              honestly doesn&apos;t have to be complicated.
+            </p>
+          </div>
+          <div className="tips">
+            {tips.map((t) => (
+              <div className="feat" key={t.title}>
+                <div className="ic" aria-hidden="true">
+                  {t.icon}
+                </div>
+                <h4>{t.title}</h4>
+                <p>
+                  {t.body}
+                  {t.link && (
+                    <>
+                      {" "}
+                      <a
+                        href={t.link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {t.link.label}
+                      </a>
+                      .
+                    </>
+                  )}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

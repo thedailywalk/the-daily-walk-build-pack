@@ -700,6 +700,37 @@ h2.h {
   font-style: italic;
 }
 
+/* ---------- Arm yourself: how-to-start tips ---------- */
+.armsec .why-head .sub {
+  max-width: 660px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.tips {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 28px;
+}
+.tips .feat .ic {
+  background: linear-gradient(135deg, #fbf2d8, #f6e6b8);
+}
+.tips .feat:nth-child(2) .ic {
+  background: linear-gradient(135deg, #f4e9f2, #e9d6e6);
+}
+.tips .feat:nth-child(3) .ic {
+  background: linear-gradient(135deg, #e4f3ea, #cfead9);
+}
+.tips .feat:nth-child(4) .ic {
+  background: linear-gradient(135deg, #eaf1fb, #d4e4fb);
+}
+.tips .feat:nth-child(5) .ic {
+  background: linear-gradient(135deg, #e6f3f2, #d2eae7);
+}
+.tips .feat:nth-child(6) .ic {
+  background: linear-gradient(135deg, #fbece6, #f6ddd1);
+}
+
 /* ---------- Good News preview ---------- */
 .gnsec {
   background: var(--cream);
@@ -1396,7 +1427,8 @@ hr.div {
   .values {
     grid-template-columns: 1fr;
   }
-  .feats {
+  .feats,
+  .tips {
     grid-template-columns: 1fr 1fr;
   }
   .scroll {
@@ -1410,7 +1442,8 @@ hr.div {
   }
 }
 @media (max-width: 520px) {
-  .feats {
+  .feats,
+  .tips {
     grid-template-columns: 1fr;
   }
 }
