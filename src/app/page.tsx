@@ -1,7 +1,9 @@
 import Link from "next/link";
 import SignupForm from "@/components/SignupForm";
 import GoodNewsCard from "@/components/GoodNewsCard";
+import PrayerWallPreview from "@/components/PrayerWallPreview";
 import { goodNews } from "@/lib/content";
+import { listApprovedPrayers } from "@/lib/prayers";
 import { site } from "@/lib/site";
 
 const features = [
@@ -37,7 +39,14 @@ const features = [
   },
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+  const previewPrayers = (await listApprovedPrayers(12)).map((p) => ({
+    id: p.id,
+    name: p.name,
+    body: p.body,
+    prayCount: p.prayCount,
+  }));
+
   return (
     <>
       {/* HERO — editorial sunrise */}
@@ -116,6 +125,24 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* PRAYER WALL PREVIEW */}
+      {previewPrayers.length > 0 && (
+        <section id="pray" className="pwsec">
+          <div className="wrap">
+            <div className="sec-tag">Pray with us</div>
+            <h2 className="h">The community is praying</h2>
+            <p className="sub">
+              Real requests from real people. Tap 🙏 to pray over one — and watch
+              the prayers rise.
+            </p>
+            <PrayerWallPreview prayers={previewPrayers} />
+            <p style={{ textAlign: "center", marginTop: 22 }}>
+              <Link href="/prayer-wall">Visit the full Prayer Wall →</Link>
+            </p>
+          </div>
+        </section>
+      )}
 
       {/* GOOD NEWS PREVIEW */}
       <section id="good" className="gnsec">

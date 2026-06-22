@@ -1414,6 +1414,98 @@ hr.div {
   background: rgba(31, 58, 95, 0.18);
 }
 
+/* ---------- Homepage prayer-wall preview ---------- */
+.pwsec {
+  background: var(--cream);
+}
+.pw-preview {
+  max-width: 640px;
+  margin: 6px auto 0;
+}
+.pw-scroll {
+  max-height: 440px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 6px 4px;
+  /* soft fade at top + bottom edges */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    #000 28px,
+    #000 calc(100% - 28px),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    #000 28px,
+    #000 calc(100% - 28px),
+    transparent 100%
+  );
+  scrollbar-width: thin;
+}
+.pw-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 18px 20px 14px;
+  box-shadow: 0 1px 3px rgba(31, 58, 95, 0.05);
+  flex: 0 0 auto;
+}
+.pw-body {
+  color: var(--ink);
+  font-size: 15.5px;
+  line-height: 1.6;
+  margin: 0 0 12px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.pw-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.pw-author {
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--navy);
+}
+
+/* Floating prayer hands */
+.pray-hand {
+  position: fixed;
+  z-index: 9999;
+  pointer-events: none;
+  font-size: 26px;
+  transform: translate(-50%, 0);
+  animation: prayerFloat var(--dur, 1.4s) cubic-bezier(0.33, 0, 0.2, 1) forwards;
+  will-change: transform, opacity;
+}
+@keyframes prayerFloat {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 0) scale(0.5) rotate(-6deg);
+  }
+  18% {
+    opacity: 1;
+    transform: translate(-50%, -10px) scale(1.05) rotate(4deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--dx, 0px)), var(--ty, -200px))
+      scale(1.2) rotate(-4deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pray-hand {
+    animation-duration: 0.01s;
+    opacity: 0;
+  }
+}
+
 /* Admin approval queue */
 .admin-prayer {
   background: #fff;
