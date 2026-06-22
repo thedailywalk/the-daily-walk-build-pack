@@ -16,7 +16,28 @@ import { getFeaturedGoodNews } from "@/lib/featuredGoodNews";
  * failure falls back to the curated list in content.ts so it never breaks.
  */
 
-export type Candidate = GoodNewsItem & { date: number; score: number; faith: boolean };
+export type Mood = "faith" | "animals" | "heroes" | "wholesome";
+
+export type Candidate = GoodNewsItem & {
+  date: number;
+  score: number;
+  faith: boolean;
+  mood: Mood;
+  excerpt: string;
+};
+
+export type MagazineItem = {
+  category: string;
+  headline: string;
+  href: string;
+  image: string;
+  source: string;
+  faith: boolean;
+  mood: Mood;
+  excerpt: string;
+  date: number;
+  dateLabel: string;
+};
 
 const DAY = 86400;
 const UA =
@@ -160,18 +181,71 @@ function parseItems(xml: string, fromFaithFeed: boolean): Candidate[] {
     if (!headline || !href) continue;
     const categories = readCategories(block);
     const haystack = `${headline} ${categories.join(" ")}`;
+    const faith = fromFaithFeed || FAITH_RE.test(haystack);
+    const category = pickCategory(categories);
     out.push({
-      category: pickCategory(categories),
+      category,
       headline,
       href,
       image: "",
       source: "Good News Network",
       date: Date.parse(readTag(block, "pubDate")) || 0,
       score: relevance(haystack),
-      faith: fromFaithFeed || FAITH_RE.test(haystack),
+      faith,
+      mood: moodOf(faith, category, haystack),
+      excerpt: clip(decode(readTag(block, "description")), 165),
     });
   }
   return out;
+}
+
+const ANIMAL_RE =
+  /\b(animal|animals|dog|dogs|puppy|puppies|cat|cats|kitten|wildlife|elephant|whale|dolphin|bird|birds|horse|panda|lion|tiger|bear|zoo|pet|pets|orangutan|turtle|penguin|fox|owl|deer|otter)\b/i;
+const HERO_RE =
+  /\b(rescue|rescued|rescues|saves|saved|firefighter|lifeguard|heroic|hero|police|paramedic|pulled from|risked)\b/i;
+
+function moodOf(faith: boolean, category: string, text: string): Mood {
+  if (faith) return "faith";
+  if (/animal/i.test(category) || ANIMAL_RE.test(text)) return "animals";
+  if (/hero/i.test(category) || HERO_RE.test(text)) return "heroes";
+  return "wholesome";
+}
+
+function clip(s: string, n: number): string {
+  const t = s.trim();
+  if (t.length <= n) return t;
+  return t.slice(0, n).replace(/\s+\S*$/, "") + "…";
+}
+
+/** A daily "magazine" of ~30 varied good-news stories for paying members. */
+export async function getGoodNewsMagazine(limit = 30): Promise<MagazineItem[]> {
+  try {
+    const pages = await Promise.all(CANDIDATE_FEEDS.map(fetchFeed));
+    const picked = interleave(pages, limit);
+    return await Promise.all(
+      picked.map(async (it) => ({
+        category: it.category,
+        headline: it.headline,
+        href: it.href,
+        source: it.source,
+        faith: it.faith,
+        mood: it.mood,
+        excerpt: it.excerpt,
+        date: it.date,
+        dateLabel: it.date
+          ? new Date(it.date).toLocaleDateString("en-US", {
+              month: "long",
+              day: "numeric",
+              year: "numeric",
+            })
+          : "",
+        image: (await ogImage(it.href)) ?? "",
+      }))
+    );
+  } catch (err) {
+    console.error("getGoodNewsMagazine:", (err as Error).message);
+    return [];
+  }
 }
 
 function pickCategory(categories: string[]): string {

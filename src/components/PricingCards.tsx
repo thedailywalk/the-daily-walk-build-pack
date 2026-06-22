@@ -95,6 +95,7 @@ export default function PricingCards() {
               <li>Real-life application for modern life</li>
               <li>Daily reflection question + prayer prompt</li>
               <li>Audio devotional for each day</li>
+              <li>Good News reading room — 30 fresh stories every day</li>
               <li>Saturday &ldquo;Weekend Deep-Dive&rdquo; on the week&apos;s theme</li>
               <li>Monthly downloadable Bible study workbook</li>
               <li>Full searchable archive of past issues</li>

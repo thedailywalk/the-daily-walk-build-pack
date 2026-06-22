@@ -1903,6 +1903,427 @@ hr.div {
   line-height: 1.3;
 }
 
+/* ============================================================
+   GOOD NEWS reading room (member, news-magazine layout)
+   ============================================================ */
+.gnr-section {
+  padding-top: 36px;
+}
+.gnr-masthead {
+  border-bottom: 2px solid var(--navy);
+  padding-bottom: 0;
+  margin-bottom: 26px;
+}
+.gnr-kicker {
+  font-family: var(--sans);
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+.gnr h1 {
+  font-family: var(--serif);
+  font-size: 52px;
+  line-height: 1;
+  color: var(--navy);
+  margin: 6px 0 6px;
+}
+.gnr-tagline {
+  color: var(--grey);
+  font-size: 15px;
+  margin: 0 0 16px;
+}
+.gnr-tabs {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--line);
+  padding-top: 4px;
+}
+.gnr-tab {
+  background: none;
+  border: none;
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  padding: 12px 14px;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px;
+}
+.gnr-tab:hover {
+  color: var(--gold-deep);
+}
+.gnr-tab.is-on {
+  color: var(--navy);
+  border-bottom-color: var(--gold);
+}
+.gnr-mood-btn {
+  margin-left: auto;
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 7px 14px;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--navy);
+  cursor: pointer;
+}
+.gnr-mood-btn:hover {
+  border-color: var(--gold);
+}
+
+/* Shared thumbnail */
+.gnr-thumb {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border-radius: 10px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #1f3a5f, #2e5481 55%, #c9a24b);
+}
+.gnr-thumb img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.gnr-faith-tag {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(31, 58, 95, 0.92);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.gnr-cat {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 800;
+  color: var(--gold-deep);
+  background: rgba(201, 162, 75, 0.14);
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+.gnr-date {
+  display: block;
+  font-family: var(--sans);
+  font-size: 12px;
+  color: var(--grey);
+  margin-top: 8px;
+}
+.gnr-excerpt {
+  color: #3c4350;
+  font-size: 14.5px;
+  line-height: 1.55;
+  margin: 8px 0 0;
+}
+
+/* Hero block */
+.gnr-hero {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 1fr;
+  gap: 28px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 24px;
+}
+.gnr-lead-head {
+  display: block;
+  font-family: var(--serif);
+  font-size: 30px;
+  line-height: 1.12;
+  color: var(--navy);
+  font-weight: 700;
+}
+.gnr-lead-head:hover {
+  text-decoration: none;
+  color: var(--navy2);
+}
+.gnr-hero-img {
+  display: block;
+}
+.gnr-hero-img .gnr-thumb {
+  aspect-ratio: 16 / 11;
+}
+.gnr-hero-side {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.gnr-side-item {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line2);
+}
+.gnr-hero-side .gnr-side-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.gnr-side-thumb {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.gnr-side-thumb .gnr-thumb {
+  aspect-ratio: 16 / 9;
+}
+.gnr-side-head {
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.22;
+  font-weight: 700;
+  color: var(--navy);
+}
+.gnr-side-item:hover .gnr-side-head {
+  color: var(--gold-deep);
+}
+
+/* More stories list */
+.gnr-more-title {
+  font-family: var(--serif);
+  font-size: 22px;
+  color: var(--navy);
+  border-bottom: 2px solid var(--navy);
+  padding-bottom: 8px;
+  margin: 0 0 6px;
+}
+.gnr-row {
+  display: grid;
+  grid-template-columns: 1fr 170px;
+  gap: 22px;
+  align-items: start;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--line);
+  color: inherit;
+  text-decoration: none;
+}
+.gnr-row:hover .gnr-row-head {
+  color: var(--gold-deep);
+}
+.gnr-row-head {
+  font-family: var(--serif);
+  font-size: 21px;
+  line-height: 1.2;
+  font-weight: 700;
+  color: var(--navy);
+  display: block;
+  margin-top: 4px;
+}
+.gnr-row-text .gnr-date {
+  margin: 0 0 2px;
+}
+.gnr-row-thumb {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.gnr-row-thumb .gnr-thumb {
+  aspect-ratio: 16 / 11;
+}
+
+/* Daily mood modal */
+.gnr-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(15, 26, 46, 0.55);
+  backdrop-filter: blur(3px);
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+.gnr-modal {
+  background: #fff;
+  width: 100%;
+  max-width: 620px;
+  border-radius: 18px;
+  padding: 22px 26px 26px;
+  box-shadow: 0 30px 70px -20px rgba(0, 0, 0, 0.5);
+  animation: gnrPop 0.22s ease;
+}
+@keyframes gnrPop {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+}
+.gnr-modal-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--grey);
+  margin-bottom: 10px;
+}
+.gnr-modal-x {
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: var(--grey);
+  cursor: pointer;
+  padding: 4px;
+}
+.gnr-modal-title {
+  font-family: var(--serif);
+  font-size: 28px;
+  color: var(--navy);
+  text-align: center;
+  margin: 4px 0 6px;
+}
+.gnr-modal-sub {
+  text-align: center;
+  color: var(--grey);
+  font-size: 15px;
+  margin: 0 0 20px;
+}
+.gnr-mood-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.gnr-mood-card {
+  position: relative;
+  text-align: center;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 20px 14px 16px;
+  cursor: pointer;
+  font-family: inherit;
+  background: #fff;
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+  overflow: hidden;
+}
+.gnr-mood-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 54px;
+  opacity: 0.9;
+}
+.gnr-mood-card.mood-faith::before {
+  background: linear-gradient(135deg, #f6cf86, #e3a85a);
+}
+.gnr-mood-card.mood-heroes::before {
+  background: linear-gradient(135deg, #5a6aa0, #3a5e8a);
+}
+.gnr-mood-card.mood-animals::before {
+  background: linear-gradient(135deg, #3c7a5a, #6bbf8f);
+}
+.gnr-mood-card.mood-all::before {
+  background: linear-gradient(135deg, #8a6cab, #b58fd0);
+}
+.gnr-mood-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px -14px rgba(31, 58, 95, 0.4);
+}
+.gnr-mood-card.is-on {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 2px var(--gold);
+}
+.gnr-mood-emoji {
+  position: relative;
+  display: block;
+  font-size: 30px;
+  margin-bottom: 8px;
+}
+.gnr-mood-label {
+  display: block;
+  font-family: var(--serif);
+  font-weight: 700;
+  color: var(--navy);
+  font-size: 16px;
+}
+.gnr-mood-blurb {
+  display: block;
+  font-size: 12.5px;
+  color: var(--grey);
+  margin-top: 2px;
+}
+.gnr-modal-skip {
+  display: block;
+  margin: 12px auto 0;
+  background: none;
+  border: none;
+  color: var(--grey);
+  font-size: 13.5px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+@media (max-width: 860px) {
+  .gnr-hero {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .gnr-hero-text {
+    order: 2;
+  }
+  .gnr-hero-img {
+    order: 1;
+  }
+  .gnr-hero-side {
+    order: 3;
+    flex-direction: row;
+    gap: 16px;
+  }
+  .gnr-hero-side .gnr-side-item {
+    flex: 1;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  .gnr h1 {
+    font-size: 40px;
+  }
+}
+@media (max-width: 560px) {
+  .gnr-row {
+    grid-template-columns: 1fr 110px;
+    gap: 14px;
+  }
+  .gnr-hero-side {
+    flex-direction: column;
+  }
+  .gnr-mood-grid {
+    grid-template-columns: 1fr;
+  }
+  .gnr-mood-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-align: left;
+    padding: 14px;
+  }
+  .gnr-mood-card::before {
+    width: 6px;
+    height: auto;
+    inset: 0 auto 0 0;
+  }
+  .gnr-mood-emoji {
+    margin: 0;
+  }
+}
+
 /* Admin approval queue */
 .admin-prayer {
   background: #fff;

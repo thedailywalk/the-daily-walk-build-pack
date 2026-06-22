@@ -151,6 +151,7 @@ export const tiers: Tier[] = [
       "Guided Bible-in-a-Year from your Day 1",
       "Plain-English breakdowns + application",
       "Daily audio devotional",
+      "Good News reading room — 30 fresh stories daily",
       "Weekend Deep-Dive + monthly workbook",
       "Full searchable archive",
     ],

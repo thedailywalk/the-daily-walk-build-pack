@@ -200,6 +200,7 @@ export default async function HomePage() {
                 <li>Guided Bible-in-a-Year from your Day 1</li>
                 <li>Plain-English breakdowns + application</li>
                 <li>Daily audio devotional</li>
+                <li>Good News reading room (30/day)</li>
                 <li>Weekend Deep-Dive + monthly workbook</li>
                 <li>Full searchable archive</li>
               </ul>
