@@ -324,6 +324,43 @@ function ReferencesPanel({
           </div>
         </div>
         <div className="adm-refs-col">
+          <h4>Suggested for these themes</h4>
+          {refs.suggestedVerses.length === 0 ? (
+            <p className="muted" style={{ fontSize: 13, margin: 0 }}>
+              No suggestions for these themes yet.
+            </p>
+          ) : (
+            <ul className="adm-refs-list">
+              {refs.suggestedVerses.map((v) => (
+                <li key={v.ref}>
+                  <strong>{v.ref}</strong>
+                  <span className="adm-refs-kind"> — public-domain (WEB)</span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+        <div className="adm-refs-col">
+          <h4>Amplified Bible study notes ({refs.ampNotes.length})</h4>
+          {refs.ampNotes.length === 0 ? (
+            <p className="muted" style={{ fontSize: 13, margin: 0 }}>
+              None saved on these themes. Add your AMP notes in the{" "}
+              <Link href="/admin/library">library</Link> (Source = “Amplified
+              Bible (AMP)”).
+            </p>
+          ) : (
+            <ul className="adm-refs-list">
+              {refs.ampNotes.slice(0, 6).map((it) => (
+                <li key={it.id}>
+                  <Link href={`/admin/library?edit=${it.id}`}>
+                    {it.title || it.scriptures.join(", ") || "AMP note"}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+        <div className="adm-refs-col">
           <h4>Library items used ({refs.items.length})</h4>
           {refs.items.length === 0 ? (
             <p className="muted" style={{ fontSize: 13, margin: 0 }}>
@@ -364,6 +401,7 @@ function ReferencesPanel({
         Inspiration sources are used for theme, tone, and direction only — every
         devotional is written original and in your voice.
       </p>
+      <p className="adm-refs-legal">📖 {refs.legalNote}</p>
     </details>
   );
 }

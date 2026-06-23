@@ -4466,6 +4466,16 @@ hr.div {
   color: var(--grey);
   font-style: italic;
 }
+.adm-refs-legal {
+  margin: 8px 0 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #6a5a2e;
+  background: #fbf3df;
+  border: 1px solid #ecdcae;
+  border-radius: 8px;
+  padding: 8px 12px;
+}
 @media (max-width: 900px) {
   .lib-cols {
     grid-template-columns: 1fr;

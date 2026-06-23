@@ -2,6 +2,7 @@ import "server-only";
 import { createServiceClient, adminDbConfigured } from "@/lib/supabase/admin";
 import { getStudyDay } from "@/lib/studyGuide";
 import { dayIndexForDate } from "@/lib/devotionals";
+import { suggestVersesForTopics, type SuggestedVerse } from "@/lib/scripture";
 
 /** Public Storage bucket for uploaded library media (see content-library-media.sql). */
 export const MEDIA_BUCKET = "library-media";
@@ -323,15 +324,23 @@ function verseRefOf(v: string): string {
   return i === -1 ? "" : v.slice(i + 3).trim();
 }
 
+/** Does a saved item read as an Amplified Bible study note? (source/body marker) */
+function isAmplified(it: LibraryItem): boolean {
+  return /\bamplified\b|\bamp\b/i.test(`${it.source ?? ""} ${it.title} ${it.body}`);
+}
+
 export type DevotionalReferences = {
   day: number;
   reading: string;
   topics: string[];
   scriptures: string[];
+  suggestedVerses: SuggestedVerse[];
   items: LibraryItem[];
+  ampNotes: LibraryItem[];
   sources: InspirationSource[];
   thinTopics: string[];
   explanation: string;
+  legalNote: string;
 };
 
 /** Admin-only: what the generator drew on for a given date. Never sent to readers. */
@@ -354,6 +363,8 @@ export async function getDevotionalReferences(date: string): Promise<DevotionalR
     (src) => src.frequency === "often" || src.topics.some((t) => topics.includes(t))
   );
   const thinTopics = topics.filter((t) => (counts[t] ?? 0) === 0);
+  const ampNotes = items.filter(isAmplified);
+  const suggestedVerses = suggestVersesForTopics(topics);
 
   const explanation =
     `Seeded from your study library (Day ${dayIndexForDate(date)} · ${s.reading}). ` +
@@ -361,16 +372,27 @@ export async function getDevotionalReferences(date: string): Promise<DevotionalR
     (items.length
       ? `Pulled ${items.length} saved item${items.length === 1 ? "" : "s"} on those themes`
       : `No saved library items matched these themes yet`) +
-    `, and considered ${considered.length} inspiration source${considered.length === 1 ? "" : "s"}.`;
+    `, and considered ${considered.length} inspiration source${considered.length === 1 ? "" : "s"}.` +
+    (ampNotes.length
+      ? ` ${ampNotes.length} of those are Amplified Bible study notes that shaped the verse selection.`
+      : "");
+
+  const legalNote =
+    "Published verse text uses public-domain translations (WEB/KJV). The Amplified Bible " +
+    "is used only as a private study lens via your saved notes — its text is never stored " +
+    "in bulk or published. Quote AMP only in short, attributed excerpts within license limits.";
 
   return {
     day: dayIndexForDate(date),
     reading: s.reading,
     topics,
     scriptures,
+    suggestedVerses,
     items,
+    ampNotes,
     sources: considered,
     thinTopics,
     explanation,
+    legalNote,
   };
 }

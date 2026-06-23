@@ -74,6 +74,15 @@ export default async function LibraryPage({
           </div>
         )}
 
+        <div className="adm-gennote">
+          📖 Studying in the <strong>Amplified Bible</strong>? Save your verse
+          notes here with <strong>Type = “bible study notes”</strong> and{" "}
+          <strong>Source = “Amplified Bible (AMP)”</strong>. They stay
+          backend-only and help the generator pick + understand verses by theme.
+          (Don&apos;t paste whole chapters — a few studied verses in your own
+          notes is the legally-safe way.)
+        </div>
+
         {/* Coverage dashboard */}
         <div className="lib-cov">
           <div className="adm-bar">

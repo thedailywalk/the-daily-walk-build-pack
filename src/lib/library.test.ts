@@ -12,6 +12,11 @@ describe("content library — behind the devotional", () => {
     // with no DB configured in tests, items/sources are empty and topics read as thin
     expect(Array.isArray(r.items)).toBe(true);
     expect(Array.isArray(r.sources)).toBe(true);
+    // scripture suggestions (public-domain) + AMP-safe legal note
+    expect(Array.isArray(r.suggestedVerses)).toBe(true);
+    expect(Array.isArray(r.ampNotes)).toBe(true);
+    expect(r.legalNote.toLowerCase()).toContain("amplified");
+    expect(r.legalNote.toLowerCase()).toContain("public-domain");
   });
 
   it("exposes the category + content-type vocabularies", () => {
