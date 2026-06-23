@@ -55,6 +55,9 @@ export default async function LibraryPage({
               the newsletter generator can pull from it by theme.
             </p>
           </div>
+          <Link href="/admin/library/capture" className="btn btn-gold">
+            + Capture from Instagram
+          </Link>
         </div>
 
         {!adminDbConfigured && (

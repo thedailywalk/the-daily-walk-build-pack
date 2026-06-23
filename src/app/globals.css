@@ -4363,6 +4363,40 @@ hr.div {
   border-radius: 10px;
 }
 
+/* Instagram capture */
+.ig-capture {
+  max-width: 880px;
+}
+.ig-two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.ig-suggest {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin: 4px 0 6px;
+}
+.ig-suggest-hint {
+  font-size: 13px;
+  color: var(--gold-deep);
+  font-weight: 600;
+}
+.lib-check.ig-on {
+  background: #fbf4e2;
+  border-radius: 8px;
+  padding: 2px 8px;
+  font-weight: 700;
+  color: var(--navy);
+}
+@media (max-width: 640px) {
+  .ig-two {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Inspiration source meta */
 .src-freq {
   font-family: var(--sans);
