@@ -3,7 +3,13 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { requireAdmin } from "@/lib/adminGuard";
-import { upsertLibraryItem, deleteLibraryItem } from "@/lib/library";
+import {
+  upsertLibraryItem,
+  deleteLibraryItem,
+  uploadLibraryMedia,
+  deleteLibraryMedia,
+  MEDIA_MAX_BYTES,
+} from "@/lib/library";
 
 function str(fd: FormData, key: string): string {
   return String(fd.get(key) ?? "").trim();
@@ -25,12 +31,32 @@ function split(fd: FormData, key: string): string[] {
 export async function saveLibraryItemAction(formData: FormData) {
   await requireAdmin();
   const id = str(formData, "id") || undefined;
+
+  // Existing media (preserved across edits unless replaced).
+  let url = str(formData, "url") || null;
+  let mediaPath = str(formData, "existingMediaPath") || null;
+  let tooBig = false;
+
+  const file = formData.get("file");
+  if (file && typeof file === "object" && "size" in file && file.size > 0) {
+    if (file.size > MEDIA_MAX_BYTES) {
+      tooBig = true; // skip the upload, keep their text + any existing media
+    } else {
+      const up = await uploadLibraryMedia(file as File);
+      if (up) {
+        if (mediaPath && mediaPath !== up.path) await deleteLibraryMedia(mediaPath);
+        url = up.url;
+        mediaPath = up.path;
+      }
+    }
+  }
+
   await upsertLibraryItem({
     id,
     title: str(formData, "title"),
     kind: str(formData, "kind") || "note",
     body: str(formData, "body"),
-    url: str(formData, "url") || null,
+    url,
     source: str(formData, "source") || null,
     why: str(formData, "why") || null,
     topics: list(formData, "topics"),
@@ -38,9 +64,11 @@ export async function saveLibraryItemAction(formData: FormData) {
     holiday: str(formData, "holiday") || null,
     emotion: str(formData, "emotion") || null,
     isOriginal: str(formData, "isOriginal") === "on",
+    mediaPath,
   });
+
   revalidatePath("/admin/library");
-  redirect("/admin/library?saved=1");
+  redirect(tooBig ? "/admin/library?err=size" : "/admin/library?saved=1");
 }
 
 export async function deleteLibraryItemAction(formData: FormData) {

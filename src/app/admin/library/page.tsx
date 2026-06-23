@@ -7,6 +7,7 @@ import {
   listLibrary,
   getLibraryItem,
   topicCounts,
+  mediaKind,
   TOPICS,
   CONTENT_TYPES,
   type LibraryItem,
@@ -27,6 +28,7 @@ export default async function LibraryPage({
     kind?: string;
     edit?: string;
     saved?: string;
+    err?: string;
   }>;
 }) {
   await requireAdmin();
@@ -65,6 +67,12 @@ export default async function LibraryPage({
         <AdminNav active="library" />
 
         {sp.saved && <div className="adm-saved">Saved ✓</div>}
+        {sp.err === "size" && (
+          <div className="adm-notice">
+            That file was over 4MB, so it wasn&apos;t uploaded (your text was
+            still saved). Use a smaller file, or paste a link to it instead.
+          </div>
+        )}
 
         {/* Coverage dashboard */}
         <div className="lib-cov">
@@ -172,11 +180,7 @@ function LibCard({ item }: { item: LibraryItem }) {
       </div>
       {item.title && <div className="lib-title">{item.title}</div>}
       {item.body && <p className="lib-body">{item.body}</p>}
-      {item.url && (
-        <a href={item.url} target="_blank" rel="noopener noreferrer" className="lib-link">
-          {item.url}
-        </a>
-      )}
+      <MediaPreview item={item} />
       {item.why && <p className="lib-why">Why: {item.why}</p>}
       <div className="lib-tags">
         {item.topics.map((t) => (
@@ -197,6 +201,23 @@ function LibCard({ item }: { item: LibraryItem }) {
   );
 }
 
+function MediaPreview({ item }: { item: LibraryItem }) {
+  if (!item.url) return null;
+  const kind = mediaKind(item.url, item.mediaPath);
+  if (kind === "image") {
+    // eslint-disable-next-line @next/next/no-img-element
+    return <img src={item.url} alt={item.title || "Saved visual"} className="lib-media-img" />;
+  }
+  if (kind === "audio") {
+    return <audio controls src={item.url} className="lib-media-audio" />;
+  }
+  return (
+    <a href={item.url} target="_blank" rel="noopener noreferrer" className="lib-link">
+      {item.url}
+    </a>
+  );
+}
+
 function ItemForm({ editing }: { editing: LibraryItem | null }) {
   const d = editing;
   return (
@@ -205,6 +226,7 @@ function ItemForm({ editing }: { editing: LibraryItem | null }) {
         {d ? "Edit item" : "Add to the library"}
       </h3>
       {d && <input type="hidden" name="id" value={d.id} />}
+      <input type="hidden" name="existingMediaPath" value={d?.mediaPath ?? ""} />
 
       <label className="adm-field">
         <span className="adm-label">Title</span>
@@ -225,7 +247,17 @@ function ItemForm({ editing }: { editing: LibraryItem | null }) {
         <textarea name="body" defaultValue={d?.body} className="adm-textarea" rows={5} />
       </label>
       <label className="adm-field">
-        <span className="adm-label">Link / media URL (optional)</span>
+        <span className="adm-label">Upload a file (image or audio, up to 4MB)</span>
+        <input
+          name="file"
+          type="file"
+          accept="image/*,audio/*"
+          className="adm-input lib-file"
+        />
+      </label>
+      {d && <MediaPreview item={d} />}
+      <label className="adm-field">
+        <span className="adm-label">…or paste a link / media URL</span>
         <input name="url" defaultValue={d?.url ?? ""} className="adm-input" placeholder="https://… (image, audio, article)" />
       </label>
       <label className="adm-field">

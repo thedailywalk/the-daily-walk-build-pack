@@ -3,6 +3,11 @@ import { createServiceClient, adminDbConfigured } from "@/lib/supabase/admin";
 import { getStudyDay } from "@/lib/studyGuide";
 import { dayIndexForDate } from "@/lib/devotionals";
 
+/** Public Storage bucket for uploaded library media (see content-library-media.sql). */
+export const MEDIA_BUCKET = "library-media";
+/** Server-action upload cap (Vercel serverless body limit is ~4.5MB). */
+export const MEDIA_MAX_BYTES = 4 * 1024 * 1024;
+
 /** The library's organizing categories / topic tags. */
 export const TOPICS = [
   "Holidays", "Faith", "Prayer", "Healing", "Anger", "Love", "Forgiveness",
@@ -33,6 +38,7 @@ export type LibraryItem = {
   holiday: string | null;
   emotion: string | null;
   isOriginal: boolean;
+  mediaPath: string | null;
   createdAt?: string;
 };
 
@@ -62,6 +68,7 @@ function toItem(r: any): LibraryItem {
     holiday: r.holiday ?? null,
     emotion: r.emotion ?? null,
     isOriginal: !!r.is_original,
+    mediaPath: r.media_path ?? null,
     createdAt: r.created_at,
   };
 }
@@ -141,6 +148,7 @@ export async function upsertLibraryItem(item: Partial<LibraryItem> & { id?: stri
       holiday: item.holiday ?? null,
       emotion: item.emotion ?? null,
       is_original: !!item.isOriginal,
+      media_path: item.mediaPath ?? null,
       updated_at: new Date().toISOString(),
     };
     await supabase.from("library_items").upsert(row);
@@ -152,11 +160,59 @@ export async function upsertLibraryItem(item: Partial<LibraryItem> & { id?: stri
 export async function deleteLibraryItem(id: string) {
   if (!adminDbConfigured) return;
   try {
+    const existing = await getLibraryItem(id);
+    if (existing?.mediaPath) await deleteLibraryMedia(existing.mediaPath);
     const supabase = createServiceClient();
     await supabase.from("library_items").delete().eq("id", id);
   } catch {
     /* ignore */
   }
+}
+
+/** Upload a file to the public media bucket; returns its public URL + storage path. */
+export async function uploadLibraryMedia(
+  file: File
+): Promise<{ url: string; path: string } | null> {
+  if (!adminDbConfigured || !file || file.size === 0) return null;
+  try {
+    const supabase = createServiceClient();
+    const ext = (file.name.split(".").pop() || "bin")
+      .toLowerCase()
+      .replace(/[^a-z0-9]/g, "")
+      .slice(0, 8);
+    const path = `${crypto.randomUUID()}.${ext}`;
+    const bytes = new Uint8Array(await file.arrayBuffer());
+    const { error } = await supabase.storage
+      .from(MEDIA_BUCKET)
+      .upload(path, bytes, {
+        contentType: file.type || "application/octet-stream",
+        upsert: false,
+      });
+    if (error) return null;
+    const { data } = supabase.storage.from(MEDIA_BUCKET).getPublicUrl(path);
+    return { url: data.publicUrl, path };
+  } catch {
+    return null;
+  }
+}
+
+export async function deleteLibraryMedia(path: string) {
+  if (!adminDbConfigured || !path) return;
+  try {
+    const supabase = createServiceClient();
+    await supabase.storage.from(MEDIA_BUCKET).remove([path]);
+  } catch {
+    /* ignore */
+  }
+}
+
+/** Classify a saved URL/path so the UI can preview it. */
+export function mediaKind(url?: string | null, path?: string | null): "image" | "audio" | "link" | "none" {
+  const s = (path || url || "").toLowerCase();
+  if (!s) return "none";
+  if (/\.(png|jpe?g|gif|webp|avif|svg)(\?|$)/.test(s)) return "image";
+  if (/\.(mp3|wav|m4a|ogg|aac)(\?|$)/.test(s)) return "audio";
+  return "link";
 }
 
 /** How many items each topic has — for the coverage dashboard. */

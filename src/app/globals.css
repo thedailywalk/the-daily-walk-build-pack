@@ -4284,6 +4284,23 @@ hr.div {
   font-size: 13px;
   word-break: break-all;
 }
+.lib-file {
+  padding: 8px 10px;
+  font-size: 13px;
+}
+.lib-media-img {
+  display: block;
+  max-width: 100%;
+  max-height: 240px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  margin: 8px 0;
+  object-fit: cover;
+}
+.lib-media-audio {
+  width: 100%;
+  margin: 8px 0;
+}
 .lib-why {
   margin: 4px 0 0;
   font-size: 13px;
