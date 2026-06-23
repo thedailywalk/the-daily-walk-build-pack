@@ -374,7 +374,8 @@ export default async function HomePage() {
           <div className="mission">
             <h2>A daily guide for walking with God in real life.</h2>
             <p>
-              {site.name} exists to make faith feel clear, honest, and close —
+              {site.name}
+              {" exists to make faith feel clear, honest, and close — "}
               whether you&apos;ve followed Jesus for decades or you&apos;re just
               curious. No jargon. No guilt. Just Scripture, prayer, and hope, one
               day at a time.
