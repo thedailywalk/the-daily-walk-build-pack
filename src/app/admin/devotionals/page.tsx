@@ -5,8 +5,9 @@ import { adminDbConfigured } from "@/lib/supabase/admin";
 import {
   adminGetByDate,
   adminListRange,
+  adminListBefore,
   upcomingDates,
-  templateFor,
+  fullDevotionalFor,
   weekdayLabel,
   prettyDate,
   type Devotional,
@@ -28,10 +29,11 @@ export const metadata: Metadata = {
 export default async function DevotionalAdminPage({
   searchParams,
 }: {
-  searchParams: Promise<{ date?: string; saved?: string }>;
+  searchParams: Promise<{ date?: string; saved?: string; view?: string }>;
 }) {
   await requireAdmin();
   const sp = await searchParams;
+  const view = sp.view === "archive" ? "archive" : "prep";
   const valid = sp.date && /^\d{4}-\d{2}-\d{2}$/.test(sp.date) ? sp.date : null;
 
   return (
@@ -43,8 +45,9 @@ export default async function DevotionalAdminPage({
               Admin · Devotional Prep
             </div>
             <p className="adm-sub">
-              Plan, draft, and schedule the daily devotional. Each issue goes
-              live on its own date once it&apos;s marked <strong>Ready</strong>.
+              Plan, write, and schedule the daily devotional. Every date opens
+              fully written — read it, edit in your voice, mark it{" "}
+              <strong>Ready</strong>, and it publishes on its own date.
             </p>
           </div>
           <Link href="/devotional" className="btn btn-ghost">
@@ -61,7 +64,28 @@ export default async function DevotionalAdminPage({
           </div>
         )}
 
-        {valid ? await EditorView(valid, sp.saved === "1") : await WeekView()}
+        <nav className="adm-subnav" aria-label="Devotional sections">
+          <Link
+            href="/admin/devotionals"
+            className={`adm-subtab${view === "prep" ? " is-on" : ""}`}
+          >
+            The week ahead
+          </Link>
+          <Link
+            href="/admin/devotionals?view=archive"
+            className={`adm-subtab${view === "archive" ? " is-on" : ""}`}
+          >
+            Archive
+          </Link>
+        </nav>
+
+        {view === "archive"
+          ? valid
+            ? await ArchiveDetail(valid)
+            : await ArchiveList()
+          : valid
+            ? await EditorView(valid, sp.saved === "1")
+            : await WeekView()}
       </div>
     </section>
   );
@@ -83,25 +107,25 @@ async function WeekView() {
           </button>
         </form>
       </div>
+      <p className="adm-hintline">
+        Every day is generated complete and ready to read. Click any date to open
+        the full issue, edit it, then mark it <strong>Ready</strong>.
+      </p>
 
       <div className="adm-week">
         {dates.map((date) => {
           const d = byDate.get(date);
-          const status = d?.status;
-          const heading = d?.data.readingHeading?.trim();
+          // Even unsaved dates have a full generated draft to preview/edit.
+          const heading = (d?.data.readingHeading || fullDevotionalFor(date).readingHeading)?.trim();
           return (
             <Link key={date} href={`/admin/devotionals?date=${date}`} className="adm-day">
               <div className="adm-day-top">
                 <span className="adm-day-dow">{weekdayLabel(date)}</span>
-                <StatusBadge status={status} />
+                <StatusBadge status={d?.status} saved={!!d} />
               </div>
               <div className="adm-day-date">{prettyDate(date)}</div>
-              <div className="adm-day-title">
-                {heading || <span className="adm-muted">Not prepared yet</span>}
-              </div>
-              <div className="adm-day-edit">
-                {d ? "Open & edit →" : "Start draft →"}
-              </div>
+              <div className="adm-day-title">{heading}</div>
+              <div className="adm-day-edit">Open & edit →</div>
             </Link>
           );
         })}
@@ -110,18 +134,17 @@ async function WeekView() {
   );
 }
 
-function StatusBadge({ status }: { status?: string }) {
+function StatusBadge({ status, saved }: { status?: string; saved?: boolean }) {
   if (status === "ready")
     return <span className="adm-badge adm-badge-ready">Ready</span>;
-  if (status === "draft")
-    return <span className="adm-badge adm-badge-draft">Draft</span>;
-  return <span className="adm-badge adm-badge-none">—</span>;
+  if (saved) return <span className="adm-badge adm-badge-draft">Draft</span>;
+  return <span className="adm-badge adm-badge-none">Generated</span>;
 }
 
 /* -------------------------------- editor -------------------------------- */
 async function EditorView(date: string, saved: boolean) {
   const existing = await adminGetByDate(date);
-  const data: DevotionalData = existing?.data ?? templateFor(date);
+  const data: DevotionalData = existing?.data ?? fullDevotionalFor(date);
   const status = existing?.status ?? "draft";
   const previewDev: Devotional = {
     date,
@@ -150,6 +173,12 @@ async function EditorView(date: string, saved: boolean) {
       </div>
 
       {saved && <div className="adm-saved">Saved ✓</div>}
+      {!existing && (
+        <div className="adm-gennote">
+          ✨ This is a complete, auto-generated draft. Edit anything below, then{" "}
+          <strong>Save</strong> to keep your version.
+        </div>
+      )}
 
       <div className="adm-cols">
         {/* form */}
@@ -199,7 +228,7 @@ async function EditorView(date: string, saved: boolean) {
             <input name="makeItRealHeading" defaultValue={data.makeItRealHeading} className="adm-input" />
           </Field>
           <Field label="Body">
-            <textarea name="makeItRealBody" defaultValue={data.makeItRealBody} className="adm-textarea" rows={3} />
+            <textarea name="makeItRealBody" defaultValue={data.makeItRealBody} className="adm-textarea" rows={4} />
           </Field>
           <Field label="Reflection question">
             <textarea name="question" defaultValue={data.question} className="adm-textarea" rows={2} />
@@ -242,14 +271,119 @@ async function EditorView(date: string, saved: boolean) {
           </div>
         </form>
 
-        {/* live preview of the last-saved version */}
+        {/* live, scrollable preview of the full newsletter for this date */}
         <div className="adm-preview">
-          <div className="adm-preview-tag">Preview (last saved)</div>
+          <div className="adm-preview-tag">
+            Live preview · {weekdayLabel(date)}, {prettyDate(date)}
+          </div>
           <div
             className="adm-preview-frame"
             dangerouslySetInnerHTML={{ __html: renderDevotionalHtml(previewDev) }}
           />
         </div>
+      </div>
+    </div>
+  );
+}
+
+/* -------------------------------- archive ------------------------------- */
+async function ArchiveList() {
+  const today = upcomingDates(1)[0];
+  const rows = await adminListBefore(today);
+
+  return (
+    <div>
+      <div className="adm-bar">
+        <h2 className="adm-h2">Archive</h2>
+      </div>
+      <p className="adm-hintline">
+        Past devotionals, newest first. Open any to review the full issue —
+        read-only, so you can&apos;t change something already sent.
+      </p>
+
+      {rows.length === 0 ? (
+        <div className="sg-zone sg-zone-cool">
+          <p className="muted" style={{ margin: 0 }}>
+            No past devotionals yet. Once issues go live on their date, they&apos;ll
+            collect here.
+          </p>
+        </div>
+      ) : (
+        <div className="adm-archlist">
+          {rows.map((d) => (
+            <Link
+              key={d.date}
+              href={`/admin/devotionals?view=archive&date=${d.date}`}
+              className="adm-archrow"
+            >
+              <div className="adm-archrow-main">
+                <span className="adm-archrow-date">
+                  {weekdayLabel(d.date)}, {prettyDate(d.date)}
+                </span>
+                <span className="adm-archrow-title">
+                  {d.data.readingHeading?.trim() || d.title || "Untitled issue"}
+                </span>
+              </div>
+              <div className="adm-archrow-side">
+                <StatusBadge status={d.status} saved />
+                <span className="adm-archrow-open">Review →</span>
+              </div>
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+async function ArchiveDetail(date: string) {
+  const dev = await adminGetByDate(date);
+
+  if (!dev) {
+    return (
+      <div>
+        <Link href="/admin/devotionals?view=archive" className="adm-back">
+          ← Archive
+        </Link>
+        <div className="sg-zone sg-zone-cool" style={{ marginTop: 14 }}>
+          <p className="muted" style={{ margin: 0 }}>
+            No saved devotional for {prettyDate(date)}.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="adm-editor">
+      <div className="adm-bar">
+        <div>
+          <Link href="/admin/devotionals?view=archive" className="adm-back">
+            ← Archive
+          </Link>
+          <h2 className="adm-h2" style={{ marginTop: 4 }}>
+            {weekdayLabel(date)}, {prettyDate(date)}
+          </h2>
+        </div>
+        <Link href={`/admin/devotionals?date=${date}`} className="btn btn-ghost">
+          Edit this issue
+        </Link>
+      </div>
+
+      <div className="adm-readonly-banner">
+        📦 Archived issue · read-only. Use <strong>Edit this issue</strong> only
+        if you mean to change something already published.
+      </div>
+
+      <div className="adm-archview">
+        <div className="adm-preview-tag">Full issue · {prettyDate(date)}</div>
+        <div className="adm-archview-actions">
+          <CopyButton text={renderDevotionalHtml(dev)} label="Copy email HTML" />
+        </div>
+        <div
+          className="adm-preview-frame adm-preview-frame-tall"
+          dangerouslySetInnerHTML={{ __html: renderDevotionalHtml(dev) }}
+        />
       </div>
     </div>
   );

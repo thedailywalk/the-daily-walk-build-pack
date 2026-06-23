@@ -2,6 +2,7 @@ import "server-only";
 import { createClient, supabaseConfigured } from "@/lib/supabase/server";
 import { createServiceClient, adminDbConfigured } from "@/lib/supabase/admin";
 import { todayPT } from "@/lib/progress";
+import { getStudyDay } from "@/lib/studyGuide";
 
 /** The editable sections of one daily devotional (matches the issue template). */
 export type DevotionalData = {
@@ -172,7 +173,7 @@ export async function adminDelete(date: string): Promise<void> {
   }
 }
 
-/** Seed empty-but-structured drafts for any of the next `count` days missing one. */
+/** Seed FULLY-written drafts for any of the next `count` days missing one. */
 export async function adminEnsureWeek(count = 7): Promise<void> {
   if (!adminDbConfigured) return;
   const dates = upcomingDates(count);
@@ -180,38 +181,121 @@ export async function adminEnsureWeek(count = 7): Promise<void> {
   const have = new Set(existing.map((d) => d.date));
   for (const date of dates) {
     if (have.has(date)) continue;
-    await adminUpsert(date, "draft", "", templateFor(date));
+    const data = fullDevotionalFor(date);
+    await adminUpsert(date, "draft", data.readingHeading ?? "", data);
   }
 }
 
-/** A gentle starter scaffold for a new draft — the owner fills in their voice. */
-export function templateFor(date: string): DevotionalData {
+/** Past devotionals (before `beforeDate`), newest first — for the Archive. */
+export async function adminListBefore(
+  beforeDate: string,
+  limit = 120
+): Promise<Devotional[]> {
+  if (!adminDbConfigured) return [];
+  try {
+    const supabase = createServiceClient();
+    const { data } = await supabase
+      .from("devotionals")
+      .select("date,status,title,data,updated_at")
+      .lt("date", beforeDate)
+      .order("date", { ascending: false })
+      .limit(limit);
+    return (data ?? []).map(rowToDevotional);
+  } catch {
+    return [];
+  }
+}
+
+/* ---------------------- full default generation ----------------------- */
+
+const ARC_FOCUS: Record<string, string> = {
+  John: "Meet Jesus — who He really is",
+  Romans: "The gospel — grace, not performance",
+  Psalms: "Honest prayer — bring God your real self",
+  Proverbs: "Wisdom for everyday life",
+  Acts: "The Spirit and the unstoppable mission",
+  "The whole story": "The whole story — Genesis to Revelation",
+};
+const BE_REAL = [
+  "Psalm 27",
+  "Psalm 23",
+  "Psalm 139",
+  "Psalm 121",
+  "Psalm 46",
+  "Psalm 91",
+  "Psalm 103",
+];
+const CLOSINGS = [
+  "Even when the world feels heavy, God is still moving — keep your eyes open today.",
+  "However today goes, you're not walking it alone.",
+  "Small steps, taken daily, are how God quietly changes a life.",
+  "You don't have to have it all figured out — just keep showing up.",
+  "God isn't grading you. He's glad you came.",
+  "His mercies are new this morning — including for you.",
+  "Take it one honest day at a time. He's with you in all of them.",
+];
+
+function dayOfYear(date: string): number {
+  const d = new Date(`${date}T12:00:00Z`);
+  const start = Date.UTC(d.getUTCFullYear(), 0, 0);
+  return Math.floor((d.getTime() - start) / 86400000);
+}
+function weekdayIndex(date: string): number {
+  return new Date(`${date}T12:00:00Z`).getUTCDay(); // 0 = Sunday
+}
+function splitVerse(v: string): { text: string; ref: string } {
+  const i = v.lastIndexOf(" — ");
+  if (i === -1) return { text: v.replace(/[“”]/g, "").trim(), ref: "" };
+  return {
+    text: v.slice(0, i).replace(/[“”]/g, "").trim(),
+    ref: v.slice(i + 3).trim(),
+  };
+}
+function firstPara(t: string): string {
+  return (t ?? "").split(/\n{2,}/)[0].trim();
+}
+
+/**
+ * A COMPLETE daily devotional for any date — every section filled, seeded from
+ * the study library (so each date is distinct and ready to read), in the issue
+ * template. The owner opens it, reads the whole thing, and edits in their voice.
+ */
+export function fullDevotionalFor(date: string): DevotionalData {
+  const wIdx = weekdayIndex(date);
   const weekday = weekdayLabel(date);
-  const base: DevotionalData = {
-    weekFocus: "",
-    readingHeading: "",
-    readingRef: "📖 Main:  ·  Be real with God: ",
-    readingIntro: "",
-    verseText: "",
-    verseRef: "",
-    readingAfter: "",
-    makeItRealHeading: "So what, for today?",
-    makeItRealBody: "",
-    question: "👉 ",
-    prayer: "",
+  const day = ((dayOfYear(date) - 1 + 365) % 365) + 1; // 1..365, distinct per date
+  const s = getStudyDay(day);
+  const { text: verseText, ref: verseRef } = splitVerse(s.verse);
+
+  const data: DevotionalData = {
+    weekFocus:
+      weekday === "Sunday"
+        ? "Rest & Reflect"
+        : ARC_FOCUS[s.arc] ?? "Walking with God in real life",
+    readingHeading: s.aboutGod,
+    readingRef: `📖 Main: ${s.reading}  ·  Be real with God: ${BE_REAL[wIdx]}`,
+    readingIntro: firstPara(s.context),
+    verseText,
+    verseRef,
+    readingAfter: s.plainEnglish,
+    makeItRealHeading: weekday === "Sunday" ? "Be still for a moment" : "So what, for today?",
+    makeItRealBody: `${s.realLife} ${s.aboutPeople} A small step today: ${s.step}`,
+    question: s.reflection.startsWith("👉") ? s.reflection : `👉 ${s.reflection}`,
+    prayer: s.prayer,
     communityText:
       "You weren't meant to do this alone. We're talking through today's question in the community — come share, or just read along.",
     ctaLabel: "Join the conversation →",
     ctaUrl: process.env.NEXT_PUBLIC_COMMUNITY_URL ?? "",
-    closingLine: "",
+    closingLine: CLOSINGS[wIdx],
   };
+
   if (weekday === "Wednesday") {
-    base.pastorTake = "";
-    base.pastorByline = "— featured perspective, shared with attribution.";
+    data.pastorTake = `${s.realLife} A way to live it this week: ${s.step}`;
+    data.pastorByline =
+      "— a midweek encouragement. Swap in a featured pastor's quote when you have one.";
   }
-  if (weekday === "Sunday") {
-    base.weekFocus = "Rest & Reflect";
-    base.makeItRealHeading = "Be still for a moment";
-  }
-  return base;
+  return data;
 }
+
+/** Back-compat alias — every new draft is now fully written, not a blank scaffold. */
+export const templateFor = fullDevotionalFor;
