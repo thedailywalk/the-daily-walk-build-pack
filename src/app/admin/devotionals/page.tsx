@@ -14,6 +14,8 @@ import {
   type DevotionalData,
 } from "@/lib/devotionals";
 import { renderDevotionalHtml } from "@/lib/devotionalHtml";
+import { getDevotionalReferences } from "@/lib/library";
+import AdminNav from "@/components/AdminNav";
 import {
   saveDevotionalAction,
   prepareWeekAction,
@@ -64,20 +66,7 @@ export default async function DevotionalAdminPage({
           </div>
         )}
 
-        <nav className="adm-subnav" aria-label="Devotional sections">
-          <Link
-            href="/admin/devotionals"
-            className={`adm-subtab${view === "prep" ? " is-on" : ""}`}
-          >
-            The week ahead
-          </Link>
-          <Link
-            href="/admin/devotionals?view=archive"
-            className={`adm-subtab${view === "archive" ? " is-on" : ""}`}
-          >
-            Archive
-          </Link>
-        </nav>
+        <AdminNav active={view === "archive" ? "archive" : "week"} />
 
         {view === "archive"
           ? valid
@@ -143,7 +132,10 @@ function StatusBadge({ status, saved }: { status?: string; saved?: boolean }) {
 
 /* -------------------------------- editor -------------------------------- */
 async function EditorView(date: string, saved: boolean) {
-  const existing = await adminGetByDate(date);
+  const [existing, refs] = await Promise.all([
+    adminGetByDate(date),
+    getDevotionalReferences(date),
+  ]);
   const data: DevotionalData = existing?.data ?? fullDevotionalFor(date);
   const status = existing?.status ?? "draft";
   const previewDev: Devotional = {
@@ -282,7 +274,97 @@ async function EditorView(date: string, saved: boolean) {
           />
         </div>
       </div>
+
+      <ReferencesPanel refs={refs} />
     </div>
+  );
+}
+
+/* ---------------------- behind the devotional (admin only) -------------- */
+function ReferencesPanel({
+  refs,
+}: {
+  refs: Awaited<ReturnType<typeof getDevotionalReferences>>;
+}) {
+  return (
+    <details className="adm-refs" open>
+      <summary className="adm-refs-sum">
+        🔎 Behind the Devotional — admin only{" "}
+        <span className="adm-refs-note">(subscribers never see this)</span>
+      </summary>
+      <p className="adm-refs-expl">{refs.explanation}</p>
+
+      {refs.thinTopics.length > 0 && (
+        <div className="adm-refs-warn">
+          ⚠ Your library is thin on: <strong>{refs.thinTopics.join(", ")}</strong>.
+          This day leaned more on outside inspiration than on your own saved
+          material. <Link href="/admin/library">Add material →</Link>
+        </div>
+      )}
+
+      <div className="adm-refs-grid">
+        <div className="adm-refs-col">
+          <h4>Topic tags</h4>
+          <div className="lib-tags">
+            {refs.topics.map((t) => (
+              <Link key={t} href={`/admin/library?topic=${encodeURIComponent(t)}`} className="lib-tag">
+                {t}
+              </Link>
+            ))}
+          </div>
+        </div>
+        <div className="adm-refs-col">
+          <h4>Scripture influences</h4>
+          <div className="lib-tags">
+            {refs.scriptures.map((s) => (
+              <span key={s} className="lib-tag lib-tag-verse">
+                {s}
+              </span>
+            ))}
+          </div>
+        </div>
+        <div className="adm-refs-col">
+          <h4>Library items used ({refs.items.length})</h4>
+          {refs.items.length === 0 ? (
+            <p className="muted" style={{ fontSize: 13, margin: 0 }}>
+              None saved on these themes yet.
+            </p>
+          ) : (
+            <ul className="adm-refs-list">
+              {refs.items.slice(0, 8).map((it) => (
+                <li key={it.id}>
+                  <Link href={`/admin/library?edit=${it.id}`}>
+                    {it.title || it.body.slice(0, 60) || "(untitled)"}
+                  </Link>{" "}
+                  <span className="adm-refs-kind">· {it.kind}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+        <div className="adm-refs-col">
+          <h4>Inspiration sources considered ({refs.sources.length})</h4>
+          {refs.sources.length === 0 ? (
+            <p className="muted" style={{ fontSize: 13, margin: 0 }}>
+              None matched. <Link href="/admin/inspiration">Manage sources →</Link>
+            </p>
+          ) : (
+            <ul className="adm-refs-list">
+              {refs.sources.map((s) => (
+                <li key={s.id}>
+                  {s.name}
+                  {s.handle && <span className="adm-refs-kind"> · {s.handle}</span>}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </div>
+      <p className="adm-refs-foot">
+        Inspiration sources are used for theme, tone, and direction only — every
+        devotional is written original and in your voice.
+      </p>
+    </details>
   );
 }
 

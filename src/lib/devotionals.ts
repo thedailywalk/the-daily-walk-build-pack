@@ -240,6 +240,11 @@ function dayOfYear(date: string): number {
   const start = Date.UTC(d.getUTCFullYear(), 0, 0);
   return Math.floor((d.getTime() - start) / 86400000);
 }
+
+/** Which study-library day (1..365) a calendar date seeds its devotional from. */
+export function dayIndexForDate(date: string): number {
+  return ((dayOfYear(date) - 1 + 365) % 365) + 1;
+}
 function weekdayIndex(date: string): number {
   return new Date(`${date}T12:00:00Z`).getUTCDay(); // 0 = Sunday
 }
@@ -263,8 +268,7 @@ function firstPara(t: string): string {
 export function fullDevotionalFor(date: string): DevotionalData {
   const wIdx = weekdayIndex(date);
   const weekday = weekdayLabel(date);
-  const day = ((dayOfYear(date) - 1 + 365) % 365) + 1; // 1..365, distinct per date
-  const s = getStudyDay(day);
+  const s = getStudyDay(dayIndexForDate(date)); // distinct per date
   const { text: verseText, ref: verseRef } = splitVerse(s.verse);
 
   const data: DevotionalData = {
