@@ -3,6 +3,10 @@
     {
       "path": "/api/cron/refresh-good-news",
       "schedule": "0 7 * * *"
+    },
+    {
+      "path": "/api/cron/prepare-devotionals",
+      "schedule": "0 8 * * *"
     }
   ]
 }
