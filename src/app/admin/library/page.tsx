@@ -13,6 +13,7 @@ import {
   type LibraryItem,
 } from "@/lib/library";
 import { saveLibraryItemAction, deleteLibraryItemAction } from "./actions";
+import SmartLibraryForm from "@/components/SmartLibraryForm";
 
 export const metadata: Metadata = {
   title: "Content Library",
@@ -107,7 +108,11 @@ export default async function LibraryPage({
 
         <div className="adm-cols lib-cols">
           {/* Add / edit form */}
-          <ItemForm editing={editing} />
+          <SmartLibraryForm
+            topics={[...TOPICS]}
+            contentTypes={[...CONTENT_TYPES]}
+            editing={editing}
+          />
 
           {/* Browse */}
           <div>
@@ -221,111 +226,3 @@ function MediaPreview({ item }: { item: LibraryItem }) {
   );
 }
 
-function ItemForm({ editing }: { editing: LibraryItem | null }) {
-  const d = editing;
-  return (
-    <form action={saveLibraryItemAction} className="adm-form lib-form">
-      <h3 className="adm-group" style={{ borderTop: "none", paddingTop: 0, marginTop: 0 }}>
-        {d ? "Edit item" : "Add to the library"}
-      </h3>
-      {d && <input type="hidden" name="id" value={d.id} />}
-      <input type="hidden" name="existingMediaPath" value={d?.mediaPath ?? ""} />
-
-      <label className="adm-field">
-        <span className="adm-label">Title</span>
-        <input name="title" defaultValue={d?.title} className="adm-input" placeholder="A line that names it" />
-      </label>
-      <label className="adm-field">
-        <span className="adm-label">Type</span>
-        <select name="kind" defaultValue={d?.kind ?? "note"} className="sg-select">
-          {CONTENT_TYPES.map((k) => (
-            <option key={k} value={k}>
-              {k}
-            </option>
-          ))}
-        </select>
-      </label>
-      <label className="adm-field">
-        <span className="adm-label">Content / paste / your thoughts</span>
-        <textarea name="body" defaultValue={d?.body} className="adm-textarea" rows={5} />
-      </label>
-      <label className="adm-field">
-        <span className="adm-label">Upload a file (image or audio, up to 4MB)</span>
-        <input
-          name="file"
-          type="file"
-          accept="image/*,audio/*"
-          className="adm-input lib-file"
-        />
-      </label>
-      {d && <MediaPreview item={d} />}
-      <label className="adm-field">
-        <span className="adm-label">…or paste a link / media URL</span>
-        <input name="url" defaultValue={d?.url ?? ""} className="adm-input" placeholder="https://… (image, audio, article)" />
-      </label>
-      <label className="adm-field">
-        <span className="adm-label">Why I saved it</span>
-        <textarea name="why" defaultValue={d?.why ?? ""} className="adm-textarea" rows={2} />
-      </label>
-
-      <label className="adm-field">
-        <span className="adm-label">Topics (pick any)</span>
-        <div className="lib-checks">
-          {TOPICS.map((t) => (
-            <label key={t} className="lib-check">
-              <input
-                type="checkbox"
-                name="topics"
-                value={t}
-                defaultChecked={d?.topics.includes(t)}
-              />
-              {t}
-            </label>
-          ))}
-        </div>
-      </label>
-
-      <div className="adm-row">
-        <label className="adm-field">
-          <span className="adm-label">Scriptures</span>
-          <input
-            name="scriptures"
-            defaultValue={d?.scriptures.join(", ")}
-            className="adm-input"
-            placeholder="John 3:16, Psalm 23"
-          />
-        </label>
-        <label className="adm-field">
-          <span className="adm-label">Source</span>
-          <input name="source" defaultValue={d?.source ?? ""} className="adm-input" placeholder="Person / site" />
-        </label>
-      </div>
-      <div className="adm-row">
-        <label className="adm-field">
-          <span className="adm-label">Holiday (optional)</span>
-          <input name="holiday" defaultValue={d?.holiday ?? ""} className="adm-input" placeholder="Easter, Christmas…" />
-        </label>
-        <label className="adm-field">
-          <span className="adm-label">Emotion (optional)</span>
-          <input name="emotion" defaultValue={d?.emotion ?? ""} className="adm-input" placeholder="hope, comfort…" />
-        </label>
-      </div>
-
-      <label className="lib-check lib-check-wide">
-        <input type="checkbox" name="isOriginal" defaultChecked={d?.isOriginal} />
-        These are my own words — okay to use directly in a newsletter.
-      </label>
-
-      <div className="adm-actions">
-        <button type="submit" className="btn btn-gold">
-          {d ? "Save changes" : "Add item"}
-        </button>
-        {d && (
-          <Link href="/admin/library" className="btn btn-ghost">
-            Cancel
-          </Link>
-        )}
-      </div>
-    </form>
-  );
-}

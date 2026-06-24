@@ -2,33 +2,12 @@
 
 import { useMemo, useState } from "react";
 import { saveLibraryItemAction } from "@/app/admin/library/actions";
-
-/** Live topic hints from pasted text (client-side, no external calls). */
-const TOPIC_HINTS: Record<string, RegExp> = {
-  Faith: /\bfaith|believe|trust god|gospel\b/i,
-  Prayer: /\bpray|prayer|interced/i,
-  Healing: /\bheal|healing|wound|restore|broken\b/i,
-  Anger: /\banger|angry|rage|wrath\b/i,
-  Love: /\blove|loved|loving|beloved\b/i,
-  Forgiveness: /\bforgiv|mercy|pardon|grace\b/i,
-  Discipline: /\bdiscipline|self-control|habit|consistent\b/i,
-  Identity: /\bidentity|who you are|child of god|image of god|your worth\b/i,
-  "Spiritual Warfare": /\barmor|the enemy|devil|satan|temptation|warfare|spiritual battle\b/i,
-  Wisdom: /\bwisdom|wise|discern|foolish\b/i,
-  Relationships: /\bfriend|marriage|relationship|family|community\b/i,
-  Anxiety: /\banxi|worry|worried|afraid|fear|peace\b/i,
-  Grief: /\bgrief|griev|mourn|loss|weep|sorrow|tears\b/i,
-  Purpose: /\bpurpose|calling|called|mission|destiny\b/i,
-  Obedience: /\bobey|obedience|surrender|submit\b/i,
-  Confidence: /\bconfidence|courage|bold|strength|fearless\b/i,
-  "Bible Study": /\bverse|scripture|chapter|passage|study the word\b/i,
-  Testimonies: /\btestimony|my story|saved me|set me free|turned my life|delivered\b/i,
-  Holidays: /\bchristmas|easter|thanksgiving|good friday|advent|lent|resurrection\b/i,
-  "Visual Inspiration": /\bart|design|aesthetic|visual\b/i,
-};
-
-const SCRIPTURE_RE =
-  /\b(?:[1-3]\s)?[A-Z][a-z]+(?:\sof\s[A-Z][a-z]+)?\s\d{1,3}:\d{1,3}(?:[-–]\d{1,3})?\b/g;
+import {
+  detectTopics,
+  detectScriptures,
+  suggestVersesForTopics,
+  composeWhy,
+} from "@/lib/scripture";
 
 export default function InstagramCapture({ topics }: { topics: string[] }) {
   const [link, setLink] = useState("");
@@ -40,12 +19,13 @@ export default function InstagramCapture({ topics }: { topics: string[] }) {
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [imgPreview, setImgPreview] = useState<string | null>(null);
 
-  const text = `${caption}\n${transcript}`;
+  const text = `${title}\n${caption}\n${transcript}`;
 
   const suggestions = useMemo(() => {
-    const t = topics.filter((topic) => TOPIC_HINTS[topic]?.test(text));
-    const refs = Array.from(new Set(text.match(SCRIPTURE_RE) ?? []));
-    return { topics: t, refs };
+    const t = detectTopics(text, topics);
+    const refs = detectScriptures(text);
+    const verses = suggestVersesForTopics(t, 10);
+    return { topics: t, refs, verses };
   }, [text, topics]);
 
   function applySuggestions() {
@@ -60,6 +40,15 @@ export default function InstagramCapture({ topics }: { topics: string[] }) {
     if (!title.trim() && caption.trim()) {
       setTitle(caption.trim().split(/[\n.!?]/)[0].slice(0, 70));
     }
+    if (!why.trim()) setWhy(composeWhy(suggestions.topics));
+  }
+
+  function addScripture(ref: string) {
+    setScriptures((s) => {
+      const arr = s.split(/[,\n]+/).map((x) => x.trim()).filter(Boolean);
+      if (!arr.includes(ref)) arr.push(ref);
+      return arr.join(", ");
+    });
   }
 
   function toggle(topic: string) {
@@ -193,6 +182,29 @@ export default function InstagramCapture({ topics }: { topics: string[] }) {
           placeholder="John 3:16, Psalm 23"
         />
       </label>
+
+      {suggestions.verses.length > 0 && (
+        <div className="smart-verses">
+          <span className="adm-label" style={{ display: "block", marginBottom: 6 }}>
+            {suggestions.refs.length
+              ? "More related verses — tap to add:"
+              : "No verse mentioned — related verses you can attach:"}
+          </span>
+          <div className="lib-tags">
+            {suggestions.verses.map((v) => (
+              <button
+                key={v.ref}
+                type="button"
+                className="smart-chip"
+                title={v.text}
+                onClick={() => addScripture(v.ref)}
+              >
+                + {v.ref}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
       <label className="adm-field">
         <span className="adm-label">Why I saved it / how it might inspire a devotional</span>

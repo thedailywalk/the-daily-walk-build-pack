@@ -4597,6 +4597,45 @@ hr.div {
   font-weight: 700;
   color: var(--navy);
 }
+
+/* Smart Content Library auto-fill */
+.smart-bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin: 2px 0 8px;
+}
+.smart-hint {
+  font-size: 13px;
+  color: var(--gold-deep);
+  font-weight: 600;
+}
+.smart-sug {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gold-deep);
+  letter-spacing: 0.2px;
+}
+.smart-verses {
+  margin: 2px 0 10px;
+}
+.smart-chip {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--navy);
+  background: var(--cream);
+  border: 1px solid #e7ddc4;
+  border-radius: 999px;
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.smart-chip:hover {
+  background: #fbf4e2;
+  border-color: var(--gold);
+}
 @media (max-width: 640px) {
   .ig-two {
     grid-template-columns: 1fr;
