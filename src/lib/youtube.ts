@@ -167,6 +167,43 @@ export async function searchVideos(
   }
 }
 
+export type VideoHealth = {
+  status: "ok" | "gone" | "blocked" | "unknown";
+  embeddable?: boolean;
+  privacyStatus?: string;
+};
+
+/**
+ * Re-check a single video's current status. Distinguishes a definitive problem
+ * ("gone" = deleted/unavailable, "blocked" = embedding off or no longer public)
+ * from a transient API hiccup ("unknown"), so callers never act on a false alarm.
+ */
+export async function videoHealth(videoId: string): Promise<VideoHealth> {
+  if (!youtubeConfigured || !videoId) return { status: "unknown" };
+  try {
+    const url =
+      "https://www.googleapis.com/youtube/v3/videos?part=status&id=" +
+      encodeURIComponent(videoId) +
+      "&key=" +
+      encodeURIComponent(process.env.YOUTUBE_API_KEY!);
+    const res = await fetch(url, { cache: "no-store" });
+    if (!res.ok) return { status: "unknown" };
+    const data = (await res.json()) as {
+      items?: Array<{ status?: { embeddable?: boolean; privacyStatus?: string } }>;
+    };
+    const item = data.items?.[0];
+    if (!item) return { status: "gone" }; // request succeeded but video isn't there
+    const embeddable = item.status?.embeddable ?? false;
+    const privacyStatus = item.status?.privacyStatus ?? "";
+    if (!embeddable || privacyStatus !== "public") {
+      return { status: "blocked", embeddable, privacyStatus };
+    }
+    return { status: "ok", embeddable: true, privacyStatus };
+  } catch {
+    return { status: "unknown" };
+  }
+}
+
 /** Normalize a handle / channel ID / channel URL into a lookup query. */
 function channelQuery(input: string): { param: "id" | "forHandle"; value: string } | null {
   const s = (input || "").trim();

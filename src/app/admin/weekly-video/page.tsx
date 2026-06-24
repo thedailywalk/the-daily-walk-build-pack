@@ -9,6 +9,7 @@ import {
   listCandidates,
   listArchive,
   listUpcoming,
+  listFlaggedSelected,
   currentWeekStart,
   nextWeekStart,
   weekLabel,
@@ -47,10 +48,11 @@ export default async function WeeklyVideoPage({
   // Default the studio to next Monday (what you're scheduling toward).
   const week = sp.week || next;
 
-  const [candidates, archive, upcoming] = await Promise.all([
+  const [candidates, archive, upcoming, flagged] = await Promise.all([
     listCandidates(week),
     listArchive(),
     listUpcoming(),
+    listFlaggedSelected(),
   ]);
 
   const weekOptions = Array.from(new Set([thisWeek, next, week]));
@@ -87,6 +89,30 @@ export default async function WeeklyVideoPage({
         )}
 
         <AdminNav active="video" />
+
+        {flagged.length > 0 && (
+          <div className="adm-notice wv-alert">
+            <strong>⚠ A featured video was auto-hidden.</strong> It&apos;s been
+            removed from the public page because its YouTube settings changed:
+            <ul style={{ margin: "8px 0 0", paddingLeft: 20 }}>
+              {flagged.map((v) => (
+                <li key={v.id}>
+                  <strong>{v.title || v.videoId}</strong> (week of{" "}
+                  {weekLabel(v.weekStart)}) —{" "}
+                  {v.safetyNotes.replace(/^⚠ Auto-hidden /, "").split(". ")[0]}.{" "}
+                  <a
+                    href={`https://www.youtube.com/watch?v=${v.videoId}`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    check on YouTube ↗
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <div style={{ marginTop: 6 }}>Pick a replacement below.</div>
+          </div>
+        )}
 
         {sp.added && (
           <div className="adm-saved">

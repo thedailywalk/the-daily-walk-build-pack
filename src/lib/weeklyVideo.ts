@@ -7,6 +7,7 @@ import {
   resolveChannel,
   recentUploadIds,
   searchVideos,
+  videoHealth,
   youtubeConfigured,
   type VideoMeta,
 } from "@/lib/youtube";
@@ -572,10 +573,15 @@ export async function getLiveWeeklyVideo(): Promise<WeeklyVideo | null> {
   if (!adminDbConfigured) return null;
   try {
     const supabase = createServiceClient();
+    // Only ever surface a video that is STILL embeddable + public. If the daily
+    // health re-check has marked one bad (embeddable=false), it's skipped here
+    // and the page falls back to the previous healthy pick (or the empty state).
     const { data } = await supabase
       .from("weekly_videos")
       .select("*")
       .eq("is_selected", true)
+      .eq("embeddable", true)
+      .eq("privacy_status", "public")
       .lte("week_start", currentWeekStart())
       .order("week_start", { ascending: false })
       .limit(1)
@@ -583,5 +589,92 @@ export async function getLiveWeeklyVideo(): Promise<WeeklyVideo | null> {
     return data ? toModel(data) : null;
   } catch {
     return null;
+  }
+}
+
+/**
+ * Re-verify every SELECTED video against YouTube and update its stored health.
+ * If a creator turned off embedding, made it private, or removed it, the row is
+ * marked unsafe (embeddable=false) so the public page auto-hides it. Transient
+ * API errors are ignored, so a hiccup never wrongly pulls a good video.
+ * Returns the videos that just went bad (for alerting).
+ */
+export async function recheckSelectedVideos(): Promise<{
+  checked: number;
+  flagged: { id: string; title: string; videoId: string; reason: string; weekStart: string }[];
+}> {
+  const flagged: {
+    id: string;
+    title: string;
+    videoId: string;
+    reason: string;
+    weekStart: string;
+  }[] = [];
+  if (!adminDbConfigured || !youtubeConfigured) return { checked: 0, flagged };
+  const supabase = createServiceClient();
+  const { data } = await supabase
+    .from("weekly_videos")
+    .select("*")
+    .eq("is_selected", true);
+  const rows = (data ?? []).map(toModel);
+
+  for (const v of rows) {
+    const h = await videoHealth(v.videoId);
+    if (h.status === "unknown") continue; // don't act on a transient failure
+
+    if (h.status === "ok") {
+      // Recovered or still fine — make sure it's marked healthy.
+      if (!v.embeddable || v.privacyStatus !== "public") {
+        await supabase
+          .from("weekly_videos")
+          .update({ embeddable: true, privacy_status: "public" })
+          .eq("id", v.id);
+      }
+      continue;
+    }
+
+    // gone or blocked → hide it + flag it.
+    const reason =
+      h.status === "gone"
+        ? "The video was removed or made unavailable on YouTube."
+        : h.privacyStatus && h.privacyStatus !== "public"
+          ? `The creator set the video to ${h.privacyStatus}.`
+          : "The creator turned off embedding for this video.";
+    if (v.embeddable !== false || v.safetyStatus !== "unsafe") {
+      await supabase
+        .from("weekly_videos")
+        .update({
+          embeddable: false,
+          privacy_status: h.privacyStatus ?? v.privacyStatus,
+          safety_status: "unsafe",
+          safety_notes: `⚠ Auto-hidden ${reason} ${v.safetyNotes}`.trim(),
+        })
+        .eq("id", v.id);
+      flagged.push({
+        id: v.id,
+        title: v.title,
+        videoId: v.videoId,
+        reason,
+        weekStart: v.weekStart,
+      });
+    }
+  }
+  return { checked: rows.length, flagged };
+}
+
+/** Selected videos that the health re-check has flagged as no-longer-usable. */
+export async function listFlaggedSelected(): Promise<WeeklyVideo[]> {
+  if (!adminDbConfigured) return [];
+  try {
+    const supabase = createServiceClient();
+    const { data } = await supabase
+      .from("weekly_videos")
+      .select("*")
+      .eq("is_selected", true)
+      .eq("safety_status", "unsafe")
+      .order("week_start", { ascending: false });
+    return (data ?? []).map(toModel);
+  } catch {
+    return [];
   }
 }
