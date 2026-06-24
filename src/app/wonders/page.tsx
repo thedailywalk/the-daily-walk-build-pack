@@ -90,23 +90,29 @@ export default async function WondersPage() {
         <div className="wrap">
           <div className="wonder-card">
             <div className="wonder-sky">
-              <svg viewBox="0 0 600 150" className="wonder-stars" aria-hidden="true">
-                {[
-                  [60, 40, 1.4], [120, 80, 1], [180, 30, 1.8], [250, 60, 1],
-                  [300, 100, 1.3], [360, 45, 1], [420, 90, 1.6], [515, 35, 1],
-                  [555, 70, 1.2], [560, 112, 1], [90, 115, 1], [220, 120, 1.3],
-                  [400, 125, 1], [150, 55, 0.9], [330, 25, 1.1], [480, 118, 1],
-                ].map(([cx, cy, r], i) => (
-                  <circle key={i} cx={cx} cy={cy} r={r} fill="#ffffff" opacity={0.85} />
-                ))}
-                <circle cx="470" cy="58" r="14" fill="#ffe7b6" opacity="0.18" />
-                <circle cx="470" cy="58" r="3.2" fill="#ffd27a" />
-                <g stroke="#ffd27a" strokeWidth="1.4" strokeLinecap="round" opacity="0.85">
-                  <line x1="470" y1="48" x2="470" y2="68" />
-                  <line x1="460" y1="58" x2="480" y2="58" />
+              <svg
+                viewBox="0 0 600 150"
+                className="wonder-dawn"
+                preserveAspectRatio="none"
+                aria-hidden="true"
+              >
+                <defs>
+                  <linearGradient id="wonderRay" x1="0" y1="1" x2="0" y2="0">
+                    <stop offset="0%" stopColor="#ffe7b6" stopOpacity="0.55" />
+                    <stop offset="100%" stopColor="#ffe7b6" stopOpacity="0" />
+                  </linearGradient>
+                </defs>
+                {/* Sunrise light beams fanning up from the dawn below */}
+                <g fill="url(#wonderRay)">
+                  <polygon points="300,150 70,0 110,0" />
+                  <polygon points="300,150 165,0 200,0" />
+                  <polygon points="300,150 260,0 288,0" />
+                  <polygon points="300,150 312,0 340,0" />
+                  <polygon points="300,150 400,0 435,0" />
+                  <polygon points="300,150 495,0 530,0" />
                 </g>
               </svg>
-              <span className="wonder-kicker">✦ Wonder of the Day</span>
+              <span className="wonder-kicker">✦ Wonder of His Creation</span>
             </div>
             <div className="wonder-body-wrap">
               <h3 className="wonder-title">{wonder.title}</h3>

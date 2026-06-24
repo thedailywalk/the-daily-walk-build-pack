@@ -971,9 +971,22 @@ h2.h {
 .wonder-sky {
   position: relative;
   height: 150px;
-  background: radial-gradient(120% 130% at 80% 20%, #2c4a78 0%, #1f3a5f 45%, #16304f 100%);
+  overflow: hidden;
+  /* Sunrise over the horizon — the brand's dawn palette (hope, new mercies),
+     not a night sky. */
+  background: radial-gradient(
+    150% 125% at 50% 122%,
+    #f6cf86 0%,
+    #e3a85a 15%,
+    #b9763f 30%,
+    #6a5560 53%,
+    #2b3f5f 76%,
+    #1f3a5f 100%
+  );
 }
-.wonder-stars {
+.wonder-dawn {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
   height: 100%;
@@ -982,11 +995,12 @@ h2.h {
   position: absolute;
   top: 18px;
   left: 30px;
+  z-index: 1;
   font-family: var(--sans);
   font-weight: 800;
   font-size: 11px;
   letter-spacing: 2px;
-  color: var(--gold);
+  color: #f3d9a3;
 }
 .wonder-body-wrap {
   padding: 24px 30px 30px;
