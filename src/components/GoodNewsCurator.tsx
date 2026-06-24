@@ -120,7 +120,13 @@ export default function GoodNewsCurator({
                   // Admin-only reference image — helps visual selection. Never
                   // shown publicly (public cards use branded tiles).
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={c.image} alt="" className="gnc-img" loading="lazy" />
+                  <img
+                    src={c.image}
+                    alt=""
+                    className="gnc-img"
+                    loading="lazy"
+                    referrerPolicy="no-referrer"
+                  />
                 ) : (
                   <span className="gntile-mark" aria-hidden="true">
                     🌅

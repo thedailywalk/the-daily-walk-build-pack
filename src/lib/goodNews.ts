@@ -135,17 +135,43 @@ export async function getGoodNewsCandidates(limit = 20): Promise<
   try {
     const pages = await Promise.all(CANDIDATE_FEEDS.map(fetchFeed));
     const picked = interleave(pages, limit);
-    return picked.map((it) => ({
+    // Admin-only: pull each story's cover photo so they're easy to pick visually.
+    // These are never shown publicly (the homepage uses branded tiles).
+    const images = await Promise.all(picked.map((it) => fetchOgImage(it.href)));
+    return picked.map((it, i) => ({
       category: it.category,
       headline: it.headline,
       href: it.href,
       source: it.source,
       faith: it.faith,
-      image: "",
+      image: images[i],
     }));
   } catch (err) {
     console.error("getGoodNewsCandidates:", (err as Error).message);
     return [];
+  }
+}
+
+/**
+ * Admin-only helper: the article's Open Graph cover image, for visual selection
+ * in the picking studio. Cached for a day; failures fall back to "" (a branded
+ * tile). Never used on public pages.
+ */
+async function fetchOgImage(url: string): Promise<string> {
+  try {
+    const res = await fetch(url, {
+      headers: { "User-Agent": UA },
+      next: { revalidate: DAY, tags: ["good-news"] },
+      signal: AbortSignal.timeout(7000),
+    });
+    if (!res.ok) return "";
+    const html = await res.text();
+    const m =
+      html.match(/<meta[^>]+(?:property|name)=["']og:image["'][^>]+content=["']([^"']+)["']/i) ||
+      html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+(?:property|name)=["']og:image["']/i);
+    return m ? m[1] : "";
+  } catch {
+    return "";
   }
 }
 
