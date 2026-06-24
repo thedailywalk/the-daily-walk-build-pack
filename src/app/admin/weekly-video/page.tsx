@@ -158,6 +158,14 @@ export default async function WeeklyVideoPage({
           </div>
         </form>
 
+        {/* This week's candidate dashboard — shown right under the buttons */}
+        <h3 className="adm-group">
+          Candidates · week of {weekLabel(week)}
+          {week === thisWeek ? " (this week)" : week === next ? " (next week)" : ""}
+          {candidates.length > 0 ? ` · ${candidates.length}` : ""}
+        </h3>
+        <WeeklyVideoStudio candidates={candidates} weekStart={week} />
+
         {/* Add candidates */}
         <form action={addCandidatesAction} className="adm-form wv-add">
           <h3 className="adm-group" style={{ marginTop: 8 }}>
@@ -192,13 +200,6 @@ export default async function WeeklyVideoPage({
             </button>
           </div>
         </form>
-
-        {/* This week's candidate dashboard */}
-        <h3 className="adm-group">
-          Candidates · week of {weekLabel(week)}
-          {week === thisWeek ? " (this week)" : week === next ? " (next week)" : ""}
-        </h3>
-        <WeeklyVideoStudio candidates={candidates} weekStart={week} />
 
         {/* Scheduled ahead */}
         {upcoming.length > 0 && (

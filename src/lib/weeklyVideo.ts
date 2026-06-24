@@ -465,12 +465,15 @@ export async function listCandidates(weekStart: string): Promise<WeeklyVideo[]> 
   if (!adminDbConfigured) return [];
   try {
     const supabase = createServiceClient();
+    // Cap at 10 suggestions: the selected one always shows first, then the
+    // freshest picks. Keeps the list clean even after repeated pulls.
     const { data } = await supabase
       .from("weekly_videos")
       .select("*")
       .eq("week_start", weekStart)
       .order("is_selected", { ascending: false })
-      .order("created_at", { ascending: true });
+      .order("created_at", { ascending: false })
+      .limit(10);
     return (data ?? []).map(toModel);
   } catch {
     return [];
