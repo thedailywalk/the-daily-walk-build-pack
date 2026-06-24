@@ -32,6 +32,9 @@ const S = {
   verse: "border-left:4px solid #C9A24B;background:#F3ECDA;padding:14px 18px;margin:16px 0;font-style:italic;color:#1F3A5F;font-size:16px;line-height:1.55;",
   prayerBox: "background:#1F3A5F;border-radius:8px;padding:22px 24px;margin:6px 0;",
   prayerP: "color:#EDE6D4;font-style:italic;font-size:16px;line-height:1.6;margin:0;",
+  healVerse: "font-family:Georgia,'Times New Roman',serif;font-style:italic;color:#1F3A5F;font-size:13.5px;margin:0 0 10px;",
+  healBox: "background:#EDF2F8;border:1px solid #DCE6F0;border-radius:8px;padding:16px 18px;",
+  healP: "font-size:15px;line-height:1.62;margin:0 0 10px;color:#2B2B2B;",
   question: "background:#F3ECDA;border-radius:8px;padding:16px 20px;font-family:Arial,Helvetica,sans-serif;color:#1F3A5F;font-size:15px;font-weight:bold;",
   pastor: "border:1px solid #E0D6BF;border-radius:8px;padding:6px 22px 18px;background:#ffffff;",
   pastorhead: "font-family:Arial,Helvetica,sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#ffffff;background:#B8902E;display:inline-block;padding:5px 12px;border-radius:0 0 6px 6px;",
@@ -98,6 +101,18 @@ export function renderDevotionalHtml(dev: Devotional): string {
         rule,
         `<div style="${S.kicker}">A Prayer for Today</div>`,
         `<div style="${S.prayerBox}">${paras(d.prayer, S.prayerP)}</div>`,
+      ].join("")
+    );
+  }
+
+  // How Healing Works — neuroscience-grounded, with a permanent Romans 12:2 anchor
+  if (d.healingScience?.trim()) {
+    blocks.push(
+      [
+        rule,
+        `<div style="${S.kicker}">✦ How Healing Works</div>`,
+        `<div style="${S.healVerse}">&ldquo;…be transformed by the renewing of your mind.&rdquo; — Romans 12:2</div>`,
+        `<div style="${S.healBox}">${paras(d.healingScience, S.healP)}</div>`,
       ].join("")
     );
   }

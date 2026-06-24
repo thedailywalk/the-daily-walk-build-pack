@@ -18,6 +18,7 @@ export type DevotionalData = {
   makeItRealBody?: string;
   question?: string;
   prayer?: string;
+  healingScience?: string; // "How Healing Works" — neuroscience-grounded blurb only
   pastorTake?: string; // optional (e.g. Wednesdays)
   pastorByline?: string;
   communityText?: string;

@@ -231,6 +231,14 @@ async function EditorView(date: string, saved: boolean) {
             <textarea name="prayer" defaultValue={data.prayer} className="adm-textarea" rows={3} />
           </Field>
 
+          <h3 className="adm-group">How Healing Works (optional · neuroscience)</h3>
+          <Field
+            label="The science blurb"
+            hint="Neuroscience-grounded only. Romans 12:2 is added under the title automatically. Leave blank to hide this section that day."
+          >
+            <textarea name="healingScience" defaultValue={data.healingScience} className="adm-textarea" rows={4} />
+          </Field>
+
           <h3 className="adm-group">Pastor&apos;s Take (optional · Wednesdays)</h3>
           <Field label="Quote">
             <textarea name="pastorTake" defaultValue={data.pastorTake} className="adm-textarea" rows={3} />

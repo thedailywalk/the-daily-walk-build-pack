@@ -36,6 +36,7 @@ export async function saveDevotionalAction(formData: FormData) {
     makeItRealBody: str(formData, "makeItRealBody"),
     question: str(formData, "question"),
     prayer: str(formData, "prayer"),
+    healingScience: str(formData, "healingScience"),
     pastorTake: str(formData, "pastorTake"),
     pastorByline: str(formData, "pastorByline"),
     communityText: str(formData, "communityText"),
