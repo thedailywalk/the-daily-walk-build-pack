@@ -7,6 +7,8 @@ import { getDailyGoodNews } from "@/lib/goodNews";
 import { GOOD_NEWS_ENABLED, PRICING_ENABLED } from "@/lib/flags";
 import { site } from "@/lib/site";
 import { studyTips as tips } from "@/lib/studyTips";
+import { getWordOfTheDay } from "@/lib/wordOfTheDay";
+import { getHistoryMoment } from "@/lib/thisDayInHistory";
 
 // Free features — what comes with the daily newsletter (free for everyone).
 const freeFeatures = [
@@ -54,6 +56,8 @@ export default async function HomePage() {
     prayCount: p.prayCount,
   }));
   const goodNews = GOOD_NEWS_ENABLED ? await getDailyGoodNews() : [];
+  const word = getWordOfTheDay();
+  const moment = getHistoryMoment();
 
   return (
     <>
@@ -292,6 +296,49 @@ export default async function HomePage() {
         </div>
       </section>
       )}
+
+      {/* WORD OF THE DAY */}
+      <section className="wordsec">
+        <div className="wrap">
+          <div className="word-card">
+            <div className="word-side">
+              <div className="word-lang">{word.lang}</div>
+              <div className="word-term" lang={word.lang === "Greek" ? "el" : "he"}>
+                {word.term}
+              </div>
+              <div className="word-translit">{word.translit}</div>
+            </div>
+            <div className="word-main">
+              <div className="sec-tag" style={{ textAlign: "left" }}>
+                ✦ Word of the Day
+              </div>
+              <p className="word-gloss">{word.gloss}</p>
+              <p className="word-meaning">{word.meaning}</p>
+              <div className="word-verse">
+                &ldquo;{word.verseText}&rdquo; — {word.verseRef}
+              </div>
+              <p className="word-reflect">{word.reflection}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* THIS DAY IN HIS STORY */}
+      <section className="histsec">
+        <div className="wrap">
+          <div className="hist-card">
+            <div className="hist-head">
+              <div className="sec-tag" style={{ textAlign: "left" }}>
+                This Day in His Story
+              </div>
+              <span className="hist-year">{moment.year}</span>
+            </div>
+            <h3 className="hist-title">{moment.title}</h3>
+            <p className="hist-story">{moment.story}</p>
+            <div className="hist-takeaway">{moment.takeaway}</div>
+          </div>
+        </div>
+      </section>
 
       {/* PRICING PREVIEW */}
       {PRICING_ENABLED && (
