@@ -6518,3 +6518,312 @@ hr.div {
     grid-template-columns: 1fr;
   }
 }
+
+/* ============================================================ */
+/* ADMIN — LIGHT THEME (overrides the earlier dark values)       */
+/* Soft gray-blue page, white sidebar + cards, dark text, teal + */
+/* blue accents. The dashboard hero stays navy for contrast.     */
+/* ============================================================ */
+.admin-shell {
+  --a-bg: #e9edf4;
+  --a-bg-2: #f3f5f9;
+  --a-panel: #ffffff;
+  --a-border: #e4e8ef;
+  --a-border-hi: #d4dae3;
+  --a-text: #1f2733;
+  --a-dim: #586172;
+  --a-muted: #8a94a2;
+  --a-accent: #12b886;
+  --a-blue: #2f6bff;
+  --a-green: #15a36b;
+  --a-amber: #c98a1c;
+  --a-red: #d8453f;
+}
+.aside {
+  background: #ffffff;
+}
+.aside-link:hover {
+  background: #eef2f8;
+}
+.aside-link.is-on {
+  background: rgba(47, 107, 255, 0.1);
+  box-shadow: inset 2px 0 0 var(--a-blue);
+}
+.admin-shell .aside-link.is-on {
+  color: #1b3a8f;
+}
+.aside-link.is-on .aside-ico {
+  color: var(--a-blue);
+}
+.aside-flyout {
+  background: #ffffff;
+  border-color: var(--a-border-hi);
+  box-shadow: 0 18px 42px -16px rgba(22, 40, 80, 0.22);
+}
+.aside-sub:hover {
+  background: #eef2f8;
+  color: var(--a-text);
+}
+.aside-sub.is-on {
+  background: rgba(47, 107, 255, 0.1);
+  color: var(--a-blue);
+}
+.admin-shell .adm-input,
+.admin-shell .adm-textarea,
+.admin-shell .sg-select,
+.admin-shell input[type="text"],
+.admin-shell input[type="url"],
+.admin-shell input[type="email"],
+.admin-shell input:not([type]),
+.admin-shell textarea,
+.admin-shell select {
+  background: #fbfcfe;
+}
+.admin-shell .adm-input::placeholder,
+.admin-shell .adm-textarea::placeholder,
+.admin-shell input::placeholder,
+.admin-shell textarea::placeholder {
+  color: #9aa3b0;
+}
+.admin-shell .btn-gold {
+  color: #ffffff;
+}
+.admin-shell .btn-navy {
+  background: #33414f;
+  color: #fff;
+}
+.admin-shell .btn-navy:hover {
+  background: #3d4d5e;
+}
+.admin-shell .btn-ghost:hover {
+  background: #eef2f8;
+}
+/* Dashboard cards */
+.dash-card:hover {
+  background: #f6f8fc;
+}
+.dash-pill.good {
+  color: #15824f;
+  background: rgba(21, 163, 107, 0.12);
+  border-color: rgba(21, 163, 107, 0.28);
+}
+.dash-pill.info {
+  color: #2059d6;
+  background: rgba(47, 107, 255, 0.1);
+  border-color: rgba(47, 107, 255, 0.26);
+}
+.dash-pill.warn {
+  color: #976a14;
+  background: rgba(201, 138, 28, 0.14);
+  border-color: rgba(201, 138, 28, 0.3);
+}
+.dash-pill.danger {
+  color: #c0352f;
+  background: rgba(216, 69, 63, 0.12);
+  border-color: rgba(216, 69, 63, 0.28);
+}
+.dash-pill.neutral {
+  color: #69727f;
+  background: rgba(120, 132, 148, 0.12);
+  border-color: rgba(120, 132, 148, 0.24);
+}
+/* Status badges + safety pills on white cards */
+.admin-shell .adm-badge-ready {
+  color: #15824f;
+  background: rgba(21, 163, 107, 0.12);
+  border-color: rgba(21, 163, 107, 0.28);
+}
+.admin-shell .adm-badge-draft {
+  color: #976a14;
+  background: rgba(201, 138, 28, 0.14);
+  border-color: rgba(201, 138, 28, 0.3);
+}
+.admin-shell .adm-badge-none {
+  color: #69727f;
+  background: rgba(120, 132, 148, 0.12);
+  border-color: rgba(120, 132, 148, 0.24);
+}
+.admin-shell .wv-safe {
+  color: #15824f;
+  background: rgba(21, 163, 107, 0.12);
+}
+.admin-shell .wv-review {
+  color: #976a14;
+  background: rgba(201, 138, 28, 0.14);
+}
+.admin-shell .wv-unsafe {
+  color: #c0352f;
+  background: rgba(216, 69, 63, 0.12);
+}
+.admin-shell .wv-signals li.ok {
+  color: #15824f;
+  background: rgba(21, 163, 107, 0.12);
+}
+.admin-shell .wv-signals li.warn {
+  color: #976a14;
+  background: rgba(201, 138, 28, 0.14);
+}
+.admin-shell .wv-signals li.bad {
+  color: #c0352f;
+  background: rgba(216, 69, 63, 0.12);
+}
+.admin-shell .adm-notice {
+  background: #fdf5e4;
+  border-color: #efdcaf;
+  color: #8a6a1e;
+}
+.admin-shell .adm-notice code {
+  background: #fff;
+  border-color: #efdcaf;
+  color: #8a6a1e;
+}
+.admin-shell .adm-saved {
+  background: #e7f6ee;
+  border-color: #b6e2c9;
+  color: #15824f;
+}
+.admin-shell .wv-alert {
+  background: #fdecea;
+  border-color: #f3c9c5;
+  color: #c0352f;
+}
+.admin-shell .wv-tag,
+.admin-shell .lib-tag,
+.admin-shell .smart-chip,
+.admin-shell .lib-check,
+.admin-shell .src-freq {
+  background: #f1f4f9;
+  border-color: var(--a-border-hi);
+  color: var(--a-dim);
+}
+.admin-shell .wv-auto {
+  background: linear-gradient(180deg, #eef4ff, #ffffff);
+  border-color: #d8e2f5;
+}
+.admin-shell .wv-auto strong {
+  color: var(--a-text);
+}
+.admin-shell .adm-preview-frame {
+  box-shadow: 0 1px 3px rgba(20, 40, 80, 0.12), 0 0 0 1px var(--a-border);
+}
+
+/* ---- Member: shared panel + Question of the Day + Bible Parallels ---- */
+.m-panel {
+  background: var(--m-surface);
+  border: 1px solid var(--m-border);
+  border-radius: 16px;
+  padding: 22px 24px;
+}
+.qod-eyebrow {
+  color: var(--m-gold-deep);
+}
+.qod-q {
+  font-family: var(--serif);
+  font-size: 20px;
+  color: var(--m-navy);
+  margin: 10px 0 16px;
+  line-height: 1.3;
+}
+.qod-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.qod-opt {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  text-align: left;
+  border: 1px solid var(--m-border);
+  background: var(--m-surface-2);
+  border-radius: 10px;
+  padding: 11px 14px;
+  font-size: 14px;
+  color: var(--m-text);
+  cursor: pointer;
+  overflow: hidden;
+  font-family: var(--sans);
+  transition: border-color 0.12s;
+}
+.qod-opt:hover:not(:disabled) {
+  border-color: var(--m-gold);
+}
+.qod-opt.done {
+  cursor: default;
+}
+.qod-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background: color-mix(in srgb, var(--m-gold) 22%, transparent);
+  z-index: 0;
+  transition: width 0.55s ease;
+}
+.qod-opt-label,
+.qod-pct {
+  position: relative;
+  z-index: 1;
+}
+.qod-pct {
+  font-weight: 700;
+  color: var(--m-gold-deep);
+  font-size: 13px;
+}
+.qod-opt.mine {
+  border-color: var(--m-gold-deep);
+}
+.qod-opt.mine .qod-opt-label {
+  font-weight: 700;
+  color: var(--m-navy);
+}
+.qod-foot {
+  font-size: 12.5px;
+  color: var(--m-muted);
+  margin: 14px 0 0;
+  line-height: 1.5;
+}
+
+/* Bible Parallels */
+.m-parallel-emoji {
+  font-size: 30px;
+  margin: 10px 0 2px;
+}
+.m-parallel-hook {
+  font-family: var(--serif);
+  font-size: 18px;
+  line-height: 1.4;
+  color: var(--m-navy);
+  margin: 4px 0 10px;
+}
+.m-parallel-truth {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--m-dim);
+  margin: 0 0 14px;
+}
+.m-parallel-verse {
+  border-left: 3px solid var(--m-gold);
+  margin: 0 0 14px;
+  padding: 2px 0 2px 14px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 14.5px;
+  color: var(--m-navy);
+  line-height: 1.5;
+}
+.m-parallel-verse cite {
+  font-style: normal;
+  font-size: 13px;
+  color: var(--m-gold-deep);
+}
+.m-parallel-framing {
+  font-size: 12.5px;
+  color: var(--m-muted);
+  line-height: 1.5;
+  margin: 0;
+  padding-top: 12px;
+  border-top: 1px dashed var(--m-border);
+}

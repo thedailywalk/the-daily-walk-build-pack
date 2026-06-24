@@ -8,6 +8,10 @@ import { daysCompleted, progressPercent, TOTAL_DAYS } from "@/lib/journey";
 import { getStudyDay } from "@/lib/studyGuide";
 import { getLiveWeeklyVideo } from "@/lib/weeklyVideo";
 import { listNoteDays, listFavorites } from "@/lib/studyData";
+import { getTodayQuestion, pollDate } from "@/lib/questionOfTheDay";
+import { getCounts } from "@/lib/poll";
+import { getParallel, FRAMING } from "@/lib/bibleParallels";
+import QuestionOfDay from "@/components/QuestionOfDay";
 
 export const metadata: Metadata = {
   title: "Member Portal",
@@ -43,13 +47,18 @@ export default async function PortalHome() {
   const name = email.split("@")[0].replace(/[._-]+/g, " ").split(" ")[0];
   const display = name.charAt(0).toUpperCase() + name.slice(1);
 
-  const [ent, today, progress, video, noteDays, favorites] = await Promise.all([
+  const poll = getTodayQuestion();
+  const parallel = getParallel();
+  const pDate = pollDate();
+
+  const [ent, today, progress, video, noteDays, favorites, pollCounts] = await Promise.all([
     getEntitlement(email),
     getLiveDevotional(),
     getOrCreateProgress(user!.id),
     getLiveWeeklyVideo(),
     listNoteDays(user!.id),
     listFavorites(user!.id),
+    getCounts(pollDate(), poll.options.length),
   ]);
 
   const day = progress.currentDay;
@@ -148,6 +157,29 @@ export default async function PortalHome() {
             </>
           )}
         </section>
+      </div>
+
+      {/* Question of the Day + Bible Parallels */}
+      <div className="m-section-tag">Reflect &amp; relate</div>
+      <div className="m-two">
+        <div className="m-panel">
+          <QuestionOfDay
+            date={pDate}
+            question={poll.question}
+            options={poll.options}
+            initialCounts={pollCounts}
+          />
+        </div>
+        <div className="m-panel m-parallel">
+          <span className="m-card-eyebrow">✦ Bible Parallels</span>
+          <div className="m-parallel-emoji" aria-hidden="true">{parallel.emoji}</div>
+          <h3 className="m-parallel-hook">{parallel.parallel}</h3>
+          <p className="m-parallel-truth">{parallel.truth}</p>
+          <blockquote className="m-parallel-verse">
+            &ldquo;{parallel.verseText}&rdquo; <cite>— {parallel.verseRef}</cite>
+          </blockquote>
+          <p className="m-parallel-framing">{FRAMING}</p>
+        </div>
       </div>
 
       {/* Quick access */}
