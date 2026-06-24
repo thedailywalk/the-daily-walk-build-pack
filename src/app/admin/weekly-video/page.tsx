@@ -13,7 +13,7 @@ import {
   nextWeekStart,
   weekLabel,
 } from "@/lib/weeklyVideo";
-import { addCandidatesAction } from "./actions";
+import { addCandidatesAction, autoFillAction } from "./actions";
 
 export const metadata: Metadata = {
   title: "Weekly Video",
@@ -34,6 +34,7 @@ export default async function WeeklyVideoPage({
     skipped?: string;
     selected?: string;
     saved?: string;
+    autofilled?: string;
   }>;
 }) {
   await requireAdmin();
@@ -95,11 +96,34 @@ export default async function WeeklyVideoPage({
         )}
         {sp.selected && <div className="adm-saved">Featured video set ✓</div>}
         {sp.saved && <div className="adm-saved">Public copy saved ✓</div>}
+        {sp.autofilled && (
+          <div className="adm-saved">
+            {sp.autofilled === "0"
+              ? "Couldn't pull any new picks — check the API key, or that the table (supabase/weekly-video.sql) has been created."
+              : `Pulled ${sp.autofilled} verified pick${sp.autofilled === "1" ? "" : "s"} from your trusted channels ✓`}
+          </div>
+        )}
+
+        {/* One-click: auto-fill 10 verified picks from trusted channels */}
+        <form action={autoFillAction} className="wv-auto">
+          <input type="hidden" name="weekStart" value={week} />
+          <div>
+            <strong>Save time — let the system find them.</strong>
+            <p className="adm-hint" style={{ margin: "4px 0 0" }}>
+              Pulls 10 recent videos from your trusted channels, verifies each
+              one (public + embeddable), and stages them below for the week of{" "}
+              {weekLabel(week)}. You just pick one.
+            </p>
+          </div>
+          <button type="submit" className="btn btn-gold" disabled={!youtubeConfigured}>
+            ✨ Auto-fill 10 verified picks
+          </button>
+        </form>
 
         {/* Add candidates */}
         <form action={addCandidatesAction} className="adm-form wv-add">
           <h3 className="adm-group" style={{ marginTop: 8 }}>
-            Add candidates to inspect
+            Or add your own links
           </h3>
           <div className="adm-row">
             <label className="adm-field" style={{ flex: "0 0 220px" }}>

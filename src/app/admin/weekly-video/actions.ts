@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { requireAdmin } from "@/lib/adminGuard";
 import {
   inspectAndStoreCandidates,
+  autoFillCandidates,
   selectVideo,
   clearSelection,
   updateSelectionCopy,
@@ -31,6 +32,18 @@ export async function addCandidatesAction(formData: FormData) {
   }
   revalidatePath("/admin/weekly-video");
   redirect(`/admin/weekly-video?week=${weekStart}&added=${added}&skipped=${skipped}`);
+}
+
+export async function autoFillAction(formData: FormData) {
+  await requireAdmin();
+  const weekStart = str(formData, "weekStart");
+  let added = 0;
+  if (weekStart) {
+    const res = await autoFillCandidates(weekStart, 10);
+    added = res.added;
+  }
+  revalidatePath("/admin/weekly-video");
+  redirect(`/admin/weekly-video?week=${weekStart}&autofilled=${added}`);
 }
 
 export async function selectVideoAction(formData: FormData) {

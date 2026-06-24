@@ -64,54 +64,135 @@ function parseDuration(iso: string): { seconds: number; label: string } {
   return { seconds, label };
 }
 
+type VideoItem = {
+  id?: string;
+  snippet?: {
+    title?: string;
+    description?: string;
+    channelTitle?: string;
+    channelId?: string;
+    publishedAt?: string;
+    thumbnails?: Record<string, { url?: string }>;
+  };
+  contentDetails?: { duration?: string };
+  status?: { embeddable?: boolean; license?: string; privacyStatus?: string };
+};
+
+function toMeta(item: VideoItem, fallbackId: string): VideoMeta {
+  const sn = item.snippet ?? {};
+  const th = sn.thumbnails ?? {};
+  const thumbnail =
+    th.maxres?.url ?? th.standard?.url ?? th.high?.url ?? th.medium?.url ?? th.default?.url ?? "";
+  const { seconds, label } = parseDuration(item.contentDetails?.duration ?? "");
+  return {
+    provider: "youtube",
+    videoId: item.id ?? fallbackId,
+    title: sn.title ?? "",
+    channelTitle: sn.channelTitle ?? "",
+    channelId: sn.channelId ?? "",
+    thumbnail,
+    description: sn.description ?? "",
+    publishedAt: sn.publishedAt ?? "",
+    duration: label,
+    durationSeconds: seconds,
+    embeddable: item.status?.embeddable ?? false,
+    license: item.status?.license ?? "",
+    privacyStatus: item.status?.privacyStatus ?? "",
+  };
+}
+
 /** Fetch real metadata + safety fields for one video. Null on any failure. */
 export async function fetchVideoMeta(videoId: string): Promise<VideoMeta | null> {
-  if (!youtubeConfigured || !videoId) return null;
+  const [m] = await fetchVideoMetaBatch([videoId]);
+  return m ?? null;
+}
+
+/** Fetch metadata for up to 50 videos in one call (1 quota unit). */
+export async function fetchVideoMetaBatch(ids: string[]): Promise<VideoMeta[]> {
+  const clean = ids.map((s) => s.trim()).filter(Boolean).slice(0, 50);
+  if (!youtubeConfigured || clean.length === 0) return [];
   try {
     const url =
       "https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,status&id=" +
-      encodeURIComponent(videoId) +
+      encodeURIComponent(clean.join(",")) +
+      "&key=" +
+      encodeURIComponent(process.env.YOUTUBE_API_KEY!);
+    const res = await fetch(url, { cache: "no-store" });
+    if (!res.ok) return [];
+    const data = (await res.json()) as { items?: VideoItem[] };
+    return (data.items ?? []).map((it) => toMeta(it, ""));
+  } catch {
+    return [];
+  }
+}
+
+/** Normalize a handle / channel ID / channel URL into a lookup query. */
+function channelQuery(input: string): { param: "id" | "forHandle"; value: string } | null {
+  const s = (input || "").trim();
+  if (!s) return null;
+  try {
+    const u = new URL(s);
+    const byId = u.pathname.match(/\/channel\/(UC[\w-]{22})/);
+    if (byId) return { param: "id", value: byId[1] };
+    const byHandle = u.pathname.match(/\/@([\w.-]+)/);
+    if (byHandle) return { param: "forHandle", value: byHandle[1] };
+  } catch {
+    // not a URL
+  }
+  if (/^UC[\w-]{22}$/.test(s)) return { param: "id", value: s };
+  return { param: "forHandle", value: s.replace(/^@/, "") };
+}
+
+export type ChannelRef = { channelId: string; uploads: string; title: string };
+
+/** Resolve a channel handle/ID/URL to its ID + uploads playlist (1 quota unit). */
+export async function resolveChannel(input: string): Promise<ChannelRef | null> {
+  const q = channelQuery(input);
+  if (!youtubeConfigured || !q) return null;
+  try {
+    const url =
+      "https://www.googleapis.com/youtube/v3/channels?part=snippet,contentDetails&" +
+      `${q.param}=${encodeURIComponent(q.value)}` +
       "&key=" +
       encodeURIComponent(process.env.YOUTUBE_API_KEY!);
     const res = await fetch(url, { cache: "no-store" });
     if (!res.ok) return null;
     const data = (await res.json()) as {
       items?: Array<{
-        snippet?: {
-          title?: string;
-          description?: string;
-          channelTitle?: string;
-          channelId?: string;
-          publishedAt?: string;
-          thumbnails?: Record<string, { url?: string }>;
-        };
-        contentDetails?: { duration?: string };
-        status?: { embeddable?: boolean; license?: string; privacyStatus?: string };
+        id?: string;
+        snippet?: { title?: string };
+        contentDetails?: { relatedPlaylists?: { uploads?: string } };
       }>;
     };
     const item = data.items?.[0];
-    if (!item) return null;
-    const sn = item.snippet ?? {};
-    const th = sn.thumbnails ?? {};
-    const thumbnail =
-      th.maxres?.url ?? th.standard?.url ?? th.high?.url ?? th.medium?.url ?? th.default?.url ?? "";
-    const { seconds, label } = parseDuration(item.contentDetails?.duration ?? "");
-    return {
-      provider: "youtube",
-      videoId,
-      title: sn.title ?? "",
-      channelTitle: sn.channelTitle ?? "",
-      channelId: sn.channelId ?? "",
-      thumbnail,
-      description: sn.description ?? "",
-      publishedAt: sn.publishedAt ?? "",
-      duration: label,
-      durationSeconds: seconds,
-      embeddable: item.status?.embeddable ?? false,
-      license: item.status?.license ?? "",
-      privacyStatus: item.status?.privacyStatus ?? "",
-    };
+    const uploads = item?.contentDetails?.relatedPlaylists?.uploads;
+    if (!item?.id || !uploads) return null;
+    return { channelId: item.id, uploads, title: item.snippet?.title ?? "" };
   } catch {
     return null;
+  }
+}
+
+/** Recent video IDs from a channel's uploads playlist, newest first (1 unit). */
+export async function recentUploadIds(uploadsPlaylistId: string, max = 12): Promise<string[]> {
+  if (!youtubeConfigured || !uploadsPlaylistId) return [];
+  try {
+    const url =
+      "https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=" +
+      Math.min(Math.max(max, 1), 50) +
+      "&playlistId=" +
+      encodeURIComponent(uploadsPlaylistId) +
+      "&key=" +
+      encodeURIComponent(process.env.YOUTUBE_API_KEY!);
+    const res = await fetch(url, { cache: "no-store" });
+    if (!res.ok) return [];
+    const data = (await res.json()) as {
+      items?: Array<{ contentDetails?: { videoId?: string } }>;
+    };
+    return (data.items ?? [])
+      .map((i) => i.contentDetails?.videoId ?? "")
+      .filter(Boolean);
+  } catch {
+    return [];
   }
 }

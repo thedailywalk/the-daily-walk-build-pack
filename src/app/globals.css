@@ -1149,6 +1149,22 @@ h2.h {
 }
 
 /* Weekly Video admin studio */
+.wv-auto {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin: 10px 0 4px;
+  padding: 18px 20px;
+  background: var(--cream);
+  border: 1px solid #ece1c6;
+  border-radius: 14px;
+}
+.wv-auto strong {
+  color: var(--navy);
+  font-size: 16px;
+}
 .wv-add {
   margin-top: 8px;
 }

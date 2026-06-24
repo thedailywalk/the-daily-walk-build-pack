@@ -1,6 +1,15 @@
 import "server-only";
 import { createServiceClient, adminDbConfigured } from "@/lib/supabase/admin";
-import { fetchVideoMeta, parseYouTubeId, type VideoMeta } from "@/lib/youtube";
+import {
+  fetchVideoMeta,
+  fetchVideoMetaBatch,
+  parseYouTubeId,
+  resolveChannel,
+  recentUploadIds,
+  youtubeConfigured,
+  type VideoMeta,
+} from "@/lib/youtube";
+import { TRUSTED_CHANNELS } from "@/lib/trustedChannels";
 import { TOPICS } from "@/lib/library";
 import {
   detectTopics,
@@ -263,6 +272,107 @@ export async function inspectAndStoreCandidates(
     else added += 1;
   }
   return { added, skipped };
+}
+
+export type AutoFillResult = {
+  added: number;
+  scanned: number;
+  channels: string[];
+  note?: string;
+};
+
+/**
+ * Auto-fill verified candidates for a week. Pulls RECENT uploads only from the
+ * trusted channel list, verifies each live via the YouTube API, keeps only
+ * public + embeddable videos of sane length, diversifies across channels, and
+ * stores up to `count` — each marked safe (official upload from a vetted source).
+ */
+export async function autoFillCandidates(
+  weekStart: string,
+  count = 10
+): Promise<AutoFillResult> {
+  if (!adminDbConfigured)
+    return { added: 0, scanned: 0, channels: [], note: "Database not configured." };
+  if (!youtubeConfigured)
+    return { added: 0, scanned: 0, channels: [], note: "YOUTUBE_API_KEY not set." };
+
+  // 1. Resolve channels + gather recent video IDs per channel.
+  const channelTitles: string[] = [];
+  const perChannelIds: string[][] = [];
+  for (const ch of TRUSTED_CHANNELS) {
+    const ref = await resolveChannel(ch.handle);
+    if (!ref) continue;
+    channelTitles.push(ref.title || ch.handle);
+    const ids = await recentUploadIds(ref.uploads, 12);
+    if (ids.length) perChannelIds.push(ids);
+  }
+  if (perChannelIds.length === 0)
+    return { added: 0, scanned: 0, channels: [], note: "No trusted channels resolved." };
+
+  // 2. Round-robin interleave across channels for variety, dedupe.
+  const ordered: string[] = [];
+  const maxLen = Math.max(...perChannelIds.map((l) => l.length));
+  for (let i = 0; i < maxLen; i++) {
+    for (const list of perChannelIds) if (i < list.length) ordered.push(list[i]);
+  }
+  const seen = new Set<string>();
+  const uniqueOrdered = ordered.filter((id) => (seen.has(id) ? false : (seen.add(id), true)));
+
+  // 3. Fetch metadata in batches, then restore the round-robin order.
+  const metas: VideoMeta[] = [];
+  for (let i = 0; i < uniqueOrdered.length; i += 50) {
+    metas.push(...(await fetchVideoMetaBatch(uniqueOrdered.slice(i, i + 50))));
+  }
+  const orderIndex = new Map(uniqueOrdered.map((id, i) => [id, i] as const));
+  metas.sort((a, b) => (orderIndex.get(a.videoId) ?? 0) - (orderIndex.get(b.videoId) ?? 0));
+  const scanned = metas.length;
+
+  // 4. Keep only safe-to-feature videos (public + embeddable, sane length).
+  const good = metas.filter(
+    (m) =>
+      m.embeddable &&
+      m.privacyStatus === "public" &&
+      m.durationSeconds >= 60 &&
+      m.durationSeconds <= 60 * 60
+  );
+
+  // 5. Store up to `count`, marked safe (official upload from a trusted channel).
+  const supabase = createServiceClient();
+  let added = 0;
+  for (const meta of good.slice(0, count)) {
+    const e = enrich(meta);
+    const notes =
+      "Auto-pulled from a trusted channel in your list — official upload, embedding allowed." +
+      (meta.license === "creativeCommon" ? " Creative Commons." : "");
+    const { error } = await supabase.from("weekly_videos").upsert(
+      {
+        week_start: weekStart,
+        provider: "youtube",
+        video_id: meta.videoId,
+        title: meta.title,
+        channel_title: meta.channelTitle,
+        channel_id: meta.channelId,
+        thumbnail_url: meta.thumbnail,
+        description: meta.description,
+        published_at: meta.publishedAt || null,
+        duration: meta.duration,
+        embeddable: meta.embeddable,
+        license: meta.license,
+        privacy_status: meta.privacyStatus,
+        topics: e.topics,
+        scriptures: e.scriptures,
+        summary: e.summary,
+        intro: e.intro,
+        theme: e.theme,
+        brand_fit: e.brandFit,
+        safety_status: "safe",
+        safety_notes: notes,
+      },
+      { onConflict: "week_start,provider,video_id" }
+    );
+    if (!error) added += 1;
+  }
+  return { added, scanned, channels: channelTitles };
 }
 
 export async function listCandidates(weekStart: string): Promise<WeeklyVideo[]> {
