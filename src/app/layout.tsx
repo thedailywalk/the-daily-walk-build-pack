@@ -4,6 +4,7 @@ import "./globals.css";
 import { site } from "@/lib/site";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import HideOnAdmin from "@/components/HideOnAdmin";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -48,9 +49,13 @@ export default function RootLayout({
         <a className="skip" href="#main">
           Skip to content
         </a>
-        <Header />
+        <HideOnAdmin>
+          <Header />
+        </HideOnAdmin>
         <main id="main">{children}</main>
-        <Footer />
+        <HideOnAdmin>
+          <Footer />
+        </HideOnAdmin>
       </body>
     </html>
   );

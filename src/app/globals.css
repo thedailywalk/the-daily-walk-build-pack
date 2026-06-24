@@ -5205,3 +5205,471 @@ hr.div {
     grid-template-columns: 1fr;
   }
 }
+
+/* ============================================================ */
+/* ADMIN WORKSPACE — dark "content command center"               */
+/* Scoped under .admin-shell so the public/member site is        */
+/* untouched (it stays warm + devotional).                       */
+/* ============================================================ */
+.admin-shell {
+  --a-bg: #0e1217;
+  --a-bg-2: #12171f;
+  --a-panel: #181f29;
+  --a-border: #29333f;
+  --a-border-hi: #3a4654;
+  --a-text: #e8ecf3;
+  --a-dim: #aeb7c4;
+  --a-muted: #79838f;
+  --a-accent: #e3b75c;
+  --a-green: #43c08a;
+  --a-amber: #e6b057;
+  --a-red: #ec6a63;
+
+  display: grid;
+  grid-template-columns: 244px minmax(0, 1fr);
+  min-height: 100vh;
+  background: var(--a-bg);
+  color: var(--a-text);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---- Sidebar ---- */
+.aside {
+  position: sticky;
+  top: 0;
+  align-self: start;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #0a0d12;
+  border-right: 1px solid var(--a-border);
+  padding: 18px 14px;
+}
+.aside-brand {
+  display: flex;
+  gap: 11px;
+  align-items: center;
+  padding: 6px 8px 18px;
+}
+.aside-mark {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, var(--a-accent), #b8902e);
+  color: #14110a;
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: 0.4px;
+}
+.aside-name {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--a-text);
+}
+.aside-tag {
+  font-size: 11px;
+  color: var(--a-muted);
+  letter-spacing: 0.3px;
+  margin-top: 1px;
+}
+.aside-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 4px;
+}
+.aside-link {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 9px 11px;
+  border-radius: 9px;
+  color: var(--a-dim);
+  font-size: 13.5px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.12s, color 0.12s;
+}
+.aside-link:hover {
+  background: #141a22;
+  color: var(--a-text);
+  text-decoration: none;
+}
+.aside-link.is-on {
+  background: #1b2430;
+  color: #fff;
+}
+.aside-link.is-on .aside-ico {
+  color: var(--a-accent);
+}
+.aside-ico {
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  color: var(--a-muted);
+}
+.aside-ico svg {
+  width: 18px;
+  height: 18px;
+}
+.aside-foot {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 8px 4px;
+  border-top: 1px solid var(--a-border);
+}
+.aside-foot-link {
+  color: var(--a-dim);
+  font-size: 13px;
+}
+.aside-foot-link:hover {
+  color: var(--a-text);
+}
+.aside-signout {
+  background: transparent;
+  border: 1px solid var(--a-border-hi);
+  color: var(--a-dim);
+  padding: 7px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  font-family: var(--sans);
+  text-align: left;
+}
+.aside-signout:hover {
+  border-color: var(--a-red);
+  color: var(--a-red);
+}
+
+/* ---- Main column ---- */
+.admin-main {
+  background: var(--a-bg-2);
+  padding: 30px 34px 64px;
+  min-width: 0;
+}
+.admin-main section,
+.admin-main .section {
+  padding: 0;
+}
+.admin-shell .adm-wrap {
+  max-width: 1240px;
+  margin: 0;
+  padding: 0;
+}
+
+/* ---- Typography (modern sans, lighter) ---- */
+.admin-shell h1,
+.admin-shell h2,
+.admin-shell h3,
+.admin-shell .h,
+.admin-shell .adm-h2,
+.admin-shell .adm-day-title,
+.admin-shell .lib-card h3,
+.admin-shell .wv-title,
+.admin-shell .src-name {
+  font-family: var(--sans);
+  color: var(--a-text);
+}
+.admin-shell h1 {
+  font-size: 25px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+.admin-shell .h,
+.admin-shell h1.h,
+.admin-shell h2.h {
+  text-align: left;
+  font-size: 21px;
+  font-weight: 700;
+}
+.admin-shell .sub {
+  text-align: left;
+  color: var(--a-dim);
+  max-width: 680px;
+  margin-left: 0;
+}
+.admin-shell .sec-tag {
+  text-align: left;
+  color: var(--a-accent);
+  letter-spacing: 1.6px;
+  font-size: 11px;
+}
+.admin-shell .adm-sub,
+.admin-shell .muted,
+.admin-shell .adm-muted,
+.admin-shell .adm-hint,
+.admin-shell .adm-refs-note,
+.admin-shell .adm-refs-expl {
+  color: var(--a-muted);
+}
+.admin-shell a {
+  color: var(--a-accent);
+}
+
+/* Sidebar replaces the old horizontal subnav */
+.admin-shell .adm-subnav {
+  display: none;
+}
+
+/* Catch elements that were navy/dark-on-light so they read on dark */
+.admin-shell .adm-group,
+.admin-shell .adm-archrow-title,
+.admin-shell .adm-day-dow,
+.admin-shell .wv-auto strong,
+.admin-shell .wv-search-head strong,
+.admin-shell .wv-edit-h,
+.admin-shell .gnc-head,
+.admin-shell .lib-card-top,
+.admin-shell .src-name,
+.admin-shell .gnc-status {
+  color: var(--a-text);
+}
+.admin-shell .adm-refs {
+  color: var(--a-dim);
+}
+.admin-shell .adm-refs-sum,
+.admin-shell .adm-refs-kind {
+  color: var(--a-text);
+}
+.admin-shell .adm-refs-warn {
+  color: #f3a8a3;
+}
+.admin-shell .gnc-cat,
+.admin-shell .wv-list-week,
+.admin-shell .wv-feat {
+  color: var(--a-accent);
+}
+.admin-shell .gnc-bar,
+.admin-shell .adm-bar {
+  background: transparent;
+}
+
+/* ---- Cards / panels ---- */
+.admin-shell .rcard,
+.admin-shell .lib-card,
+.admin-shell .wv-card,
+.admin-shell .gnc-card,
+.admin-shell .adm-day,
+.admin-shell .src-card,
+.admin-shell .vid-empty,
+.admin-shell .wv-list-row,
+.admin-shell .adm-archrow,
+.admin-shell .adm-form,
+.admin-shell .wv-auto,
+.admin-shell .wv-search,
+.admin-shell .adm-refs {
+  background: var(--a-panel);
+  border: 1px solid var(--a-border);
+  color: var(--a-text);
+  border-radius: 12px;
+  box-shadow: none;
+}
+.admin-shell .lib-card:hover,
+.admin-shell .gnc-card:hover,
+.admin-shell .adm-day:hover,
+.admin-shell .adm-archrow:hover {
+  border-color: var(--a-border-hi);
+}
+.admin-shell .wv-auto {
+  /* keep the "save time" band subtly highlighted */
+  background: linear-gradient(180deg, #1c2530, var(--a-panel));
+  border-color: #3a4654;
+}
+
+/* ---- Public-output preview stays light (it shows the real issue) ---- */
+.admin-shell .adm-preview-frame {
+  background: #faf6ee;
+  border: 1px solid var(--a-border-hi);
+  box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.25);
+}
+.admin-shell .adm-preview-tag,
+.admin-shell .adm-readonly-banner {
+  color: var(--a-accent);
+}
+
+/* ---- Form fields ---- */
+.admin-shell .adm-input,
+.admin-shell .adm-textarea,
+.admin-shell .sg-select,
+.admin-shell input[type="text"],
+.admin-shell input[type="url"],
+.admin-shell input[type="email"],
+.admin-shell input:not([type]),
+.admin-shell textarea,
+.admin-shell select {
+  background: #0f141b;
+  border: 1px solid var(--a-border);
+  color: var(--a-text);
+  border-radius: 9px;
+}
+.admin-shell .adm-input::placeholder,
+.admin-shell .adm-textarea::placeholder,
+.admin-shell input::placeholder,
+.admin-shell textarea::placeholder {
+  color: #5a6371;
+}
+.admin-shell .adm-input:focus,
+.admin-shell .adm-textarea:focus,
+.admin-shell .sg-select:focus,
+.admin-shell input:focus,
+.admin-shell textarea:focus,
+.admin-shell select:focus {
+  outline: none;
+  border-color: var(--a-accent);
+  box-shadow: 0 0 0 3px rgba(227, 183, 92, 0.16);
+}
+.admin-shell .adm-label {
+  color: var(--a-dim);
+}
+
+/* ---- Buttons ---- */
+.admin-shell .btn-gold {
+  background: var(--a-accent);
+  color: #1a1206;
+  border: none;
+}
+.admin-shell .btn-gold:hover {
+  background: #efc874;
+}
+.admin-shell .btn-navy {
+  background: #273340;
+  color: var(--a-text);
+  border: 1px solid var(--a-border-hi);
+}
+.admin-shell .btn-navy:hover {
+  background: #2f3d4c;
+}
+.admin-shell .btn-ghost {
+  background: transparent;
+  color: var(--a-dim);
+  border: 1px solid var(--a-border-hi);
+}
+.admin-shell .btn-ghost:hover {
+  background: #141a22;
+  color: var(--a-text);
+}
+
+/* ---- Status pills ---- */
+.admin-shell .adm-badge {
+  border: 1px solid transparent;
+}
+.admin-shell .adm-badge-ready {
+  color: #84e3b6;
+  background: rgba(67, 192, 138, 0.14);
+  border-color: rgba(67, 192, 138, 0.32);
+}
+.admin-shell .adm-badge-draft {
+  color: #f0cd86;
+  background: rgba(230, 176, 87, 0.13);
+  border-color: rgba(230, 176, 87, 0.3);
+}
+.admin-shell .adm-badge-none {
+  color: #9aa3b2;
+  background: rgba(154, 163, 178, 0.12);
+  border-color: rgba(154, 163, 178, 0.26);
+}
+
+/* Weekly Video safety pills + signals → same palette */
+.admin-shell .wv-safe {
+  background: rgba(67, 192, 138, 0.14);
+  color: #84e3b6;
+}
+.admin-shell .wv-review {
+  background: rgba(230, 176, 87, 0.14);
+  color: #f0cd86;
+}
+.admin-shell .wv-unsafe {
+  background: rgba(236, 106, 99, 0.15);
+  color: #f3938d;
+}
+.admin-shell .wv-signals li.ok {
+  background: rgba(67, 192, 138, 0.13);
+  color: #84e3b6;
+}
+.admin-shell .wv-signals li.warn {
+  background: rgba(230, 176, 87, 0.13);
+  color: #f0cd86;
+}
+.admin-shell .wv-signals li.bad {
+  background: rgba(236, 106, 99, 0.14);
+  color: #f3938d;
+}
+
+/* ---- Notices ---- */
+.admin-shell .adm-notice {
+  background: rgba(230, 176, 87, 0.1);
+  border: 1px solid rgba(230, 176, 87, 0.28);
+  color: #e7cd97;
+}
+.admin-shell .adm-notice code {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--a-border-hi);
+  color: #f0d9a6;
+}
+.admin-shell .adm-saved {
+  background: rgba(67, 192, 138, 0.12);
+  border: 1px solid rgba(67, 192, 138, 0.3);
+  color: #9fe7c4;
+}
+.admin-shell .wv-alert {
+  background: rgba(236, 106, 99, 0.1);
+  border: 1px solid rgba(236, 106, 99, 0.32);
+  color: #f3a8a3;
+}
+
+/* ---- Tags / chips / checks ---- */
+.admin-shell .wv-tag,
+.admin-shell .lib-tag,
+.admin-shell .smart-chip,
+.admin-shell .lib-check,
+.admin-shell .src-freq {
+  background: #1d2731;
+  border: 1px solid var(--a-border-hi);
+  color: var(--a-dim);
+}
+.admin-shell .lib-check.ig-on {
+  background: rgba(227, 183, 92, 0.16);
+  color: var(--a-accent);
+  border-color: rgba(227, 183, 92, 0.4);
+}
+.admin-shell .smart-hint,
+.admin-shell .smart-sug {
+  color: var(--a-accent);
+}
+
+/* ---- Responsive: sidebar → top bar ---- */
+@media (max-width: 860px) {
+  .admin-shell {
+    grid-template-columns: 1fr;
+  }
+  .aside {
+    position: static;
+    height: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 4px;
+  }
+  .aside-brand {
+    padding: 4px 8px;
+  }
+  .aside-nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  .aside-foot {
+    flex-direction: row;
+    margin: 0;
+    border: 0;
+    padding: 0 8px;
+  }
+  .admin-main {
+    padding: 20px;
+  }
+}
