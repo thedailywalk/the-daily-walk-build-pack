@@ -38,6 +38,7 @@ export default function InstagramCapture({ topics }: { topics: string[] }) {
   const [why, setWhy] = useState("");
   const [scriptures, setScriptures] = useState("");
   const [selected, setSelected] = useState<Set<string>>(new Set());
+  const [imgPreview, setImgPreview] = useState<string | null>(null);
 
   const text = `${caption}\n${transcript}`;
 
@@ -71,6 +72,7 @@ export default function InstagramCapture({ topics }: { topics: string[] }) {
   }
 
   const body = [
+    link.trim() && `Instagram: ${link.trim()}`,
     caption.trim() && `Caption:\n${caption.trim()}`,
     transcript.trim() && `Transcript:\n${transcript.trim()}`,
   ]
@@ -122,6 +124,26 @@ export default function InstagramCapture({ topics }: { topics: string[] }) {
           />
         </label>
       </div>
+
+      <label className="adm-field">
+        <span className="adm-label">
+          Screenshot / image (optional · up to 4MB)
+        </span>
+        <input
+          name="file"
+          type="file"
+          accept="image/*"
+          className="adm-input lib-file"
+          onChange={(e) => {
+            const f = e.target.files?.[0];
+            setImgPreview(f ? URL.createObjectURL(f) : null);
+          }}
+        />
+      </label>
+      {imgPreview && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={imgPreview} alt="Screenshot preview" className="lib-media-img" />
+      )}
 
       <div className="ig-suggest">
         <button type="button" className="btn btn-gold" onClick={applySuggestions}>
