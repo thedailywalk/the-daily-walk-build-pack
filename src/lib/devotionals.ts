@@ -158,6 +158,39 @@ export async function listPublishedArchive(limit = 60): Promise<Devotional[]> {
   }
 }
 
+/** Recent PUBLISHED devotionals (ready + on/before today), newest first — for
+ *  the public RSS feed that Beehiiv's RSS-to-Send reads. */
+export async function listRecentPublished(limit = 30): Promise<Devotional[]> {
+  if (!adminDbConfigured) return [];
+  try {
+    const supabase = createServiceClient();
+    const { data } = await supabase
+      .from("devotionals")
+      .select("date,status,title,data,updated_at")
+      .eq("status", "ready")
+      .lte("date", todayPT())
+      .order("date", { ascending: false })
+      .limit(limit);
+    return (data ?? []).map(rowToDevotional);
+  } catch {
+    return [];
+  }
+}
+
+/** Auto-publish: mark a date's devotional "ready" so it goes live everywhere. */
+export async function adminMarkReady(date: string): Promise<void> {
+  if (!adminDbConfigured) return;
+  try {
+    const supabase = createServiceClient();
+    await supabase
+      .from("devotionals")
+      .update({ status: "ready", updated_at: new Date().toISOString() })
+      .eq("date", date);
+  } catch {
+    /* ignore */
+  }
+}
+
 export async function adminUpsert(
   date: string,
   status: DevotionalStatus,

@@ -30,3 +30,11 @@ export const GOOD_NEWS_ROOM_ENABLED = false;
  * Turned OFF until payments are set up. Flip to `true` to show pricing again.
  */
 export const PRICING_ENABLED = false;
+
+/**
+ * DEVOTIONAL_AUTO_PUBLISH — when ON, the daily cron automatically publishes that
+ * day's devotional (marks it "ready") so it goes live on the site, in the member
+ * archive, and in the RSS feed with zero clicks. You can still edit any issue
+ * before (or after) it publishes. Flip to `false` to go back to manual approval.
+ */
+export const DEVOTIONAL_AUTO_PUBLISH = true;
