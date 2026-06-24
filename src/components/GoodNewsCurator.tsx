@@ -115,10 +115,17 @@ export default function GoodNewsCurator({
               onClick={() => toggle(c.href)}
               aria-pressed={on}
             >
-              <div className="gnc-thumb gntile">
-                <span className="gntile-mark" aria-hidden="true">
-                  🌅
-                </span>
+              <div className={`gnc-thumb${c.image ? " has-img" : " gntile"}`}>
+                {c.image ? (
+                  // Admin-only reference image — helps visual selection. Never
+                  // shown publicly (public cards use branded tiles).
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={c.image} alt="" className="gnc-img" loading="lazy" />
+                ) : (
+                  <span className="gntile-mark" aria-hidden="true">
+                    🌅
+                  </span>
+                )}
                 {on && <span className="gnc-num">{idx + 1}</span>}
                 {c.faith && (
                   <span className="gnc-faith" title="Christian faith story">

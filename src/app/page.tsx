@@ -4,7 +4,7 @@ import GoodNewsCard from "@/components/GoodNewsCard";
 import PrayerWallPreview from "@/components/PrayerWallPreview";
 import { listApprovedPrayers } from "@/lib/prayers";
 import { getDailyGoodNews } from "@/lib/goodNews";
-import { GOOD_NEWS_ENABLED, PRICING_ENABLED } from "@/lib/flags";
+import { GOOD_NEWS_PUBLIC, PRICING_ENABLED } from "@/lib/flags";
 import { site } from "@/lib/site";
 import { studyTips as tips } from "@/lib/studyTips";
 
@@ -53,7 +53,7 @@ export default async function HomePage() {
     body: p.body,
     prayCount: p.prayCount,
   }));
-  const goodNews = GOOD_NEWS_ENABLED ? await getDailyGoodNews() : [];
+  const goodNews = GOOD_NEWS_PUBLIC ? await getDailyGoodNews() : [];
 
   return (
     <>
@@ -275,7 +275,7 @@ export default async function HomePage() {
       )}
 
       {/* GOOD NEWS PREVIEW */}
-      {GOOD_NEWS_ENABLED && (
+      {GOOD_NEWS_PUBLIC && (
       <section id="good" className="gnsec">
         <div className="wrap">
           <div className="sec-tag">In every issue</div>

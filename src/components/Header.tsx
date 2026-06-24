@@ -2,14 +2,14 @@ import Link from "next/link";
 import { site, nav } from "@/lib/site";
 import { getUser, supabaseConfigured } from "@/lib/supabase/server";
 import { isAdminEmail } from "@/lib/admin";
-import { GOOD_NEWS_ENABLED, PRICING_ENABLED } from "@/lib/flags";
+import { GOOD_NEWS_PUBLIC, PRICING_ENABLED } from "@/lib/flags";
 
 export default async function Header() {
   const user = await getUser();
   const showAdmin = isAdminEmail(user?.email);
   const navItems = nav.filter(
     (item) =>
-      (GOOD_NEWS_ENABLED || item.href !== "/#good") &&
+      (GOOD_NEWS_PUBLIC || item.href !== "/#good") &&
       (PRICING_ENABLED || item.href !== "/pricing")
   );
   const accountLink =

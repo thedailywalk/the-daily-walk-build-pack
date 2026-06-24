@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { site } from "@/lib/site";
-import { GOOD_NEWS_ENABLED, PRICING_ENABLED } from "@/lib/flags";
+import { GOOD_NEWS_PUBLIC, PRICING_ENABLED } from "@/lib/flags";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -11,7 +11,7 @@ export default function Footer() {
         <div>A daily guide for walking with God in real life.</div>
         <nav aria-label="Footer">
           <Link href="/#how">How it works</Link>
-          {GOOD_NEWS_ENABLED ? (
+          {GOOD_NEWS_PUBLIC ? (
             <>
               {" "}
               · <Link href="/#good">Good News</Link>

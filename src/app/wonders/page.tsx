@@ -6,7 +6,7 @@ import { getEntitlement } from "@/lib/beehiiv";
 import { getWordOfTheDay } from "@/lib/wordOfTheDay";
 import { getHistoryMoment } from "@/lib/thisDayInHistory";
 import { getWonderOfTheDay } from "@/lib/wonderOfTheDay";
-import { WONDER_VIDEOS, embedUrl, watchUrl } from "@/lib/wonderVideos";
+import { getLiveWeeklyVideo } from "@/lib/weeklyVideo";
 
 export const metadata: Metadata = {
   title: "Daily Wonders",
@@ -23,6 +23,7 @@ export default async function WondersPage() {
   const word = getWordOfTheDay();
   const moment = getHistoryMoment();
   const wonder = getWonderOfTheDay();
+  const video = await getLiveWeeklyVideo();
 
   return (
     <>
@@ -119,62 +120,63 @@ export default async function WondersPage() {
         </div>
       </section>
 
-      {/* WATCH & REFLECT — embeds only */}
+      {/* WATCH OF THE WEEK — one featured video, refreshed every Monday */}
       <section className="vidsec">
         <div className="wrap">
           <div className="sec-tag" style={{ textAlign: "left" }}>
-            ✦ Watch &amp; Reflect
+            ✦ Watch of the Week
           </div>
-          <h2 className="h" style={{ textAlign: "left", marginTop: 6 }}>
-            A few minutes worth pressing play on
-          </h2>
 
-          {WONDER_VIDEOS.length === 0 ? (
+          {video ? (
+            <>
+              <h2 className="h" style={{ textAlign: "left", marginTop: 6 }}>
+                {video.title}
+              </h2>
+              {video.intro && <p className="vid-intro">{video.intro}</p>}
+              <figure className="vid-feature">
+                <div className="vid-frame">
+                  <iframe
+                    src={`https://www.youtube-nocookie.com/embed/${video.videoId}?rel=0`}
+                    title={video.title}
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                  />
+                </div>
+                <figcaption className="vid-meta">
+                  {video.theme && (
+                    <div className="vid-theme">Theme · {video.theme}</div>
+                  )}
+                  {video.scriptures.length > 0 && (
+                    <div className="vid-scrips">
+                      {video.scriptures.join("  ·  ")}
+                    </div>
+                  )}
+                  <a
+                    className="vid-credit"
+                    href={`https://www.youtube.com/watch?v=${video.videoId}`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {video.channelTitle} · watch on YouTube ↗
+                  </a>
+                </figcaption>
+              </figure>
+            </>
+          ) : (
             <div className="vid-empty">
               <p>
-                This shelf is curated by hand and stays on the right side of
-                copyright: videos are <strong>embedded</strong> straight from
-                YouTube or Vimeo&apos;s own players — never copied or re-hosted —
-                so the creator keeps full credit. Only your own videos, openly
-                shareable ministry content, or freely-licensed teaching (like
-                BibleProject) get added here.
+                A fresh video is on its way. Check back Monday for this
+                week&apos;s pick.
               </p>
-              <p className="muted" style={{ marginTop: 10 }}>
-                No videos added yet. Send the links you&apos;d like featured and
-                they&apos;ll appear here.
-              </p>
-            </div>
-          ) : (
-            <div className="vid-grid">
-              {WONDER_VIDEOS.map((v) => (
-                <figure className="vid-card" key={`${v.provider}-${v.id}`}>
-                  <div className="vid-frame">
-                    <iframe
-                      src={embedUrl(v)}
-                      title={v.title}
-                      loading="lazy"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      referrerPolicy="strict-origin-when-cross-origin"
-                      allowFullScreen
-                    />
-                  </div>
-                  <figcaption className="vid-meta">
-                    <h3 className="vid-title">{v.title}</h3>
-                    <p className="vid-note">{v.note}</p>
-                    <a
-                      className="vid-credit"
-                      href={watchUrl(v)}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      {v.creator} · watch on{" "}
-                      {v.provider === "vimeo" ? "Vimeo" : "YouTube"} ↗
-                    </a>
-                  </figcaption>
-                </figure>
-              ))}
             </div>
           )}
+
+          <p className="vid-foot">
+            ✦ A new video is chosen and featured here every Monday — a few
+            minutes to slow down, look up, and let God speak.
+          </p>
         </div>
       </section>
 
