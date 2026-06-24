@@ -12,6 +12,14 @@ type Item = {
 
 /* Minimal line icons (stroke = currentColor) */
 const I = {
+  grid: (
+    <>
+      <rect x="3" y="3" width="7" height="7" rx="1.5" />
+      <rect x="14" y="3" width="7" height="7" rx="1.5" />
+      <rect x="3" y="14" width="7" height="7" rx="1.5" />
+      <rect x="14" y="14" width="7" height="7" rx="1.5" />
+    </>
+  ),
   calendar: (
     <>
       <rect x="3" y="4" width="18" height="17" rx="2" />
@@ -70,6 +78,12 @@ function icon(path: React.ReactNode) {
 }
 
 const ITEMS: Item[] = [
+  {
+    href: "/admin",
+    label: "Dashboard",
+    icon: icon(I.grid),
+    match: (p) => p === "/admin",
+  },
   {
     href: "/admin/devotionals",
     label: "The Week Ahead",
