@@ -112,7 +112,9 @@ export default async function WeeklyVideoPage({
             <p className="adm-hint" style={{ margin: "4px 0 0" }}>
               Pulls 10 recent videos from your trusted channels, verifies each
               one (public + embeddable), and stages them below for the week of{" "}
-              {weekLabel(week)}. You just pick one.
+              {weekLabel(week)}. You just pick one. This also runs{" "}
+              <strong>automatically every Monday</strong> for the upcoming week —
+              the button is just for pulling fresh picks on demand.
             </p>
           </div>
           <button type="submit" className="btn btn-gold" disabled={!youtubeConfigured}>
