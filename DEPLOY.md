@@ -64,14 +64,26 @@ your real list; the URLs power footer/pricing links.
    | `ADMIN_EMAILS` | no | extra admin emails, comma-separated (owner is always admin) — optional |
    | `NEXT_PUBLIC_COMMUNITY_URL` | no | community link (optional) |
    | `COMP_PATRON_EMAILS` | no | emails granted free Patron access, comma-separated — optional |
+   | `YOUTUBE_API_KEY` | 🔒 yes | free YouTube Data API key — powers the Weekly Video safety checks |
+   | `CRON_SECRET` | 🔒 yes | any long random string — protects the daily/weekly cron jobs |
+   | `ANTHROPIC_API_KEY` | 🔒 optional | turns on live AI chat for Pathlight (the member Bible guide); without it Pathlight still gives Scripture-based answers |
 
-   > The two 🔒 secret keys must be set, but **never** appear in the code or in chat.
+   > The 🔒 secret keys must be set, but **never** appear in the code or in chat.
    > Everything `NEXT_PUBLIC_…` is safe to expose.
 
 4. **Database (Supabase).** If your live site uses the **same Supabase project** you set up
    locally (project `makaxugtawmuibdkbjju`), the tables already exist — nothing to do. If you
-   ever create a *separate* production project, run each file in **`supabase/`** once in its
-   SQL Editor: `plan_progress`, `prayer-wall`, `good-news`, `study-journal`, `devotionals`.
+   ever create a *separate* production project, run **every file in `supabase/` once** in its
+   SQL Editor: `devotionals`, `study-journal`, `prayer-wall`, `good-news`, `content-library`,
+   `content-library-media`, `weekly-video`, `daily-poll`, `prayer-journal`.
+
+   > **Cron jobs** (in `vercel.json`) run automatically on Vercel: daily devotional
+   > auto-draft + auto-publish, daily Good-News refresh, daily Weekly-Video health check,
+   > and the Monday Weekly-Video staging. They're protected by `CRON_SECRET`.
+   >
+   > **Newsletter automation:** once live, the daily devotional publishes itself and is
+   > served at `…/devotional/rss.xml`. Point Beehiiv's **RSS-to-Send** (Max/Enterprise plan)
+   > at that URL to auto-email each issue.
 
 5. **Deploy.** You get a `the-daily-walk-xxxx.vercel.app` URL. **Test signup there first** —
    submit your own email and confirm it lands in Beehiiv. Then sign in as the owner and open
