@@ -6,6 +6,7 @@ import {
   parseYouTubeId,
   resolveChannel,
   recentUploadIds,
+  searchVideos,
   youtubeConfigured,
   type VideoMeta,
 } from "@/lib/youtube";
@@ -175,6 +176,91 @@ export function enrich(meta: VideoMeta): Enrichment {
     brandFit: composeWhy(topics),
     intro: draftIntro(topics),
   };
+}
+
+/** "1.2M", "45K", "920" */
+function fmtCount(n: number): string {
+  if (n >= 1_000_000) return (n / 1_000_000).toFixed(n >= 10_000_000 ? 0 : 1) + "M";
+  if (n >= 1_000) return (n / 1_000).toFixed(n >= 10_000 ? 0 : 1) + "K";
+  return String(n);
+}
+
+export type SearchResult = { added: number; scanned: number; query: string; note?: string };
+
+/**
+ * Search across ALL of YouTube for a topic, ranked by views. Results are
+ * open-web, so every one is stored flagged "review" with a clear reupload
+ * caution and its view/like counts — never auto-marked safe. Public + embeddable
+ * + sane-length only.
+ */
+export async function searchAndStoreCandidates(
+  query: string,
+  weekStart: string,
+  count = 10
+): Promise<SearchResult> {
+  if (!adminDbConfigured)
+    return { added: 0, scanned: 0, query, note: "Database not configured." };
+  if (!youtubeConfigured)
+    return { added: 0, scanned: 0, query, note: "YOUTUBE_API_KEY not set." };
+  if (!query.trim()) return { added: 0, scanned: 0, query, note: "Enter something to search." };
+
+  const ids = await searchVideos(query, 25, "viewCount");
+  if (ids.length === 0) return { added: 0, scanned: 0, query, note: "No results." };
+
+  const metas: VideoMeta[] = [];
+  for (let i = 0; i < ids.length; i += 50) {
+    metas.push(...(await fetchVideoMetaBatch(ids.slice(i, i + 50))));
+  }
+  const scanned = metas.length;
+
+  const good = metas
+    .filter(
+      (m) =>
+        m.embeddable &&
+        m.privacyStatus === "public" &&
+        m.durationSeconds >= 60 &&
+        m.durationSeconds <= 90 * 60
+    )
+    .sort((a, b) => b.viewCount - a.viewCount);
+
+  const supabase = createServiceClient();
+  let added = 0;
+  for (const meta of good.slice(0, count)) {
+    const e = enrich(meta);
+    const notes =
+      `From open YouTube search (ranked by views): ${fmtCount(meta.viewCount)} views · ` +
+      `${fmtCount(meta.likeCount)} likes. Embedding is allowed — but CONFIRM this is the ` +
+      `creator's official channel, not a reupload or clip, before featuring.` +
+      (meta.license === "creativeCommon" ? " Creative Commons." : "");
+    const { error } = await supabase.from("weekly_videos").upsert(
+      {
+        week_start: weekStart,
+        provider: "youtube",
+        video_id: meta.videoId,
+        title: meta.title,
+        channel_title: meta.channelTitle,
+        channel_id: meta.channelId,
+        thumbnail_url: meta.thumbnail,
+        description: meta.description,
+        published_at: meta.publishedAt || null,
+        duration: meta.duration,
+        embeddable: meta.embeddable,
+        license: meta.license,
+        privacy_status: meta.privacyStatus,
+        topics: e.topics,
+        scriptures: e.scriptures,
+        summary: e.summary,
+        intro: e.intro,
+        theme: e.theme,
+        brand_fit: e.brandFit,
+        safety_status: "review",
+        safety_notes: notes,
+      },
+      { onConflict: "week_start,provider,video_id" }
+    );
+    if (!error) added += 1;
+  }
+  return { added, scanned, query };
 }
 
 /* ---------------- row mapping ---------------- */

@@ -71,8 +71,10 @@ well when you do.
 >   a short blurb so people can follow you directly.
 > - You can tell me exactly which posts are okay (or aren't), and I'll only ever
 >   use those.
-> - I'm happy to send you a preview before anything goes live, and you can ask me
->   to change or take down anything, anytime, no questions asked.
+> - I'm happy to send you a preview before anything goes live.
+> - And if you ever change your mind — even long after it's up — just say the
+>   word and I'll take it down right away, no questions asked. You're always in
+>   control of your own work.
 >
 > Thank you for the work you put into what you share — it reaches further than
 > you know. Whatever you decide, I'm grateful for you. 🤍

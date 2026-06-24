@@ -24,6 +24,8 @@ export type VideoMeta = {
   embeddable: boolean;
   license: string; // "youtube" | "creativeCommon"
   privacyStatus: string; // "public" | "unlisted" | "private"
+  viewCount: number;
+  likeCount: number;
 };
 
 /** Pull a YouTube video ID from a watch / share / embed / shorts URL, or a raw ID. */
@@ -76,6 +78,7 @@ type VideoItem = {
   };
   contentDetails?: { duration?: string };
   status?: { embeddable?: boolean; license?: string; privacyStatus?: string };
+  statistics?: { viewCount?: string; likeCount?: string };
 };
 
 function toMeta(item: VideoItem, fallbackId: string): VideoMeta {
@@ -98,6 +101,8 @@ function toMeta(item: VideoItem, fallbackId: string): VideoMeta {
     embeddable: item.status?.embeddable ?? false,
     license: item.status?.license ?? "",
     privacyStatus: item.status?.privacyStatus ?? "",
+    viewCount: Number(item.statistics?.viewCount ?? 0),
+    likeCount: Number(item.statistics?.likeCount ?? 0),
   };
 }
 
@@ -113,7 +118,7 @@ export async function fetchVideoMetaBatch(ids: string[]): Promise<VideoMeta[]> {
   if (!youtubeConfigured || clean.length === 0) return [];
   try {
     const url =
-      "https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,status&id=" +
+      "https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,status,statistics&id=" +
       encodeURIComponent(clean.join(",")) +
       "&key=" +
       encodeURIComponent(process.env.YOUTUBE_API_KEY!);
@@ -121,6 +126,42 @@ export async function fetchVideoMetaBatch(ids: string[]): Promise<VideoMeta[]> {
     if (!res.ok) return [];
     const data = (await res.json()) as { items?: VideoItem[] };
     return (data.items ?? []).map((it) => toMeta(it, ""));
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Search across all of YouTube for embeddable videos matching a query. Returns
+ * video IDs only (costs ~100 quota units, so use sparingly). safeSearch=strict
+ * and videoEmbeddable=true are enforced; order defaults to most-viewed.
+ *
+ * NOTE: results are open-web, so they may include reuploads/clips — callers
+ * must treat them as "review first," not automatically safe.
+ */
+export async function searchVideos(
+  query: string,
+  max = 20,
+  order: "viewCount" | "relevance" | "rating" = "viewCount"
+): Promise<string[]> {
+  if (!youtubeConfigured || !query.trim()) return [];
+  try {
+    const url =
+      "https://www.googleapis.com/youtube/v3/search?part=snippet&type=video" +
+      "&videoEmbeddable=true&safeSearch=strict&maxResults=" +
+      Math.min(Math.max(max, 1), 50) +
+      "&order=" +
+      order +
+      "&q=" +
+      encodeURIComponent(query.trim()) +
+      "&key=" +
+      encodeURIComponent(process.env.YOUTUBE_API_KEY!);
+    const res = await fetch(url, { cache: "no-store" });
+    if (!res.ok) return [];
+    const data = (await res.json()) as {
+      items?: Array<{ id?: { videoId?: string } }>;
+    };
+    return (data.items ?? []).map((i) => i.id?.videoId ?? "").filter(Boolean);
   } catch {
     return [];
   }

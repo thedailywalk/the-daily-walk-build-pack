@@ -13,7 +13,7 @@ import {
   nextWeekStart,
   weekLabel,
 } from "@/lib/weeklyVideo";
-import { addCandidatesAction, autoFillAction } from "./actions";
+import { addCandidatesAction, autoFillAction, searchAction } from "./actions";
 
 export const metadata: Metadata = {
   title: "Weekly Video",
@@ -35,6 +35,8 @@ export default async function WeeklyVideoPage({
     selected?: string;
     saved?: string;
     autofilled?: string;
+    searched?: string;
+    q?: string;
   }>;
 }) {
   await requireAdmin();
@@ -120,6 +122,40 @@ export default async function WeeklyVideoPage({
           <button type="submit" className="btn btn-gold" disabled={!youtubeConfigured}>
             ✨ Auto-fill 10 verified picks
           </button>
+        </form>
+
+        {sp.searched && (
+          <div className="adm-saved">
+            {sp.searched === "0"
+              ? "No usable results — try different words (or run the SQL / check the key)."
+              : `Found ${sp.searched} popular video${sp.searched === "1" ? "" : "s"} for “${sp.q ?? ""}” — flagged ⚠ Review below.`}
+          </div>
+        )}
+
+        {/* Search all of YouTube, ranked by views — flagged Review */}
+        <form action={searchAction} className="wv-search">
+          <div className="wv-search-head">
+            <strong>Search all of YouTube (most-viewed first)</strong>
+            <p className="adm-hint" style={{ margin: "4px 0 0" }}>
+              Pulls the most popular embeddable videos for a topic, with view +
+              like counts. <strong>Heads up:</strong> open search can surface
+              reuploads — so every result lands as <strong>⚠ Review</strong>.
+              Always confirm it&apos;s the creator&apos;s official channel before
+              featuring.
+            </p>
+          </div>
+          <div className="wv-search-row">
+            <input type="hidden" name="weekStart" value={week} />
+            <input
+              name="query"
+              className="adm-input"
+              placeholder="e.g. forgiveness, anxiety and faith, hope in hard times"
+              defaultValue={sp.q ?? ""}
+            />
+            <button type="submit" className="btn btn-navy" disabled={!youtubeConfigured}>
+              Search &amp; add
+            </button>
+          </div>
         </form>
 
         {/* Add candidates */}

@@ -1165,6 +1165,27 @@ h2.h {
   color: var(--navy);
   font-size: 16px;
 }
+.wv-search {
+  margin: 4px 0 8px;
+  padding: 18px 20px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+.wv-search-head strong {
+  color: var(--navy);
+  font-size: 16px;
+}
+.wv-search-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+.wv-search-row .adm-input {
+  flex: 1;
+  min-width: 220px;
+}
 .wv-add {
   margin-top: 8px;
 }
