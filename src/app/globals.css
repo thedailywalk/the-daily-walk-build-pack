@@ -5319,6 +5319,90 @@ hr.div {
   width: 18px;
   height: 18px;
 }
+
+/* ---- Sidebar flyout submenus (pull-out tabs) ---- */
+.aside-group {
+  position: relative;
+}
+.aside-parent {
+  position: relative;
+}
+.aside-chev {
+  margin-left: auto;
+  display: inline-flex;
+  color: var(--a-muted);
+  opacity: 0.7;
+  transition: transform 0.15s, opacity 0.15s;
+}
+.aside-chev svg {
+  width: 15px;
+  height: 15px;
+}
+.aside-group:hover .aside-chev,
+.aside-group:focus-within .aside-chev {
+  transform: translateX(2px);
+  opacity: 1;
+  color: var(--a-accent);
+}
+.aside-flyout {
+  position: absolute;
+  top: -6px;
+  left: 100%;
+  margin-left: 8px;
+  min-width: 212px;
+  background: #1f2937;
+  border: 1px solid var(--a-border-hi);
+  border-radius: 12px;
+  padding: 8px;
+  box-shadow: 0 20px 44px -18px rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-6px);
+  transition: opacity 0.14s ease, transform 0.14s ease, visibility 0.14s;
+  z-index: 60;
+}
+/* invisible bridge so the hover survives the gap between rail and panel */
+.aside-flyout::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -12px;
+  width: 12px;
+  height: 100%;
+}
+.aside-group:hover .aside-flyout,
+.aside-group:focus-within .aside-flyout {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+.aside-flyout-title {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+  color: var(--a-muted);
+  padding: 6px 10px 8px;
+}
+.aside-sub {
+  display: block;
+  padding: 8px 11px;
+  border-radius: 8px;
+  font-size: 13.5px;
+  color: var(--a-dim);
+  text-decoration: none;
+}
+.aside-sub:hover {
+  background: #2a3647;
+  color: #fff;
+  text-decoration: none;
+}
+.aside-sub.is-on {
+  background: rgba(45, 212, 167, 0.13);
+  color: #fff;
+  box-shadow: inset 2px 0 0 var(--a-accent);
+}
+
 .aside-foot {
   margin-top: auto;
   display: flex;
@@ -5425,6 +5509,9 @@ hr.div {
   color: #fff;
 }
 .admin-shell .aside-foot-link {
+  color: var(--a-dim);
+}
+.admin-shell .aside-sub {
   color: var(--a-dim);
 }
 

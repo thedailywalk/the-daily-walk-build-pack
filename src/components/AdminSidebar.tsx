@@ -3,11 +3,13 @@
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 
+type Sub = { href: string; label: string; match: (p: string, qs: string) => boolean };
 type Item = {
   href: string;
   label: string;
   icon: React.ReactNode;
   match: (path: string, qs: string) => boolean;
+  children?: Sub[];
 };
 
 /* Minimal line icons (stroke = currentColor) */
@@ -26,21 +28,9 @@ const I = {
       <path d="M3 9h18M8 2v4M16 2v4" />
     </>
   ),
-  archive: (
-    <>
-      <rect x="3" y="4" width="18" height="4" rx="1" />
-      <path d="M5 8v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8M10 12h4" />
-    </>
-  ),
-  library: (
-    <>
-      <path d="M4 5v14M9 4h10a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H9zM4 9h5M4 14h5" />
-    </>
-  ),
+  library: <path d="M4 5v14M9 4h10a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H9zM4 9h5M4 14h5" />,
   spark: (
-    <>
-      <path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18" />
-    </>
+    <path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18" />
   ),
   video: (
     <>
@@ -55,10 +45,9 @@ const I = {
     </>
   ),
   hands: (
-    <>
-      <path d="M12 21s-7-4.35-7-9a4 4 0 0 1 7-2.6A4 4 0 0 1 19 12c0 4.65-7 9-7 9z" />
-    </>
+    <path d="M12 21s-7-4.35-7-9a4 4 0 0 1 7-2.6A4 4 0 0 1 19 12c0 4.65-7 9-7 9z" />
   ),
+  chevron: <path d="m9 6 6 6-6 6" />,
 };
 
 function icon(path: React.ReactNode) {
@@ -86,33 +75,51 @@ const ITEMS: Item[] = [
   },
   {
     href: "/admin/devotionals",
-    label: "The Week Ahead",
+    label: "Devotionals",
     icon: icon(I.calendar),
-    match: (p, qs) => p.startsWith("/admin/devotionals") && !qs.includes("view=archive"),
-  },
-  {
-    href: "/admin/devotionals?view=archive",
-    label: "Archive",
-    icon: icon(I.archive),
-    match: (p, qs) => p.startsWith("/admin/devotionals") && qs.includes("view=archive"),
+    match: (p) => p.startsWith("/admin/devotionals"),
+    children: [
+      {
+        href: "/admin/devotionals",
+        label: "The Week Ahead",
+        match: (p, qs) => p.startsWith("/admin/devotionals") && !qs.includes("view=archive"),
+      },
+      {
+        href: "/admin/devotionals?view=archive",
+        label: "Archive",
+        match: (p, qs) => p.startsWith("/admin/devotionals") && qs.includes("view=archive"),
+      },
+    ],
   },
   {
     href: "/admin/library",
     label: "Content Library",
     icon: icon(I.library),
     match: (p) => p.startsWith("/admin/library"),
-  },
-  {
-    href: "/admin/inspiration",
-    label: "Inspiration Sources",
-    icon: icon(I.spark),
-    match: (p) => p.startsWith("/admin/inspiration"),
+    children: [
+      {
+        href: "/admin/library",
+        label: "All items",
+        match: (p) => p === "/admin/library",
+      },
+      {
+        href: "/admin/library/capture",
+        label: "Capture from Instagram",
+        match: (p) => p.startsWith("/admin/library/capture"),
+      },
+    ],
   },
   {
     href: "/admin/weekly-video",
     label: "Weekly Video",
     icon: icon(I.video),
     match: (p) => p.startsWith("/admin/weekly-video"),
+  },
+  {
+    href: "/admin/inspiration",
+    label: "Inspiration Sources",
+    icon: icon(I.spark),
+    match: (p) => p.startsWith("/admin/inspiration"),
   },
   {
     href: "/admin/good-news",
@@ -145,16 +152,46 @@ export default function AdminSidebar() {
       <nav className="aside-nav" aria-label="Admin">
         {ITEMS.map((it) => {
           const on = it.match(pathname, qs);
+
+          if (!it.children) {
+            return (
+              <Link
+                key={it.label}
+                href={it.href}
+                className={`aside-link${on ? " is-on" : ""}`}
+                aria-current={on ? "page" : undefined}
+              >
+                <span className="aside-ico">{it.icon}</span>
+                {it.label}
+              </Link>
+            );
+          }
+
           return (
-            <Link
-              key={it.label}
-              href={it.href}
-              className={`aside-link${on ? " is-on" : ""}`}
-              aria-current={on ? "page" : undefined}
-            >
-              <span className="aside-ico">{it.icon}</span>
-              {it.label}
-            </Link>
+            <div key={it.label} className="aside-group">
+              <Link
+                href={it.href}
+                className={`aside-link aside-parent${on ? " is-on" : ""}`}
+                aria-current={on ? "page" : undefined}
+              >
+                <span className="aside-ico">{it.icon}</span>
+                {it.label}
+                <span className="aside-chev">{icon(I.chevron)}</span>
+              </Link>
+              <div className="aside-flyout" role="menu">
+                <div className="aside-flyout-title">{it.label}</div>
+                {it.children.map((sub) => (
+                  <Link
+                    key={sub.label}
+                    href={sub.href}
+                    role="menuitem"
+                    className={`aside-sub${sub.match(pathname, qs) ? " is-on" : ""}`}
+                  >
+                    {sub.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
           );
         })}
       </nav>
