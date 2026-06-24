@@ -51,11 +51,16 @@ export async function saveLibraryItemAction(formData: FormData) {
     }
   }
 
+  const caption = str(formData, "caption") || null;
+  const transcript = str(formData, "transcript") || null;
+  const personalTake = str(formData, "personalTake") || null;
+
   await upsertLibraryItem({
     id,
     title: str(formData, "title"),
     kind: str(formData, "kind") || "note",
-    body: str(formData, "body"),
+    // body powers the newsletter generator — prefer the owner's original rewrite.
+    body: personalTake || str(formData, "body") || transcript || caption || "",
     url,
     source: str(formData, "source") || null,
     why: str(formData, "why") || null,
@@ -65,6 +70,11 @@ export async function saveLibraryItemAction(formData: FormData) {
     emotion: str(formData, "emotion") || null,
     isOriginal: str(formData, "isOriginal") === "on",
     mediaPath,
+    caption,
+    transcript,
+    personalTake,
+    sources: str(formData, "sources") || null,
+    isVoice: str(formData, "isVoice") === "on",
   });
 
   revalidatePath("/admin/library");

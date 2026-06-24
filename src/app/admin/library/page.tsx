@@ -51,14 +51,11 @@ export default async function LibraryPage({
               Admin · Content Library
             </div>
             <p className="adm-sub">
-              Your personal research base — quotes, notes, articles, links,
-              sermon &amp; study notes, ideas, and inspiration. Tag everything so
-              the newsletter generator can pull from it by theme.
+              Your research base — paste a clip, transcript, your own rewrite, and
+              the research behind it, all in one place. Tag it so the newsletter
+              generator can pull from it by theme.
             </p>
           </div>
-          <Link href="/admin/library/capture" className="btn btn-gold">
-            + Capture from Instagram
-          </Link>
         </div>
 
         {!adminDbConfigured && (

@@ -39,6 +39,12 @@ export type LibraryItem = {
   emotion: string | null;
   isOriginal: boolean;
   mediaPath: string | null;
+  // combined-capture fields
+  caption: string | null; // verbatim caption from the post
+  transcript: string | null; // verbatim transcript
+  personalTake: string | null; // rewritten in my own words / the science behind it
+  sources: string | null; // sources cited for my take
+  isVoice: boolean; // saved as one of "Your Voices"
   createdAt?: string;
 };
 
@@ -69,6 +75,11 @@ function toItem(r: any): LibraryItem {
     emotion: r.emotion ?? null,
     isOriginal: !!r.is_original,
     mediaPath: r.media_path ?? null,
+    caption: r.caption ?? null,
+    transcript: r.transcript ?? null,
+    personalTake: r.personal_take ?? null,
+    sources: r.sources ?? null,
+    isVoice: !!r.is_voice,
     createdAt: r.created_at,
   };
 }
@@ -149,6 +160,11 @@ export async function upsertLibraryItem(item: Partial<LibraryItem> & { id?: stri
       emotion: item.emotion ?? null,
       is_original: !!item.isOriginal,
       media_path: item.mediaPath ?? null,
+      caption: item.caption ?? null,
+      transcript: item.transcript ?? null,
+      personal_take: item.personalTake ?? null,
+      sources: item.sources ?? null,
+      is_voice: !!item.isVoice,
       updated_at: new Date().toISOString(),
     };
     await supabase.from("library_items").upsert(row);
