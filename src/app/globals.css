@@ -954,6 +954,73 @@ h2.h {
   }
 }
 
+/* ---------- Wonder of the Day ---------- */
+.wondersec {
+  background: var(--cream);
+  padding-top: 0;
+}
+.wonder-card {
+  max-width: 640px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 28px 56px -40px rgba(31, 58, 95, 0.42);
+}
+.wonder-sky {
+  position: relative;
+  height: 150px;
+  background: radial-gradient(120% 130% at 80% 20%, #2c4a78 0%, #1f3a5f 45%, #16304f 100%);
+}
+.wonder-stars {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.wonder-kicker {
+  position: absolute;
+  top: 18px;
+  left: 30px;
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--gold);
+}
+.wonder-body-wrap {
+  padding: 24px 30px 30px;
+}
+.wonder-title {
+  font-family: var(--serif);
+  font-size: 28px;
+  color: var(--navy);
+  margin: 0 0 12px;
+  line-height: 1.2;
+}
+.wonder-text {
+  font-size: 16.5px;
+  line-height: 1.7;
+  color: var(--ink);
+  margin: 0 0 4px;
+}
+.wonder-verse {
+  border-left: 4px solid var(--gold);
+  padding: 4px 0 4px 18px;
+  margin: 18px 0 0;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 15px;
+  color: var(--navy);
+  line-height: 1.55;
+}
+.wonder-reflect {
+  margin: 14px 0 0;
+  font-family: var(--serif);
+  font-size: 16px;
+  color: var(--gold-deep);
+}
+
 /* ---------- Good News preview ---------- */
 .gnsec {
   background: var(--cream);

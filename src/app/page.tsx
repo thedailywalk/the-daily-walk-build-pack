@@ -9,6 +9,7 @@ import { site } from "@/lib/site";
 import { studyTips as tips } from "@/lib/studyTips";
 import { getWordOfTheDay } from "@/lib/wordOfTheDay";
 import { getHistoryMoment } from "@/lib/thisDayInHistory";
+import { getWonderOfTheDay } from "@/lib/wonderOfTheDay";
 
 // Free features — what comes with the daily newsletter (free for everyone).
 const freeFeatures = [
@@ -58,6 +59,7 @@ export default async function HomePage() {
   const goodNews = GOOD_NEWS_ENABLED ? await getDailyGoodNews() : [];
   const word = getWordOfTheDay();
   const moment = getHistoryMoment();
+  const wonder = getWonderOfTheDay();
 
   return (
     <>
@@ -336,6 +338,41 @@ export default async function HomePage() {
             <h3 className="hist-title">{moment.title}</h3>
             <p className="hist-story">{moment.story}</p>
             <div className="hist-takeaway">{moment.takeaway}</div>
+          </div>
+        </div>
+      </section>
+
+      {/* WONDER OF THE DAY */}
+      <section className="wondersec">
+        <div className="wrap">
+          <div className="wonder-card">
+            <div className="wonder-sky">
+              <svg viewBox="0 0 600 150" className="wonder-stars" aria-hidden="true">
+                {[
+                  [60, 40, 1.4], [120, 80, 1], [180, 30, 1.8], [250, 60, 1],
+                  [300, 100, 1.3], [360, 45, 1], [420, 90, 1.6], [515, 35, 1],
+                  [555, 70, 1.2], [560, 112, 1], [90, 115, 1], [220, 120, 1.3],
+                  [400, 125, 1], [150, 55, 0.9], [330, 25, 1.1], [480, 118, 1],
+                ].map(([cx, cy, r], i) => (
+                  <circle key={i} cx={cx} cy={cy} r={r} fill="#ffffff" opacity={0.85} />
+                ))}
+                <circle cx="470" cy="58" r="14" fill="#ffe7b6" opacity="0.18" />
+                <circle cx="470" cy="58" r="3.2" fill="#ffd27a" />
+                <g stroke="#ffd27a" strokeWidth="1.4" strokeLinecap="round" opacity="0.85">
+                  <line x1="470" y1="48" x2="470" y2="68" />
+                  <line x1="460" y1="58" x2="480" y2="58" />
+                </g>
+              </svg>
+              <span className="wonder-kicker">✦ Wonder of the Day</span>
+            </div>
+            <div className="wonder-body-wrap">
+              <h3 className="wonder-title">{wonder.title}</h3>
+              <p className="wonder-text">{wonder.body}</p>
+              <div className="wonder-verse">
+                &ldquo;{wonder.verseText}&rdquo; — {wonder.verseRef}
+              </div>
+              <p className="wonder-reflect">{wonder.reflection}</p>
+            </div>
           </div>
         </div>
       </section>
