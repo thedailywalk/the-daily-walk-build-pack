@@ -139,6 +139,25 @@ export async function adminListRange(
   }
 }
 
+/** Past PUBLISHED devotionals (ready + before today), newest first — for the
+ *  member archive. Read with the service client (server-side). */
+export async function listPublishedArchive(limit = 60): Promise<Devotional[]> {
+  if (!adminDbConfigured) return [];
+  try {
+    const supabase = createServiceClient();
+    const { data } = await supabase
+      .from("devotionals")
+      .select("date,status,title,data,updated_at")
+      .eq("status", "ready")
+      .lt("date", todayPT())
+      .order("date", { ascending: false })
+      .limit(limit);
+    return (data ?? []).map(rowToDevotional);
+  } catch {
+    return [];
+  }
+}
+
 export async function adminUpsert(
   date: string,
   status: DevotionalStatus,

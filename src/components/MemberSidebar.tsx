@@ -17,6 +17,8 @@ const I = {
   star: stroke(<path d="M12 3.5 14.6 9l6 .5-4.6 4 1.4 5.8L12 16.9 6.6 19.3 8 13.5 3.4 9.5l6-.5z" />),
   book: stroke(<path d="M4 5v14M9 4h10a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H9zM4 9h5M4 14h5" />),
   hands: stroke(<path d="M12 21s-7-4.35-7-9a4 4 0 0 1 7-2.6A4 4 0 0 1 19 12c0 4.65-7 9-7 9z" />),
+  pen: stroke(<><path d="M12 20h9" /><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z" /></>),
+  archive: stroke(<><rect x="3" y="4" width="18" height="4" rx="1" /><path d="M5 8v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8M10 12h4" /></>),
   user: stroke(<><circle cx="12" cy="8" r="4" /><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6" /></>),
 };
 
@@ -29,7 +31,9 @@ const MAIN: Item[] = [
 const WALK: Item[] = [
   { href: "/journey", label: "My Journey", icon: I.compass, sub: "Bible in a year" },
   { href: "/wonders", label: "Daily Wonders", icon: I.star },
+  { href: "/portal/prayer", label: "Prayer Journal", icon: I.pen, sub: "Private" },
   { href: "/journey?tab=notes", label: "Saved & Notes", icon: I.book },
+  { href: "/portal/archive", label: "Archive", icon: I.archive },
   { href: "/prayer-wall", label: "Prayer Wall", icon: I.hands },
 ];
 

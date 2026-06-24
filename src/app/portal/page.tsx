@@ -71,6 +71,8 @@ export default async function PortalHome() {
     { href: "/wonders", icon: ICON.star, label: "Daily Wonders", sub: "Word, history & wonder" },
     { href: "/journey?tab=notes", icon: ICON.book, label: "Scripture Notes", sub: `${noteDays.length} saved` },
     { href: "/journey?tab=favorites", icon: ICON.star, label: "Favorite Verses", sub: `${favorites.length} bookmarked` },
+    { href: "/portal/prayer", icon: ICON.hands, label: "Prayer Journal", sub: "Private prayers" },
+    { href: "/portal/archive", icon: ICON.book, label: "Archive", sub: "Past devotionals" },
     { href: "/prayer-wall", icon: ICON.hands, label: "Prayer Wall", sub: "Pray & be prayed for" },
     { href: "/account", icon: ICON.compass, label: "Account", sub: `${ent.tier} membership` },
   ];

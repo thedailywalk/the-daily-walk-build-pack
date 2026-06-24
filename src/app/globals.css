@@ -6827,3 +6827,225 @@ hr.div {
   padding-top: 12px;
   border-top: 1px dashed var(--m-border);
 }
+
+/* ---- Member: Prayer Journal ---- */
+.pj-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 26px;
+}
+.pj-title,
+.pj-body {
+  background: var(--m-surface-2);
+  border: 1px solid var(--m-border);
+  border-radius: 10px;
+  padding: 11px 14px;
+  font-size: 14.5px;
+  color: var(--m-text);
+  font-family: var(--sans);
+}
+.pj-title::placeholder,
+.pj-body::placeholder {
+  color: var(--m-muted);
+}
+.pj-title:focus,
+.pj-body:focus {
+  outline: none;
+  border-color: var(--m-gold);
+}
+.pj-body {
+  resize: vertical;
+  line-height: 1.55;
+}
+.pj-form-actions {
+  display: flex;
+}
+.pj-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.pj-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.pj-card-title {
+  font-family: var(--serif);
+  font-size: 17px;
+  color: var(--m-navy);
+  margin: 0;
+}
+.pj-date {
+  font-size: 12.5px;
+  color: var(--m-muted);
+  white-space: nowrap;
+}
+.pj-card-body {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--m-text);
+  margin: 0 0 12px;
+  white-space: pre-wrap;
+}
+.pj-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.pj-card-actions form {
+  margin: 0;
+}
+.pj-del {
+  background: none;
+  border: none;
+  color: var(--m-muted);
+  font-size: 13px;
+  cursor: pointer;
+  font-family: var(--sans);
+  padding: 0;
+}
+.pj-del:hover {
+  color: #c0463f;
+}
+.pj-answered {
+  opacity: 0.9;
+}
+.pj-badge {
+  font-size: 11px;
+  font-weight: 700;
+  color: #15824f;
+  background: rgba(21, 163, 107, 0.14);
+  border-radius: 999px;
+  padding: 3px 10px;
+}
+.member-shell[data-theme="night"] .pj-badge {
+  color: #6fe0a8;
+  background: rgba(52, 211, 153, 0.16);
+}
+
+/* ---- Member: Archive ---- */
+.arc-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.arc-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  text-decoration: none;
+  transition: border-color 0.12s;
+}
+.arc-row:hover {
+  border-color: var(--m-gold);
+  text-decoration: none;
+}
+.arc-date {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: var(--m-gold-deep);
+}
+.arc-title {
+  font-family: var(--serif);
+  font-size: 18px;
+  color: var(--m-navy);
+  margin-top: 2px;
+}
+.arc-verse {
+  font-size: 13px;
+  color: var(--m-muted);
+  margin-top: 2px;
+}
+.arc-open {
+  color: var(--m-gold-deep);
+  font-weight: 600;
+  font-size: 14px;
+  white-space: nowrap;
+}
+.arc-vidgrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+.arc-vid {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  text-decoration: none;
+  transition: border-color 0.12s;
+}
+.arc-vid:hover {
+  border-color: var(--m-gold);
+  text-decoration: none;
+}
+.arc-vid-thumb {
+  width: 120px;
+  flex: none;
+  aspect-ratio: 16 / 9;
+  border-radius: 9px;
+  overflow: hidden;
+  background: var(--m-navy);
+  display: grid;
+  place-items: center;
+  color: #fff;
+}
+.arc-vid-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.arc-vid-week {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--m-gold-deep);
+}
+.arc-vid-title {
+  font-family: var(--serif);
+  font-size: 15px;
+  color: var(--m-navy);
+  margin-top: 2px;
+  line-height: 1.25;
+}
+.arc-vid-ch {
+  font-size: 12.5px;
+  color: var(--m-muted);
+  margin-top: 2px;
+}
+
+/* Archive reader */
+.m-reader {
+  max-width: 760px;
+}
+.m-back {
+  display: inline-block;
+  color: var(--m-gold-deep);
+  font-size: 13.5px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.arc-readdate {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--m-muted);
+  margin-bottom: 10px;
+}
+.m-issue {
+  background: #fffdf8;
+  border: 1px solid var(--m-border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+@media (max-width: 720px) {
+  .arc-vidgrid {
+    grid-template-columns: 1fr;
+  }
+}
