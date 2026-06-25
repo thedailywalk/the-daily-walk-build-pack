@@ -8412,3 +8412,7 @@ hr.div {
   display: block; font-size: 9.5px; font-weight: 800; letter-spacing: 0.4px;
   text-transform: uppercase; color: var(--m-gold-deep); margin-top: 2px;
 }
+
+/* Header "Premium" link — gold accent so the upgrade is discoverable */
+.nav .navlinks a.navpremium { color: var(--gold, #B8902E); font-weight: 700; }
+.nav .navlinks a.navpremium:hover { color: var(--gold-deep, #9a7722); }

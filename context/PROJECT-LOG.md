@@ -194,6 +194,12 @@ SQL files in `supabase/`: `prayer-wall.sql`, `good-news.sql`, `study-journal.sql
 
 ## Decision Log (newest at top)
 
+### 2026-06-25 — Newsletter monetization funnel built (Free + Premium $5.99 Founding Member)
+- **Decided & built:** the website funnel to launch paid newsletters while the platform is in build. `/pricing` (when `PRICING_ENABLED` is false) now shows a **Founding Member offer** instead of "coming soon": Free vs Premium ($5.99/mo or $59/yr), the three premium segments (**The Science Behind It** daily, **The World This Week** Thu, **The Weekend Study** Sat), the **"grandfathered into the full platform"** promise, and a "platform coming soon" panel. Subscribe page teaser updated to founding language. Header has an always-visible gold **Premium** link. The devotional **email HTML** (`devotionalHtml.ts`, used for "Copy email HTML" + RSS) now ends with a **Founding-Member upgrade block**.
+- **Premium CTA wiring:** the "Become a Founding Member" button uses `site.beehiiv.upgradePremiumUrl` (env `NEXT_PUBLIC_BEEHIIV_PREMIUM_URL`). Until that env is set it gracefully falls back to "Join free — be first in line." **Owner action:** in Beehiiv, move to the plan that allows paid subscriptions, connect Stripe, create Premium $5.99/mo (+ $59/yr), then set `NEXT_PUBLIC_BEEHIIV_PREMIUM_URL` to the Beehiiv premium-upgrade/checkout URL and redeploy.
+- **Why:** start revenue in ~2 days without waiting on the full platform; founding/grandfather framing drives urgency.
+- **Affects:** `pricing/page.tsx`, `subscribe/page.tsx`, `devotionalHtml.ts`, `Header.tsx`, `globals.css`. Pricing stays gated by `PRICING_ENABLED` (still false) so the full 3-tier Stripe page stays off; the founding offer shows in its place.
+
 ### 2026-06-25 — Condensed "focused & calm" dashboard + badge redesign with secret badges
 - **Decided:** (1) Condensed `/portal` to lead with Today's devotional → Continue journey → Community, with the streak merged as a slim line into the hero, and momentum/badges/Question-of-Day/Bible-Parallels/Wonder/Quick-access tucked into one collapsible **"A little more for today"** `<details>`. (2) Redesigned badges into six families — Showing up, The Word, Prayer, Community, Milestones, and **Hidden blessings (secret)**. Secret badges (Quiet Comeback, Hidden Gem, Well-Rounded Walk) never appear in the "next up" preview — only revealed when earned, with a "✨ hidden" accent.
 - **Why:** Lulu chose "Focused & calm" + essentials = devotional/continue/community, and said yes to surprise badges.

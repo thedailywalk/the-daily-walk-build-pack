@@ -51,8 +51,11 @@ export default function SubscribePage() {
             ))}
           </ul>
           <div className="who" style={{ marginTop: 16 }}>
-            Want the guided Bible-in-a-Year journey too?{" "}
-            <Link href="/pricing">See Premium →</Link>
+            Want to go deeper? <strong>Premium ($5.99/mo)</strong> adds the daily
+            &ldquo;Science Behind It,&rdquo; a weekly faith lens on the headlines, and a weekend
+            study — and <strong>Founding Members</strong> lock that rate for life and get the
+            whole platform free when it launches.{" "}
+            <Link href="/pricing">Become a Founding Member →</Link>
           </div>
         </div>
 

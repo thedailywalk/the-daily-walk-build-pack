@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import PricingCards from "@/components/PricingCards";
 import { PRICING_ENABLED } from "@/lib/flags";
+import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Pricing",
@@ -105,27 +106,7 @@ function No() {
 
 export default function PricingPage() {
   if (!PRICING_ENABLED) {
-    return (
-      <header className="hero sunrise portal-hero">
-        <div className="wrap">
-          <div className="inner">
-            <div className="rule" />
-            <div className="eyebrow">Coming soon</div>
-            <h1>Subscriptions are on the way</h1>
-            <p className="lead">
-              The Daily Walk is free to start right now. Paid plans (with the
-              guided Bible-in-a-Year journey and more) are coming soon — join
-              free today and you&apos;ll be first to know when they open. 🙏
-            </p>
-            <div style={{ marginTop: 22 }}>
-              <Link href="/subscribe" className="btn btn-gold">
-                Join free
-              </Link>
-            </div>
-          </div>
-        </div>
-      </header>
-    );
+    return <FoundingOffer />;
   }
 
   return (
@@ -260,6 +241,140 @@ export default function PricingPage() {
 
         <hr className="div" />
       </div>
+    </>
+  );
+}
+
+/* ---- Founding-member newsletter offer (shown while the platform is in build) ---- */
+
+function FoundingOffer() {
+  const premiumUrl = site.beehiiv.upgradePremiumUrl;
+  const premiumReady = !!premiumUrl && premiumUrl !== "/pricing";
+
+  const navy = "#1F3A5F";
+  const gold = "#C9A24B";
+  const ink = "#3c4350";
+
+  const card: React.CSSProperties = {
+    background: "#fff",
+    border: "1px solid #e7ddc7",
+    borderRadius: 18,
+    padding: "28px 26px",
+    boxShadow: "0 18px 40px -28px rgba(31,58,95,0.45)",
+  };
+  const check = (t: string, strong = false) => (
+    <li key={t} style={{ display: "flex", gap: 10, alignItems: "flex-start", margin: "9px 0", fontSize: 15, color: strong ? navy : ink }}>
+      <span style={{ color: gold, fontWeight: 800 }}>✓</span>
+      <span style={strong ? { fontWeight: 700 } : undefined}>{t}</span>
+    </li>
+  );
+
+  return (
+    <>
+      <header className="hero sunrise portal-hero">
+        <div className="wrap">
+          <div className="inner">
+            <div className="rule" />
+            <div className="eyebrow">Become a Founding Member</div>
+            <h1>Start free. Go deeper for $5.99.</h1>
+            <p className="lead">
+              The daily walk is free, forever. <strong>Premium</strong> takes it further every day — and as a
+              Founding Member you lock in <strong>$5.99/mo for life</strong> and get the full platform we&apos;re
+              building (your guided Bible-in-a-Year journey, audio, dashboard &amp; community) the day it opens. 🙏
+            </p>
+          </div>
+        </div>
+      </header>
+
+      <section>
+        <div className="wrap" style={{ maxWidth: 940 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 22 }}>
+            {/* FREE */}
+            <div style={card}>
+              <div style={{ fontFamily: "var(--sans)", fontSize: 12, fontWeight: 800, letterSpacing: 1, textTransform: "uppercase", color: "#8a8270" }}>
+                The Daily Walk
+              </div>
+              <div style={{ fontFamily: "var(--serif)", fontSize: 30, color: navy, margin: "4px 0 2px" }}>Free</div>
+              <div style={{ color: "#8a8270", fontSize: 14, marginBottom: 14 }}>$0 — forever, no card</div>
+              <ul style={{ listStyle: "none", padding: 0, margin: "0 0 18px" }}>
+                {check("A short daily devotional")}
+                {check("One honest prayer every day")}
+                {check("A daily moment of encouragement")}
+                {check("Be first to know as the platform opens")}
+              </ul>
+              <Link href="/subscribe" className="btn btn-ghost" style={{ width: "100%", textAlign: "center" }}>
+                Join free →
+              </Link>
+            </div>
+
+            {/* PREMIUM — FOUNDING */}
+            <div style={{ ...card, border: `2px solid ${gold}`, position: "relative" }}>
+              <span style={{ position: "absolute", top: -13, left: 24, background: gold, color: navy, fontFamily: "var(--sans)", fontWeight: 800, fontSize: 11, letterSpacing: 0.6, textTransform: "uppercase", padding: "5px 12px", borderRadius: 20 }}>
+                Founding Member · locked for life
+              </span>
+              <div style={{ fontFamily: "var(--sans)", fontSize: 12, fontWeight: 800, letterSpacing: 1, textTransform: "uppercase", color: "#B8902E", marginTop: 6 }}>
+                Premium
+              </div>
+              <div style={{ fontFamily: "var(--serif)", fontSize: 30, color: navy, margin: "4px 0 2px" }}>
+                $5.99<span style={{ fontSize: 16, color: "#8a8270" }}> /mo</span>
+              </div>
+              <div style={{ color: "#8a8270", fontSize: 14, marginBottom: 14 }}>or $59/year (2 months free)</div>
+              <ul style={{ listStyle: "none", padding: 0, margin: "0 0 18px" }}>
+                {check("Everything in Free, plus —", true)}
+                {check("The Science Behind It — daily: the research & neuroscience behind today's truth")}
+                {check("The World This Week — a faith lens on the headlines (Thursdays)")}
+                {check("The Weekend Study — a deeper teaching (Saturdays)")}
+                {check("Founding rate locked at $5.99 for life", true)}
+                {check("Grandfathered into the full platform when it launches", true)}
+              </ul>
+              {premiumReady ? (
+                <a href={premiumUrl} className="btn btn-gold" style={{ width: "100%", textAlign: "center" }}>
+                  Become a Founding Member →
+                </a>
+              ) : (
+                <>
+                  <Link href="/subscribe" className="btn btn-gold" style={{ width: "100%", textAlign: "center" }}>
+                    Join free — be first in line →
+                  </Link>
+                  <p style={{ textAlign: "center", color: "#8a8270", fontSize: 12.5, margin: "10px 0 0" }}>
+                    Founding membership opens within days — free subscribers get the invite first.
+                  </p>
+                </>
+              )}
+            </div>
+          </div>
+
+          {/* Platform coming soon */}
+          <div style={{ marginTop: 30, background: navy, color: "#EDE6D4", borderRadius: 16, padding: "26px 28px" }}>
+            <div style={{ fontFamily: "var(--sans)", fontSize: 12, fontWeight: 800, letterSpacing: 1, textTransform: "uppercase", color: "#E3C074" }}>
+              The platform is coming
+            </div>
+            <h2 style={{ fontFamily: "var(--serif)", fontSize: 26, color: "#fff", margin: "6px 0 10px" }}>
+              You&apos;re getting in before the doors open.
+            </h2>
+            <p style={{ fontSize: 15.5, lineHeight: 1.65, maxWidth: 640, margin: "0 0 14px", color: "#cfd8e4" }}>
+              We&apos;re building a full members&apos; home — and Founding Members are grandfathered into all of it at
+              the same $5.99, even after the price goes up:
+            </p>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 10 }}>
+              {[
+                "Your guided Bible-in-a-Year journey, from your Day 1",
+                "Daily audio devotionals",
+                "A personal dashboard — streaks, milestones, your Walk Score",
+                "A real community: prayer wall + encouragement wall",
+              ].map((t) => (
+                <div key={t} style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.16)", borderRadius: 12, padding: "12px 14px", fontSize: 14, color: "#EDE6D4" }}>
+                  ✦ {t}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <p style={{ textAlign: "center", color: "#8a8270", fontSize: 13.5, margin: "22px 0 0" }}>
+            Cancel anytime, one click. Questions? <a href={`mailto:${site.replyTo}`}>{site.replyTo}</a>
+          </p>
+        </div>
+      </section>
     </>
   );
 }

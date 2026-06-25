@@ -1,6 +1,7 @@
 import "server-only";
 import type { Devotional } from "@/lib/devotionals";
 import { weekdayLabel, prettyDate } from "@/lib/devotionals";
+import { site } from "@/lib/site";
 
 function esc(s: string | undefined): string {
   return (s ?? "")
@@ -148,6 +149,17 @@ export function renderDevotionalHtml(dev: Devotional): string {
     ? `<div style="${S.pad}">${rule}<div style="${S.closing}">${esc(d.closingLine)}</div><div style="height:8px;line-height:8px;">&nbsp;</div></div>`
     : "";
 
+  // Founding-member upgrade nudge (free issue → premium). Absolute link for email.
+  const upsellBlock = `
+    <div style="${S.pad}">${rule}
+      <div style="background:#10243f;border:1px solid #C9A24B;border-radius:10px;padding:22px 24px;text-align:center;">
+        <div style="font-family:Arial,Helvetica,sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#E3C074;font-weight:bold;margin:0 0 8px;">Go deeper · Founding Member</div>
+        <p style="font-family:Arial,Helvetica,sans-serif;color:#EDE6D4;font-size:15px;line-height:1.6;margin:0 0 14px;">Premium adds <strong style="color:#fff;">The Science Behind It</strong> (daily), <strong style="color:#fff;">The World This Week</strong>, and <strong style="color:#fff;">The Weekend Study</strong> — and Founding Members lock in <strong style="color:#fff;">$5.99/mo for life</strong> and get the full platform (guided Bible-in-a-Year, audio, your dashboard &amp; community) free when it launches.</p>
+        <a href="${site.url}/pricing" style="${S.btn}">Become a Founding Member →</a>
+      </div>
+      <div style="height:14px;line-height:14px;">&nbsp;</div>
+    </div>`;
+
   return `<div style="${S.outer}">
   <div style="${S.wrap}">
     <div style="${S.masthead}">
@@ -161,6 +173,7 @@ export function renderDevotionalHtml(dev: Devotional): string {
     ${pastorBlock}
     ${ctaBlock}
     ${closingBlock}
+    ${upsellBlock}
     <div style="${S.footer}">
       <strong style="color:#C9A24B;">The Daily Walk</strong><br>
       A daily guide for walking with God in real life.<br>
