@@ -8258,3 +8258,119 @@ hr.div {
   color: var(--m-dim);
   margin-bottom: 14px;
 }
+
+/* ============================================================
+   Member portal — Walk Score hero, momentum chart, community
+   pace, accountability board, share box
+   ============================================================ */
+/* Profile strip in the hero */
+.member-shell .m-hero-profile { display: flex; gap: 16px; align-items: center; }
+.member-shell .m-avatar {
+  flex: 0 0 auto;
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  font-family: var(--serif);
+  font-size: 26px; font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, var(--m-gold), var(--m-gold-deep));
+  box-shadow: 0 6px 16px -8px rgba(184, 144, 46, 0.7);
+}
+.member-shell .m-hero-meta {
+  display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
+  font-size: 12.5px; color: var(--m-dim); margin-top: 2px;
+}
+.member-shell .m-tier {
+  text-transform: capitalize;
+  font-weight: 700;
+  color: var(--m-gold-deep);
+  background: rgba(201, 162, 75, 0.14);
+  border: 1px solid rgba(201, 162, 75, 0.3);
+  border-radius: 999px; padding: 1px 10px;
+}
+
+/* Walk Score */
+.member-shell .m-walkscore {
+  display: flex; gap: 18px; align-items: center;
+  margin-top: 20px; padding-top: 18px;
+  border-top: 1px solid var(--m-border);
+}
+.member-shell .m-ws-num { text-align: center; flex: 0 0 auto; }
+.member-shell .m-ws-num b {
+  display: block; font-family: var(--serif); font-weight: 800;
+  font-size: 40px; line-height: 1; color: var(--m-navy);
+}
+.member-shell .m-ws-num span {
+  font-size: 10.5px; font-weight: 800; letter-spacing: 0.8px;
+  text-transform: uppercase; color: var(--m-gold-deep);
+}
+.member-shell .m-ws-body { flex: 1; min-width: 0; }
+.member-shell .m-ws-level { font-family: var(--serif); font-size: 18px; color: var(--m-navy); }
+.member-shell .m-ws-bar {
+  height: 9px; border-radius: 999px; margin: 7px 0;
+  background: rgba(31, 58, 95, 0.1); overflow: hidden;
+}
+.member-shell .m-ws-bar span {
+  display: block; height: 100%;
+  background: linear-gradient(90deg, var(--m-gold), var(--m-gold-deep));
+  border-radius: 999px;
+}
+.member-shell .m-ws-hint { font-size: 12.5px; color: var(--m-dim); }
+
+/* Momentum chart */
+.member-shell .m-momentum {
+  background: var(--m-surface); border: 1px solid var(--m-border);
+  border-radius: 16px; padding: 18px 20px; margin-bottom: 26px;
+}
+.member-shell .m-mo-rows { display: flex; flex-direction: column; gap: 14px; margin: 12px 0 8px; }
+.member-shell .m-mo-label { font-size: 13.5px; font-weight: 600; color: var(--m-text); margin-bottom: 6px; }
+.member-shell .m-mo-bars { display: flex; flex-direction: column; gap: 6px; }
+.member-shell .m-mo-bar { position: relative; background: var(--m-surface-2); border-radius: 8px; height: 26px; overflow: hidden; }
+.member-shell .m-mo-fill { display: block; height: 100%; border-radius: 8px; min-width: 4px; }
+.member-shell .m-mo-fill.is-this { background: linear-gradient(90deg, var(--m-gold), var(--m-gold-deep)); }
+.member-shell .m-mo-fill.is-last { background: rgba(31, 58, 95, 0.22); }
+.member-shell .m-mo-bar em {
+  position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+  font-style: normal; font-size: 12px; font-weight: 600; color: var(--m-text);
+}
+.member-shell .m-mo-foot { font-size: 13px; color: var(--m-dim); font-style: italic; margin: 6px 0 0; }
+
+/* Community pace */
+.member-shell .m-pace { margin-bottom: 16px; }
+.member-shell .m-pace-grid { display: flex; gap: 12px; flex-wrap: wrap; margin: 10px 0; }
+.member-shell .m-pace-stat {
+  flex: 1; min-width: 110px; text-align: center;
+  background: var(--m-surface-2); border: 1px solid var(--m-border);
+  border-radius: 12px; padding: 12px;
+}
+.member-shell .m-pace-stat b { display: block; font-family: var(--serif); font-size: 22px; color: var(--m-navy); }
+.member-shell .m-pace-stat span { font-size: 11px; color: var(--m-dim); }
+.member-shell .m-pace-actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; margin-top: 4px; }
+.member-shell .m-invite { font-size: 13px; font-weight: 600; color: var(--m-gold-deep); text-decoration: none; }
+.member-shell .m-invite:hover { text-decoration: underline; }
+
+/* Accountability board (collapsible) */
+.member-shell .m-accountability {
+  border: 1px solid var(--m-border); border-radius: 16px;
+  background: var(--m-surface); padding: 4px 18px; margin-bottom: 26px;
+}
+.member-shell .m-accountability summary {
+  cursor: pointer; padding: 12px 0; list-style: none;
+  display: flex; flex-direction: column; gap: 2px;
+}
+.member-shell .m-accountability summary::-webkit-details-marker { display: none; }
+.member-shell .m-acc-title { font-family: var(--serif); font-size: 17px; color: var(--m-navy); }
+.member-shell .m-acc-hint { font-size: 12.5px; color: var(--m-dim); }
+.member-shell .m-acc-boards { margin: 6px 0 10px; }
+.member-shell .m-acc-foot { font-size: 12.5px; color: var(--m-dim); font-style: italic; margin: 0 0 12px; }
+
+/* Share box */
+.member-shell .m-share { display: flex; gap: 8px; margin: 12px 0 14px; }
+.member-shell .m-share-input {
+  flex: 1; min-width: 0;
+  border: 1px solid var(--m-border); border-radius: 10px;
+  padding: 10px 14px; font-size: 14px; font-family: var(--sans);
+  background: var(--m-surface-2); color: var(--m-text);
+}
+.member-shell .m-share-input::placeholder { color: var(--m-muted); }
+.member-shell .m-wall-said { color: var(--m-text); font-style: italic; }

@@ -20,13 +20,17 @@ import {
   getStreak,
   memorizedCounts,
   weeklyLeaderboard,
+  streakLeaderboard,
+  communityPace,
+  weeklyActivity,
+  walkScore,
   communityWall,
   computeBadges,
   awardNewBadges,
   displayNameFromEmail,
   REACTIONS,
 } from "@/lib/community";
-import { reactAction } from "./memory/actions";
+import { reactAction, shareToWallAction } from "./memory/actions";
 
 export const metadata: Metadata = {
   title: "Member Portal",
@@ -70,7 +74,7 @@ export default async function PortalHome() {
 
   await recordCheckIn(user!.id); // count today toward the streak
 
-  const [ent, today, progress, video, noteDays, favorites, pollCounts, streak, mem, prayers, weekly, wall] =
+  const [ent, today, progress, video, noteDays, favorites, pollCounts, streak, mem, prayers, weekly, streakBoard, activity, wall] =
     await Promise.all([
       getEntitlement(email),
       getLiveDevotional(),
@@ -83,6 +87,8 @@ export default async function PortalHome() {
       memorizedCounts(user!.id),
       listEntries(user!.id),
       weeklyLeaderboard(user!.id, 5),
+      streakLeaderboard(user!.id, 5),
+      weeklyActivity(user!.id),
       communityWall(user!.id, 8),
     ]);
 
@@ -90,6 +96,22 @@ export default async function PortalHome() {
   const reading = getStudyDay(day);
   const pct = progressPercent(progress);
   const done = daysCompleted(progress);
+  const pace = await communityPace(user!.id, day);
+
+  // Walk Score — one transparent number from real engagement.
+  const score = walkScore({
+    daysCompleted: done,
+    memorizedTotal: mem.total,
+    prayerCount: prayers.length,
+    longestStreak: streak.longest,
+    notesCount: noteDays.length,
+    favoritesCount: favorites.length,
+  });
+
+  // "Walking since" from the account creation date.
+  const joined = user!.created_at
+    ? new Date(user!.created_at).toLocaleDateString("en-US", { month: "long", year: "numeric" })
+    : null;
 
   // Badges (derived) + post any newly-earned ones to the wall.
   const badgeStats = {
@@ -118,17 +140,41 @@ export default async function PortalHome() {
 
   return (
     <div className="m-wrap">
-      {/* Greeting hero */}
+      {/* Greeting hero with profile + Walk Score */}
       <section className="m-hero">
         <div className="m-hero-in">
-          <span className="m-hero-kicker">{prettyDate(todayPT())}</span>
-          <h1 className="m-hero-h">
-            {greeting()}, {display}.
-          </h1>
+          <div className="m-hero-profile">
+            <span className="m-avatar" aria-hidden="true">{display.charAt(0)}</span>
+            <div>
+              <span className="m-hero-kicker">{prettyDate(todayPT())}</span>
+              <h1 className="m-hero-h">{greeting()}, {display}.</h1>
+              <div className="m-hero-meta">
+                {joined && <span>Walking since {joined}</span>}
+                <span className="m-tier">{ent.tier}</span>
+              </div>
+            </div>
+          </div>
           <p className="m-hero-sub">
-            Welcome to your walk with God today. Everything you&apos;re reading,
-            studying, saving, and praying lives here — one calm place to keep going.
+            Take a breath. This is your time with God today — no rush, no guilt.
+            Everything you&apos;re reading, studying, and praying lives right here.
           </p>
+
+          {/* Walk Score */}
+          <div className="m-walkscore">
+            <div className="m-ws-num">
+              <b>{score.score}</b>
+              <span>Walk Score</span>
+            </div>
+            <div className="m-ws-body">
+              <div className="m-ws-level">{score.level}</div>
+              <div className="m-ws-bar"><span style={{ width: `${Math.round(score.intoLevel * 100)}%` }} /></div>
+              <div className="m-ws-hint">
+                {score.nextLevel
+                  ? `${score.toNext} to ${score.nextLevel} — reading, prayer & memorized verses all add up.`
+                  : "Deeply rooted. Keep walking. 🌳"}
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -153,6 +199,30 @@ export default async function PortalHome() {
           <div className="m-streak-stat"><b>{earnedBadges.length}</b><span>badges</span></div>
           <Link href="/portal/memory" className="m-streak-cta">＋ Memorize a verse</Link>
         </div>
+      </section>
+
+      {/* Weekly momentum — this week vs last week */}
+      <section className="m-momentum">
+        <span className="m-card-eyebrow">✦ Your momentum</span>
+        <div className="m-mo-rows">
+          {([
+            { label: "Days walked", icon: "🔥", tw: activity.thisWeek.days, lw: activity.lastWeek.days, max: 7 },
+            { label: "Verses memorized", icon: "📖", tw: activity.thisWeek.verses, lw: activity.lastWeek.verses, max: Math.max(3, activity.thisWeek.verses, activity.lastWeek.verses) },
+          ] as const).map((r) => (
+            <div key={r.label} className="m-mo-row">
+              <div className="m-mo-label">{r.icon} {r.label}</div>
+              <div className="m-mo-bars">
+                <div className="m-mo-bar"><span className="m-mo-fill is-this" style={{ width: `${Math.min(100, (r.tw / r.max) * 100)}%` }} /><em>This week · {r.tw}</em></div>
+                <div className="m-mo-bar"><span className="m-mo-fill is-last" style={{ width: `${Math.min(100, (r.lw / r.max) * 100)}%` }} /><em>Last week · {r.lw}</em></div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <p className="m-mo-foot">
+          {activity.thisWeek.days >= activity.lastWeek.days
+            ? "You're keeping pace — beautiful. Small and steady wins. 🌱"
+            : "A gentler week — that's okay. Today is a fresh start."}
+        </p>
       </section>
 
       {/* Today's Walk */}
@@ -250,68 +320,123 @@ export default async function PortalHome() {
 
       {/* Community: walk together */}
       <div className="m-section-tag">Walk together</div>
-      <div className="m-two m-community">
-        {/* Weekly Scripture-memory leaderboard */}
-        <section className="m-panel m-leaderboard">
-          <span className="m-card-eyebrow">✦ This week’s memory leaders</span>
-          <p className="m-card-line muted" style={{ marginTop: -2 }}>
-            Verses hidden in the heart this week. Iron sharpens iron — not a contest.
-          </p>
-          {weekly.length === 0 ? (
-            <p className="muted">No verses yet this week. <Link href="/portal/memory">Be the first →</Link></p>
-          ) : (
-            <ol className="mem-lb">
-              {weekly.map((r, i) => (
-                <li key={r.userId} className={`mem-lb-row${r.isMe ? " is-me" : ""}`}>
-                  <span className="mem-lb-rank">{["🥇", "🥈", "🥉"][i] ?? i + 1}</span>
-                  <span className="mem-lb-name">{r.name}{r.isMe && <em> · you</em>}</span>
-                  <span className="mem-lb-count">{r.count}<span> verses</span></span>
-                </li>
-              ))}
-            </ol>
-          )}
-          <Link href="/portal/memory" className="btn btn-ghost">Open Scripture Memory →</Link>
-        </section>
 
-        {/* Encouragement wall */}
-        <section className="m-panel m-wall">
-          <span className="m-card-eyebrow">♥ Encouragement wall</span>
-          <p className="m-card-line muted" style={{ marginTop: -2 }}>
-            Milestones from the community. Send a little support — no words needed.
-          </p>
-          {wall.length === 0 ? (
-            <p className="muted">As people reach milestones, they’ll show here to cheer on. 🎉</p>
-          ) : (
-            <ul className="m-wall-feed">
-              {wall.map((a) => (
-                <li key={a.id} className="m-wall-item">
-                  <p className="m-wall-text">
-                    <strong>{a.name}</strong> {a.label}
-                    {a.detail && <span className="m-wall-detail"> — {a.detail}</span>}
-                  </p>
-                  <div className="m-wall-reacts">
-                    {REACTIONS.map((r) => {
-                      const n = a.counts[r.kind] ?? 0;
-                      const mine = a.myReaction === r.kind;
-                      return (
-                        <form action={reactAction} key={r.kind}>
-                          <input type="hidden" name="achievementId" value={a.id} />
-                          <input type="hidden" name="kind" value={r.kind} />
-                          <input type="hidden" name="from" value="/portal" />
-                          <button type="submit" className={`m-react${mine ? " is-on" : ""}`} title={r.label}>
-                            <span aria-hidden="true">{r.emoji}</span>
-                            {n > 0 && <span className="m-react-n">{n}</span>}
-                          </button>
-                        </form>
-                      );
-                    })}
-                  </div>
-                </li>
-              ))}
-            </ul>
-          )}
-        </section>
-      </div>
+      {/* Where everyone's at — grace-first community pace */}
+      <section className="m-panel m-pace">
+        <span className="m-card-eyebrow">✦ Where everyone&apos;s at</span>
+        <div className="m-pace-grid">
+          <div className="m-pace-stat"><b>Day {pace.myDay}</b><span>you&apos;re here</span></div>
+          <div className="m-pace-stat"><b>Day {pace.avgDay}</b><span>community average</span></div>
+          <div className="m-pace-stat"><b>{pace.walking}</b><span>walking together</span></div>
+        </div>
+        <p className="m-card-line muted" style={{ marginTop: 4 }}>
+          {pace.myDay >= pace.avgDay
+            ? "You're right in step with the community — keep walking. 🌿"
+            : "A little behind the group? There's no race here — pick up right where you are."}
+        </p>
+        <div className="m-pace-actions">
+          <Link href="/journey" className="btn btn-ghost">Continue my journey →</Link>
+          <Link href="/subscribe" className="m-invite">＋ Invite a friend to walk with you</Link>
+        </div>
+      </section>
+
+      {/* Iron sharpens iron — optional friendly accountability board */}
+      <details className="m-accountability">
+        <summary>
+          <span className="m-acc-title">⚔️ Iron sharpens iron</span>
+          <span className="m-acc-hint">Optional — a friendly nudge to keep each other accountable. Tap to open.</span>
+        </summary>
+        <div className="m-two m-acc-boards">
+          <section className="m-panel m-leaderboard">
+            <span className="m-card-eyebrow">🔥 Longest streaks right now</span>
+            {streakBoard.length === 0 ? (
+              <p className="muted">No streaks going yet — <Link href="/portal">show up today</Link> to start one.</p>
+            ) : (
+              <ol className="mem-lb">
+                {streakBoard.map((r, i) => (
+                  <li key={r.userId} className={`mem-lb-row${r.isMe ? " is-me" : ""}`}>
+                    <span className="mem-lb-rank">{["🥇", "🥈", "🥉"][i] ?? i + 1}</span>
+                    <span className="mem-lb-name">{r.name}{r.isMe && <em> · you</em>}</span>
+                    <span className="mem-lb-count">{r.count}<span> days</span></span>
+                  </li>
+                ))}
+              </ol>
+            )}
+          </section>
+          <section className="m-panel m-leaderboard">
+            <span className="m-card-eyebrow">📖 Verses memorized this week</span>
+            {weekly.length === 0 ? (
+              <p className="muted">No verses yet this week. <Link href="/portal/memory">Be the first →</Link></p>
+            ) : (
+              <ol className="mem-lb">
+                {weekly.map((r, i) => (
+                  <li key={r.userId} className={`mem-lb-row${r.isMe ? " is-me" : ""}`}>
+                    <span className="mem-lb-rank">{["🥇", "🥈", "🥉"][i] ?? i + 1}</span>
+                    <span className="mem-lb-name">{r.name}{r.isMe && <em> · you</em>}</span>
+                    <span className="mem-lb-count">{r.count}<span> verses</span></span>
+                  </li>
+                ))}
+              </ol>
+            )}
+          </section>
+        </div>
+        <p className="m-acc-foot">Iron sharpens iron — not a contest. We&apos;re cheering each other on toward Him. 🤍</p>
+      </details>
+
+      {/* Encouragement wall + share */}
+      <section className="m-panel m-wall">
+        <span className="m-card-eyebrow">♥ Encouragement wall</span>
+        <p className="m-card-line muted" style={{ marginTop: -2 }}>
+          Praises and milestones from the community. Share something, or send a little support — no words needed.
+        </p>
+        <form action={shareToWallAction} className="m-share">
+          <input
+            name="text"
+            maxLength={280}
+            className="m-share-input"
+            placeholder="Share a praise, an answered prayer, or an encouragement…"
+          />
+          <button type="submit" className="btn btn-gold">Share</button>
+        </form>
+        {wall.length === 0 ? (
+          <p className="muted">Be the first to share something today. 🎉</p>
+        ) : (
+          <ul className="m-wall-feed">
+            {wall.map((a) => (
+              <li key={a.id} className="m-wall-item">
+                <p className="m-wall-text">
+                  <strong>{a.name}</strong>{" "}
+                  {a.kind === "share" ? (
+                    <span className="m-wall-said">&ldquo;{a.label}&rdquo;</span>
+                  ) : (
+                    <>
+                      {a.label}
+                      {a.detail && <span className="m-wall-detail"> — {a.detail}</span>}
+                    </>
+                  )}
+                </p>
+                <div className="m-wall-reacts">
+                  {REACTIONS.map((r) => {
+                    const n = a.counts[r.kind] ?? 0;
+                    const mine = a.myReaction === r.kind;
+                    return (
+                      <form action={reactAction} key={r.kind}>
+                        <input type="hidden" name="achievementId" value={a.id} />
+                        <input type="hidden" name="kind" value={r.kind} />
+                        <input type="hidden" name="from" value="/portal" />
+                        <button type="submit" className={`m-react${mine ? " is-on" : ""}`} title={r.label}>
+                          <span aria-hidden="true">{r.emoji}</span>
+                          {n > 0 && <span className="m-react-n">{n}</span>}
+                        </button>
+                      </form>
+                    );
+                  })}
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
 
       {/* Question of the Day + Bible Parallels */}
       <div className="m-section-tag">Reflect &amp; relate</div>

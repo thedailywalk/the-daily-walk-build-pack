@@ -11,6 +11,7 @@ import {
   getStreak,
   memorizedCounts,
   displayNameFromEmail,
+  shareToWall,
   REACTIONS,
   type ReactionKind,
 } from "@/lib/community";
@@ -75,4 +76,12 @@ export async function reactAction(formData: FormData) {
   if (!REACTIONS.some((r) => r.kind === kind)) return;
   await reactToAchievement(user.id, str(formData, "achievementId"), kind);
   revalidatePath(str(formData, "from") || "/portal");
+}
+
+export async function shareToWallAction(formData: FormData) {
+  const user = await getUser();
+  if (!user?.id) return;
+  const name = displayNameFromEmail(user.email);
+  await shareToWall(user.id, name, str(formData, "text"));
+  revalidatePath("/portal");
 }

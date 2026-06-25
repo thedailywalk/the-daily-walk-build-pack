@@ -351,6 +351,186 @@ export async function reactToAchievement(
   }
 }
 
+/* ---------------------------- walk score -------------------------------- */
+
+export type WalkScore = {
+  score: number;
+  level: string;
+  nextLevel: string | null;
+  toNext: number; // points to the next level (0 if maxed)
+  intoLevel: number; // 0..1 progress through the current level
+};
+
+const WALK_LEVELS = [
+  { min: 0, name: "Seedling" },
+  { min: 60, name: "Sprouting" },
+  { min: 160, name: "Taking Root" },
+  { min: 360, name: "Growing" },
+  { min: 720, name: "Flourishing" },
+  { min: 1400, name: "Deeply Rooted" },
+] as const;
+
+/** A single, transparent "how's my walk going" number from real engagement. */
+export function walkScore(s: {
+  daysCompleted: number;
+  memorizedTotal: number;
+  prayerCount: number;
+  longestStreak: number;
+  notesCount: number;
+  favoritesCount: number;
+}): WalkScore {
+  const score =
+    s.daysCompleted * 10 +
+    s.memorizedTotal * 15 +
+    s.prayerCount * 5 +
+    s.longestStreak * 3 +
+    s.notesCount * 2 +
+    s.favoritesCount * 2;
+
+  let idx = 0;
+  for (let i = 0; i < WALK_LEVELS.length; i++) if (score >= WALK_LEVELS[i].min) idx = i;
+  const level = WALK_LEVELS[idx].name;
+  const next = WALK_LEVELS[idx + 1] ?? null;
+  const base = WALK_LEVELS[idx].min;
+  const toNext = next ? next.min - score : 0;
+  const intoLevel = next ? Math.min(1, (score - base) / (next.min - base)) : 1;
+  return { score, level, nextLevel: next?.name ?? null, toNext, intoLevel };
+}
+
+/* ----------------------- cross-member aggregates ------------------------ */
+
+function currentStreakFromDays(days: string[]): number {
+  const set = new Set(days);
+  if (!set.size) return 0;
+  const today = todayPT();
+  let cur = 0;
+  let cursor = set.has(today) ? today : addDaysStr(today, -1);
+  while (set.has(cursor)) {
+    cur++;
+    cursor = addDaysStr(cursor, -1);
+  }
+  return cur;
+}
+
+/** Map user_id → first name, gathered from any table that stores it. */
+async function nameMap(): Promise<Map<string, string>> {
+  const m = new Map<string, string>();
+  if (!adminDbConfigured) return m;
+  try {
+    const supabase = createServiceClient();
+    const [{ data: a }, { data: v }] = await Promise.all([
+      supabase.from("achievements").select("user_id,name"),
+      supabase.from("memory_verses").select("user_id,name"),
+    ]);
+    for (const r of [...(a ?? []), ...(v ?? [])]) {
+      const uid = r.user_id as string;
+      const nm = (r.name as string) || "";
+      if (uid && nm && !m.has(uid)) m.set(uid, nm);
+    }
+  } catch {
+    /* ignore */
+  }
+  return m;
+}
+
+/** "Showing up" board — members ranked by their CURRENT streak. */
+export async function streakLeaderboard(meId: string, limit = 8): Promise<LeaderRow[]> {
+  if (!adminDbConfigured) return [];
+  try {
+    const supabase = createServiceClient();
+    const { data } = await supabase.from("member_checkins").select("user_id,day").limit(20000);
+    const byUser = new Map<string, string[]>();
+    for (const r of data ?? []) {
+      const uid = r.user_id as string;
+      const arr = byUser.get(uid) ?? [];
+      arr.push(r.day as string);
+      byUser.set(uid, arr);
+    }
+    const names = await nameMap();
+    const rows: LeaderRow[] = [];
+    for (const [uid, days] of byUser) {
+      const cur = currentStreakFromDays(days);
+      if (cur <= 0) continue;
+      rows.push({ userId: uid, name: names.get(uid) || "A member", count: cur, isMe: uid === meId });
+    }
+    rows.sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
+    return rows.slice(0, limit);
+  } catch {
+    return [];
+  }
+}
+
+export type CommunityPace = {
+  myDay: number;
+  avgDay: number;
+  walking: number; // members on the journey
+  aheadPct: number; // % of members at or behind my day
+};
+
+/** "Where everyone's at" — community pace on the Bible-in-a-Year journey. */
+export async function communityPace(meId: string, myDay: number): Promise<CommunityPace> {
+  if (!adminDbConfigured) return { myDay, avgDay: myDay, walking: 1, aheadPct: 0 };
+  try {
+    const supabase = createServiceClient();
+    const { data } = await supabase.from("plan_progress").select("user_id,current_day").limit(20000);
+    const days = (data ?? []).map((r) => Number(r.current_day) || 1);
+    const walking = days.length || 1;
+    const avgDay = days.length ? Math.round(days.reduce((a, b) => a + b, 0) / days.length) : myDay;
+    const atOrBehind = days.filter((d) => d <= myDay).length;
+    const aheadPct = days.length ? Math.round((atOrBehind / days.length) * 100) : 0;
+    return { myDay, avgDay, walking, aheadPct };
+  } catch {
+    return { myDay, avgDay: myDay, walking: 1, aheadPct: 0 };
+  }
+}
+
+export type WeeklyActivity = {
+  thisWeek: { days: number; verses: number };
+  lastWeek: { days: number; verses: number };
+};
+
+/** This-week vs last-week activity for the momentum chart. */
+export async function weeklyActivity(userId: string): Promise<WeeklyActivity> {
+  const empty: WeeklyActivity = { thisWeek: { days: 0, verses: 0 }, lastWeek: { days: 0, verses: 0 } };
+  if (!supabaseConfigured) return empty;
+  try {
+    const supabase = await createClient();
+    const thisStart = weekStartPT();
+    const lastStart = addDaysStr(thisStart, -7);
+    const [{ data: ci }, { data: mv }] = await Promise.all([
+      supabase.from("member_checkins").select("day").eq("user_id", userId).gte("day", lastStart),
+      supabase
+        .from("memory_verses")
+        .select("memorized_at")
+        .eq("user_id", userId)
+        .eq("status", "memorized")
+        .gte("memorized_at", `${lastStart}T00:00:00Z`),
+    ]);
+    const out: WeeklyActivity = { thisWeek: { days: 0, verses: 0 }, lastWeek: { days: 0, verses: 0 } };
+    for (const r of ci ?? []) {
+      const d = r.day as string;
+      if (d >= thisStart) out.thisWeek.days++;
+      else out.lastWeek.days++;
+    }
+    const thisStartTs = `${thisStart}T00:00:00Z`;
+    for (const r of mv ?? []) {
+      const m = r.memorized_at as string;
+      if (m >= thisStartTs) out.thisWeek.verses++;
+      else out.lastWeek.verses++;
+    }
+    return out;
+  } catch {
+    return empty;
+  }
+}
+
+/** Post a member's own encouragement/praise to the wall. */
+export async function shareToWall(userId: string, name: string, text: string): Promise<void> {
+  const clean = text.trim().slice(0, 280);
+  if (!clean) return;
+  await postAchievement(userId, name, "share", clean, "");
+}
+
 /* -------------------------------- badges -------------------------------- */
 
 export type BadgeStats = {
