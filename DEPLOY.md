@@ -76,7 +76,7 @@ your real list; the URLs power footer/pricing links.
    ever create a *separate* production project, run **every file in `supabase/` once** in its
    SQL Editor: `devotionals`, `study-journal`, `prayer-wall`, `good-news`, `content-library`,
    `content-library-media`, `weekly-video`, `daily-poll`, `prayer-journal`,
-   `workbook-evolution`.
+   `workbook-evolution`, `community`.
 
    > **Cron jobs** (in `vercel.json`) run automatically on Vercel: daily devotional
    > auto-draft + auto-publish, daily Good-News refresh, daily Weekly-Video health check,

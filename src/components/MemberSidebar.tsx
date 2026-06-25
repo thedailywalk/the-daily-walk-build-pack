@@ -20,6 +20,7 @@ const I = {
   pen: stroke(<><path d="M12 20h9" /><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z" /></>),
   archive: stroke(<><rect x="3" y="4" width="18" height="4" rx="1" /><path d="M5 8v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8M10 12h4" /></>),
   user: stroke(<><circle cx="12" cy="8" r="4" /><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6" /></>),
+  heart: stroke(<path d="M12 20s-7-4.35-7-9a3.8 3.8 0 0 1 7-2.1A3.8 3.8 0 0 1 19 11c0 4.65-7 9-7 9z" />),
 };
 
 type Item = { href: string; label: string; icon: React.ReactNode; sub?: string; ext?: boolean };
@@ -32,6 +33,7 @@ const WALK: Item[] = [
   { href: "/journey", label: "My Journey", icon: I.compass, sub: "Bible in a year" },
   { href: "/wonders", label: "Daily Wonders", icon: I.star },
   { href: "/portal/prayer", label: "Prayer Journal", icon: I.pen, sub: "Private" },
+  { href: "/portal/memory", label: "Scripture Memory", icon: I.heart, sub: "Hide His Word" },
   { href: "/journey?tab=notes", label: "Saved & Notes", icon: I.book },
   { href: "/portal/archive", label: "Archive", icon: I.archive },
   { href: "/prayer-wall", label: "Prayer Wall", icon: I.hands },

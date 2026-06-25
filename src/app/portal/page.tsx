@@ -12,6 +12,19 @@ import { getTodayQuestion, pollDate } from "@/lib/questionOfTheDay";
 import { getCounts } from "@/lib/poll";
 import { getParallel, FRAMING } from "@/lib/bibleParallels";
 import QuestionOfDay from "@/components/QuestionOfDay";
+import { listEntries } from "@/lib/prayerJournal";
+import {
+  recordCheckIn,
+  getStreak,
+  memorizedCounts,
+  weeklyLeaderboard,
+  communityWall,
+  computeBadges,
+  awardNewBadges,
+  displayNameFromEmail,
+  REACTIONS,
+} from "@/lib/community";
+import { reactAction } from "./memory/actions";
 
 export const metadata: Metadata = {
   title: "Member Portal",
@@ -51,20 +64,42 @@ export default async function PortalHome() {
   const parallel = getParallel();
   const pDate = pollDate();
 
-  const [ent, today, progress, video, noteDays, favorites, pollCounts] = await Promise.all([
-    getEntitlement(email),
-    getLiveDevotional(),
-    getOrCreateProgress(user!.id),
-    getLiveWeeklyVideo(),
-    listNoteDays(user!.id),
-    listFavorites(user!.id),
-    getCounts(pollDate(), poll.options.length),
-  ]);
+  await recordCheckIn(user!.id); // count today toward the streak
+
+  const [ent, today, progress, video, noteDays, favorites, pollCounts, streak, mem, prayers, weekly, wall] =
+    await Promise.all([
+      getEntitlement(email),
+      getLiveDevotional(),
+      getOrCreateProgress(user!.id),
+      getLiveWeeklyVideo(),
+      listNoteDays(user!.id),
+      listFavorites(user!.id),
+      getCounts(pollDate(), poll.options.length),
+      getStreak(user!.id),
+      memorizedCounts(user!.id),
+      listEntries(user!.id),
+      weeklyLeaderboard(user!.id, 5),
+      communityWall(user!.id, 8),
+    ]);
 
   const day = progress.currentDay;
   const reading = getStudyDay(day);
   const pct = progressPercent(progress);
   const done = daysCompleted(progress);
+
+  // Badges (derived) + post any newly-earned ones to the wall.
+  const badgeStats = {
+    longestStreak: streak.longest,
+    memorizedTotal: mem.total,
+    prayerCount: prayers.length,
+    favoritesCount: favorites.length,
+    notesCount: noteDays.length,
+    daysCompleted: done,
+  };
+  await awardNewBadges(user!.id, display, badgeStats);
+  const badges = computeBadges(badgeStats);
+  const earnedBadges = badges.filter((b) => b.earned);
+  const nextBadge = badges.find((b) => !b.earned);
 
   const cards = [
     { href: "/portal/guide", icon: ICON.guide, label: "Pathlight", sub: "Ask, reflect, find verses" },
@@ -90,6 +125,29 @@ export default async function PortalHome() {
             Welcome to your walk with God today. Everything you&apos;re reading,
             studying, saving, and praying lives here — one calm place to keep going.
           </p>
+        </div>
+      </section>
+
+      {/* Streak + at-a-glance */}
+      <section className="m-streak">
+        <div className="m-streak-main">
+          <span className="m-streak-flame" aria-hidden="true">🔥</span>
+          <div>
+            <div className="m-streak-n">{streak.current}<span> day{streak.current === 1 ? "" : "s"}</span></div>
+            <div className="m-streak-l">
+              {streak.current === 0
+                ? "Welcome — your walk starts today."
+                : streak.today
+                ? "You showed up today. Keep walking."
+                : "Welcome back — pick right up."}
+            </div>
+          </div>
+        </div>
+        <div className="m-streak-stats">
+          <div className="m-streak-stat"><b>{done}</b><span>days read</span></div>
+          <div className="m-streak-stat"><b>{mem.thisWeek}</b><span>verses this week</span></div>
+          <div className="m-streak-stat"><b>{earnedBadges.length}</b><span>badges</span></div>
+          <Link href="/portal/memory" className="m-streak-cta">＋ Memorize a verse</Link>
         </div>
       </section>
 
@@ -157,6 +215,96 @@ export default async function PortalHome() {
               <p className="m-card-line muted">This week&apos;s pick is on its way.</p>
               <Link href="/wonders" className="btn btn-ghost">Open Daily Wonders →</Link>
             </>
+          )}
+        </section>
+      </div>
+
+      {/* Your badges */}
+      <div className="m-section-tag">Your badges</div>
+      <section className="m-badges">
+        {earnedBadges.length === 0 && (
+          <p className="muted" style={{ margin: "2px 2px 12px" }}>
+            Your first badge is one step away — read today, write a prayer, or memorize a verse. 🌱
+          </p>
+        )}
+        <div className="m-badge-row">
+          {earnedBadges.map((b) => (
+            <div key={b.id} className="m-badge is-earned" title={b.blurb}>
+              <span className="m-badge-ico">{b.emoji}</span>
+              <span className="m-badge-name">{b.label}</span>
+            </div>
+          ))}
+          {nextBadge && (
+            <div className="m-badge is-next" title={nextBadge.blurb}>
+              <span className="m-badge-ico">{nextBadge.emoji}</span>
+              <span className="m-badge-name">{nextBadge.label}</span>
+              <span className="m-badge-next">Next up</span>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Community: walk together */}
+      <div className="m-section-tag">Walk together</div>
+      <div className="m-two m-community">
+        {/* Weekly Scripture-memory leaderboard */}
+        <section className="m-panel m-leaderboard">
+          <span className="m-card-eyebrow">✦ This week’s memory leaders</span>
+          <p className="m-card-line muted" style={{ marginTop: -2 }}>
+            Verses hidden in the heart this week. Iron sharpens iron — not a contest.
+          </p>
+          {weekly.length === 0 ? (
+            <p className="muted">No verses yet this week. <Link href="/portal/memory">Be the first →</Link></p>
+          ) : (
+            <ol className="mem-lb">
+              {weekly.map((r, i) => (
+                <li key={r.userId} className={`mem-lb-row${r.isMe ? " is-me" : ""}`}>
+                  <span className="mem-lb-rank">{["🥇", "🥈", "🥉"][i] ?? i + 1}</span>
+                  <span className="mem-lb-name">{r.name}{r.isMe && <em> · you</em>}</span>
+                  <span className="mem-lb-count">{r.count}<span> verses</span></span>
+                </li>
+              ))}
+            </ol>
+          )}
+          <Link href="/portal/memory" className="btn btn-ghost">Open Scripture Memory →</Link>
+        </section>
+
+        {/* Encouragement wall */}
+        <section className="m-panel m-wall">
+          <span className="m-card-eyebrow">♥ Encouragement wall</span>
+          <p className="m-card-line muted" style={{ marginTop: -2 }}>
+            Milestones from the community. Send a little support — no words needed.
+          </p>
+          {wall.length === 0 ? (
+            <p className="muted">As people reach milestones, they’ll show here to cheer on. 🎉</p>
+          ) : (
+            <ul className="m-wall-feed">
+              {wall.map((a) => (
+                <li key={a.id} className="m-wall-item">
+                  <p className="m-wall-text">
+                    <strong>{a.name}</strong> {a.label}
+                    {a.detail && <span className="m-wall-detail"> — {a.detail}</span>}
+                  </p>
+                  <div className="m-wall-reacts">
+                    {REACTIONS.map((r) => {
+                      const n = a.counts[r.kind] ?? 0;
+                      const mine = a.myReaction === r.kind;
+                      return (
+                        <form action={reactAction} key={r.kind}>
+                          <input type="hidden" name="achievementId" value={a.id} />
+                          <input type="hidden" name="kind" value={r.kind} />
+                          <input type="hidden" name="from" value="/portal" />
+                          <button type="submit" className={`m-react${mine ? " is-on" : ""}`} title={r.label}>
+                            <span aria-hidden="true">{r.emoji}</span>
+                            {n > 0 && <span className="m-react-n">{n}</span>}
+                          </button>
+                        </form>
+                      );
+                    })}
+                  </div>
+                </li>
+              ))}
+            </ul>
           )}
         </section>
       </div>
