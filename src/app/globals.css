@@ -8374,3 +8374,9 @@ hr.div {
 }
 .member-shell .m-share-input::placeholder { color: var(--m-muted); }
 .member-shell .m-wall-said { color: var(--m-text); font-style: italic; }
+
+/* Member portal — My Settings */
+.member-shell .m-set { margin-bottom: 16px; }
+.member-shell .m-set-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.member-shell .m-set-email { font-size: 16px; color: var(--m-navy); font-weight: 600; margin: 4px 0; word-break: break-word; }
+.member-shell .m-set-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 6px; }

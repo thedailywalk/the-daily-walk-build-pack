@@ -80,10 +80,10 @@ export default function MemberSidebar({ tier, name }: { tier: string; name: stri
 
       <div className="m-aside-foot">
         <ThemeToggle />
-        <Link href="/account" className={`m-link${isOn("/account") ? " is-on" : ""}`}>
+        <Link href="/portal/settings" className={`m-link${isOn("/portal/settings") ? " is-on" : ""}`}>
           <span className="m-ico">{I.user}</span>
           <span className="m-link-text">
-            Account
+            My Settings
             <span className="m-link-sub">
               {name} · {tier} member
             </span>
