@@ -64,6 +64,8 @@ Navy `#1F3A5F` (headings) · Gold `#C9A24B` / `#B8902E` (accents/buttons) · Cre
 - `/admin/good-news` — Good News curator (public Good News currently retired via flag).
 - `/admin/prayers` — Prayer Wall moderation queue.
 - `/admin/workbook` (+ `/submit`, `/[day]`) — **Workbook Evolution System** (paste inspiration → theme-matched suggested study-day revisions → Update Review → Draft/Under Review/Approved/Locked).
+  - **Day editor live preview** (added 2026-06-25): `/admin/workbook/[day]` shows the full study page as readers see it, with each pending suggestion rendered inline as a **tracked-changes diff** (struck "before" + highlighted "after") and **Accept change / Dismiss** in context. Word-diff engine: `src/lib/textDiff.ts`; preview component: `src/components/WorkbookDayPreview.tsx`.
+  - **Forward to Content Library** (added 2026-06-25): the `/admin/workbook/submit` form has an "Also save to my Content Library" checkbox (default on) → creates a `library_items` row marked `needs_finalization=true`, auto-tagged with detected themes, so research entered once feeds both the workbook and the newsletter. Library shows a "drafts to finish" banner + `?final=1` filter + per-card badge; the edit form has a "still a draft" toggle to finalize.
 
 **Prayer Wall** (`/prayer-wall`) — public read + 🙏; Premium/Patron-only posting; owner approval queue.
 
@@ -125,6 +127,7 @@ SQL files in `supabase/`: `prayer-wall.sql`, `good-news.sql`, `study-journal.sql
 
 - **Run/confirmed:** `plan_progress`, `prayer_requests`, `featured_good_news`, `study_notes`+`study_favorites`, `devotionals`, `library_items`+`inspiration_sources`+media bucket+capture columns, `weekly_videos`, `poll_votes`, `prayer_journal`, `community.sql` (member_checkins/memory_verses/achievements/achievement_reactions).
 - ~~**STILL NEEDS RUNNING:** `supabase/workbook-evolution.sql`~~ → **RUN 2026-06-25** ("Success. No rows returned"). Workbook Evolution tables (`workbook_days`, `workbook_suggestions`) now live; review queue active.
+- **STILL NEEDS RUNNING:** `supabase/content-library-status.sql` (adds `needs_finalization` column to `library_items`) — required for the Workbook→Content Library forwarding + "drafts to finish" view. Until run, forwarded items won't save.
 
 **SQL handoff format (owner preference):** Supabase SQL editor `https://supabase.com/dashboard/project/makaxugtawmuibdkbjju/sql/new` → New query → paste one clean block → Run → "destructive operation" warning is expected/safe → success = "Success. No rows returned." Project ref: **makaxugtawmuibdkbjju**.
 
@@ -176,6 +179,11 @@ SQL files in `supabase/`: `prayer-wall.sql`, `good-news.sql`, `study-journal.sql
 ---
 
 ## Decision Log (newest at top)
+
+### 2026-06-25 — Workbook day-editor preview + Workbook→Library forwarding
+- **Decided:** (1) The day editor renders the whole study page with suggestions as inline tracked-change diffs (Accept/Dismiss in context); (2) the Workbook inspiration form can forward the same input to the Content Library as an unfinished draft.
+- **Why:** Lulu wanted to *see* the full page and what's changing before approving (like a doc editor), and to avoid re-entering the same research separately for the workbook and the newsletter.
+- **Affects:** New `src/lib/textDiff.ts`, `src/components/WorkbookDayPreview.tsx`; edits to workbook `[day]`/`submit`/`actions`, library `page`/`actions`/`SmartLibraryForm`/`lib/library.ts`. **Run `supabase/content-library-status.sql`** before the forwarding works.
 
 ### 2026-06-25 — Imported full project history into PROJECT-LOG.md
 - **Decided:** Digest the entire desktop build transcript (inception → member-home ship) into this file as the canonical cross-session memory.

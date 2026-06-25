@@ -45,6 +45,7 @@ export type LibraryItem = {
   personalTake: string | null; // rewritten in my own words / the science behind it
   sources: string | null; // sources cited for my take
   isVoice: boolean; // saved as one of "Your Voices"
+  needsFinalization: boolean; // saved as an unfinished draft (e.g. forwarded from the Workbook)
   createdAt?: string;
 };
 
@@ -80,6 +81,7 @@ function toItem(r: any): LibraryItem {
     personalTake: r.personal_take ?? null,
     sources: r.sources ?? null,
     isVoice: !!r.is_voice,
+    needsFinalization: !!r.needs_finalization,
     createdAt: r.created_at,
   };
 }
@@ -104,6 +106,7 @@ export type LibraryFilter = {
   kind?: string;
   source?: string;
   topics?: string[]; // overlap match (used by the references generator)
+  needsFinalization?: boolean; // only unfinished drafts
 };
 
 export async function listLibrary(filter: LibraryFilter = {}): Promise<LibraryItem[]> {
@@ -117,6 +120,7 @@ export async function listLibrary(filter: LibraryFilter = {}): Promise<LibraryIt
     if (filter.topic) query = query.contains("topics", [filter.topic]);
     if (filter.topics?.length) query = query.overlaps("topics", filter.topics);
     if (filter.kind) query = query.eq("kind", filter.kind);
+    if (filter.needsFinalization) query = query.eq("needs_finalization", true);
     if (filter.source) query = query.ilike("source", `%${filter.source}%`);
     if (filter.q) {
       const q = filter.q.replace(/[%,]/g, " ");
@@ -165,6 +169,7 @@ export async function upsertLibraryItem(item: Partial<LibraryItem> & { id?: stri
       personal_take: item.personalTake ?? null,
       sources: item.sources ?? null,
       is_voice: !!item.isVoice,
+      needs_finalization: !!item.needsFinalization,
       updated_at: new Date().toISOString(),
     };
     await supabase.from("library_items").upsert(row);
@@ -248,6 +253,21 @@ export async function topicCounts(): Promise<Record<string, number>> {
     /* ignore */
   }
   return counts;
+}
+
+/** How many saved items are still unfinished drafts. */
+export async function needsFinalizationCount(): Promise<number> {
+  if (!adminDbConfigured) return 0;
+  try {
+    const supabase = createServiceClient();
+    const { count } = await supabase
+      .from("library_items")
+      .select("id", { count: "exact", head: true })
+      .eq("needs_finalization", true);
+    return count ?? 0;
+  } catch {
+    return 0;
+  }
 }
 
 /* ------------------------- inspiration sources -------------------------- */

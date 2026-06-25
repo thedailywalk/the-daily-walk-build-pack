@@ -77,6 +77,7 @@ export async function saveLibraryItemAction(formData: FormData) {
     personalTake,
     sources: str(formData, "sources") || null,
     isVoice: str(formData, "isVoice") === "on",
+    needsFinalization: str(formData, "needsFinalization") === "on",
   });
 
   revalidatePath("/admin/library");

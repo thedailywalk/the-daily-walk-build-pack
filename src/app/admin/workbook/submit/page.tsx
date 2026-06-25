@@ -17,7 +17,7 @@ const SOURCE_TYPES = ["reel", "sermon", "transcript", "note", "newsletter", "oth
 export default async function SubmitInspiration({
   searchParams,
 }: {
-  searchParams: Promise<{ err?: string }>;
+  searchParams: Promise<{ err?: string; lib?: string }>;
 }) {
   await requireAdmin();
   const sp = await searchParams;
@@ -38,6 +38,12 @@ export default async function SubmitInspiration({
           <Link href="/admin/workbook" className="wb-btn wb-btn-ghost">← Dashboard</Link>
         </div>
 
+        {sp.lib && (
+          <div className="wb-flash">
+            ✓ Also saved to your <Link href="/admin/library?final=1">Content Library</Link> as an unfinished
+            draft — finish it there when you have time.
+          </div>
+        )}
         {sp.err && <div className="wb-flash wb-flash-soft">{ERR[sp.err] ?? "Try again."}</div>}
 
         <form action={submitInspirationAction} className="wb-form">
@@ -73,6 +79,15 @@ export default async function SubmitInspiration({
               placeholder="Paste the full transcript or your notes here. The more you give, the better the matches and the drafts."
               required
             />
+          </label>
+
+          <label className="wb-check-wide">
+            <input type="checkbox" name="toLibrary" defaultChecked />
+            <span>
+              <strong>Also save to my Content Library</strong> (for newsletter research). It’ll be filed as an
+              unfinished draft — auto-tagged with the themes found here — so you enter it once and finish it
+              later. Great when something fits both the workbook <em>and</em> the newsletter.
+            </span>
           </label>
 
           <div className="wb-form-actions">

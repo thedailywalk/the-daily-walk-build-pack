@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { requireAdmin } from "@/lib/adminGuard";
 import { analyzeInspiration } from "@/lib/workbookAnalysis";
+import { upsertLibraryItem, TOPICS } from "@/lib/library";
 import {
   insertSuggestions,
   applySuggestion,
@@ -30,6 +31,7 @@ export async function submitInspirationAction(formData: FormData) {
   const sourceType = str(formData, "sourceType") || "transcript";
   const link = str(formData, "link");
   const maxPlacements = Number(str(formData, "maxPlacements")) || 5;
+  const toLibrary = str(formData, "toLibrary") === "on";
 
   if (text.length < 40) {
     redirect("/admin/workbook/submit?err=short");
@@ -43,9 +45,34 @@ export async function submitInspirationAction(formData: FormData) {
     maxPlacements,
   });
 
+  // Optionally forward the same inspiration to the Content Library as an
+  // unfinished draft — so research captured once feeds both the workbook AND
+  // the newsletter without re-typing it.
+  let savedToLibrary = false;
+  if (toLibrary) {
+    const topics = Array.from(new Set([...analysis.themes, "Newsletter Ideas"])).filter((t) =>
+      (TOPICS as readonly string[]).includes(t)
+    );
+    await upsertLibraryItem({
+      title: sourceLabel || `${sourceType} inspiration`,
+      kind: sourceType === "note" ? "note" : "newsletter inspiration",
+      body: text,
+      transcript: text,
+      url: link || null,
+      source: sourceLabel || null,
+      topics,
+      why: "Forwarded from the Workbook — finish in the Content Library when you have time.",
+      isOriginal: false,
+      needsFinalization: true,
+    });
+    savedToLibrary = true;
+  }
+
+  const libQ = savedToLibrary ? "&lib=1" : "";
+
   if (!analysis.placements.length) {
     const why = analysis.themes.length ? "nofit" : "notheme";
-    redirect(`/admin/workbook/submit?err=${why}`);
+    redirect(`/admin/workbook/submit?err=${why}${libQ}`);
   }
 
   const batchId = randomUUID();
@@ -67,7 +94,8 @@ export async function submitInspirationAction(formData: FormData) {
 
   const n = await insertSuggestions(suggestions);
   revalidatePath("/admin/workbook");
-  redirect(`/admin/workbook?added=${n}&mode=${analysis.mode}`);
+  if (savedToLibrary) revalidatePath("/admin/library");
+  redirect(`/admin/workbook?added=${n}&mode=${analysis.mode}${libQ}`);
 }
 
 export async function approveSuggestionAction(formData: FormData) {

@@ -15,12 +15,8 @@ import {
   DAY_STATUSES,
   type DayStatus,
 } from "@/lib/workbookEvolution";
-import {
-  saveDayAction,
-  setStatusAction,
-  approveSuggestionAction,
-  rejectSuggestionAction,
-} from "../actions";
+import { saveDayAction, setStatusAction } from "../actions";
+import WorkbookDayPreview from "@/components/WorkbookDayPreview";
 
 export const metadata: Metadata = { title: "Study day", robots: { index: false } };
 export const dynamic = "force-dynamic";
@@ -96,42 +92,27 @@ export default async function DayEditor({
           </p>
         )}
 
-        {/* Pending suggestions for this day */}
+        {/* Live preview — the whole page as readers see it, with suggested edits
+            shown inline as tracked changes you can Accept or Dismiss in context. */}
         {pending.length > 0 && (
-          <>
-            <h2 className="wb-h2">Suggested updates waiting</h2>
-            {pending.map((s) => (
-              <div key={s.id} className="wb-sug">
-                <div className="wb-sug-top">
-                  <span className="wb-sug-field">→ {FIELD_LABEL[s.targetField]}</span>
-                  <span className="wb-src-type">{s.sourceType}</span>
-                  <span className="adm-hint">{s.sourceLabel}</span>
-                </div>
-                <p className="wb-why"><span className="wb-tag">Why it fits</span> {s.whyFits}</p>
-                <div className="wb-proposed"><span className="wb-tag">Proposed revision</span> {s.proposedText}</div>
-                <p className="wb-impact"><span className="wb-tag">Impact</span> {s.impact}</p>
-                <div className="wb-sug-actions">
-                  <form action={approveSuggestionAction}>
-                    <input type="hidden" name="id" value={s.id} />
-                    <input type="hidden" name="day" value={day} />
-                    <button className="wb-btn wb-btn-yes" type="submit">Approve &amp; apply</button>
-                  </form>
-                  <form action={rejectSuggestionAction}>
-                    <input type="hidden" name="id" value={s.id} />
-                    <input type="hidden" name="day" value={day} />
-                    <button className="wb-btn wb-btn-no" type="submit">Dismiss</button>
-                  </form>
-                </div>
-              </div>
-            ))}
-          </>
+          <p className="adm-hint" style={{ marginTop: 4 }}>
+            <strong>{pending.length}</strong> suggested edit{pending.length === 1 ? "" : "s"} waiting — shown
+            inline below. Accept or dismiss each one right where it lands.
+          </p>
         )}
+        <WorkbookDayPreview
+          day={day}
+          base={base}
+          merged={merged}
+          pending={pending}
+          locked={locked}
+        />
 
         {/* Editable content */}
-        <h2 className="wb-h2">The lesson</h2>
+        <h2 className="wb-h2">Edit by hand</h2>
         <p className="adm-hint" style={{ marginTop: -6 }}>
-          Edit any section in your own voice. Edited sections show on the live workbook; blank ones fall back to
-          the original. Reading &amp; verse stay fixed.
+          Prefer to write it yourself? Edit any section in your own voice. Edited sections show on the live
+          workbook; blank ones fall back to the original. Reading &amp; verse stay fixed.
         </p>
         <form action={saveDayAction} className="wb-form">
           <input type="hidden" name="day" value={day} />

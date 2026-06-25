@@ -7987,3 +7987,203 @@ hr.div {
 @media (max-width: 760px) {
   .member-shell .m-streak { flex-direction: column; align-items: flex-start; }
 }
+
+/* ============================================================
+   Workbook Evolution — live day preview with tracked-change diffs
+   (admin "see the whole page + accept edits in context")
+   ============================================================ */
+.admin-shell .wbp {
+  background: var(--a-panel);
+  border: 1px solid var(--a-border);
+  border-radius: 16px;
+  padding: 8px 0 4px;
+  margin: 10px 0 6px;
+  overflow: hidden;
+}
+.admin-shell .wbp-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--a-border);
+  background: var(--a-bg-2);
+}
+.admin-shell .wbp-kicker {
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--a-dim);
+}
+.admin-shell .wbp-legend {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--a-dim);
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+}
+.admin-shell .wbp-hero {
+  margin: 16px 18px 0;
+  border-radius: 14px;
+  padding: 22px 22px 24px;
+  color: #fff;
+  background: linear-gradient(160deg, #1F3A5F 0%, #294b78 55%, #6b4f3a 120%);
+}
+.admin-shell .wbp-hero-kicker {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+.admin-shell .wbp-hero-title {
+  font-family: var(--serif);
+  font-size: 28px;
+  margin-top: 6px;
+}
+.admin-shell .wbp-verse {
+  margin: 14px 18px 4px;
+  background: #FAF6EE;
+  border: 1px solid rgba(201, 162, 75, 0.4);
+  border-radius: 12px;
+  padding: 14px 18px;
+  font-family: var(--serif);
+  font-size: 18px;
+  color: #22262B;
+  line-height: 1.5;
+}
+.admin-shell .wbp-sec {
+  margin: 16px 18px;
+  padding: 14px 16px;
+  border: 1px solid var(--a-border);
+  border-radius: 12px;
+  background: var(--a-panel);
+}
+.admin-shell .wbp-sec-sug {
+  border-color: rgba(201, 138, 28, 0.5);
+  background: rgba(201, 138, 28, 0.05);
+  box-shadow: 0 1px 4px rgba(201, 138, 28, 0.12);
+}
+.admin-shell .wbp-sec-h {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--a-accent);
+  margin-bottom: 8px;
+}
+.admin-shell .wbp-ico { font-size: 15px; }
+.admin-shell .wbp-flag {
+  margin-left: auto;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #93641a;
+  background: rgba(201, 138, 28, 0.16);
+  border: 1px solid rgba(201, 138, 28, 0.32);
+  padding: 2px 9px;
+  border-radius: 999px;
+}
+.admin-shell .wbp-p {
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--a-text);
+  margin: 8px 0;
+}
+.admin-shell .wbp-muted { color: var(--a-dim); font-size: 13px; }
+.admin-shell .wbp-diff { white-space: normal; }
+.admin-shell .wbp-add {
+  text-decoration: none;
+  background: rgba(21, 163, 107, 0.18);
+  color: #126b45;
+  border-radius: 3px;
+  padding: 0 1px;
+}
+.admin-shell .wbp-del {
+  background: rgba(216, 69, 63, 0.12);
+  color: var(--a-red);
+  border-radius: 3px;
+  padding: 0 1px;
+}
+.admin-shell .wbp-sug-meta {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--a-border);
+}
+.admin-shell .wbp-src { font-size: 12.5px; color: var(--a-dim); margin: 6px 0 2px; }
+.admin-shell .wbp-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; align-items: center; }
+.admin-shell .wbp-side {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+  margin: 16px 18px 18px;
+}
+.admin-shell .wbp-card {
+  background: var(--a-bg-2);
+  border: 1px solid var(--a-border);
+  border-radius: 12px;
+  padding: 13px 15px;
+}
+.admin-shell .wbp-card-verse { border-left: 3px solid rgba(201, 162, 75, 0.7); }
+.admin-shell .wbp-card-tag {
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 0.4px;
+  color: var(--a-dim);
+  margin-bottom: 6px;
+}
+
+/* Workbook submit — "also save to library" checkbox row */
+.admin-shell .wb-check-wide {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  background: var(--a-bg-2);
+  border: 1px solid var(--a-border);
+  border-radius: 12px;
+  padding: 13px 15px;
+  margin: 14px 0;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--a-dim);
+}
+.admin-shell .wb-check-wide input { margin-top: 3px; }
+.admin-shell .wb-check-wide strong { color: var(--a-text); }
+
+/* Content Library — unfinished-drafts banner + card badge */
+.admin-shell .lib2-drafts {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  background: rgba(201, 138, 28, 0.1);
+  border: 1px solid rgba(201, 138, 28, 0.3);
+  color: #93641a;
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin: 14px 0;
+  font-size: 14px;
+}
+.admin-shell .lib2-drafts.is-on { background: rgba(201, 138, 28, 0.16); }
+.admin-shell .lib2-drafts .wb-btn { margin-left: auto; }
+.admin-shell .lib-draft {
+  font-family: var(--sans);
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  color: #93641a;
+  background: rgba(201, 138, 28, 0.14);
+  border: 1px solid rgba(201, 138, 28, 0.3);
+  padding: 2px 9px;
+  border-radius: 999px;
+}

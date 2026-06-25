@@ -29,6 +29,7 @@ type EditItem = {
   personalTake: string | null;
   sources: string | null;
   isVoice: boolean;
+  needsFinalization: boolean;
 };
 
 export default function SmartLibraryForm({
@@ -223,6 +224,10 @@ export default function SmartLibraryForm({
         <label className="lib-check lib-check-wide">
           <input type="checkbox" name="isOriginal" defaultChecked={d?.isOriginal} />
           My take above is my own words — okay to use directly in a newsletter.
+        </label>
+        <label className="lib-check lib-check-wide">
+          <input type="checkbox" name="needsFinalization" defaultChecked={d?.needsFinalization} />
+          ✍️ Still a draft — keep it in “to finish.” Uncheck when it’s done.
         </label>
       </section>
 

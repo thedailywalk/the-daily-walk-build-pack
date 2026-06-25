@@ -8,6 +8,7 @@ import {
   getSource,
   getLibraryItem,
   topicCounts,
+  needsFinalizationCount,
   mediaKind,
   TOPICS,
   CONTENT_TYPES,
@@ -44,10 +45,12 @@ export default async function LibraryPage({
     saved?: string;
     err?: string;
     tab?: string;
+    final?: string;
   }>;
 }) {
   await requireAdmin();
   const sp = await searchParams;
+  const onlyDrafts = sp.final === "1";
 
   // Editing an item or applying a filter forces the relevant tab.
   const tab: Tab = sp.edit
@@ -58,12 +61,13 @@ export default async function LibraryPage({
     ? "voices"
     : "library";
 
-  const [items, counts, sources, editing, editingSource] = await Promise.all([
-    listLibrary({ q: sp.q, topic: sp.topic, kind: sp.kind }),
+  const [items, counts, sources, editing, editingSource, draftCount] = await Promise.all([
+    listLibrary({ q: sp.q, topic: sp.topic, kind: sp.kind, needsFinalization: onlyDrafts }),
     topicCounts(),
     listSources(),
     sp.edit ? getLibraryItem(sp.edit) : Promise.resolve(null),
     sp.sedit ? getSource(sp.sedit) : Promise.resolve(null),
+    needsFinalizationCount(),
   ]);
   const total = Object.values(counts).reduce((a, b) => a + b, 0);
   const coveredTopics = TOPICS.filter((t) => (counts[t] ?? 0) > 0).length;
@@ -121,6 +125,21 @@ export default async function LibraryPage({
         {/* ───────────────── LIBRARY TAB ───────────────── */}
         {tab === "library" && (
           <>
+            {/* Unfinished drafts (e.g. forwarded from the Workbook) */}
+            {draftCount > 0 && (
+              <div className={`lib2-drafts${onlyDrafts ? " is-on" : ""}`}>
+                <span>
+                  ✍️ <strong>{draftCount}</strong> draft{draftCount === 1 ? "" : "s"} waiting to be finished
+                  {" "}— forwarded research you can pick up where you left off.
+                </span>
+                {onlyDrafts ? (
+                  <Link href="/admin/library" className="wb-btn wb-btn-ghost">Show all</Link>
+                ) : (
+                  <Link href="/admin/library?final=1" className="wb-btn">Finish drafts →</Link>
+                )}
+              </div>
+            )}
+
             {/* Condensed coverage strip */}
             <div className="lib2-cov" role="group" aria-label="Filter by topic">
               {TOPICS.map((t) => {
@@ -159,7 +178,13 @@ export default async function LibraryPage({
             </form>
 
             <div className="lib2-result-tag">
-              {sp.topic ? `Topic: “${sp.topic}”` : sp.q ? `Search: “${sp.q}”` : "All items"}
+              {onlyDrafts
+                ? "Drafts to finish"
+                : sp.topic
+                ? `Topic: “${sp.topic}”`
+                : sp.q
+                ? `Search: “${sp.q}”`
+                : "All items"}
               <span className="lib-count"> · {items.length}</span>
             </div>
 
@@ -222,6 +247,7 @@ function LibCard({ item }: { item: LibraryItem }) {
     <div className="lib-card">
       <div className="lib-card-top">
         <span className="lib-kind">{item.kind}</span>
+        {item.needsFinalization && <span className="lib-draft">✍️ Draft · finish</span>}
         {item.isVoice && <span className="lib-orig">⭐ Voice</span>}
         {item.isOriginal && <span className="lib-orig">My words</span>}
         <div className="lib-card-actions">

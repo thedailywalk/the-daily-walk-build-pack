@@ -35,7 +35,7 @@ function Snippet({ text, n = 260 }: { text: string; n?: number }) {
 export default async function WorkbookDashboard({
   searchParams,
 }: {
-  searchParams: Promise<{ added?: string; mode?: string }>;
+  searchParams: Promise<{ added?: string; mode?: string; lib?: string }>;
 }) {
   await requireAdmin();
   const sp = await searchParams;
@@ -84,11 +84,13 @@ export default async function WorkbookDashboard({
           <div className="wb-flash">
             ✓ Added <strong>{sp.added}</strong> suggested update{Number(sp.added) === 1 ? "" : "s"} to the
             review queue{sp.mode === "ai" ? " (written by AI)" : ""}. Review them below.
+            {sp.lib && <> Also saved to your <Link href="/admin/library?final=1">Content Library</Link> as a draft.</>}
           </div>
         )}
         {sp.added === "0" && (
           <div className="wb-flash wb-flash-soft">
             Saved — but nothing landed in the queue. Try a longer transcript, or one with a clearer theme.
+            {sp.lib && <> It was still saved to your <Link href="/admin/library?final=1">Content Library</Link> as a draft.</>}
           </div>
         )}
 
