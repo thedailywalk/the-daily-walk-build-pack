@@ -4,40 +4,80 @@ import Link from "next/link";
 export const metadata: Metadata = { title: "Portal designs — pick one", robots: { index: false } };
 export const dynamic = "force-static";
 
+// Newest round — dark "Inner Circle" vibe variations (with animation + visuals)
+const IC = [
+  {
+    slug: "ic-dawn",
+    name: "Dark Dawn",
+    tag: "Dark + animated sunrise",
+    blurb: "Night-navy with a glowing animated sunrise & rays, drifting embers, gold-forward. Aurora's warmth meets Inner Circle's dark premium.",
+    swatch: ["#0e1626", "#E3C074", "#1F3A5F"],
+  },
+  {
+    slug: "ic-aurora",
+    name: "Aurora Lights",
+    tag: "Dark + flowing aurora",
+    blurb: "Animated aurora ribbons (teal, amethyst, gold) drifting behind the hero. Ethereal, cool jewel pops, premium and alive.",
+    swatch: ["#0e1626", "#36c7b8", "#9b7ad0"],
+  },
+  {
+    slug: "ic-arena",
+    name: "The Arena",
+    tag: "Dark + leaderboard-forward",
+    blurb: "Elite athletic feel — a big premium leaderboard with gold rank rings & dense faith stat-chips. Bold and motivating.",
+    swatch: ["#0c1322", "#E3C074", "#2f8f6b"],
+  },
+  {
+    slug: "ic-glass",
+    name: "Glasshouse",
+    tag: "Dark + glassmorphism",
+    blurb: "Frosted translucent cards with neon-gold edges over drifting color blobs. Sleek, modern, high-end app feel.",
+    swatch: ["#0e1626", "#E3C074", "#7bd0c4"],
+  },
+  {
+    slug: "ic-constellation",
+    name: "Constellation",
+    tag: "Dark + night-sky journey",
+    blurb: "Twinkling stars and a glowing constellation star-path for your Day 47 of 365. Calm, awe-filled, ‘lift your eyes.’",
+    swatch: ["#0b1424", "#E3C074", "#6b8fd0"],
+  },
+];
+
+// First round — different overall directions
 const OPTIONS = [
   {
     slug: "aurora",
     name: "Aurora",
-    tag: "Warm editorial premium",
-    blurb: "Calm, sophisticated, cream + navy + gold with a sunrise hero. Feels trustworthy and devotional — the ‘serious journey’ feel.",
+    tag: "Warm editorial premium (light)",
+    blurb: "Calm, sophisticated, cream + navy + gold with a sunrise hero. The ‘serious journey’ feel.",
     swatch: ["#FAF6EE", "#1F3A5F", "#C9A24B"],
   },
   {
     slug: "trailhead",
     name: "Trailhead",
-    tag: "Playful & gamified (Duolingo-style)",
-    blurb: "Bright, rounded, energetic — big streak flame, chunky XP bar, colorful badge tiles. Lively and motivating, especially for younger members.",
+    tag: "Playful & gamified (light)",
+    blurb: "Bright, rounded, energetic — big streak flame, chunky XP bar, colorful badge tiles.",
     swatch: ["#1F3A5F", "#C9A24B", "#2f8f83"],
   },
   {
     slug: "inner-circle",
-    name: "Inner Circle",
+    name: "Inner Circle (original)",
     tag: "Dark premium / sleek",
-    blurb: "Deep navy-to-black with gold, avatar rings, and stat chips — exclusive and cool, like a premium training app. Bridges teen + adult.",
+    blurb: "The first dark version — deep navy, gold, avatar rings + stat chips. The base these 5 build on.",
     swatch: ["#0f1a2e", "#1F3A5F", "#E3C074"],
   },
   {
     slug: "studio",
     name: "Studio",
-    tag: "Clean modern dashboard",
-    blurb: "Soft gray-blue with tidy white cards in a grid. Professional and current — the most ‘polished software’ feel.",
+    tag: "Clean modern dashboard (light)",
+    blurb: "Soft gray-blue with tidy white cards in a grid. The most ‘polished software’ feel.",
     swatch: ["#eef1f6", "#1F3A5F", "#C9A24B"],
   },
   {
     slug: "sanctuary",
     name: "Sanctuary",
-    tag: "Rich jewel-tone / stained-glass",
-    blurb: "Deep navy with luminous gold, teal, amethyst & rose accents and stained-glass motifs. Artful, vibrant, memorable.",
+    tag: "Jewel-tone / stained-glass",
+    blurb: "Deep navy with luminous gold, teal, amethyst & rose and stained-glass motifs. Artful, vibrant.",
     swatch: ["#16263f", "#C9A24B", "#7b5ea7"],
   },
 ];
@@ -52,48 +92,67 @@ export default function PortalDesignIndex() {
         <h1 style={{ fontFamily: "Georgia, serif", fontSize: 36, color: "#1F3A5F", margin: "8px 0 6px" }}>
           Pick your portal look
         </h1>
-        <p style={{ color: "#5a5345", fontSize: 16, lineHeight: 1.6, maxWidth: 640, margin: "0 0 28px" }}>
-          Five completely different directions — same content, same brand, very different feel. Open each,
-          see which one feels like sitting down for a real journey (and fun enough to keep coming back).
-          These are previews only; nothing here changes your live portal.
+        <p style={{ color: "#5a5345", fontSize: 16, lineHeight: 1.6, maxWidth: 660, margin: "0 0 30px" }}>
+          Previews only — nothing here changes your live portal. Start with the <strong>dark “Inner Circle”
+          variations</strong> below (animated, colorful, the vibe you liked). The original five directions are
+          underneath if you want to compare.
         </p>
 
+        <h2 style={{ fontFamily: "Georgia, serif", fontSize: 24, color: "#1F3A5F", margin: "0 0 4px" }}>
+          ✦ Dark “Inner Circle” variations
+        </h2>
+        <p style={{ color: "#8a8270", fontSize: 13.5, margin: "0 0 16px" }}>
+          Dark background, pops of color, animation & visuals. Compact encouragement wall.
+        </p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 18, marginBottom: 36 }}>
+          {IC.map((o) => <Card key={o.slug} o={o} />)}
+        </div>
+
+        <h2 style={{ fontFamily: "Georgia, serif", fontSize: 24, color: "#1F3A5F", margin: "0 0 16px" }}>
+          The original five directions
+        </h2>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 18 }}>
-          {OPTIONS.map((o) => (
-            <Link
-              key={o.slug}
-              href={`/designs/portal/${o.slug}`}
-              style={{
-                display: "block",
-                background: "#fff",
-                border: "1px solid #e7ddc7",
-                borderRadius: 16,
-                padding: 22,
-                textDecoration: "none",
-                boxShadow: "0 12px 30px -22px rgba(31,58,95,0.5)",
-              }}
-            >
-              <div style={{ display: "flex", gap: 6, marginBottom: 14 }}>
-                {o.swatch.map((c) => (
-                  <span key={c} style={{ width: 26, height: 26, borderRadius: 7, background: c, border: "1px solid rgba(0,0,0,0.08)" }} />
-                ))}
-              </div>
-              <div style={{ fontFamily: "Georgia, serif", fontSize: 22, color: "#1F3A5F" }}>{o.name}</div>
-              <div style={{ fontSize: 12.5, fontWeight: 700, color: "#B8902E", textTransform: "uppercase", letterSpacing: 0.4, margin: "2px 0 8px" }}>
-                {o.tag}
-              </div>
-              <p style={{ color: "#5a5345", fontSize: 14, lineHeight: 1.55, margin: "0 0 14px" }}>{o.blurb}</p>
-              <span style={{ display: "inline-block", background: "#1F3A5F", color: "#fff", fontWeight: 700, fontSize: 14, padding: "9px 16px", borderRadius: 10 }}>
-                Preview {o.name} →
-              </span>
-            </Link>
-          ))}
+          {OPTIONS.map((o) => <Card key={o.slug} o={o} />)}
         </div>
 
         <p style={{ color: "#8a8270", fontSize: 13, marginTop: 28 }}>
-          When you’ve picked one, tell me the name and I’ll rebuild your real portal in that style.
+          When you’ve picked one (or “this one’s hero + that one’s leaderboard”), tell me and I’ll rebuild your
+          real portal in that style.
         </p>
       </div>
     </div>
+  );
+}
+
+type Opt = { slug: string; name: string; tag: string; blurb: string; swatch: string[] };
+
+function Card({ o }: { o: Opt }) {
+  return (
+    <Link
+      href={`/designs/portal/${o.slug}`}
+      style={{
+        display: "block",
+        background: "#fff",
+        border: "1px solid #e7ddc7",
+        borderRadius: 16,
+        padding: 22,
+        textDecoration: "none",
+        boxShadow: "0 12px 30px -22px rgba(31,58,95,0.5)",
+      }}
+    >
+      <div style={{ display: "flex", gap: 6, marginBottom: 14 }}>
+        {o.swatch.map((c) => (
+          <span key={c} style={{ width: 26, height: 26, borderRadius: 7, background: c, border: "1px solid rgba(0,0,0,0.08)" }} />
+        ))}
+      </div>
+      <div style={{ fontFamily: "Georgia, serif", fontSize: 22, color: "#1F3A5F" }}>{o.name}</div>
+      <div style={{ fontSize: 12.5, fontWeight: 700, color: "#B8902E", textTransform: "uppercase", letterSpacing: 0.4, margin: "2px 0 8px" }}>
+        {o.tag}
+      </div>
+      <p style={{ color: "#5a5345", fontSize: 14, lineHeight: 1.55, margin: "0 0 14px" }}>{o.blurb}</p>
+      <span style={{ display: "inline-block", background: "#1F3A5F", color: "#fff", fontWeight: 700, fontSize: 14, padding: "9px 16px", borderRadius: 10 }}>
+        Preview {o.name} →
+      </span>
+    </Link>
   );
 }
