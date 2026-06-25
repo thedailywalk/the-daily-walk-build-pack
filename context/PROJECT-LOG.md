@@ -124,7 +124,7 @@ Navy `#1F3A5F` (headings) · Gold `#C9A24B` / `#B8902E` (accents/buttons) · Cre
 SQL files in `supabase/`: `prayer-wall.sql`, `good-news.sql`, `study-journal.sql`, `devotionals.sql`, `content-library.sql`, `content-library-media.sql`, `content-library-capture.sql`, `weekly-video.sql`, `daily-poll.sql`, `prayer-journal.sql`, `community.sql`, `workbook-evolution.sql`.
 
 - **Run/confirmed:** `plan_progress`, `prayer_requests`, `featured_good_news`, `study_notes`+`study_favorites`, `devotionals`, `library_items`+`inspiration_sources`+media bucket+capture columns, `weekly_videos`, `poll_votes`, `prayer_journal`, `community.sql` (member_checkins/memory_verses/achievements/achievement_reactions).
-- **STILL NEEDS RUNNING:** `supabase/workbook-evolution.sql` → outstanding blocker for Workbook Evolution.
+- ~~**STILL NEEDS RUNNING:** `supabase/workbook-evolution.sql`~~ → **RUN 2026-06-25** ("Success. No rows returned"). Workbook Evolution tables (`workbook_days`, `workbook_suggestions`) now live; review queue active.
 
 **SQL handoff format (owner preference):** Supabase SQL editor `https://supabase.com/dashboard/project/makaxugtawmuibdkbjju/sql/new` → New query → paste one clean block → Run → "destructive operation" warning is expected/safe → success = "Success. No rows returned." Project ref: **makaxugtawmuibdkbjju**.
 
