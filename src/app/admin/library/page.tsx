@@ -75,18 +75,22 @@ export default async function LibraryPage({
   ];
 
   return (
-    <section className="section">
+    <section className="section lib-warm">
       <div className="adm-wrap">
-        <div className="adm-head">
-          <div>
-            <div className="sec-tag" style={{ textAlign: "left" }}>Admin · Content Library</div>
-            <h1 className="h">Content Library</h1>
-            <p className="adm-sub">
-              One home for everything you research and the voices you draw from — clips, transcripts, your
-              own rewrites, and the people who inspire you. Tag it so the newsletter can pull by theme.
-            </p>
+        {/* Warm hero (mirrors the member Study Guide header) */}
+        <header className="lib-hero">
+          <div className="lib-hero-kicker">Content Library</div>
+          <h1 className="lib-hero-title">Your research &amp; the voices that shape it</h1>
+          <p className="lib-hero-sub">
+            One home for everything you gather — clips, transcripts, your own rewrites, and the people who
+            inspire you. Tag it so the newsletter can pull by theme. Everything you write stays original.
+          </p>
+          <div className="lib-hero-stats">
+            <div className="lib-hero-stat"><b>{total}</b><span>items saved</span></div>
+            <div className="lib-hero-stat"><b>{sources.length}</b><span>voices you follow</span></div>
+            <div className="lib-hero-stat"><b>{coveredTopics}<i>/{TOPICS.length}</i></b><span>topics covered</span></div>
           </div>
-        </div>
+        </header>
 
         {!adminDbConfigured && (
           <div className="adm-notice">
@@ -94,22 +98,6 @@ export default async function LibraryPage({
             <code>supabase/content-library.sql</code> to start saving.
           </div>
         )}
-
-        {/* Stat row */}
-        <div className="lib2-stats">
-          <div className="lib2-stat">
-            <div className="lib2-stat-n">{total}</div>
-            <div className="lib2-stat-l">items saved</div>
-          </div>
-          <div className="lib2-stat">
-            <div className="lib2-stat-n">{sources.length}</div>
-            <div className="lib2-stat-l">voices you follow</div>
-          </div>
-          <div className="lib2-stat">
-            <div className="lib2-stat-n">{coveredTopics}<span className="lib2-stat-of">/{TOPICS.length}</span></div>
-            <div className="lib2-stat-l">topics with material</div>
-          </div>
-        </div>
 
         {/* Tabs */}
         <nav className="lib2-tabs" aria-label="Content Library">
