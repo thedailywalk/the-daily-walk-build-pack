@@ -7544,3 +7544,267 @@ hr.div {
   .admin-shell .lib2-voices-cols { grid-template-columns: 1fr; }
   .admin-shell .lib2-add-btn { margin-left: 0; width: 100%; text-align: center; }
 }
+
+/* ============================================================ */
+/* CONTENT LIBRARY — warm "Study Guide" skin (.lib-warm)         */
+/* Re-skins the tabbed library to match the member Bible-in-a-   */
+/* Year look: navy+gold hero, cream cards, gold kickers, serif.  */
+/* Styling only — all tabs/functions unchanged.                  */
+/* ============================================================ */
+.admin-shell .lib-warm {
+  --lw-cream: #faf6ee;
+  --lw-cream2: #f3ecda;
+  --lw-navy: #1f3a5f;
+  --lw-gold: #c9a24b;
+  --lw-goldd: #b8902e;
+  --lw-line: #e7ddc7;
+  --lw-ink: #2b2b2b;
+  --lw-grey: #6a6452;
+}
+/* Warm the whole page area behind the library (graceful if :has unsupported) */
+.admin-main:has(.lib-warm) { background: #f6f1e6; }
+
+/* ---- Hero ---- */
+.admin-shell .lib-hero {
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  padding: 30px 32px;
+  color: #fff;
+  margin-bottom: 20px;
+  background:
+    linear-gradient(180deg, rgba(15, 26, 46, 0.82) 0%, rgba(31, 58, 95, 0.6) 100%),
+    radial-gradient(120% 130% at 50% 125%, #f6cf86 0%, #e3a85a 16%, #b9763f 34%, #5b4f63 58%, #243a5d 82%, #1b3050 100%);
+  box-shadow: 0 18px 40px -22px rgba(31, 58, 95, 0.6);
+}
+.admin-shell .lib-hero-kicker {
+  font-family: var(--sans);
+  font-weight: 800;
+  letter-spacing: 1.6px;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #f3d391;
+  margin-bottom: 8px;
+}
+.admin-shell .lib-hero-title {
+  font-family: var(--serif);
+  font-size: 30px;
+  line-height: 1.12;
+  color: #fff;
+  margin: 0 0 8px;
+}
+.admin-shell .lib-hero-sub {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: #dfe6ef;
+  max-width: 640px;
+  margin: 0;
+}
+.admin-shell .lib-hero-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+.admin-shell .lib-hero-stat {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 13px;
+  padding: 10px 16px;
+  backdrop-filter: blur(2px);
+}
+.admin-shell .lib-hero-stat b {
+  display: block;
+  font-family: var(--serif);
+  font-size: 22px;
+  line-height: 1;
+  color: #fff;
+}
+.admin-shell .lib-hero-stat b i { font-style: normal; font-size: 14px; color: #f3d391; }
+.admin-shell .lib-hero-stat span {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  color: #cfd8e4;
+  text-transform: uppercase;
+  margin-top: 3px;
+  display: block;
+}
+
+/* ---- Tabs (warm) ---- */
+.admin-shell .lib-warm .lib2-tabs { border-bottom-color: var(--lw-line); }
+.admin-shell .lib-warm .lib2-tab { color: var(--lw-grey); }
+.admin-shell .lib-warm .lib2-tab:hover { color: var(--lw-navy); background: var(--lw-cream); }
+.admin-shell .lib-warm .lib2-tab.is-on { color: var(--lw-navy); border-bottom-color: var(--lw-gold); }
+.admin-shell .lib-warm .lib2-tab-n { background: var(--lw-cream); border-color: var(--lw-line); color: var(--lw-grey); }
+.admin-shell .lib-warm .lib2-tab.is-on .lib2-tab-n {
+  background: rgba(201, 162, 75, 0.16);
+  border-color: rgba(184, 144, 46, 0.35);
+  color: var(--lw-goldd);
+}
+
+/* ---- Coverage chips ---- */
+.admin-shell .lib-warm .lib2-chip {
+  background: #fff;
+  border-color: var(--lw-line);
+  color: var(--lw-navy);
+}
+.admin-shell .lib-warm .lib2-chip:hover { background: var(--lw-cream); }
+.admin-shell .lib-warm .lib2-chip.is-on {
+  border-color: var(--lw-gold);
+  background: rgba(201, 162, 75, 0.12);
+  color: var(--lw-goldd);
+}
+.admin-shell .lib-warm .lib2-chip.lib-low .lib2-dot { background: var(--lw-gold); }
+.admin-shell .lib-warm .lib2-chip.lib-good .lib2-dot { background: #5a9a6b; }
+.admin-shell .lib-warm .lib2-chip-n { color: var(--lw-grey); }
+.admin-shell .lib-warm .lib2-chip.is-on .lib2-chip-n { color: var(--lw-goldd); }
+
+/* ---- Result tag / hints ---- */
+.admin-shell .lib-warm .lib2-result-tag { color: var(--lw-navy); }
+.admin-shell .lib-warm .adm-hintline { color: var(--lw-grey); }
+
+/* ---- Cards (items + voices) ---- */
+.admin-shell .lib-warm .lib-card {
+  background: #fff;
+  border: 1px solid var(--lw-line);
+  border-radius: 16px;
+  padding: 18px 20px;
+  box-shadow: 0 12px 28px -22px rgba(31, 58, 95, 0.4);
+}
+.admin-shell .lib-warm .lib-card:hover { box-shadow: 0 16px 34px -20px rgba(31, 58, 95, 0.45); }
+.admin-shell .lib-warm .lib-title {
+  font-family: var(--serif);
+  font-size: 19px;
+  color: var(--lw-navy);
+  line-height: 1.25;
+}
+.admin-shell .lib-warm .src-handle { color: var(--lw-goldd); font-family: var(--sans); font-size: 13px; font-weight: 600; }
+.admin-shell .lib-warm .src-kind { color: var(--lw-grey); font-style: italic; font-size: 13px; margin-top: 2px; }
+.admin-shell .lib-warm .lib-body { color: #3c4350; font-size: 14px; line-height: 1.6; }
+.admin-shell .lib-warm .lib-why { color: var(--lw-grey); font-style: italic; font-size: 13px; }
+.admin-shell .lib-warm .lib-kind,
+.admin-shell .lib-warm .src-freq {
+  background: rgba(201, 162, 75, 0.14);
+  color: var(--lw-goldd);
+  border: 1px solid rgba(184, 144, 46, 0.28);
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  font-size: 10.5px;
+  border-radius: 999px;
+  padding: 3px 10px;
+}
+.admin-shell .lib-warm .lib-orig {
+  background: rgba(31, 58, 95, 0.08);
+  color: var(--lw-navy);
+  border-radius: 999px;
+  padding: 3px 9px;
+  font-size: 10.5px;
+  font-weight: 700;
+}
+.admin-shell .lib-warm .lib-tag {
+  background: var(--lw-cream);
+  border: 1px solid var(--lw-line);
+  color: var(--lw-grey);
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-size: 12px;
+}
+.admin-shell .lib-warm .lib-tag-verse { background: rgba(201, 162, 75, 0.13); color: var(--lw-goldd); border-color: rgba(184, 144, 46, 0.3); }
+.admin-shell .lib-warm .lib-tag-src { background: rgba(31, 58, 95, 0.07); color: var(--lw-navy); border-color: rgba(31, 58, 95, 0.16); }
+.admin-shell .lib-warm .sg-link-btn { color: var(--lw-navy); font-weight: 700; }
+
+/* ---- Empty / editing states ---- */
+.admin-shell .lib-warm .lib2-empty {
+  background: var(--lw-cream);
+  border: 1px dashed #e0d4b8;
+  color: var(--lw-grey);
+}
+.admin-shell .lib-warm .lib2-empty a { color: var(--lw-goldd); font-weight: 700; }
+.admin-shell .lib-warm .lib2-editing-bar {
+  background: rgba(201, 162, 75, 0.1);
+  border-color: rgba(184, 144, 46, 0.3);
+  color: var(--lw-navy);
+}
+
+/* ---- Form sections (SmartLibraryForm + SourceForm) ---- */
+.admin-shell .lib-warm .lib-sec {
+  background: #fff;
+  border: 1px solid var(--lw-line);
+  border-radius: 16px;
+  padding: 18px 20px;
+  box-shadow: 0 10px 26px -22px rgba(31, 58, 95, 0.35);
+}
+.admin-shell .lib-warm .lib-sec-accent { background: linear-gradient(135deg, #fffaf0 0%, #fbf3dd 100%); border-color: #ecdcae; }
+.admin-shell .lib-warm .lib-sec-h {
+  font-family: var(--sans);
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 11.5px;
+  color: var(--lw-goldd);
+}
+.admin-shell .lib-warm .lib-sec-h span { color: var(--lw-grey); font-weight: 600; letter-spacing: 0.2px; text-transform: none; }
+.admin-shell .lib-warm .lib-form { background: #fff; border: 1px solid var(--lw-line); border-radius: 16px; padding: 20px; box-shadow: 0 10px 26px -22px rgba(31, 58, 95, 0.35); }
+.admin-shell .lib-warm .adm-group { color: var(--lw-goldd); }
+.admin-shell .lib-warm .adm-label { color: var(--lw-navy); font-weight: 700; }
+.admin-shell .lib-warm .adm-label em { color: var(--lw-grey); font-weight: 500; }
+
+/* Warm inputs (higher specificity beats the admin dark/light input rule) */
+.admin-shell .lib-warm input[type="text"],
+.admin-shell .lib-warm input[type="url"],
+.admin-shell .lib-warm input[type="email"],
+.admin-shell .lib-warm input:not([type]),
+.admin-shell .lib-warm textarea,
+.admin-shell .lib-warm select,
+.admin-shell .lib-warm .adm-input,
+.admin-shell .lib-warm .adm-textarea,
+.admin-shell .lib-warm .sg-select {
+  background: #fffdf8;
+  border: 1px solid var(--lw-line);
+  color: var(--lw-ink);
+  border-radius: 11px;
+}
+.admin-shell .lib-warm input:focus,
+.admin-shell .lib-warm textarea:focus,
+.admin-shell .lib-warm select:focus {
+  border-color: var(--lw-gold);
+  box-shadow: 0 0 0 3px rgba(201, 162, 75, 0.2);
+}
+
+/* Checkboxes / voice toggle / smart chips */
+.admin-shell .lib-warm .lib-check { color: var(--lw-ink); }
+.admin-shell .lib-warm .lib-check.ig-on { color: var(--lw-goldd); font-weight: 700; }
+.admin-shell .lib-warm .lib-voice {
+  background: rgba(201, 162, 75, 0.08);
+  border: 1px solid rgba(184, 144, 46, 0.25);
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+.admin-shell .lib-warm .smart-chip {
+  background: #fff;
+  border: 1px solid var(--lw-gold);
+  color: var(--lw-goldd);
+  border-radius: 999px;
+}
+.admin-shell .lib-warm .smart-hint,
+.admin-shell .lib-warm .smart-sug { color: var(--lw-goldd); }
+
+/* Gold buttons (override admin teal within the warm skin) */
+.admin-shell .lib-warm .btn-gold {
+  background: linear-gradient(180deg, #d4ae57 0%, #b8902e 100%);
+  color: #1f3a5f;
+  border: none;
+  font-weight: 800;
+  border-radius: 11px;
+}
+.admin-shell .lib-warm .btn-gold:hover { filter: brightness(1.04); }
+.admin-shell .lib-warm .lib2-add-btn { box-shadow: 0 8px 18px -10px rgba(184, 144, 46, 0.7); }
+.admin-shell .lib-warm .btn-ghost { color: var(--lw-grey); }
+
+@media (max-width: 720px) {
+  .admin-shell .lib-hero { padding: 24px 20px; }
+  .admin-shell .lib-hero-title { font-size: 24px; }
+}
