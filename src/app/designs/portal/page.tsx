@@ -4,7 +4,46 @@ import Link from "next/link";
 export const metadata: Metadata = { title: "Portal designs — pick one", robots: { index: false } };
 export const dynamic = "force-static";
 
-// Newest round — dark "Inner Circle" vibe variations (with animation + visuals)
+// Refined — Constellation × Inner Circle, keeping locked anchors
+const IC2 = [
+  {
+    slug: "ic2-northstar",
+    name: "North Star",
+    tag: "Streak as the guiding North Star",
+    blurb: "Streak becomes a glowing North Star (with a subtle cross-glint) crowning the star-path; a drifting dove nearby. ‘Guided by His light.’",
+    swatch: ["#0b1424", "#E3C074", "#6b8fd0"],
+  },
+  {
+    slug: "ic2-dove",
+    name: "The Dove's Gift",
+    tag: "Dove carries your streak",
+    blurb: "An animated dove gently carries your streak on a glowing ribbon — peace & the Spirit as the signature flourish, star-path woven below.",
+    swatch: ["#0b1424", "#E3C074", "#cdd7e6"],
+  },
+  {
+    slug: "ic2-path",
+    name: "Path of Light",
+    tag: "A walked trail of stars",
+    blurb: "A winding lighted trail with footprints from Day 1 → 47 → 365, a North Star at the end, and a dove carrying a flame-lantern. ‘One step at a time.’",
+    swatch: ["#0b1424", "#E3C074", "#d8a657"],
+  },
+  {
+    slug: "ic2-daylight",
+    name: "Dawn & Dusk",
+    tag: "Sky shifts morning/noon/night",
+    blurb: "Leans into the time-of-day ‘wow’ — see all three skies and how the hero changes when you arrive. Classy, restrained, North-Star streak.",
+    swatch: ["#16263f", "#E3C074", "#e3a85a"],
+  },
+  {
+    slug: "ic2-sanctuary",
+    name: "Sanctuary Night",
+    tag: "Most reverent & elevated",
+    blurb: "A quiet cathedral-at-night feel — stained-glass light meets the constellation, streak as a haloed North Star, dove at rest. Calm and sacred.",
+    swatch: ["#0b1424", "#E3C074", "#9b7ad0"],
+  },
+];
+
+// Earlier round — dark "Inner Circle" vibe variations (with animation + visuals)
 const IC = [
   {
     slug: "ic-dawn",
@@ -92,14 +131,24 @@ export default function PortalDesignIndex() {
         <h1 style={{ fontFamily: "Georgia, serif", fontSize: 36, color: "#1F3A5F", margin: "8px 0 6px" }}>
           Pick your portal look
         </h1>
-        <p style={{ color: "#5a5345", fontSize: 16, lineHeight: 1.6, maxWidth: 660, margin: "0 0 30px" }}>
-          Previews only — nothing here changes your live portal. Start with the <strong>dark “Inner Circle”
-          variations</strong> below (animated, colorful, the vibe you liked). The original five directions are
-          underneath if you want to compare.
+        <p style={{ color: "#5a5345", fontSize: 16, lineHeight: 1.6, maxWidth: 680, margin: "0 0 30px" }}>
+          Previews only — nothing here changes your live portal. Start with the <strong>refined
+          Constellation × Inner Circle concepts</strong> at the top (your locked anchors kept: the hero, the
+          devotional, the wall; streak relocated to a dove / North Star; star-path woven in; time-of-day sky).
         </p>
 
         <h2 style={{ fontFamily: "Georgia, serif", fontSize: 24, color: "#1F3A5F", margin: "0 0 4px" }}>
-          ✦ Dark “Inner Circle” variations
+          ✦ Refined — Constellation × Inner Circle
+        </h2>
+        <p style={{ color: "#8a8270", fontSize: 13.5, margin: "0 0 16px" }}>
+          The five that combine everything you loved. These are the front-runners.
+        </p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 18, marginBottom: 38 }}>
+          {IC2.map((o) => <Card key={o.slug} o={o} />)}
+        </div>
+
+        <h2 style={{ fontFamily: "Georgia, serif", fontSize: 24, color: "#1F3A5F", margin: "0 0 4px" }}>
+          Earlier dark “Inner Circle” variations
         </h2>
         <p style={{ color: "#8a8270", fontSize: 13.5, margin: "0 0 16px" }}>
           Dark background, pops of color, animation & visuals. Compact encouragement wall.

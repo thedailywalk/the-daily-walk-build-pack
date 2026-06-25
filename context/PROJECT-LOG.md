@@ -37,6 +37,20 @@ Navy `#1F3A5F` (headings) · Gold `#C9A24B` / `#B8902E` (accents/buttons) · Cre
 
 ---
 
+## Member Portal — LOCKED style anchors (do not lose these)
+
+> Owner (Lulu) is choosing a portal redesign via mockups at `/designs/portal`. She named these as **fixed anchors** — keep them; only minor adjustments unless she asks for a redesign. Overall style she wants everywhere: **soft, faith-based, elevated, warm, interactive, peaceful, meaningful**; dark "Inner Circle" base + constellation; **faith-rooted, NOT astrological**; **not too girly/feminine** (men should feel at home). Gentle animations, never overwhelming (reduced-motion safe).
+
+- **Hero** (Constellation style): dark navy, gold kicker date, serif "Good afternoon, Lulu.", subtitle "The sun is up and so is your faithfulness…", faint twinkling stars + soft glow. Refine/polish, keep the feel.
+- **Star-Path journey** woven INTO the hero block (not separate) — Day 1→365 with Day-47 glowing "you are here"; "walking the year with God one glowing star at a time."
+- **Time-of-day sky**: hero subtly shifts morning/noon/night (elegant "wow", classy).
+- **Streak relocated** from a plain chip to either an animated **dove carrying it** (ribbon/badge) OR the **North Star** (guidance/faithfulness, subtle cross-glint — faith not astrology). Dove stays animated.
+- **Daily Devotional card** — KEEP layout/size/shape as-is: dark rounded card, "Today's Devotional" + time tag, gold scripture ref kicker, serif title, body, solid gold "Read … walk →" button. Minor polish only; do NOT overhaul.
+- **Encouragement Wall** — KEEP the style (dark card, colored initial avatars, quoted note, reaction chips), make it **compact**, add **subtle** animation (gentle float/glow/fade-in).
+- Secondary/compact: weekly chart + slim Inner-Circle leaderboard (avatar rings + faith stat chips) + badges row (incl. locked secret).
+- **Mockups** (static, public, scoped CSS, no real data) live under `/designs/portal/*`. Front-runners: `ic2-northstar`, `ic2-dove`, `ic2-path`, `ic2-daylight`, `ic2-sanctuary`. Once she picks (or mixes), rebuild the REAL `/portal` in that style wired to live data.
+- **Process rule:** end every design change with a refreshed "locked elements" list for her.
+
 ## What's built and live
 
 **Public site:** `/` (sunrise hero + capture, two-rhythms cards, tier cards, "Why read the Bible?" navy band, "Arm yourself" tips, prayer-wall preview, mission band) · `/pricing` ("Subscriptions on the way" coming-soon, pricing hidden) · `/about` · `/subscribe` (→ Beehiiv) · `/devotional` (public reader, auto-publishes daily) · `/devotional/rss.xml` (full inline-styled feed for Beehiiv RSS-to-Send) · SEO/sitemap/robots, mobile hamburger nav · `/designs/*` (early alternates — remove before wide promotion).
