@@ -51,7 +51,7 @@ export default function LoginPage() {
         );
         return;
       }
-      window.location.href = "/account";
+      window.location.href = "/portal";
       return;
     }
 

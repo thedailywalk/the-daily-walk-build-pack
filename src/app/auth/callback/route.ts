@@ -14,7 +14,10 @@ export async function GET(request: Request) {
   const code = searchParams.get("code");
   const tokenHash = searchParams.get("token_hash");
   const type = searchParams.get("type") as EmailOtpType | null;
-  const next = searchParams.get("next") ?? "/account";
+  // After sign-in, land on the member home base (/portal). The portal layout
+  // gates appropriately (free → /pricing, signed-out → /login). A ?next param
+  // (e.g. set when redirected from a gated page) still takes precedence.
+  const next = searchParams.get("next") ?? "/portal";
 
   const supabase = await createClient();
 
