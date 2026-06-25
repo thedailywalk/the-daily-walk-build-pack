@@ -5304,7 +5304,7 @@ hr.div {
   text-decoration: none;
 }
 .aside-link.is-on {
-  background: rgba(45, 212, 167, 0.12);
+  background: rgba(201, 162, 75, 0.12);
   color: #fff;
   box-shadow: inset 2px 0 0 var(--a-accent);
 }
@@ -5401,7 +5401,7 @@ hr.div {
   text-decoration: none;
 }
 .aside-sub.is-on {
-  background: rgba(45, 212, 167, 0.13);
+  background: rgba(201, 162, 75, 0.13);
   color: #fff;
   box-shadow: inset 2px 0 0 var(--a-accent);
 }
@@ -5628,7 +5628,7 @@ hr.div {
 .admin-shell select:focus {
   outline: none;
   border-color: var(--a-accent);
-  box-shadow: 0 0 0 3px rgba(45, 212, 167, 0.18);
+  box-shadow: 0 0 0 3px rgba(201, 162, 75, 0.18);
 }
 .admin-shell .adm-label {
   color: var(--a-dim);
@@ -5741,9 +5741,9 @@ hr.div {
   color: var(--a-dim);
 }
 .admin-shell .lib-check.ig-on {
-  background: rgba(45, 212, 167, 0.18);
+  background: rgba(201, 162, 75, 0.18);
   color: var(--a-accent);
-  border-color: rgba(45, 212, 167, 0.45);
+  border-color: rgba(201, 162, 75, 0.45);
 }
 .admin-shell .smart-hint,
 .admin-shell .smart-sug {
@@ -5789,8 +5789,8 @@ hr.div {
   border-radius: 16px;
   border: 1px solid var(--a-border);
   background:
-    radial-gradient(120% 160% at 92% -10%, rgba(63, 125, 251, 0.3), transparent 55%),
-    radial-gradient(90% 140% at 100% 125%, rgba(45, 212, 167, 0.22), transparent 52%),
+    radial-gradient(120% 160% at 92% -10%, rgba(31, 58, 95, 0.3), transparent 55%),
+    radial-gradient(90% 140% at 100% 125%, rgba(201, 162, 75, 0.22), transparent 52%),
     linear-gradient(135deg, #1d2a3d, #182230);
   padding: 30px 32px;
   margin-bottom: 26px;
@@ -5878,7 +5878,7 @@ hr.div {
   border-radius: 10px;
   display: grid;
   place-items: center;
-  background: rgba(63, 125, 251, 0.14);
+  background: rgba(31, 58, 95, 0.14);
   color: var(--a-blue);
 }
 .dash-card-ico svg {
@@ -5918,8 +5918,8 @@ hr.div {
 }
 .dash-pill.info {
   color: #9bbcff;
-  background: rgba(63, 125, 251, 0.16);
-  border-color: rgba(63, 125, 251, 0.32);
+  background: rgba(31, 58, 95, 0.16);
+  border-color: rgba(31, 58, 95, 0.32);
 }
 .dash-pill.warn {
   color: #f3cb83;
@@ -6523,37 +6523,38 @@ hr.div {
 }
 
 /* ============================================================ */
-/* ADMIN — LIGHT THEME (overrides the earlier dark values)       */
-/* Soft gray-blue page, white sidebar + cards, dark text, teal + */
-/* blue accents. The dashboard hero stays navy for contrast.     */
+/* ADMIN — WARM THEME (overrides the earlier dark values)        */
+/* Cream page, white sidebar + cards, dark ink text, navy + gold */
+/* accents — matched to the member Study Guide / Content Library. */
+/* The dashboard hero stays navy for contrast.                   */
 /* ============================================================ */
 .admin-shell {
-  --a-bg: #e9edf4;
-  --a-bg-2: #f3f5f9;
+  --a-bg: #f1ece1;
+  --a-bg-2: #faf6ee;
   --a-panel: #ffffff;
-  --a-border: #e4e8ef;
-  --a-border-hi: #d4dae3;
-  --a-text: #1f2733;
-  --a-dim: #586172;
-  --a-muted: #8a94a2;
-  --a-accent: #12b886;
-  --a-blue: #2f6bff;
-  --a-green: #15a36b;
+  --a-border: #e7ddc7;
+  --a-border-hi: #d9cdae;
+  --a-text: #2b2b2b;
+  --a-dim: #6a6452;
+  --a-muted: #9a8f74;
+  --a-accent: #b8902e; /* gold — primary action */
+  --a-blue: #1f3a5f;   /* navy — links + secondary */
+  --a-green: #5a9a6b;
   --a-amber: #c98a1c;
-  --a-red: #d8453f;
+  --a-red: #c0564f;
 }
 .aside {
   background: #ffffff;
 }
 .aside-link:hover {
-  background: #eef2f8;
+  background: var(--a-bg-2);
 }
 .aside-link.is-on {
-  background: rgba(47, 107, 255, 0.1);
-  box-shadow: inset 2px 0 0 var(--a-blue);
+  background: rgba(201, 162, 75, 0.14);
+  box-shadow: inset 2px 0 0 var(--a-accent);
 }
 .admin-shell .aside-link.is-on {
-  color: #1b3a8f;
+  color: var(--a-blue);
 }
 .aside-link.is-on .aside-ico {
   color: var(--a-blue);
@@ -6568,7 +6569,7 @@ hr.div {
   color: var(--a-text);
 }
 .aside-sub.is-on {
-  background: rgba(47, 107, 255, 0.1);
+  background: rgba(31, 58, 95, 0.1);
   color: var(--a-blue);
 }
 .admin-shell .adm-input,
@@ -6612,8 +6613,8 @@ hr.div {
 }
 .dash-pill.info {
   color: #2059d6;
-  background: rgba(47, 107, 255, 0.1);
-  border-color: rgba(47, 107, 255, 0.26);
+  background: rgba(31, 58, 95, 0.1);
+  border-color: rgba(31, 58, 95, 0.26);
 }
 .dash-pill.warn {
   color: #976a14;
@@ -7205,7 +7206,7 @@ hr.div {
   letter-spacing: 0.6px;
   text-transform: uppercase;
   color: var(--a-blue);
-  background: rgba(47, 107, 255, 0.1);
+  background: rgba(31, 58, 95, 0.1);
   padding: 3px 9px;
   border-radius: 999px;
 }
@@ -7295,7 +7296,7 @@ hr.div {
 .admin-shell .wb-pill.wb-draft { color: #5b6573; background: rgba(120, 132, 148, 0.14); }
 .admin-shell .wb-pill.wb-review { color: #93641a; background: rgba(201, 138, 28, 0.16); }
 .admin-shell .wb-pill.wb-approved { color: #15824f; background: rgba(21, 163, 107, 0.16); }
-.admin-shell .wb-pill.wb-locked { color: #1b3a8f; background: rgba(47, 107, 255, 0.12); }
+.admin-shell .wb-pill.wb-locked { color: #1f3a5f; background: rgba(31, 58, 95, 0.12); }
 
 /* Day list + archive */
 .admin-shell .wb-day-list { display: flex; flex-direction: column; gap: 6px; }
@@ -7357,15 +7358,15 @@ hr.div {
 .admin-shell .wb-status-btn.is-on.wb-draft { background: rgba(120, 132, 148, 0.16); color: #5b6573; border-color: rgba(120,132,148,0.4); }
 .admin-shell .wb-status-btn.is-on.wb-review { background: rgba(201, 138, 28, 0.18); color: #93641a; border-color: rgba(201,138,28,0.45); }
 .admin-shell .wb-status-btn.is-on.wb-approved { background: rgba(21, 163, 107, 0.18); color: #15824f; border-color: rgba(21,163,107,0.45); }
-.admin-shell .wb-status-btn.is-on.wb-locked { background: rgba(47, 107, 255, 0.14); color: #1b3a8f; border-color: rgba(47,107,255,0.4); }
+.admin-shell .wb-status-btn.is-on.wb-locked { background: rgba(31, 58, 95, 0.14); color: #1f3a5f; border-color: rgba(31,58,95,0.4); }
 .admin-shell .wb-status-btn:hover { filter: brightness(0.98); }
 .admin-shell .wb-locked-note {
-  background: rgba(47, 107, 255, 0.08);
-  border: 1px solid rgba(47, 107, 255, 0.25);
+  background: rgba(31, 58, 95, 0.08);
+  border: 1px solid rgba(31, 58, 95, 0.25);
   border-radius: 10px;
   padding: 10px 14px;
   font-size: 13.5px;
-  color: #1b3a8f;
+  color: #1f3a5f;
 }
 .admin-shell .wb-verse-fixed {
   background: var(--a-bg-2);
@@ -7453,7 +7454,7 @@ hr.div {
   border-radius: 999px;
   padding: 1px 8px;
 }
-.admin-shell .lib2-tab.is-on .lib2-tab-n { background: rgba(47, 107, 255, 0.1); border-color: rgba(47, 107, 255, 0.25); color: var(--a-blue); }
+.admin-shell .lib2-tab.is-on .lib2-tab-n { background: rgba(31, 58, 95, 0.1); border-color: rgba(31, 58, 95, 0.25); color: var(--a-blue); }
 
 /* Coverage chip strip */
 .admin-shell .lib2-cov { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 16px; }
@@ -7472,7 +7473,7 @@ hr.div {
   text-decoration: none;
 }
 .admin-shell .lib2-chip:hover { background: var(--a-bg-2); }
-.admin-shell .lib2-chip.is-on { border-color: var(--a-blue); background: rgba(47, 107, 255, 0.08); color: var(--a-blue); }
+.admin-shell .lib2-chip.is-on { border-color: var(--a-blue); background: rgba(31, 58, 95, 0.08); color: var(--a-blue); }
 .admin-shell .lib2-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--a-muted); flex: none; }
 .admin-shell .lib2-chip.lib-low .lib2-dot { background: var(--a-amber); }
 .admin-shell .lib2-chip.lib-good .lib2-dot { background: var(--a-green); }
@@ -7520,8 +7521,8 @@ hr.div {
   display: flex;
   align-items: center;
   gap: 12px;
-  background: rgba(47, 107, 255, 0.07);
-  border: 1px solid rgba(47, 107, 255, 0.2);
+  background: rgba(31, 58, 95, 0.07);
+  border: 1px solid rgba(31, 58, 95, 0.2);
   border-radius: 10px;
   padding: 9px 14px;
   font-size: 13.5px;
