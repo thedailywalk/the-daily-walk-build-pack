@@ -8187,3 +8187,73 @@ hr.div {
   padding: 2px 9px;
   border-radius: 999px;
 }
+
+/* ============================================================
+   Workbook Evolution — warm "Study Guide" skin (matches Library)
+   Remaps the admin theme vars to cream/navy/gold ONLY on the
+   workbook pages (.wb-warm), so every wb-*/wbp-* component that
+   reads --a-* adopts the warm look at once. Library is untouched.
+   ============================================================ */
+.admin-shell .wb-warm {
+  --a-bg-2: #faf6ee;
+  --a-panel: #ffffff;
+  --a-border: #e7ddc7;
+  --a-border-hi: #d9cdae;
+  --a-text: #2b2b2b;
+  --a-dim: #6a6452;
+  --a-muted: #9a8f74;
+  --a-accent: #b8902e;   /* gold — primary accent */
+  --a-blue: #1f3a5f;     /* navy — tags/secondary */
+  --a-green: #5a9a6b;
+  --a-amber: #c98a1c;
+  --a-red: #c0564f;
+}
+/* Serif section headings to echo the member Study Guide */
+.admin-shell .wb-warm .wb-h2 { font-family: var(--serif); color: #1f3a5f; }
+.admin-shell .wb-warm .wb-sug-field,
+.admin-shell .wb-warm .wb-sec-h,
+.admin-shell .wb-warm .wbp-sec-h { color: var(--a-accent); }
+/* Hero call-to-action row (Add inspiration / nav buttons) */
+.admin-shell .lib-hero-cta { margin-top: 18px; display: flex; gap: 8px; flex-wrap: wrap; }
+.admin-shell .lib-hero-cta .wb-btn {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.28);
+  color: #fff;
+}
+.admin-shell .lib-hero-cta .wb-btn:hover { background: rgba(255, 255, 255, 0.22); }
+
+/* ============================================================
+   Member portal — This Day in His Story + Wonder of His Creation
+   (compact dashboard cards, themed with the member shell)
+   ============================================================ */
+.member-shell .m-hist-year {
+  font-family: var(--serif);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--m-gold-deep);
+  letter-spacing: 0.3px;
+  margin: 2px 0 4px;
+}
+.member-shell .m-hist-take {
+  margin-top: 10px;
+  font-style: italic;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--m-dim);
+  border-left: 3px solid rgba(201, 162, 75, 0.5);
+  padding-left: 12px;
+}
+.member-shell .m-wonder-verse {
+  font-family: var(--serif);
+  font-size: 15px;
+  line-height: 1.5;
+  margin: 12px 0 8px;
+  color: var(--m-text);
+}
+.member-shell .m-wonder-verse cite { display: block; font-size: 12.5px; font-style: normal; color: var(--m-gold, #b8902e); margin-top: 4px; }
+.member-shell .m-wonder-reflect {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--m-dim);
+  margin-bottom: 14px;
+}

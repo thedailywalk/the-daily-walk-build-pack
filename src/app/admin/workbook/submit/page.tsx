@@ -23,20 +23,20 @@ export default async function SubmitInspiration({
   const sp = await searchParams;
 
   return (
-    <section className="section">
+    <section className="section lib-warm wb-warm">
       <div className="adm-wrap" style={{ maxWidth: 760 }}>
-        <div className="adm-head">
-          <div>
-            <div className="sec-tag" style={{ textAlign: "left" }}>Admin · Workbook Evolution</div>
-            <h1 className="h">Add inspiration</h1>
-            <p className="adm-sub">
-              Paste a reel/sermon transcript, your notes, or a devotional idea. The system finds the
-              study days it would genuinely strengthen and drafts the update in your voice — for your
-              approval. <strong>Inspiration shapes delivery, never doctrine; nothing is copied.</strong>
-            </p>
+        <header className="lib-hero">
+          <div className="lib-hero-kicker">Admin · Workbook Evolution</div>
+          <h1 className="lib-hero-title">Add inspiration</h1>
+          <p className="lib-hero-sub">
+            Paste a reel/sermon transcript, your notes, or a devotional idea. The system finds the
+            study days it would genuinely strengthen and drafts the update in your voice — for your
+            approval. <strong>Inspiration shapes delivery, never doctrine; nothing is copied.</strong>
+          </p>
+          <div className="lib-hero-cta">
+            <Link href="/admin/workbook" className="wb-btn wb-btn-ghost">← Dashboard</Link>
           </div>
-          <Link href="/admin/workbook" className="wb-btn wb-btn-ghost">← Dashboard</Link>
-        </div>
+        </header>
 
         {sp.lib && (
           <div className="wb-flash">

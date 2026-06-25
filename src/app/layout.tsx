@@ -49,11 +49,13 @@ export default function RootLayout({
         <a className="skip" href="#main">
           Skip to content
         </a>
-        <HideOnAdmin>
+        {/* Header stays visible inside /admin so the owner can always jump back
+            to the site, portal, or account; only the portal hides it. */}
+        <HideOnAdmin paths={["/portal"]}>
           <Header />
         </HideOnAdmin>
         <main id="main">{children}</main>
-        <HideOnAdmin>
+        <HideOnAdmin paths={["/admin", "/portal"]}>
           <Footer />
         </HideOnAdmin>
       </body>

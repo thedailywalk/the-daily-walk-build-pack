@@ -11,6 +11,8 @@ import { listNoteDays, listFavorites } from "@/lib/studyData";
 import { getTodayQuestion, pollDate } from "@/lib/questionOfTheDay";
 import { getCounts } from "@/lib/poll";
 import { getParallel, FRAMING } from "@/lib/bibleParallels";
+import { getHistoryMoment } from "@/lib/thisDayInHistory";
+import { getWonderOfTheDay } from "@/lib/wonderOfTheDay";
 import QuestionOfDay from "@/components/QuestionOfDay";
 import { listEntries } from "@/lib/prayerJournal";
 import {
@@ -62,6 +64,8 @@ export default async function PortalHome() {
 
   const poll = getTodayQuestion();
   const parallel = getParallel();
+  const moment = getHistoryMoment();
+  const wonder = getWonderOfTheDay();
   const pDate = pollDate();
 
   await recordCheckIn(user!.id); // count today toward the streak
@@ -330,6 +334,29 @@ export default async function PortalHome() {
           </blockquote>
           <p className="m-parallel-framing">{FRAMING}</p>
         </div>
+      </div>
+
+      {/* A little more wonder — This Day in His Story + Wonder of His Creation */}
+      <div className="m-section-tag">A little more wonder today</div>
+      <div className="m-two">
+        <section className="m-panel m-hist">
+          <span className="m-card-eyebrow">✦ This Day in His Story</span>
+          <div className="m-hist-year">{moment.year}</div>
+          <h3 className="m-card-h">{moment.title}</h3>
+          <p className="m-card-line">{moment.story}</p>
+          <p className="m-hist-take">{moment.takeaway}</p>
+        </section>
+
+        <section className="m-panel m-wonder">
+          <span className="m-card-eyebrow">✦ Wonder of His Creation</span>
+          <h3 className="m-card-h">{wonder.title}</h3>
+          <p className="m-card-line">{wonder.body}</p>
+          <blockquote className="m-wonder-verse">
+            &ldquo;{wonder.verseText}&rdquo; <cite>— {wonder.verseRef}</cite>
+          </blockquote>
+          <p className="m-wonder-reflect">{wonder.reflection}</p>
+          <Link href="/wonders" className="btn btn-ghost">Open Daily Wonders →</Link>
+        </section>
       </div>
 
       {/* Quick access */}

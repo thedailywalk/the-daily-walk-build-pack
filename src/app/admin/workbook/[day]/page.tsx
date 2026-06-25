@@ -45,28 +45,26 @@ export default async function DayEditor({
   const locked = state.status === "locked";
 
   return (
-    <section className="section">
+    <section className="section lib-warm wb-warm">
       <div className="adm-wrap" style={{ maxWidth: 820 }}>
-        <div className="adm-head">
-          <div>
-            <div className="sec-tag" style={{ textAlign: "left" }}>Admin · Workbook · Day {day}</div>
-            <h1 className="h">{base.reading}</h1>
-            <p className="adm-sub">
-              <span className={`wb-pill wb-${state.status}`}>{STATUS_LABEL[state.status]}</span>{" "}
-              {STATUS_BLURB[state.status]}
-              {themes.length > 0 && (
-                <span className="wb-themes" style={{ marginLeft: 8 }}>
-                  {themes.map((t) => <em key={t}>{t}</em>)}
-                </span>
-              )}
-            </p>
-          </div>
-          <div style={{ display: "flex", gap: 8 }}>
-            <Link href={day > 1 ? `/admin/workbook/${day - 1}` : "/admin/workbook"} className="wb-btn wb-btn-ghost">←</Link>
+        <header className="lib-hero">
+          <div className="lib-hero-kicker">Admin · Workbook · Day {day}</div>
+          <h1 className="lib-hero-title">{base.reading}</h1>
+          <p className="lib-hero-sub">
+            <span className={`wb-pill wb-${state.status}`}>{STATUS_LABEL[state.status]}</span>{" "}
+            {STATUS_BLURB[state.status]}
+            {themes.length > 0 && (
+              <span className="wb-themes" style={{ marginLeft: 8 }}>
+                {themes.map((t) => <em key={t}>{t}</em>)}
+              </span>
+            )}
+          </p>
+          <div className="lib-hero-cta" style={{ display: "flex", gap: 8 }}>
+            <Link href={day > 1 ? `/admin/workbook/${day - 1}` : "/admin/workbook"} className="wb-btn wb-btn-ghost">← Prev</Link>
             <Link href="/admin/workbook" className="wb-btn wb-btn-ghost">Dashboard</Link>
-            <Link href={day < 365 ? `/admin/workbook/${day + 1}` : "/admin/workbook"} className="wb-btn wb-btn-ghost">→</Link>
+            <Link href={day < 365 ? `/admin/workbook/${day + 1}` : "/admin/workbook"} className="wb-btn wb-btn-ghost">Next →</Link>
           </div>
-        </div>
+        </header>
 
         {sp.saved && <div className="wb-flash">✓ Saved.</div>}
 

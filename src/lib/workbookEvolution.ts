@@ -398,6 +398,7 @@ export async function applySuggestion(id: string): Promise<boolean> {
 
 export async function rejectSuggestion(id: string): Promise<void> {
   if (!adminDbConfigured) return;
+  const s = await getSuggestion(id);
   try {
     const supabase = createServiceClient();
     await supabase
@@ -407,6 +408,19 @@ export async function rejectSuggestion(id: string): Promise<void> {
   } catch {
     /* ignore */
   }
+  // If this day was only "Under Review" because of suggestions, and nothing is
+  // left pending and nothing has been approved (no overrides), send it back to
+  // Draft so it stops cluttering "Study days in motion".
+  if (s) await maybeResetDay(s.dayIndex);
+}
+
+/** Revert a day to draft if it has no pending suggestions and no approved edits. */
+async function maybeResetDay(dayIndex: number): Promise<void> {
+  const wb = await getDayState(dayIndex);
+  if (wb.status !== "review") return;
+  if (Object.keys(wb.overrides).length > 0) return;
+  const remaining = await listSuggestions({ status: "pending", dayIndex, limit: 1 });
+  if (remaining.length === 0) await setDayStatus(dayIndex, "draft");
 }
 
 /** Pending suggestions grouped by submission batch — the "waiting" queue. */

@@ -30,6 +30,7 @@ export default async function Header() {
               {item.label}
             </Link>
           ))}
+          {user && <Link href="/portal">My Journey</Link>}
           {accountLink && <Link href={accountLink.href}>{accountLink.label}</Link>}
           {showAdmin && <Link href="/admin/devotionals">Admin</Link>}
           {!user && (
@@ -54,7 +55,9 @@ export default async function Header() {
                 {item.label}
               </Link>
             ))}
+            {user && <Link href="/portal">My Journey</Link>}
             {accountLink && <Link href={accountLink.href}>{accountLink.label}</Link>}
+            {showAdmin && <Link href="/admin/devotionals">Admin</Link>}
             {!user && (
               <Link href="/subscribe" className="btn btn-gold btn-block">
                 Start free

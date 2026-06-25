@@ -180,6 +180,11 @@ SQL files in `supabase/`: `prayer-wall.sql`, `good-news.sql`, `study-journal.sql
 
 ## Decision Log (newest at top)
 
+### 2026-06-25 — Admin/portal polish batch
+- **Decided:** (1) Restyled **The Living Workbook** (`/admin/workbook` dashboard + submit + day editor) to the warm cream/navy/gold Content-Library look via a `wb-warm` class that remaps `--a-*` theme vars (library page untouched). (2) Dismissing a suggestion now reverts an empty day to **Draft** so it leaves "Study days in motion" (`maybeResetDay` in workbookEvolution.ts). (3) The public **header stays visible inside `/admin`** (hidden only on `/portal`); footer hidden on both; added a **"My Journey" → `/portal`** link for signed-in users (this is how to reach the member portal — there was no link before). (4) Added **This Day in His Story** + **Wonder of His Creation** cards to the `/portal` dashboard (reusing `getHistoryMoment`/`getWonderOfTheDay`).
+- **Why:** Lulu's requests — consistent warm admin look, no stale day clutter, always-reachable nav/portal, and more "wonder" on the member home. Root cause of "I can't see the portal": no nav link existed.
+- **Affects:** `HideOnAdmin.tsx`, root `layout.tsx`, `Header.tsx`, `workbookEvolution.ts` (rejectSuggestion), portal `page.tsx`, workbook `page/submit/[day]`, `globals.css`. Note: full-admin re-theme (devotionals/weekly-video/etc.) NOT done yet — only the workbook was warmed; offered to extend.
+
 ### 2026-06-25 — Workbook day-editor preview + Workbook→Library forwarding
 - **Decided:** (1) The day editor renders the whole study page with suggestions as inline tracked-change diffs (Accept/Dismiss in context); (2) the Workbook inspiration form can forward the same input to the Content Library as an unfinished draft.
 - **Why:** Lulu wanted to *see* the full page and what's changing before approving (like a doc editor), and to avoid re-entering the same research separately for the workbook and the newsletter.

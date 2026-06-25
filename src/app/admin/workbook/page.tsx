@@ -66,19 +66,24 @@ export default async function WorkbookDashboard({
     .sort((a, b) => a.dayIndex - b.dayIndex);
 
   return (
-    <section className="section">
+    <section className="section lib-warm wb-warm">
       <div className="adm-wrap">
-        <div className="adm-head">
-          <div>
-            <div className="sec-tag" style={{ textAlign: "left" }}>Admin · Workbook Evolution</div>
-            <h1 className="h">The Living Workbook</h1>
-            <p className="adm-sub">
-              New inspiration becomes <strong>targeted</strong> suggestions — only on study days that
-              genuinely fit, never on locked ones. You approve every change; nothing edits itself.
-            </p>
+        <header className="lib-hero">
+          <div className="lib-hero-kicker">Admin · Workbook Evolution</div>
+          <h1 className="lib-hero-title">The Living Workbook</h1>
+          <p className="lib-hero-sub">
+            New inspiration becomes <strong>targeted</strong> suggestions — only on study days that
+            genuinely fit, never on locked ones. You approve every change; nothing edits itself.
+          </p>
+          <div className="lib-hero-stats">
+            {(DAY_STATUSES as DayStatus[]).map((s) => (
+              <div key={s} className="lib-hero-stat"><b>{counts[s]}</b><span>{STATUS_LABEL[s]}</span></div>
+            ))}
           </div>
-          <Link href="/admin/workbook/submit" className="btn-gold">+ Add inspiration</Link>
-        </div>
+          <div className="lib-hero-cta">
+            <Link href="/admin/workbook/submit" className="btn-gold">＋ Add inspiration</Link>
+          </div>
+        </header>
 
         {sp.added && Number(sp.added) > 0 && (
           <div className="wb-flash">
@@ -93,16 +98,6 @@ export default async function WorkbookDashboard({
             {sp.lib && <> It was still saved to your <Link href="/admin/library?final=1">Content Library</Link> as a draft.</>}
           </div>
         )}
-
-        {/* Status overview */}
-        <div className="wb-stat-grid">
-          {(DAY_STATUSES as DayStatus[]).map((s) => (
-            <div key={s} className={`wb-stat wb-stat-${s}`}>
-              <div className="wb-stat-n">{counts[s]}</div>
-              <div className="wb-stat-l">{STATUS_LABEL[s]}</div>
-            </div>
-          ))}
-        </div>
 
         {/* Waiting for review */}
         <h2 className="wb-h2">New inspiration waiting for review</h2>

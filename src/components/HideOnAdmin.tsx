@@ -3,13 +3,22 @@
 import { usePathname } from "next/navigation";
 
 /**
- * Hides the public site chrome (Header/Footer) on routes that render their own
- * full-screen shell — the admin workspace (/admin) and the member portal
- * (/portal). The wrapped server components still render on the server; this just
- * decides whether to show them.
+ * Shows/hides public site chrome per route. By default hides on the admin
+ * workspace and the member portal (which render their own full-screen shells);
+ * pass `paths` to override which route prefixes to hide on.
+ *
+ * The header is kept visible inside /admin (so the owner can always jump back to
+ * the site, the portal, or account) — only the portal hides it, since the portal
+ * has its own full sidebar nav.
  */
-export default function HideOnAdmin({ children }: { children: React.ReactNode }) {
+export default function HideOnAdmin({
+  children,
+  paths = ["/admin", "/portal"],
+}: {
+  children: React.ReactNode;
+  paths?: string[];
+}) {
   const pathname = usePathname() ?? "";
-  if (pathname.startsWith("/admin") || pathname.startsWith("/portal")) return null;
+  if (paths.some((p) => pathname.startsWith(p))) return null;
   return <>{children}</>;
 }
