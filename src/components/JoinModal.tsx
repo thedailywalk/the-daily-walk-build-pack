@@ -29,7 +29,7 @@ export default function JoinModal() {
       /* ignore */
     }
     if (seen && Date.now() - seen < SNOOZE_MS) return;
-    const t = setTimeout(() => setOpen(true), 1200);
+    const t = setTimeout(() => setOpen(true), 500);
     return () => clearTimeout(t);
   }, [excluded]);
 
