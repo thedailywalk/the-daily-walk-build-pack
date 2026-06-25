@@ -8430,7 +8430,7 @@ hr.div {
 }
 @keyframes jm-fade { from { opacity: 0; } to { opacity: 1; } }
 .jm-card {
-  width: 100%; max-width: 440px;
+  width: 100%; max-width: 520px;
   background: #FAF6EE; border-radius: 18px; overflow: hidden;
   box-shadow: 0 30px 80px -20px rgba(15, 26, 46, 0.6);
   animation: jm-pop 0.32s cubic-bezier(0.2, 0.8, 0.2, 1) both;
@@ -8451,7 +8451,9 @@ hr.div {
   cursor: pointer; padding: 0 4px;
 }
 .jm-close:hover { color: #fff; }
-.jm-body { padding: 20px 24px 22px; }
+.jm-body { padding: 26px 32px 26px; }
+.jm-list b { color: #1F3A5F; }
+.jm-list li { line-height: 1.45; }
 .jm-stats {
   display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
   font-family: var(--sans, sans-serif); font-size: 11px; letter-spacing: 0.5px;

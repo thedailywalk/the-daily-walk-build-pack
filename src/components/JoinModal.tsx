@@ -85,14 +85,15 @@ export default function JoinModal() {
           <SignupForm buttonLabel="Join free →" />
 
           <ul className="jm-list">
-            <li><span aria-hidden="true">📖</span> A 2-minute devotional, every morning</li>
-            <li><span aria-hidden="true">🙏</span> One honest prayer to carry with you</li>
-            <li><span aria-hidden="true">✨</span> Encouragement &amp; good news to begin the day</li>
+            <li><span aria-hidden="true">📖</span> <span><b>Hear God in His Word every morning</b> — a 5-minute devotional</span></li>
+            <li><span aria-hidden="true">🙏</span> <span><b>Learn to talk and listen to God</b> — and notice when He&apos;s speaking</span></li>
+            <li><span aria-hidden="true">🌅</span> <span><b>Start every day walking with God</b> — not just reading about Him</span></li>
+            <li><span aria-hidden="true">🌱</span> <span><b>Build a real relationship with Jesus</b> — small steps that become a lifelong walk</span></li>
           </ul>
 
           <div className="jm-foot">Free forever · No spam · Unsubscribe anytime</div>
           <div className="jm-more">
-            Want to go deeper? <Link href="/pricing" onClick={dismiss}>Become a Founding Member →</Link>
+            Ready to go deeper? <Link href="/pricing" onClick={dismiss}>Become a Founding Member →</Link>
           </div>
         </div>
       </div>
