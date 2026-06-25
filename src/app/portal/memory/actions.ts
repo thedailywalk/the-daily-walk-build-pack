@@ -10,6 +10,8 @@ import {
   awardNewBadges,
   getStreak,
   memorizedCounts,
+  reactionsGivenCount,
+  sharesPostedCount,
   displayNameFromEmail,
   shareToWall,
   REACTIONS,
@@ -26,21 +28,27 @@ function str(fd: FormData, k: string) {
 
 /** Recompute the member's stats and post any newly-earned badges to the wall. */
 async function refreshBadges(userId: string, name: string) {
-  const [streak, mem, prayers, favorites, notes, progress] = await Promise.all([
-    getStreak(userId),
-    memorizedCounts(userId),
-    listEntries(userId),
-    listFavorites(userId),
-    listNoteDays(userId),
-    getOrCreateProgress(userId),
-  ]);
+  const [streak, mem, prayers, favorites, notes, progress, reactionsGiven, sharesPosted] =
+    await Promise.all([
+      getStreak(userId),
+      memorizedCounts(userId),
+      listEntries(userId),
+      listFavorites(userId),
+      listNoteDays(userId),
+      getOrCreateProgress(userId),
+      reactionsGivenCount(userId),
+      sharesPostedCount(userId),
+    ]);
   await awardNewBadges(userId, name, {
     longestStreak: streak.longest,
+    currentStreak: streak.current,
     memorizedTotal: mem.total,
     prayerCount: prayers.length,
     favoritesCount: favorites.length,
     notesCount: notes.length,
     daysCompleted: daysCompleted(progress),
+    reactionsGiven,
+    sharesPosted,
   });
 }
 

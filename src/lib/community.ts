@@ -535,46 +535,113 @@ export async function shareToWall(userId: string, name: string, text: string): P
 
 export type BadgeStats = {
   longestStreak: number;
+  currentStreak: number;
   memorizedTotal: number;
   prayerCount: number;
   favoritesCount: number;
   notesCount: number;
   daysCompleted: number;
+  reactionsGiven: number;
+  sharesPosted: number;
+};
+
+export type BadgeGroup =
+  | "consistency"
+  | "word"
+  | "prayer"
+  | "community"
+  | "milestone"
+  | "secret";
+
+export const BADGE_GROUP_LABEL: Record<BadgeGroup, string> = {
+  consistency: "Showing up",
+  word: "The Word",
+  prayer: "Prayer",
+  community: "Community",
+  milestone: "Milestones",
+  secret: "Hidden blessings",
 };
 
 export type Badge = {
   id: string;
-  group: "consistency" | "practice";
+  group: BadgeGroup;
   emoji: string;
   label: string;
   blurb: string;
   earned: boolean;
+  /** Secret badges are hidden until earned — a little delight, never previewed. */
+  secret?: boolean;
 };
 
 export function computeBadges(s: BadgeStats): Badge[] {
   const B = (
     id: string,
-    group: Badge["group"],
+    group: BadgeGroup,
     emoji: string,
     label: string,
     blurb: string,
-    earned: boolean
-  ): Badge => ({ id, group, emoji, label, blurb, earned });
+    earned: boolean,
+    secret = false
+  ): Badge => ({ id, group, emoji, label, blurb, earned, secret });
 
   return [
-    // Consistency — just showing up
+    // Showing up — consistency
     B("first-step", "consistency", "👣", "First Step", "You showed up — day one.", s.longestStreak >= 1),
     B("faithful-week", "consistency", "🔥", "Faithful Week", "Seven days walking with God.", s.longestStreak >= 7),
     B("steadfast", "consistency", "🌿", "Steadfast", "A 30-day streak.", s.longestStreak >= 30),
     B("hundredfold", "consistency", "🏔️", "Hundredfold", "100 days of showing up.", s.longestStreak >= 100),
     B("year-walk", "consistency", "🕊️", "One-Year Walk", "365 days. A whole year with Him.", s.longestStreak >= 365),
-    // Spiritual practices — going deeper
-    B("hidden-word", "practice", "💛", "Hidden in My Heart", "Memorized your first verse.", s.memorizedTotal >= 1),
-    B("word-filled", "practice", "📖", "Word-Filled", "Memorized 10 verses.", s.memorizedTotal >= 10),
-    B("first-prayer", "practice", "🙏", "First Prayer", "Wrote your first prayer.", s.prayerCount >= 1),
-    B("prayer-warrior", "practice", "🛡️", "Prayer Warrior", "Wrote 10 prayers.", s.prayerCount >= 10),
-    B("treasured", "practice", "⭐", "Treasured Word", "Saved a verse to keep.", s.favoritesCount >= 1),
+    // The Word
+    B("hidden-word", "word", "💛", "Hidden in My Heart", "Memorized your first verse.", s.memorizedTotal >= 1),
+    B("word-filled", "word", "📖", "Word-Filled", "Memorized 10 verses.", s.memorizedTotal >= 10),
+    B("treasured", "word", "⭐", "Treasured Verse", "Saved a verse to keep.", s.favoritesCount >= 1),
+    // Prayer
+    B("first-prayer", "prayer", "🙏", "First Prayer", "Wrote your first prayer.", s.prayerCount >= 1),
+    B("prayer-warrior", "prayer", "🛡️", "Prayer Warrior", "Wrote 10 prayers.", s.prayerCount >= 10),
+    B("mountain-mover", "prayer", "⛰️", "Mountain Mover", "Wrote 30 prayers.", s.prayerCount >= 30),
+    // Community
+    B("encourager", "community", "🤍", "Encourager", "Cheered others on 10 times.", s.reactionsGiven >= 10),
+    B("voice-praise", "community", "📣", "Voice of Praise", "Shared something on the wall.", s.sharesPosted >= 1),
+    // Milestones — the journey
+    B("on-the-way", "milestone", "🚶", "On the Way", "Started the journey.", s.daysCompleted >= 1),
+    B("halfway", "milestone", "🏞️", "Halfway There", "Reached the middle of the Bible.", s.daysCompleted >= 183),
+    B("whole-bible", "milestone", "🏆", "Whole Bible", "Read the entire Bible. 🎉", s.daysCompleted >= 365),
+    // Hidden blessings — secret, revealed only when earned
+    B("comeback", "secret", "🌅", "Quiet Comeback", "You came back after a pause — grace wins.", s.currentStreak >= 1 && s.longestStreak >= 3 && s.longestStreak > s.currentStreak, true),
+    B("hidden-gem", "secret", "💎", "Hidden Gem", "50 verses hidden in your heart.", s.memorizedTotal >= 50, true),
+    B("well-rounded", "secret", "🌟", "Well-Rounded Walk", "Reading, prayer, memory & saved verses — all growing together.", s.memorizedTotal >= 5 && s.prayerCount >= 5 && s.daysCompleted >= 5 && s.favoritesCount >= 3, true),
   ];
+}
+
+/** How many times this member has reacted to others (for Community badges). */
+export async function reactionsGivenCount(userId: string): Promise<number> {
+  if (!supabaseConfigured) return 0;
+  try {
+    const supabase = await createClient();
+    const { count } = await supabase
+      .from("achievement_reactions")
+      .select("id", { count: "exact", head: true })
+      .eq("user_id", userId);
+    return count ?? 0;
+  } catch {
+    return 0;
+  }
+}
+
+/** How many things this member has shared to the wall (for Community badges). */
+export async function sharesPostedCount(userId: string): Promise<number> {
+  if (!supabaseConfigured) return 0;
+  try {
+    const supabase = await createClient();
+    const { count } = await supabase
+      .from("achievements")
+      .select("id", { count: "exact", head: true })
+      .eq("user_id", userId)
+      .eq("kind", "share");
+    return count ?? 0;
+  } catch {
+    return 0;
+  }
 }
 
 /**

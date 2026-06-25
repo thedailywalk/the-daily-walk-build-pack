@@ -8380,3 +8380,35 @@ hr.div {
 .member-shell .m-set-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
 .member-shell .m-set-email { font-size: 16px; color: var(--m-navy); font-weight: 600; margin: 4px 0; word-break: break-word; }
 .member-shell .m-set-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 6px; }
+
+/* Member portal — slim hero streak line + "More for today" collapsible */
+.member-shell .m-hero-streak {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--m-border);
+  font-size: 14px; color: var(--m-dim);
+}
+.member-shell .m-hs-flame { font-size: 18px; }
+.member-shell .m-hs-text b { color: var(--m-navy); }
+.member-shell .m-hs-cta { margin-left: auto; font-size: 13px; font-weight: 600; color: var(--m-gold-deep); text-decoration: none; }
+.member-shell .m-hs-cta:hover { text-decoration: underline; }
+
+.member-shell .m-more {
+  border: 1px solid var(--m-border); border-radius: 16px;
+  background: var(--m-surface); padding: 4px 18px; margin-top: 8px;
+}
+.member-shell .m-more > summary {
+  cursor: pointer; padding: 14px 0; list-style: none;
+  display: flex; flex-direction: column; gap: 2px;
+}
+.member-shell .m-more > summary::-webkit-details-marker { display: none; }
+.member-shell .m-more[open] > summary { border-bottom: 1px solid var(--m-border); margin-bottom: 10px; }
+
+/* Secret ("hidden blessing") badge accent */
+.member-shell .m-badge.is-secret {
+  border-color: rgba(201, 162, 75, 0.55);
+  background: linear-gradient(135deg, rgba(201,162,75,0.12), rgba(31,58,95,0.06));
+}
+.member-shell .m-badge-secret {
+  display: block; font-size: 9.5px; font-weight: 800; letter-spacing: 0.4px;
+  text-transform: uppercase; color: var(--m-gold-deep); margin-top: 2px;
+}

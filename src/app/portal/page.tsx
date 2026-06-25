@@ -27,6 +27,8 @@ import {
   communityWall,
   computeBadges,
   awardNewBadges,
+  reactionsGivenCount,
+  sharesPostedCount,
   displayNameFromEmail,
   REACTIONS,
 } from "@/lib/community";
@@ -97,6 +99,10 @@ export default async function PortalHome() {
   const pct = progressPercent(progress);
   const done = daysCompleted(progress);
   const pace = await communityPace(user!.id, day);
+  const [reactionsGiven, sharesPosted] = await Promise.all([
+    reactionsGivenCount(user!.id),
+    sharesPostedCount(user!.id),
+  ]);
 
   // Walk Score — one transparent number from real engagement.
   const score = walkScore({
@@ -116,16 +122,20 @@ export default async function PortalHome() {
   // Badges (derived) + post any newly-earned ones to the wall.
   const badgeStats = {
     longestStreak: streak.longest,
+    currentStreak: streak.current,
     memorizedTotal: mem.total,
     prayerCount: prayers.length,
     favoritesCount: favorites.length,
     notesCount: noteDays.length,
     daysCompleted: done,
+    reactionsGiven,
+    sharesPosted,
   };
   await awardNewBadges(user!.id, display, badgeStats);
   const badges = computeBadges(badgeStats);
   const earnedBadges = badges.filter((b) => b.earned);
-  const nextBadge = badges.find((b) => !b.earned);
+  // Never preview secret badges — they stay a surprise until earned.
+  const nextBadge = badges.find((b) => !b.earned && !b.secret);
 
   const cards = [
     { href: "/portal/guide", icon: ICON.guide, label: "Pathlight", sub: "Ask, reflect, find verses" },
@@ -175,54 +185,21 @@ export default async function PortalHome() {
               </div>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Streak + at-a-glance */}
-      <section className="m-streak">
-        <div className="m-streak-main">
-          <span className="m-streak-flame" aria-hidden="true">🔥</span>
-          <div>
-            <div className="m-streak-n">{streak.current}<span> day{streak.current === 1 ? "" : "s"}</span></div>
-            <div className="m-streak-l">
+          {/* Slim streak line — merged into the welcome */}
+          <div className="m-hero-streak">
+            <span className="m-hs-flame" aria-hidden="true">🔥</span>
+            <span className="m-hs-text">
+              <b>{streak.current} day{streak.current === 1 ? "" : "s"}</b>{" "}
               {streak.current === 0
-                ? "Welcome — your walk starts today."
+                ? "· your walk starts today"
                 : streak.today
-                ? "You showed up today. Keep walking."
-                : "Welcome back — pick right up."}
-            </div>
+                ? "· you showed up today"
+                : "· welcome back, pick right up"}
+            </span>
+            <Link href="/portal/memory" className="m-hs-cta">＋ Memorize a verse</Link>
           </div>
         </div>
-        <div className="m-streak-stats">
-          <div className="m-streak-stat"><b>{done}</b><span>days read</span></div>
-          <div className="m-streak-stat"><b>{mem.thisWeek}</b><span>verses this week</span></div>
-          <div className="m-streak-stat"><b>{earnedBadges.length}</b><span>badges</span></div>
-          <Link href="/portal/memory" className="m-streak-cta">＋ Memorize a verse</Link>
-        </div>
-      </section>
-
-      {/* Weekly momentum — this week vs last week */}
-      <section className="m-momentum">
-        <span className="m-card-eyebrow">✦ Your momentum</span>
-        <div className="m-mo-rows">
-          {([
-            { label: "Days walked", icon: "🔥", tw: activity.thisWeek.days, lw: activity.lastWeek.days, max: 7 },
-            { label: "Verses memorized", icon: "📖", tw: activity.thisWeek.verses, lw: activity.lastWeek.verses, max: Math.max(3, activity.thisWeek.verses, activity.lastWeek.verses) },
-          ] as const).map((r) => (
-            <div key={r.label} className="m-mo-row">
-              <div className="m-mo-label">{r.icon} {r.label}</div>
-              <div className="m-mo-bars">
-                <div className="m-mo-bar"><span className="m-mo-fill is-this" style={{ width: `${Math.min(100, (r.tw / r.max) * 100)}%` }} /><em>This week · {r.tw}</em></div>
-                <div className="m-mo-bar"><span className="m-mo-fill is-last" style={{ width: `${Math.min(100, (r.lw / r.max) * 100)}%` }} /><em>Last week · {r.lw}</em></div>
-              </div>
-            </div>
-          ))}
-        </div>
-        <p className="m-mo-foot">
-          {activity.thisWeek.days >= activity.lastWeek.days
-            ? "You're keeping pace — beautiful. Small and steady wins. 🌱"
-            : "A gentler week — that's okay. Today is a fresh start."}
-        </p>
       </section>
 
       {/* Today's Walk */}
@@ -292,31 +269,6 @@ export default async function PortalHome() {
           )}
         </section>
       </div>
-
-      {/* Your badges */}
-      <div className="m-section-tag">Your badges</div>
-      <section className="m-badges">
-        {earnedBadges.length === 0 && (
-          <p className="muted" style={{ margin: "2px 2px 12px" }}>
-            Your first badge is one step away — read today, write a prayer, or memorize a verse. 🌱
-          </p>
-        )}
-        <div className="m-badge-row">
-          {earnedBadges.map((b) => (
-            <div key={b.id} className="m-badge is-earned" title={b.blurb}>
-              <span className="m-badge-ico">{b.emoji}</span>
-              <span className="m-badge-name">{b.label}</span>
-            </div>
-          ))}
-          {nextBadge && (
-            <div className="m-badge is-next" title={nextBadge.blurb}>
-              <span className="m-badge-ico">{nextBadge.emoji}</span>
-              <span className="m-badge-name">{nextBadge.label}</span>
-              <span className="m-badge-next">Next up</span>
-            </div>
-          )}
-        </div>
-      </section>
 
       {/* Community: walk together */}
       <div className="m-section-tag">Walk together</div>
@@ -438,6 +390,63 @@ export default async function PortalHome() {
         )}
       </section>
 
+      {/* More for today — tucked away to keep the dashboard calm */}
+      <details className="m-more">
+        <summary>
+          <span className="m-acc-title">✦ A little more for today</span>
+          <span className="m-acc-hint">Your momentum, badges, reflection &amp; wonder — tap to open.</span>
+        </summary>
+
+      {/* Weekly momentum — this week vs last week */}
+      <section className="m-momentum">
+        <span className="m-card-eyebrow">✦ Your momentum</span>
+        <div className="m-mo-rows">
+          {([
+            { label: "Days walked", icon: "🔥", tw: activity.thisWeek.days, lw: activity.lastWeek.days, max: 7 },
+            { label: "Verses memorized", icon: "📖", tw: activity.thisWeek.verses, lw: activity.lastWeek.verses, max: Math.max(3, activity.thisWeek.verses, activity.lastWeek.verses) },
+          ] as const).map((r) => (
+            <div key={r.label} className="m-mo-row">
+              <div className="m-mo-label">{r.icon} {r.label}</div>
+              <div className="m-mo-bars">
+                <div className="m-mo-bar"><span className="m-mo-fill is-this" style={{ width: `${Math.min(100, (r.tw / r.max) * 100)}%` }} /><em>This week · {r.tw}</em></div>
+                <div className="m-mo-bar"><span className="m-mo-fill is-last" style={{ width: `${Math.min(100, (r.lw / r.max) * 100)}%` }} /><em>Last week · {r.lw}</em></div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <p className="m-mo-foot">
+          {activity.thisWeek.days >= activity.lastWeek.days
+            ? "You're keeping pace — beautiful. Small and steady wins. 🌱"
+            : "A gentler week — that's okay. Today is a fresh start."}
+        </p>
+      </section>
+
+      {/* Your badges */}
+      <div className="m-section-tag">Your badges</div>
+      <section className="m-badges">
+        {earnedBadges.length === 0 && (
+          <p className="muted" style={{ margin: "2px 2px 12px" }}>
+            Your first badge is one step away — read today, write a prayer, or memorize a verse. 🌱
+          </p>
+        )}
+        <div className="m-badge-row">
+          {earnedBadges.map((b) => (
+            <div key={b.id} className={`m-badge is-earned${b.secret ? " is-secret" : ""}`} title={b.blurb}>
+              <span className="m-badge-ico">{b.emoji}</span>
+              <span className="m-badge-name">{b.label}</span>
+              {b.secret && <span className="m-badge-secret">✨ hidden</span>}
+            </div>
+          ))}
+          {nextBadge && (
+            <div className="m-badge is-next" title={nextBadge.blurb}>
+              <span className="m-badge-ico">{nextBadge.emoji}</span>
+              <span className="m-badge-name">{nextBadge.label}</span>
+              <span className="m-badge-next">Next up</span>
+            </div>
+          )}
+        </div>
+      </section>
+
       {/* Question of the Day + Bible Parallels */}
       <div className="m-section-tag">Reflect &amp; relate</div>
       <div className="m-two">
@@ -495,6 +504,7 @@ export default async function PortalHome() {
           </Link>
         ))}
       </div>
+      </details>
     </div>
   );
 }

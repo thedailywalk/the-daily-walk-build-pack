@@ -180,6 +180,13 @@ SQL files in `supabase/`: `prayer-wall.sql`, `good-news.sql`, `study-journal.sql
 
 ## Decision Log (newest at top)
 
+### 2026-06-25 — Condensed "focused & calm" dashboard + badge redesign with secret badges
+- **Decided:** (1) Condensed `/portal` to lead with Today's devotional → Continue journey → Community, with the streak merged as a slim line into the hero, and momentum/badges/Question-of-Day/Bible-Parallels/Wonder/Quick-access tucked into one collapsible **"A little more for today"** `<details>`. (2) Redesigned badges into six families — Showing up, The Word, Prayer, Community, Milestones, and **Hidden blessings (secret)**. Secret badges (Quiet Comeback, Hidden Gem, Well-Rounded Walk) never appear in the "next up" preview — only revealed when earned, with a "✨ hidden" accent.
+- **Why:** Lulu chose "Focused & calm" + essentials = devotional/continue/community, and said yes to surprise badges.
+- **New stats/lib:** `currentStreak`, `reactionsGiven`, `sharesPosted` added to `BadgeStats`; `reactionsGivenCount` + `sharesPostedCount` in community.ts; `BADGE_GROUP_LABEL` + `secret` on Badge. Updated `refreshBadges` (memory/actions) to feed the new stats.
+- **Also this turn (already live):** Daily Wonders button removed from account card; `delatorre.ucla@gmail.com` comped as Patron test member; in-portal **My Settings** tab; portal is the post-login landing page; `content-library-status.sql` was run by Lulu (library-forwarding drafts now save).
+- **Affects:** `portal/page.tsx`, `community.ts`, `memory/actions.ts`, `globals.css`.
+
 ### 2026-06-25 — Portal dashboard is now the post-login landing + big "Walk together" upgrade
 - **Decided:** (1) After sign-in, members land on `/portal` (not `/account`) — login page + `auth/callback` default changed. Root cause of "I don't see the portal": it existed but sign-in dropped users on `/account` and there was no nav link (now "My Journey"). (2) Added to the `/portal` dashboard: **Walk Score** (transparent engagement number + level, in the hero) with a profile strip (avatar initial, "walking since", tier); **weekly momentum chart** (this vs last week — days walked + verses); **"Where everyone's at"** community-pace card (your day vs community avg + walking-together count + invite link); an optional collapsible **"Iron sharpens iron"** accountability board (longest-streak leaders + verses-this-week leaders); and a **share-to-wall** box so members can post praises (kind `share`).
 - **Why:** Lulu's design choices — Walk Score up top, dual leaderboard (showing-up + where-everyone's-at), grace-first + optional friendly ranked, all four add-ons. Goal: feel like sitting 1:1 with Jesus, welcoming + motivating on login.
