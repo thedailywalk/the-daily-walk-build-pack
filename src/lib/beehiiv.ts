@@ -105,7 +105,10 @@ export type Entitlement = {
  * Edit this list, or add a comma-separated COMP_PATRON_EMAILS env var.
  */
 const COMP_PATRON_EMAILS = new Set(
-  ["thedailywalknewsletter@gmail.com"]
+  [
+    "thedailywalknewsletter@gmail.com",
+    "delatorre.ucla@gmail.com", // test member — see the member (non-admin) experience
+  ]
     .concat((process.env.COMP_PATRON_EMAILS ?? "").split(","))
     .map((e) => e.trim().toLowerCase())
     .filter(Boolean)

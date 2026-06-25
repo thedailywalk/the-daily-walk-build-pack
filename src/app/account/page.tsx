@@ -91,9 +91,6 @@ export default async function AccountPage() {
               <Link href="/journey" className="btn btn-gold">
                 Open My Journey →
               </Link>
-              <Link href="/wonders" className="btn btn-ghost">
-                Daily Wonders →
-              </Link>
             </div>
             <div className="muted" style={{ fontSize: 13, marginTop: 12 }}>
               Subscription status: {ent.status ?? "active"}
