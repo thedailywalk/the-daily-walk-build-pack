@@ -75,7 +75,8 @@ your real list; the URLs power footer/pricing links.
    locally (project `makaxugtawmuibdkbjju`), the tables already exist — nothing to do. If you
    ever create a *separate* production project, run **every file in `supabase/` once** in its
    SQL Editor: `devotionals`, `study-journal`, `prayer-wall`, `good-news`, `content-library`,
-   `content-library-media`, `weekly-video`, `daily-poll`, `prayer-journal`.
+   `content-library-media`, `weekly-video`, `daily-poll`, `prayer-journal`,
+   `workbook-evolution`.
 
    > **Cron jobs** (in `vercel.json`) run automatically on Vercel: daily devotional
    > auto-draft + auto-publish, daily Good-News refresh, daily Weekly-Video health check,

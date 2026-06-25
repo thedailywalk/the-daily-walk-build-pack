@@ -48,6 +48,13 @@ const I = {
     <path d="M12 21s-7-4.35-7-9a4 4 0 0 1 7-2.6A4 4 0 0 1 19 12c0 4.65-7 9-7 9z" />
   ),
   chevron: <path d="m9 6 6 6-6 6" />,
+  book: (
+    <>
+      <path d="M4 4.5A1.5 1.5 0 0 1 5.5 3H19a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H5.5A1.5 1.5 0 0 0 4 20.5z" />
+      <path d="M4 16.5A1.5 1.5 0 0 1 5.5 15H20" />
+      <path d="M9 7.5l2.5 2 2.5-2" />
+    </>
+  ),
 };
 
 function icon(path: React.ReactNode) {
@@ -95,17 +102,23 @@ const ITEMS: Item[] = [
     href: "/admin/library",
     label: "Content Library",
     icon: icon(I.library),
-    match: (p) => p.startsWith("/admin/library"),
+    match: (p) => p.startsWith("/admin/library") || p.startsWith("/admin/inspiration"),
+  },
+  {
+    href: "/admin/workbook",
+    label: "Workbook",
+    icon: icon(I.book),
+    match: (p) => p.startsWith("/admin/workbook"),
     children: [
       {
-        href: "/admin/library",
-        label: "All items",
-        match: (p) => p === "/admin/library",
+        href: "/admin/workbook",
+        label: "Evolution Dashboard",
+        match: (p) => p === "/admin/workbook",
       },
       {
-        href: "/admin/library/capture",
-        label: "Capture from Instagram",
-        match: (p) => p.startsWith("/admin/library/capture"),
+        href: "/admin/workbook/submit",
+        label: "Add inspiration",
+        match: (p) => p.startsWith("/admin/workbook/submit"),
       },
     ],
   },
@@ -114,12 +127,6 @@ const ITEMS: Item[] = [
     label: "Weekly Video",
     icon: icon(I.video),
     match: (p) => p.startsWith("/admin/weekly-video"),
-  },
-  {
-    href: "/admin/inspiration",
-    label: "Inspiration Sources",
-    icon: icon(I.spark),
-    match: (p) => p.startsWith("/admin/inspiration"),
   },
   {
     href: "/admin/good-news",

@@ -8,6 +8,8 @@ import {
   deleteLibraryItem,
   uploadLibraryMedia,
   deleteLibraryMedia,
+  upsertSource,
+  deleteSource,
   MEDIA_MAX_BYTES,
 } from "@/lib/library";
 
@@ -78,7 +80,7 @@ export async function saveLibraryItemAction(formData: FormData) {
   });
 
   revalidatePath("/admin/library");
-  redirect(tooBig ? "/admin/library?err=size" : "/admin/library?saved=1");
+  redirect(tooBig ? "/admin/library?tab=add&err=size" : "/admin/library?saved=1");
 }
 
 export async function deleteLibraryItemAction(formData: FormData) {
@@ -87,4 +89,31 @@ export async function deleteLibraryItemAction(formData: FormData) {
   if (id) await deleteLibraryItem(id);
   revalidatePath("/admin/library");
   redirect("/admin/library");
+}
+
+/* --------- Your Voices (inspiration sources, folded into the library) -------- */
+
+export async function saveSourceAction(formData: FormData) {
+  await requireAdmin();
+  const id = str(formData, "id") || undefined;
+  if (!str(formData, "name")) redirect("/admin/library?tab=voices");
+  await upsertSource({
+    id,
+    name: str(formData, "name"),
+    handle: str(formData, "handle") || null,
+    kind: str(formData, "kind") || null,
+    topics: list(formData, "topics"),
+    notes: str(formData, "notes") || null,
+    frequency: str(formData, "frequency") || "occasionally",
+  });
+  revalidatePath("/admin/library");
+  redirect("/admin/library?tab=voices&saved=1");
+}
+
+export async function deleteSourceAction(formData: FormData) {
+  await requireAdmin();
+  const id = str(formData, "id");
+  if (id) await deleteSource(id);
+  revalidatePath("/admin/library");
+  redirect("/admin/library?tab=voices");
 }

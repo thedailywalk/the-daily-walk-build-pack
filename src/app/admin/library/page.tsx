@@ -2,22 +2,34 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { requireAdmin } from "@/lib/adminGuard";
 import { adminDbConfigured } from "@/lib/supabase/admin";
-import AdminNav from "@/components/AdminNav";
 import {
   listLibrary,
+  listSources,
+  getSource,
   getLibraryItem,
   topicCounts,
   mediaKind,
   TOPICS,
   CONTENT_TYPES,
+  FREQUENCIES,
   type LibraryItem,
+  type InspirationSource,
 } from "@/lib/library";
-import { saveLibraryItemAction, deleteLibraryItemAction } from "./actions";
+import {
+  deleteLibraryItemAction,
+  saveSourceAction,
+  deleteSourceAction,
+} from "./actions";
 import SmartLibraryForm from "@/components/SmartLibraryForm";
 
-export const metadata: Metadata = {
-  title: "Content Library",
-  robots: { index: false },
+export const metadata: Metadata = { title: "Content Library", robots: { index: false } };
+
+type Tab = "library" | "add" | "voices";
+
+const FREQ_LABEL: Record<string, string> = {
+  often: "Use often",
+  occasionally: "Occasionally",
+  "certain topics": "Certain topics",
 };
 
 export default async function LibraryPage({
@@ -28,158 +40,207 @@ export default async function LibraryPage({
     topic?: string;
     kind?: string;
     edit?: string;
+    sedit?: string;
     saved?: string;
     err?: string;
+    tab?: string;
   }>;
 }) {
   await requireAdmin();
   const sp = await searchParams;
 
-  const [items, counts, editing] = await Promise.all([
+  // Editing an item or applying a filter forces the relevant tab.
+  const tab: Tab = sp.edit
+    ? "add"
+    : sp.tab === "add"
+    ? "add"
+    : sp.tab === "voices" || sp.sedit
+    ? "voices"
+    : "library";
+
+  const [items, counts, sources, editing, editingSource] = await Promise.all([
     listLibrary({ q: sp.q, topic: sp.topic, kind: sp.kind }),
     topicCounts(),
+    listSources(),
     sp.edit ? getLibraryItem(sp.edit) : Promise.resolve(null),
+    sp.sedit ? getSource(sp.sedit) : Promise.resolve(null),
   ]);
   const total = Object.values(counts).reduce((a, b) => a + b, 0);
+  const coveredTopics = TOPICS.filter((t) => (counts[t] ?? 0) > 0).length;
+
+  const TABS: { key: Tab; href: string; label: string; icon: string }[] = [
+    { key: "library", href: "/admin/library", label: "Library", icon: "📚" },
+    { key: "add", href: "/admin/library?tab=add", label: editing ? "Edit item" : "Add new", icon: "＋" },
+    { key: "voices", href: "/admin/library?tab=voices", label: "Your Voices", icon: "⭐" },
+  ];
 
   return (
     <section className="section">
       <div className="adm-wrap">
         <div className="adm-head">
           <div>
-            <div className="sec-tag" style={{ textAlign: "left" }}>
-              Admin · Content Library
-            </div>
+            <div className="sec-tag" style={{ textAlign: "left" }}>Admin · Content Library</div>
+            <h1 className="h">Content Library</h1>
             <p className="adm-sub">
-              Your research base — paste a clip, transcript, your own rewrite, and
-              the research behind it, all in one place. Tag it so the newsletter
-              generator can pull from it by theme.
+              One home for everything you research and the voices you draw from — clips, transcripts, your
+              own rewrites, and the people who inspire you. Tag it so the newsletter can pull by theme.
             </p>
           </div>
         </div>
 
         {!adminDbConfigured && (
           <div className="adm-notice">
-            Add <code>SUPABASE_SERVICE_ROLE_KEY</code> to <code>.env.local</code>{" "}
-            and run <code>supabase/content-library.sql</code> to start saving.
+            Add <code>SUPABASE_SERVICE_ROLE_KEY</code> to <code>.env.local</code> and run{" "}
+            <code>supabase/content-library.sql</code> to start saving.
           </div>
         )}
 
-        <AdminNav active="library" />
+        {/* Stat row */}
+        <div className="lib2-stats">
+          <div className="lib2-stat">
+            <div className="lib2-stat-n">{total}</div>
+            <div className="lib2-stat-l">items saved</div>
+          </div>
+          <div className="lib2-stat">
+            <div className="lib2-stat-n">{sources.length}</div>
+            <div className="lib2-stat-l">voices you follow</div>
+          </div>
+          <div className="lib2-stat">
+            <div className="lib2-stat-n">{coveredTopics}<span className="lib2-stat-of">/{TOPICS.length}</span></div>
+            <div className="lib2-stat-l">topics with material</div>
+          </div>
+        </div>
+
+        {/* Tabs */}
+        <nav className="lib2-tabs" aria-label="Content Library">
+          {TABS.map((t) => (
+            <Link key={t.key} href={t.href} className={`lib2-tab${tab === t.key ? " is-on" : ""}`}>
+              <span className="lib2-tab-ico">{t.icon}</span> {t.label}
+              {t.key === "library" && <span className="lib2-tab-n">{items.length}</span>}
+              {t.key === "voices" && <span className="lib2-tab-n">{sources.length}</span>}
+            </Link>
+          ))}
+        </nav>
 
         {sp.saved && <div className="adm-saved">Saved ✓</div>}
         {sp.err === "size" && (
           <div className="adm-notice">
-            That file was over 4MB, so it wasn&apos;t uploaded (your text was
-            still saved). Use a smaller file, or paste a link to it instead.
+            That file was over 4MB, so it wasn&apos;t uploaded (your text was still saved). Use a smaller
+            file, or paste a link instead.
           </div>
         )}
 
-        {/* Coverage dashboard */}
-        <div className="lib-cov">
-          <div className="adm-bar">
-            <h2 className="adm-h2">Coverage by topic</h2>
-            <span className="adm-archrow-date">{total} items saved</span>
-          </div>
-          <p className="adm-hintline">
-            Green = well-stocked · amber = a little · grey = needs material. Click
-            a topic to filter.
-          </p>
-          <div className="lib-covgrid">
-            {TOPICS.map((t) => {
-              const n = counts[t] ?? 0;
-              const level = n === 0 ? "none" : n < 3 ? "low" : "good";
-              return (
-                <Link
-                  key={t}
-                  href={`/admin/library?topic=${encodeURIComponent(t)}`}
-                  className={`lib-covcell lib-${level}${sp.topic === t ? " is-on" : ""}`}
-                >
-                  <span className="lib-covname">{t}</span>
-                  <span className="lib-covnum">{n}</span>
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-
-        <div className="adm-cols lib-cols">
-          {/* Add / edit form */}
-          <SmartLibraryForm
-            topics={[...TOPICS]}
-            contentTypes={[...CONTENT_TYPES]}
-            editing={editing}
-          />
-
-          {/* Browse */}
-          <div>
-            <div className="adm-bar">
-              <h2 className="adm-h2">
-                {sp.topic ? `“${sp.topic}”` : sp.q ? `Search: “${sp.q}”` : "All items"}
-                <span className="lib-count"> · {items.length}</span>
-              </h2>
-              {(sp.topic || sp.q || sp.kind) && (
-                <Link href="/admin/library" className="adm-back">
-                  Clear filters
-                </Link>
-              )}
+        {/* ───────────────── LIBRARY TAB ───────────────── */}
+        {tab === "library" && (
+          <>
+            {/* Condensed coverage strip */}
+            <div className="lib2-cov" role="group" aria-label="Filter by topic">
+              {TOPICS.map((t) => {
+                const n = counts[t] ?? 0;
+                const level = n === 0 ? "none" : n < 3 ? "low" : "good";
+                const on = sp.topic === t;
+                return (
+                  <Link
+                    key={t}
+                    href={on ? "/admin/library" : `/admin/library?topic=${encodeURIComponent(t)}`}
+                    className={`lib2-chip lib-${level}${on ? " is-on" : ""}`}
+                  >
+                    <span className="lib2-dot" /> {t} <span className="lib2-chip-n">{n}</span>
+                  </Link>
+                );
+              })}
             </div>
 
-            <form className="lib-search" action="/admin/library">
+            {/* Toolbar */}
+            <form className="lib2-toolbar" action="/admin/library">
               <input
                 name="q"
                 defaultValue={sp.q}
                 className="adm-input"
-                placeholder="Search title, notes, content…"
+                placeholder="Search title, notes, transcript…"
               />
               <select name="kind" defaultValue={sp.kind ?? ""} className="sg-select">
                 <option value="">Any type</option>
-                {CONTENT_TYPES.map((k) => (
-                  <option key={k} value={k}>
-                    {k}
-                  </option>
-                ))}
+                {CONTENT_TYPES.map((k) => <option key={k} value={k}>{k}</option>)}
               </select>
-              <button type="submit" className="btn btn-ghost">
-                Search
-              </button>
+              <button type="submit" className="wb-btn">Search</button>
+              {(sp.topic || sp.q || sp.kind) && (
+                <Link href="/admin/library" className="wb-btn wb-btn-ghost">Clear</Link>
+              )}
+              <Link href="/admin/library?tab=add" className="btn-gold lib2-add-btn">＋ Add new</Link>
             </form>
 
+            <div className="lib2-result-tag">
+              {sp.topic ? `Topic: “${sp.topic}”` : sp.q ? `Search: “${sp.q}”` : "All items"}
+              <span className="lib-count"> · {items.length}</span>
+            </div>
+
             {items.length === 0 ? (
-              <div className="sg-zone sg-zone-cool" style={{ marginTop: 14 }}>
-                <p className="muted" style={{ margin: 0 }}>
-                  Nothing here yet. Add your first item with the form on the left.
-                </p>
+              <div className="lib2-empty">
+                Nothing here yet.{" "}
+                <Link href="/admin/library?tab=add">Add your first item →</Link>
               </div>
             ) : (
-              <div className="lib-list">
-                {items.map((it) => (
-                  <LibCard key={it.id} item={it} />
-                ))}
+              <div className="lib2-grid">
+                {items.map((it) => <LibCard key={it.id} item={it} />)}
               </div>
             )}
+          </>
+        )}
+
+        {/* ───────────────── ADD / EDIT TAB ───────────────── */}
+        {tab === "add" && (
+          <div className="lib2-form-wrap">
+            {editing && (
+              <div className="lib2-editing-bar">
+                Editing <strong>{editing.title || "this item"}</strong>
+                <Link href="/admin/library" className="wb-btn wb-btn-ghost">Cancel</Link>
+              </div>
+            )}
+            <SmartLibraryForm topics={[...TOPICS]} contentTypes={[...CONTENT_TYPES]} editing={editing} />
           </div>
-        </div>
+        )}
+
+        {/* ───────────────── YOUR VOICES TAB ───────────────── */}
+        {tab === "voices" && (
+          <div className="lib2-voices">
+            <p className="adm-hintline">
+              The pastors, teachers, and creators you draw inspiration from — for themes, tone, and direction
+              only. Everything you write stays original; nothing is copied.
+            </p>
+            <div className="lib2-voices-cols">
+              <SourceForm editing={editingSource} />
+              <div>
+                {sources.length === 0 ? (
+                  <div className="lib2-empty">No voices yet. Add the people who inspire you with the form.</div>
+                ) : (
+                  <div className="lib2-grid">
+                    {sources.map((s) => <SourceCard key={s.id} source={s} />)}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
 }
+
+/* --------------------------------- cards --------------------------------- */
 
 function LibCard({ item }: { item: LibraryItem }) {
   return (
     <div className="lib-card">
       <div className="lib-card-top">
         <span className="lib-kind">{item.kind}</span>
+        {item.isVoice && <span className="lib-orig">⭐ Voice</span>}
         {item.isOriginal && <span className="lib-orig">My words</span>}
         <div className="lib-card-actions">
-          <Link href={`/admin/library?edit=${item.id}`} className="sg-link-btn">
-            Edit
-          </Link>
+          <Link href={`/admin/library?tab=add&edit=${item.id}`} className="sg-link-btn">Edit</Link>
           <form action={deleteLibraryItemAction}>
             <input type="hidden" name="id" value={item.id} />
-            <button type="submit" className="adm-link-danger">
-              Delete
-            </button>
+            <button type="submit" className="adm-link-danger">Delete</button>
           </form>
         </div>
       </div>
@@ -188,20 +249,38 @@ function LibCard({ item }: { item: LibraryItem }) {
       <MediaPreview item={item} />
       {item.why && <p className="lib-why">Why: {item.why}</p>}
       <div className="lib-tags">
-        {item.topics.map((t) => (
-          <span key={t} className="lib-tag">
-            {t}
-          </span>
-        ))}
-        {item.scriptures.map((s) => (
-          <span key={s} className="lib-tag lib-tag-verse">
-            {s}
-          </span>
-        ))}
+        {item.topics.map((t) => <span key={t} className="lib-tag">{t}</span>)}
+        {item.scriptures.map((s) => <span key={s} className="lib-tag lib-tag-verse">{s}</span>)}
         {item.holiday && <span className="lib-tag lib-tag-alt">{item.holiday}</span>}
         {item.emotion && <span className="lib-tag lib-tag-alt">{item.emotion}</span>}
         {item.source && <span className="lib-tag lib-tag-src">{item.source}</span>}
       </div>
+    </div>
+  );
+}
+
+function SourceCard({ source: s }: { source: InspirationSource }) {
+  return (
+    <div className="lib-card">
+      <div className="lib-card-top">
+        <span className={`src-freq src-${s.frequency.replace(/\s/g, "-")}`}>
+          {FREQ_LABEL[s.frequency] ?? s.frequency}
+        </span>
+        <div className="lib-card-actions">
+          <Link href={`/admin/library?tab=voices&sedit=${s.id}`} className="sg-link-btn">Edit</Link>
+          <form action={deleteSourceAction}>
+            <input type="hidden" name="id" value={s.id} />
+            <button type="submit" className="adm-link-danger">Remove</button>
+          </form>
+        </div>
+      </div>
+      <div className="lib-title">
+        {s.name}
+        {s.handle && <span className="src-handle"> · {s.handle}</span>}
+      </div>
+      {s.kind && <div className="src-kind">{s.kind}</div>}
+      {s.notes && <p className="lib-why">{s.notes}</p>}
+      <div className="lib-tags">{s.topics.map((t) => <span key={t} className="lib-tag">{t}</span>)}</div>
     </div>
   );
 }
@@ -213,13 +292,59 @@ function MediaPreview({ item }: { item: LibraryItem }) {
     // eslint-disable-next-line @next/next/no-img-element
     return <img src={item.url} alt={item.title || "Saved visual"} className="lib-media-img" />;
   }
-  if (kind === "audio") {
-    return <audio controls src={item.url} className="lib-media-audio" />;
-  }
+  if (kind === "audio") return <audio controls src={item.url} className="lib-media-audio" />;
   return (
-    <a href={item.url} target="_blank" rel="noopener noreferrer" className="lib-link">
-      {item.url}
-    </a>
+    <a href={item.url} target="_blank" rel="noopener noreferrer" className="lib-link">{item.url}</a>
   );
 }
 
+function SourceForm({ editing }: { editing: InspirationSource | null }) {
+  const d = editing;
+  return (
+    <form action={saveSourceAction} className="adm-form lib-form">
+      <h3 className="adm-group" style={{ borderTop: "none", paddingTop: 0, marginTop: 0 }}>
+        {d ? "Edit voice" : "Add a voice"}
+      </h3>
+      {d && <input type="hidden" name="id" value={d.id} />}
+      <label className="adm-field">
+        <span className="adm-label">Name</span>
+        <input name="name" defaultValue={d?.name} className="adm-input" placeholder="Johnny Chang" required />
+      </label>
+      <div className="adm-row">
+        <label className="adm-field">
+          <span className="adm-label">Handle / website</span>
+          <input name="handle" defaultValue={d?.handle ?? ""} className="adm-input" placeholder="@handle or site.com" />
+        </label>
+        <label className="adm-field">
+          <span className="adm-label">Type</span>
+          <input name="kind" defaultValue={d?.kind ?? ""} className="adm-input" placeholder="Pastor, speaker, writer…" />
+        </label>
+      </div>
+      <label className="adm-field">
+        <span className="adm-label">How often to use</span>
+        <select name="frequency" defaultValue={d?.frequency ?? "occasionally"} className="sg-select">
+          {FREQUENCIES.map((f) => <option key={f} value={f}>{FREQ_LABEL[f]}</option>)}
+        </select>
+      </label>
+      <label className="adm-field">
+        <span className="adm-label">Topics they speak on</span>
+        <div className="lib-checks">
+          {TOPICS.map((t) => (
+            <label key={t} className="lib-check">
+              <input type="checkbox" name="topics" value={t} defaultChecked={d?.topics.includes(t)} />
+              {t}
+            </label>
+          ))}
+        </div>
+      </label>
+      <label className="adm-field">
+        <span className="adm-label">Notes — what I like about their tone/message</span>
+        <textarea name="notes" defaultValue={d?.notes ?? ""} className="adm-textarea" rows={3} />
+      </label>
+      <div className="adm-actions">
+        <button type="submit" className="btn btn-gold">{d ? "Save changes" : "Add voice"}</button>
+        {d && <Link href="/admin/library?tab=voices" className="btn btn-ghost">Cancel</Link>}
+      </div>
+    </form>
+  );
+}
