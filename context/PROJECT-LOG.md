@@ -194,6 +194,10 @@ SQL files in `supabase/`: `prayer-wall.sql`, `good-news.sql`, `study-journal.sql
 
 ## Decision Log (newest at top)
 
+### 2026-06-25 — Welcome "Join free" modal on landing
+- **Built:** `JoinModal` (client) shown shortly after landing on public pages — tailored to the newsletter (brand header, "free every morning" eyebrow, headline, a Psalm 118:24 verse panel, the reusable `SignupForm`, 3 benefit bullets, "Free forever · No spam" footer, subtle Founding-Member link). Reuses `/api/subscribe` (Beehiiv). Remembers dismissal in localStorage (re-shows after 3 days); excluded on /admin, /portal, /login, /subscribe, /auth, /designs; Esc/backdrop/X to close; reduced-motion safe. Mounted in root `layout.tsx`; styles `.jm-*` in globals.css.
+- **Why:** capture signups immediately (modeled on a popup the owner liked), tailored to The Daily Walk's calm/faith tone.
+
 ### 2026-06-25 — Newsletter monetization funnel built (Free + Premium $5.99 Founding Member)
 - **Decided & built:** the website funnel to launch paid newsletters while the platform is in build. `/pricing` (when `PRICING_ENABLED` is false) now shows a **Founding Member offer** instead of "coming soon": Free vs Premium ($5.99/mo or $59/yr), the three premium segments (**The Science Behind It** daily, **The World This Week** Thu, **The Weekend Study** Sat), the **"grandfathered into the full platform"** promise, and a "platform coming soon" panel. Subscribe page teaser updated to founding language. Header has an always-visible gold **Premium** link. The devotional **email HTML** (`devotionalHtml.ts`, used for "Copy email HTML" + RSS) now ends with a **Founding-Member upgrade block**.
 - **Premium CTA wiring:** the "Become a Founding Member" button uses `site.beehiiv.upgradePremiumUrl` (env `NEXT_PUBLIC_BEEHIIV_PREMIUM_URL`). Until that env is set it gracefully falls back to "Join free — be first in line." **Owner action:** in Beehiiv, move to the plan that allows paid subscriptions, connect Stripe, create Premium $5.99/mo (+ $59/yr), then set `NEXT_PUBLIC_BEEHIIV_PREMIUM_URL` to the Beehiiv premium-upgrade/checkout URL and redeploy.

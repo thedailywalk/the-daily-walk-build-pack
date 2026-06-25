@@ -5,6 +5,7 @@ import { site } from "@/lib/site";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HideOnAdmin from "@/components/HideOnAdmin";
+import JoinModal from "@/components/JoinModal";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -58,6 +59,7 @@ export default function RootLayout({
         <HideOnAdmin paths={["/admin", "/portal"]}>
           <Footer />
         </HideOnAdmin>
+        <JoinModal />
       </body>
     </html>
   );

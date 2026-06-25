@@ -8416,3 +8416,69 @@ hr.div {
 /* Header "Premium" link — gold accent so the upgrade is discoverable */
 .nav .navlinks a.navpremium { color: var(--gold, #B8902E); font-weight: 700; }
 .nav .navlinks a.navpremium:hover { color: var(--gold-deep, #9a7722); }
+
+/* ============================================================
+   Join modal — welcome popup inviting visitors to the newsletter
+   ============================================================ */
+.jm-backdrop {
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(15, 26, 46, 0.55);
+  backdrop-filter: blur(3px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 18px;
+  animation: jm-fade 0.25s ease both;
+}
+@keyframes jm-fade { from { opacity: 0; } to { opacity: 1; } }
+.jm-card {
+  width: 100%; max-width: 440px;
+  background: #FAF6EE; border-radius: 18px; overflow: hidden;
+  box-shadow: 0 30px 80px -20px rgba(15, 26, 46, 0.6);
+  animation: jm-pop 0.32s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  max-height: calc(100vh - 36px); overflow-y: auto;
+}
+@keyframes jm-pop { from { opacity: 0; transform: translateY(14px) scale(0.98); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .jm-backdrop, .jm-card { animation: none; }
+}
+.jm-head {
+  background: #1F3A5F; color: #fff;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 20px;
+}
+.jm-brand { font-family: var(--serif, Georgia, serif); font-size: 17px; letter-spacing: 2px; color: #fff; }
+.jm-close {
+  background: none; border: none; color: #cdd7e6; font-size: 24px; line-height: 1;
+  cursor: pointer; padding: 0 4px;
+}
+.jm-close:hover { color: #fff; }
+.jm-body { padding: 20px 24px 22px; }
+.jm-stats {
+  display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+  font-family: var(--sans, sans-serif); font-size: 11px; letter-spacing: 0.5px;
+  text-transform: uppercase; color: #8a8270; padding-bottom: 14px; border-bottom: 1px solid #e7ddc7;
+}
+.jm-stats b { color: #1F3A5F; }
+.jm-eyebrow {
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--sans, sans-serif); font-weight: 700; font-size: 12.5px; color: #B8902E;
+  margin: 16px 0 6px;
+}
+.jm-dot { width: 9px; height: 9px; border-radius: 50%; background: #5a9a6b; box-shadow: 0 0 0 4px rgba(90,154,107,0.18); }
+.jm-title { font-family: var(--serif, Georgia, serif); font-size: 27px; line-height: 1.15; color: #1F3A5F; margin: 0 0 8px; }
+.jm-title span { color: #B8902E; }
+.jm-sub { font-size: 14.5px; line-height: 1.6; color: #5a5345; margin: 0 0 16px; }
+.jm-verse {
+  background: #F3ECDA; border-left: 4px solid #C9A24B; border-radius: 0 10px 10px 0;
+  padding: 14px 16px; margin: 0 0 18px;
+}
+.jm-verse p { font-family: var(--serif, Georgia, serif); font-style: italic; color: #1F3A5F; font-size: 15.5px; line-height: 1.5; margin: 0 0 6px; }
+.jm-verse cite { font-style: normal; font-size: 12px; color: #8a8270; }
+.jm-list { list-style: none; margin: 16px 0 14px; padding: 0; }
+.jm-list li { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: #3c4350; margin: 8px 0; }
+.jm-foot { text-align: center; font-size: 12px; color: #8a8270; padding-top: 8px; border-top: 1px solid #e7ddc7; }
+.jm-more { text-align: center; font-size: 13px; color: #5a5345; margin-top: 10px; }
+.jm-more a { color: #B8902E; font-weight: 600; text-decoration: none; }
+.jm-more a:hover { text-decoration: underline; }
+/* Stack the embedded signup form nicely inside the modal */
+.jm-body .signup { display: flex; gap: 8px; flex-wrap: wrap; }
+.jm-body .signup input { flex: 1; min-width: 0; }
