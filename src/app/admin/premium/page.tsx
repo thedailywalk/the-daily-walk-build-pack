@@ -50,8 +50,8 @@ export default async function PremiumAdminPage({
               free daily — every date opens fully written. Read it, edit in your
               voice, mark it <strong>Ready</strong>, and it publishes on its own
               date. Includes <strong>The Science Behind It</strong> (daily),{" "}
-              <strong>The World This Week</strong> (Thursdays), and{" "}
-              <strong>The Weekend Study</strong> (Saturdays).
+              <strong>The World Today</strong> (daily — 3 events through God&apos;s
+              lens), and <strong>The Weekend Study</strong> (Saturdays).
             </p>
           </div>
           <Link href="/pricing" className="btn btn-ghost">
@@ -115,10 +115,10 @@ async function WeekView() {
         </form>
       </div>
       <p className="adm-hintline">
-        Every day is generated complete and ready to read. Thursdays add{" "}
-        <strong>The World This Week</strong>; Saturdays add{" "}
-        <strong>The Weekend Study</strong>. Click any date to open the full
-        issue, edit it, then mark it <strong>Ready</strong>.
+        Every day is generated complete and ready to read — including{" "}
+        <strong>The World Today</strong> (3 events through God&apos;s lens).
+        Saturdays add <strong>The Weekend Study</strong>. Click any date to open
+        the full issue, edit it, then mark it <strong>Ready</strong>.
       </p>
 
       <div className="adm-week">
@@ -128,11 +128,9 @@ async function WeekView() {
           const heading = (d?.data.scienceHeading || gen.scienceHeading)?.trim();
           const wd = weekdayLabel(date);
           const extra =
-            wd === "Thursday"
-              ? "+ The World This Week"
-              : wd === "Saturday"
-                ? "+ The Weekend Study"
-                : "The Science Behind It";
+            wd === "Saturday"
+              ? "Science · World Today · + Weekend Study"
+              : "The Science Behind It · The World Today";
           return (
             <Link key={date} href={`/admin/premium?date=${date}`} className="adm-day">
               <div className="adm-day-top">
@@ -238,20 +236,31 @@ async function EditorView(date: string, saved: boolean) {
             <textarea name="sciencePractice" defaultValue={data.sciencePractice} className="adm-textarea" rows={2} />
           </Field>
 
-          <h3 className="adm-group">
-            🌍 The World This Week · Thursdays
-            {weekday !== "Thursday" && (
-              <span className="adm-hint"> · not a Thursday — leave blank to hide</span>
-            )}
-          </h3>
-          <Field label="Heading">
-            <input name="worldHeading" defaultValue={data.worldHeading} className="adm-input" />
+          <h3 className="adm-group">🌍 The World Today · daily</h3>
+          <p className="adm-grouphint">
+            Three real events each day, seen through God&apos;s lens — informed
+            without overwhelmed, never fear-based or partisan. Replace the
+            generated examples with the day&apos;s actual headlines, keeping the
+            same calm tone.
+          </p>
+          <div className="adm-row">
+            <Field label="Section heading">
+              <input name="worldHeading" defaultValue={data.worldHeading} className="adm-input" placeholder="The World Today" />
+            </Field>
+            <Field label="Uplifting section name">
+              <input name="brightHeading" defaultValue={data.brightHeading} className="adm-input" placeholder="Light Still Breaking Through" />
+            </Field>
+          </div>
+          <Field label="Gentle intro line">
+            <textarea name="worldIntro" defaultValue={data.worldIntro} className="adm-textarea" rows={2} />
           </Field>
-          <Field label="Body" hint="Real-world items through a faith lens — warm, never partisan">
-            <textarea name="worldBody" defaultValue={data.worldBody} className="adm-textarea" rows={6} />
-          </Field>
-          <Field label="A prayer for the world">
-            <textarea name="worldPrayer" defaultValue={data.worldPrayer} className="adm-textarea" rows={3} />
+
+          <WorldStory n={1} data={data} />
+          <WorldStory n={2} data={data} />
+          <WorldStory n={3} data={data} />
+
+          <Field label="✦ Light Still Breaking Through" hint="2–3 uplifting items — kindness, healing, answered prayers, restoration">
+            <textarea name="brightBody" defaultValue={data.brightBody} className="adm-textarea" rows={6} />
           </Field>
 
           <h3 className="adm-group">
@@ -418,6 +427,26 @@ async function ArchiveDetail(date: string) {
           dangerouslySetInnerHTML={{ __html: renderPremiumHtml(issue) }}
         />
       </div>
+    </div>
+  );
+}
+
+function WorldStory({ n, data }: { n: 1 | 2 | 3; data: PremiumData }) {
+  const what = data[`world${n}What` as keyof PremiumData] as string | undefined;
+  const faith = data[`world${n}Faith` as keyof PremiumData] as string | undefined;
+  const pray = data[`world${n}Pray` as keyof PremiumData] as string | undefined;
+  return (
+    <div className="adm-worldstory">
+      <div className="adm-worldstory-num">Story {n}</div>
+      <Field label="What happened">
+        <textarea name={`world${n}What`} defaultValue={what} className="adm-textarea" rows={2} />
+      </Field>
+      <Field label="How to see it through faith">
+        <textarea name={`world${n}Faith`} defaultValue={faith} className="adm-textarea" rows={3} />
+      </Field>
+      <Field label="How we can pray">
+        <textarea name={`world${n}Pray`} defaultValue={pray} className="adm-textarea" rows={2} />
+      </Field>
     </div>
   );
 }

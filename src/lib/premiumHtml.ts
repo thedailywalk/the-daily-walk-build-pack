@@ -39,6 +39,14 @@ const S = {
   practice: "background:#1F3A5F;border-radius:8px;padding:14px 18px;margin:10px 0 0;color:#EDE6D4;font-size:14.5px;line-height:1.55;",
   practiceK: "font-family:Arial,Helvetica,sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#E3C074;font-weight:bold;margin:0 0 6px;",
   keyword: "background:#ffffff;border:1px solid #E0D6BF;border-radius:8px;padding:14px 18px;margin:0 0 12px;font-size:14.5px;line-height:1.55;color:#2B2B2B;",
+  worldIntro: "font-size:15px;line-height:1.6;color:#5b5340;font-style:italic;margin:0 0 16px;",
+  story: "background:#ffffff;border:1px solid #E6DECB;border-left:4px solid #C9A24B;border-radius:8px;padding:14px 18px 4px;margin:0 0 14px;",
+  storyLabel: "font-family:Arial,Helvetica,sans-serif;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#B8902E;font-weight:bold;margin:0 0 4px;",
+  storyP: "font-size:15px;line-height:1.6;margin:0 0 12px;color:#2B2B2B;",
+  storyPray: "background:#1F3A5F;border-radius:6px;padding:11px 15px;margin:2px 0 12px;color:#EDE6D4;font-size:14px;line-height:1.55;",
+  bright: "background:#FBF3DF;border:1px solid #EDD9A6;border-radius:10px;padding:16px 20px 6px;margin:6px 0 0;",
+  brightK: "font-family:Arial,Helvetica,sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#B8902E;font-weight:bold;margin:0 0 8px;",
+  brightP: "font-size:14.5px;line-height:1.6;margin:0 0 10px;color:#4a4636;",
   question: "background:#F3ECDA;border-radius:8px;padding:16px 20px;font-family:Arial,Helvetica,sans-serif;color:#1F3A5F;font-size:15px;font-weight:bold;",
   prayerBox: "background:#1F3A5F;border-radius:8px;padding:22px 24px;margin:6px 0;",
   prayerP: "color:#EDE6D4;font-style:italic;font-size:16px;line-height:1.6;margin:0;",
@@ -91,17 +99,39 @@ export function renderPremiumHtml(issue: PremiumIssue): string {
     );
   }
 
-  // The World This Week — Thursdays
-  if (d.worldBody?.trim()) {
+  // The World Today — daily. Three events through God's lens + uplifting close.
+  const stories = [
+    { what: d.world1What, faith: d.world1Faith, pray: d.world1Pray },
+    { what: d.world2What, faith: d.world2Faith, pray: d.world2Pray },
+    { what: d.world3What, faith: d.world3Faith, pray: d.world3Pray },
+  ].filter((s) => s.what?.trim() || s.faith?.trim() || s.pray?.trim());
+
+  if (stories.length || d.brightBody?.trim()) {
+    const storyHtml = stories
+      .map(
+        (s) => `
+        <div style="${S.story}">
+          ${s.what?.trim() ? `<div style="${S.storyLabel}">What happened</div><p style="${S.storyP}">${esc(s.what)}</p>` : ""}
+          ${s.faith?.trim() ? `<div style="${S.storyLabel}">How to see it through faith</div><p style="${S.storyP}">${esc(s.faith)}</p>` : ""}
+          ${s.pray?.trim() ? `<div style="${S.storyPray}"><strong style="color:#E3C074;">How we can pray · </strong>${esc(s.pray)}</div>` : ""}
+        </div>`
+      )
+      .join("");
+
+    const brightHtml = d.brightBody?.trim()
+      ? `<div style="${S.bright}">
+          <div style="${S.brightK}">✦ ${esc(d.brightHeading || "Light Still Breaking Through")}</div>
+          ${paras(d.brightBody, S.brightP)}
+        </div>`
+      : "";
+
     blocks.push(
       [
         rule,
-        `<div style="${S.kicker}">🌍 The World This Week</div>`,
-        d.worldHeading?.trim() ? `<h2 style="${S.sec}">${esc(d.worldHeading)}</h2>` : "",
-        paras(d.worldBody),
-        d.worldPrayer?.trim()
-          ? `<div style="${S.verse}">${esc(d.worldPrayer)}</div>`
-          : "",
+        `<div style="${S.kicker}">🌍 ${esc(d.worldHeading || "The World Today")} · through God's lens</div>`,
+        d.worldIntro?.trim() ? `<p style="${S.worldIntro}">${esc(d.worldIntro)}</p>` : "",
+        storyHtml,
+        brightHtml,
       ].join("")
     );
   }

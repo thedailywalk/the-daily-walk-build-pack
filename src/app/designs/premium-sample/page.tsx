@@ -8,13 +8,12 @@ export const metadata: Metadata = {
   robots: { index: false },
 };
 
-/** Three sample dates so you can see all premium segments at once:
- *  a daily-only Friday, a Thursday (The World This Week), a Saturday (The
- *  Weekend Study). Shareable while the main site is hidden. */
+/** Two sample dates so you can see every premium segment: a regular weekday
+ *  (Science + The World Today) and a Saturday (which also adds The Weekend
+ *  Study). Shareable while the main site is hidden. */
 const SAMPLES = [
-  { date: "2026-06-26", note: "A regular weekday — daily science only" },
-  { date: "2026-06-25", note: "Thursday — adds The World This Week" },
-  { date: "2026-06-27", note: "Saturday — adds The Weekend Study" },
+  { date: "2026-06-26", note: "A regular weekday — Science + The World Today" },
+  { date: "2026-06-27", note: "Saturday — also adds The Weekend Study" },
 ];
 
 const CSS = `
@@ -38,8 +37,8 @@ export default function PremiumSamplePage() {
         <p className="ps-sub">
           This is the Founding Member newsletter. The free daily devotional still
           goes to everyone — this is the deeper layer underneath it: the science,
-          the world through a faith lens, a weekend study, and a seat in the live
-          room. Three days below so you can see every segment.
+          the world through God&apos;s lens each day, a weekend study, and a seat
+          in the live room. Two days below so you can see every segment.
         </p>
 
         {SAMPLES.map((s) => {

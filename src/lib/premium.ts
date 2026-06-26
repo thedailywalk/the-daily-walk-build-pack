@@ -19,7 +19,10 @@ export { addDays, weekdayLabel, prettyDate, upcomingDates };
  * edit → mark Ready → it publishes on its date), but with the premium-only
  * segments:
  *   • The Science Behind It  — daily (neuroscience-grounded)
- *   • The World This Week     — Thursdays (real-world, faith lens, not political)
+ *   • The World Today         — daily (3 world events through God's lens, each with
+ *                               What Happened / How to See It Through Faith / How We
+ *                               Can Pray) + an uplifting "Light Still Breaking
+ *                               Through" close. Informed without overwhelmed.
  *   • The Weekend Study       — Saturdays (a deeper guided Bible study)
  *   • Inside the Circle        — recurring live-session invites (therapist + pastors)
  */
@@ -36,10 +39,22 @@ export type PremiumData = {
   scienceBody?: string;
   sciencePractice?: string; // a tiny, do-it-today practice
 
-  /* The World This Week — Thursdays */
-  worldHeading?: string;
-  worldBody?: string; // blank-line separated items
-  worldPrayer?: string;
+  /* The World Today — daily. Three world events seen through God's lens, each
+     with What Happened / How to See It Through Faith / How We Can Pray, then a
+     smaller uplifting section. Aware without anxious. */
+  worldHeading?: string; // e.g. "The World Today"
+  worldIntro?: string; // gentle framing line
+  world1What?: string;
+  world1Faith?: string;
+  world1Pray?: string;
+  world2What?: string;
+  world2Faith?: string;
+  world2Pray?: string;
+  world3What?: string;
+  world3Faith?: string;
+  world3Pray?: string;
+  brightHeading?: string; // uplifting section name, e.g. "Light Still Breaking Through"
+  brightBody?: string; // 2–3 positive items, blank-line separated
 
   /* The Weekend Study — Saturdays */
   studyHeading?: string;
@@ -323,14 +338,37 @@ export function fullPremiumFor(date: string): PremiumData {
   data.circleCtaLabel = "See what's coming →";
   data.circleCtaUrl = process.env.NEXT_PUBLIC_COMMUNITY_URL ?? "";
 
-  // The World This Week — Thursdays only
-  if (weekday === "Thursday") {
-    data.worldHeading = "The World This Week";
-    data.worldBody =
-      "A few things moving in the world, read through the lens of faith — no outrage, no politics, just where God might be at work and how to pray.\n\n• Where we saw grace: a story of ordinary people showing up for each other this week — the kind of thing that rarely trends but is exactly what the Kingdom looks like.\n\n• Where the world is aching: a place carrying real weight right now. We don't look away; we lift it up.\n\n• Something to keep an eye on: a quiet shift worth noticing, and a question to sit with rather than a verdict to reach.\n\n(Replace these with the week's real items before you send — keep the tone warm, curious, and never partisan.)";
-    data.worldPrayer =
-      "Father, for the people behind every headline this week — the celebrating and the suffering — let Your mercy reach further than the news can. Make us people who pray before we post. Amen.";
-  }
+  // The World Today — daily. Three events through God's lens + an uplifting close.
+  // Generated as a clear template (real headlines get swapped in before sending),
+  // written in the exact tone: informed, never fear-based, never partisan.
+  data.worldHeading = "The World Today";
+  data.worldIntro =
+    "Three things happening in the world right now, held up to God's light instead of handed to our fear. We can be informed without being overwhelmed — and care deeply without carrying what only God can carry.";
+
+  data.world1What =
+    "Communities in a region hit by disaster are recovering, with many displaced and aid workers pressing in to reach those who are cut off.";
+  data.world1Faith =
+    "Suffering this size can make us feel small and helpless. But God never asks us to carry what only He can carry — He asks us to trust the One who is “close to the brokenhearted” (Psalm 34:18). He is already in that place, in the hands of every rescuer and neighbor showing up.";
+  data.world1Pray =
+    "Lord, be near to everyone who lost so much. Move through every helping hand, and make us people who pray before we scroll past.";
+
+  data.world2What =
+    "Leaders met to work through a decision that touches millions of ordinary lives — the kind of headline that can quietly stir worry.";
+  data.world2Faith =
+    "When outcomes feel far outside our control, Proverbs 21:1 steadies us: even a ruler's heart is “in the hand of the Lord.” We can stay informed without letting the result become our peace. Our security was never in the news cycle.";
+  data.world2Pray =
+    "Father, grant wisdom and humility to those deciding things that affect so many. Guard our hearts from anxiety and keep our hope anchored in You.";
+
+  data.world3What =
+    "A new development in science or health is drawing attention for its potential to help people who have been waiting a long time for answers.";
+  data.world3Faith =
+    "Every bit of healing and discovery reflects the God who made a world we are still learning to understand. We can hold even uncertain news with curiosity instead of dread, trusting the Giver behind every good gift (James 1:17).";
+  data.world3Pray =
+    "God, thank You for the gift of discovery. Guide it toward what truly heals, and toward the people who need it most.";
+
+  data.brightHeading = "Light Still Breaking Through";
+  data.brightBody =
+    "Even on a heavy news day, grace keeps showing up. A few signs of it:\n\n• Somewhere this week, a community quietly rallied around a family in crisis — strangers becoming neighbors.\n\n• A long-awaited reunion, recovery, or answered prayer that never made the front page but changed someone's whole world.\n\n• Ordinary people choosing kindness in a moment that could have gone the other way.\n\n(Swap in the day's real good-news stories before you send — this is the breath of fresh air at the end.)";
 
   // The Weekend Study — Saturdays only
   if (weekday === "Saturday") {

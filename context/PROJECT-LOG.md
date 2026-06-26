@@ -194,6 +194,13 @@ SQL files in `supabase/`: `prayer-wall.sql`, `good-news.sql`, `study-journal.sql
 
 ## Decision Log (newest at top)
 
+### 2026-06-26 — "The World Today" reshaped: DAILY, 3 events through God's lens (+ uplifting close)
+- **Changed by owner request:** the premium world segment is no longer a weekly "The World This Week" (Thursdays). It's now **daily**, called **"The World Today"** (editable; subtitle *through God's lens*).
+- **Structure (per day, 3 stories):** each story has **What Happened** → **How to See It Through Faith** → **How We Can Pray**. Then a smaller uplifting close, **"Light Still Breaking Through"** (editable name; options offered: Signs of Hope / Grace in the Headlines / Where We Still See God Moving / Good News Worth Noticing) with 2–3 positive items.
+- **Heart/tone (locked):** informed without overwhelmed; aware without fear leading; care deeply without carrying what only God can carry; compassion + wisdom + prayer, never dramatic/partisan/sensational. Points back to a sovereign, near, still-moving God.
+- **Files:** `premium.ts` (new `PremiumData` world fields: `worldHeading/worldIntro/world{1,2,3}{What,Faith,Pray}/brightHeading/brightBody`; `fullPremiumFor` generates a calm template daily with example headlines to swap out), `premiumHtml.ts` (story cards + navy prayer chips + cream "bright" box), `admin/premium/page.tsx` (`WorldStory` editor blocks ×3 + uplifting field; week-ahead taglines now show World daily), `designs/premium-sample` (2 samples now). Old `worldBody/worldPrayer` removed.
+- **Status:** built, TSC/build green, committed + merged to `main` (live).
+
 ### 2026-06-26 — Premium Prep workspace + sample issues (the actual premium newsletter)
 - **Built:** a full **Premium (Founding Member) newsletter** prep workspace at `/admin/premium`, mirroring the free Devotional Prep exactly (week-ahead cards → open & edit → live preview → mark **Ready** → it publishes on its date → Archive → **Copy email HTML**). New sidebar items: **Daily · Free** (was "Devotionals") and **Premium ★**.
 - **Premium segments (auto-generated complete on every date):** **The Science Behind It** (daily, neuroscience-grounded, rotates through 7 brain-research angles each paired with Scripture + a "Try this today" practice), **The World This Week** (Thursdays — faith-lens world items, never partisan, + a prayer), **The Weekend Study** (Saturdays — deeper study seeded from the study library: context, key word, study verse, reflection), plus a recurring **Inside the Circle** live-sessions block (guest pastor + licensed Christian therapist). Founder's note at top; gratitude closing.
