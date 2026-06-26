@@ -2,7 +2,9 @@
 
 import { useEffect, useState } from "react";
 
-const KEY = "tdw-portal-theme";
+// Bumped to -v2 so the new Inner Circle (night) default takes effect for
+// everyone — old "day" preferences saved under the previous key are ignored.
+const KEY = "tdw-portal-theme-v2";
 
 /**
  * Theme switch for the member portal. Toggles a `data-theme` on the portal
