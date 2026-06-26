@@ -194,6 +194,12 @@ SQL files in `supabase/`: `prayer-wall.sql`, `good-news.sql`, `study-journal.sql
 
 ## Decision Log (newest at top)
 
+### 2026-06-26 — Removed "Daily Wonders" from portal nav; Word of the Day moved into the dashboard
+- Owner: remove the **Daily Wonders** portal entry since the content now lives on the dashboard. Removed it from `MemberSidebar.tsx` (nav) and the dashboard Quick-access grid + the "Open Daily Wonders →" button.
+- To avoid losing content, **moved Word of the Day onto the dashboard** ("A little more wonder today" now shows Word of the Day + This Day in His Story + Wonder of His Creation). `getWordOfTheDay()` in `portal/page.tsx`; new `.m-word*` styles (navy term panel + reflection).
+- The `/wonders` page file is left intact (still reachable directly, e.g. weekly-video health), just unlinked from the member portal.
+- **Status:** built, TSC/build green, committed + merged to `main`.
+
 ### 2026-06-26 — Admin "Newsletters" hub: all editions in one place (List / Calendar / One of each)
 - **Built `/admin/newsletters`** (admin-only) — a unified ops view of every edition across all publications, modeled on the TradeAlgo "Signal" admin the owner shared. Three tabs:
   - **List** — every edition in a ~10-week window (newest first), Date · Type · Tier · Status, filter by publication, edition count, Preview + Edit links.

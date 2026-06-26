@@ -31,7 +31,6 @@ const MAIN: Item[] = [
 ];
 const WALK: Item[] = [
   { href: "/journey", label: "My Journey", icon: I.compass, sub: "Bible in a year" },
-  { href: "/wonders", label: "Daily Wonders", icon: I.star },
   { href: "/portal/prayer", label: "Prayer Journal", icon: I.pen, sub: "Private" },
   { href: "/portal/memory", label: "Scripture Memory", icon: I.heart, sub: "Hide His Word" },
   { href: "/journey?tab=notes", label: "Saved & Notes", icon: I.book },

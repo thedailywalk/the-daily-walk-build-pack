@@ -13,6 +13,7 @@ import { getCounts } from "@/lib/poll";
 import { getParallel, FRAMING } from "@/lib/bibleParallels";
 import { getHistoryMoment } from "@/lib/thisDayInHistory";
 import { getWonderOfTheDay } from "@/lib/wonderOfTheDay";
+import { getWordOfTheDay } from "@/lib/wordOfTheDay";
 import QuestionOfDay from "@/components/QuestionOfDay";
 import MemoryFlashcard from "@/components/MemoryFlashcard";
 import { POPULAR_VERSES } from "@/lib/popularVerses";
@@ -97,6 +98,7 @@ export default async function PortalHome() {
   const parallel = getParallel();
   const moment = getHistoryMoment();
   const wonder = getWonderOfTheDay();
+  const word = getWordOfTheDay();
   const pDate = pollDate();
 
   await recordCheckIn(user!.id); // count today toward the streak
@@ -165,7 +167,6 @@ export default async function PortalHome() {
 
   const cards = [
     { href: "/portal/guide", icon: ICON.guide, label: "Pathlight", sub: "Ask, reflect, find verses" },
-    { href: "/wonders", icon: ICON.star, label: "Daily Wonders", sub: "Word, history & wonder" },
     { href: "/journey?tab=notes", icon: ICON.book, label: "Scripture Notes", sub: `${noteDays.length} saved` },
     { href: "/journey?tab=favorites", icon: ICON.star, label: "Favorite Verses", sub: `${favorites.length} bookmarked` },
     { href: "/portal/prayer", icon: ICON.hands, label: "Prayer Journal", sub: "Private prayers" },
@@ -555,8 +556,24 @@ export default async function PortalHome() {
         </div>
       </div>
 
-      {/* A little more wonder — This Day in His Story + Wonder of His Creation */}
+      {/* A little more wonder — Word of the Day + This Day in His Story + Wonder */}
       <div className="m-section-tag">A little more wonder today</div>
+      <section className="m-panel m-word">
+        <div className="m-word-side">
+          <span className="m-word-lang">{word.lang}</span>
+          <span className="m-word-term" lang={word.lang === "Greek" ? "el" : "he"}>{word.term}</span>
+          <span className="m-word-translit">{word.translit}</span>
+        </div>
+        <div className="m-word-main">
+          <span className="m-card-eyebrow">✦ Word of the Day</span>
+          <p className="m-word-gloss">{word.gloss}</p>
+          <p className="m-card-line">{word.meaning}</p>
+          <blockquote className="m-wonder-verse">
+            &ldquo;{word.verseText}&rdquo; <cite>— {word.verseRef}</cite>
+          </blockquote>
+          <p className="m-wonder-reflect">{word.reflection}</p>
+        </div>
+      </section>
       <div className="m-two">
         <section className="m-panel m-hist">
           <span className="m-card-eyebrow">✦ This Day in His Story</span>
@@ -574,7 +591,6 @@ export default async function PortalHome() {
             &ldquo;{wonder.verseText}&rdquo; <cite>— {wonder.verseRef}</cite>
           </blockquote>
           <p className="m-wonder-reflect">{wonder.reflection}</p>
-          <Link href="/wonders" className="btn btn-ghost">Open Daily Wonders →</Link>
         </section>
       </div>
 

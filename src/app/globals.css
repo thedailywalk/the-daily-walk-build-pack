@@ -6488,6 +6488,24 @@ hr.div {
   .member-shell .m-north-label { margin-top: 0; align-self: center; }
 }
 
+/* Word of the Day — dashboard wonder panel */
+.member-shell .m-word { display: flex; gap: 22px; align-items: stretch; padding: 0; overflow: hidden; }
+.member-shell .m-word-side {
+  flex: 0 0 150px; background: var(--m-navy); color: #fff;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 22px 14px; gap: 4px;
+}
+.member-shell .m-word-lang { font-family: var(--sans); font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--m-gold); }
+.member-shell .m-word-term { font-family: var(--serif); font-size: 34px; line-height: 1.1; }
+.member-shell .m-word-translit { font-style: italic; font-size: 14px; color: #c9d3e2; }
+.member-shell .m-word-main { flex: 1; padding: 18px 22px 18px 0; min-width: 0; }
+.member-shell .m-word-gloss { font-family: var(--serif); font-size: 18px; font-weight: 700; color: var(--m-navy); margin: 4px 0 6px; }
+@media (max-width: 640px) {
+  .member-shell .m-word { flex-direction: column; }
+  .member-shell .m-word-side { flex-basis: auto; padding: 18px; }
+  .member-shell .m-word-main { padding: 0 18px 18px; }
+}
+
 .m-section-tag {
   font-size: 11px;
   font-weight: 700;
