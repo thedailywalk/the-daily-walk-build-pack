@@ -14,10 +14,13 @@ import { getParallel, FRAMING } from "@/lib/bibleParallels";
 import { getHistoryMoment } from "@/lib/thisDayInHistory";
 import { getWonderOfTheDay } from "@/lib/wonderOfTheDay";
 import QuestionOfDay from "@/components/QuestionOfDay";
+import MemoryFlashcard from "@/components/MemoryFlashcard";
+import { POPULAR_VERSES } from "@/lib/popularVerses";
 import { listEntries } from "@/lib/prayerJournal";
 import {
   recordCheckIn,
   getStreak,
+  getCurrentMemoryVerse,
   memorizedCounts,
   weeklyLeaderboard,
   streakLeaderboard,
@@ -32,7 +35,7 @@ import {
   displayNameFromEmail,
   REACTIONS,
 } from "@/lib/community";
-import { reactAction, shareToWallAction } from "./memory/actions";
+import { reactAction, shareToWallAction, setDashVerseAction, clearDashVerseAction } from "./memory/actions";
 
 export const metadata: Metadata = {
   title: "Member Portal",
@@ -48,6 +51,28 @@ function greeting(): string {
   if (h < 12) return "Good morning";
   if (h < 17) return "Good afternoon";
   return "Good evening";
+}
+
+/** A gentle welcome line that quietly changes each day (rotates by date). */
+const DAILY_SUBS = [
+  "Take a breath. This is your time with God today — no rush, no guilt. Everything you're reading, studying, and praying lives right here.",
+  "However you arrived this morning — tired, hopeful, distracted — you're welcome here. Let's take the next quiet step together.",
+  "He's not grading you; He's glad you came. Settle in — your walk with God for today is all in one place.",
+  "Small and steady is how a life quietly changes. A few honest minutes today is enough.",
+  "His mercies are new this morning — including for you. Come as you are and begin again.",
+  "You don't have to carry today alone. Read a little, pray a little, and let God meet you right here.",
+  "One day at a time, one step at a time. This is your space to slow down and walk with Him.",
+  "Before the noise of the day, give God the first few minutes. Everything you need is gathered below.",
+  "No striving today — just showing up. That's the whole secret, and you're already doing it.",
+  "Wherever you are in the journey, you're exactly on time. Let's keep walking together.",
+];
+function dailySub(): string {
+  const d = new Date(
+    new Date().toLocaleString("en-US", { timeZone: "America/Los_Angeles" })
+  );
+  const start = Date.UTC(d.getFullYear(), 0, 0);
+  const doy = Math.floor((d.getTime() - start) / 86400000);
+  return DAILY_SUBS[doy % DAILY_SUBS.length];
 }
 
 const svg = (d: React.ReactNode) => (
@@ -76,7 +101,7 @@ export default async function PortalHome() {
 
   await recordCheckIn(user!.id); // count today toward the streak
 
-  const [ent, today, progress, video, noteDays, favorites, pollCounts, streak, mem, prayers, weekly, streakBoard, activity, wall] =
+  const [ent, today, progress, video, noteDays, favorites, pollCounts, streak, mem, prayers, weekly, streakBoard, activity, wall, currentVerse] =
     await Promise.all([
       getEntitlement(email),
       getLiveDevotional(),
@@ -92,6 +117,7 @@ export default async function PortalHome() {
       streakLeaderboard(user!.id, 5),
       weeklyActivity(user!.id),
       communityWall(user!.id, 8),
+      getCurrentMemoryVerse(user!.id),
     ]);
 
   const day = progress.currentDay;
@@ -150,24 +176,45 @@ export default async function PortalHome() {
 
   return (
     <div className="m-wrap">
-      {/* Greeting hero with profile + Walk Score */}
-      <section className="m-hero">
+      {/* Greeting hero — elevated "inner circle" feel, kept light */}
+      <section className="m-hero m-hero-elevated">
+        <div className="m-hero-sky" aria-hidden="true">
+          <i /><i /><i /><i /><i /><i /><i /><i /><i />
+        </div>
         <div className="m-hero-in">
-          <div className="m-hero-profile">
-            <span className="m-avatar" aria-hidden="true">{display.charAt(0)}</span>
-            <div>
-              <span className="m-hero-kicker">{prettyDate(todayPT())}</span>
-              <h1 className="m-hero-h">{greeting()}, {display}.</h1>
-              <div className="m-hero-meta">
-                {joined && <span>Walking since {joined}</span>}
-                <span className="m-tier">{ent.tier}</span>
+          <div className="m-hero-top">
+            <div className="m-hero-profile">
+              <span className="m-avatar" aria-hidden="true">{display.charAt(0)}</span>
+              <div>
+                <span className="m-hero-kicker">{prettyDate(todayPT())}</span>
+                <h1 className="m-hero-h">{greeting()}, {display}.</h1>
+                <div className="m-hero-meta">
+                  {joined && <span>Walking since {joined}</span>}
+                  <span className="m-tier">{ent.tier}</span>
+                </div>
               </div>
             </div>
+
+            {/* North Star streak */}
+            <div className="m-north" aria-label={`${streak.current} day streak`}>
+              <span className="m-north-dove" aria-hidden="true">🕊️</span>
+              <span className="m-north-star" aria-hidden="true">
+                <span className="m-north-flare" />
+                <span className="m-north-core" />
+                <span className="m-north-num">{streak.current}</span>
+              </span>
+              <span className="m-north-label">
+                <b>YOUR NORTH STAR</b>
+                <span>
+                  {streak.current === 0
+                    ? "start your streak today"
+                    : `${streak.current}-day streak · ${streak.today ? "lit today" : "guided by His light"}`}
+                </span>
+              </span>
+            </div>
           </div>
-          <p className="m-hero-sub">
-            Take a breath. This is your time with God today — no rush, no guilt.
-            Everything you&apos;re reading, studying, and praying lives right here.
-          </p>
+
+          <p className="m-hero-sub">{dailySub()}</p>
 
           {/* Walk Score */}
           <div className="m-walkscore">
@@ -186,19 +233,45 @@ export default async function PortalHome() {
             </div>
           </div>
 
-          {/* Slim streak line — merged into the welcome */}
-          <div className="m-hero-streak">
-            <span className="m-hs-flame" aria-hidden="true">🔥</span>
-            <span className="m-hs-text">
-              <b>{streak.current} day{streak.current === 1 ? "" : "s"}</b>{" "}
-              {streak.current === 0
-                ? "· your walk starts today"
-                : streak.today
-                ? "· you showed up today"
-                : "· welcome back, pick right up"}
-            </span>
-            <Link href="/portal/memory" className="m-hs-cta">＋ Memorize a verse</Link>
+          {/* Journey star-path */}
+          <div className="m-journey">
+            <div className="m-journey-head">
+              <span className="m-journey-lbl">YOUR JOURNEY</span>
+              <span className="m-journey-ends">Day 1 — Day {TOTAL_DAYS}</span>
+            </div>
+            {(() => {
+              const youX = 30 + (pct / 100) * 840;
+              const youY = 60 - (pct / 100) * 48;
+              return (
+                <svg className="m-journeysvg" viewBox="0 0 900 70" preserveAspectRatio="none" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="m-jpath" x1="0" y1="0" x2="1" y2="0">
+                      <stop offset="0" stopColor="rgba(184,144,46,.3)" />
+                      <stop offset="1" stopColor="rgba(184,144,46,.55)" />
+                    </linearGradient>
+                  </defs>
+                  <line x1="30" y1="60" x2="870" y2="12" stroke="rgba(31,58,95,.15)" strokeWidth="2" strokeLinecap="round" />
+                  <line x1="30" y1="60" x2={youX} y2={youY} stroke="url(#m-jpath)" strokeWidth="3" strokeLinecap="round" />
+                  {[0, 25, 50, 75, 100].map((p) => (
+                    <circle key={p} cx={30 + (p / 100) * 840} cy={60 - (p / 100) * 48} r="2.5" fill="rgba(31,58,95,.25)" />
+                  ))}
+                  <circle cx="870" cy="12" r="5" fill="#C9A24B" />
+                  <circle cx="870" cy="12" r="9" fill="none" stroke="rgba(201,162,75,.4)" strokeWidth="1.5" />
+                  <circle className="m-journey-you" cx={youX} cy={youY} r="6" fill="#B8902E" />
+                  <circle cx={youX} cy={youY} r="11" fill="none" stroke="rgba(201,162,75,.45)" strokeWidth="1.5" />
+                </svg>
+              );
+            })()}
+            <div className="m-journey-cap">Day {day} · you are here — {pct}% of the way to Day {TOTAL_DAYS}</div>
           </div>
+
+          {/* Memory flashcard */}
+          <MemoryFlashcard
+            current={currentVerse ? { id: currentVerse.id, ref: currentVerse.ref, verseText: currentVerse.verseText } : null}
+            popular={POPULAR_VERSES}
+            setAction={setDashVerseAction}
+            clearAction={clearDashVerseAction}
+          />
         </div>
       </section>
 
@@ -245,26 +318,38 @@ export default async function PortalHome() {
         </section>
 
         <section className="m-weekly">
-          <span className="m-card-eyebrow">{ICON.video} Weekly video</span>
+          <span className="m-card-eyebrow">{ICON.video} This week&apos;s video</span>
           {video ? (
             <>
-              <div className="m-weekly-thumb">
-                {video.thumbnailUrl ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={video.thumbnailUrl} alt="" referrerPolicy="no-referrer" />
-                ) : (
-                  <span>▶</span>
-                )}
-              </div>
+              {video.videoId && video.embeddable ? (
+                <div className="m-weekly-embed">
+                  <iframe
+                    src={`https://www.youtube-nocookie.com/embed/${video.videoId}`}
+                    title={video.title}
+                    loading="lazy"
+                    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    referrerPolicy="no-referrer"
+                  />
+                </div>
+              ) : (
+                <div className="m-weekly-thumb">
+                  {video.thumbnailUrl ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={video.thumbnailUrl} alt="" referrerPolicy="no-referrer" />
+                  ) : (
+                    <span>▶</span>
+                  )}
+                </div>
+              )}
               <h3 className="m-card-h">{video.title}</h3>
               <p className="m-card-line">{video.channelTitle}</p>
-              <Link href="/wonders" className="btn btn-ghost">Watch in Daily Wonders →</Link>
             </>
           ) : (
             <>
+              <div className="m-weekly-thumb"><span>▶</span></div>
               <h3 className="m-card-h">A fresh video every Monday</h3>
               <p className="m-card-line muted">This week&apos;s pick is on its way.</p>
-              <Link href="/wonders" className="btn btn-ghost">Open Daily Wonders →</Link>
             </>
           )}
         </section>

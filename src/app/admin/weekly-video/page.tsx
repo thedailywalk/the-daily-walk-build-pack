@@ -66,10 +66,10 @@ export default async function WeeklyVideoPage({
               Admin · Weekly Video
             </div>
             <p className="adm-sub">
-              One faith-filled video featured each week inside the members&apos;
-              Daily Wonders tab. Paste candidates, see what&apos;s genuinely safe
-              to embed, then choose the one to feature. It goes live on its
-              Monday and rolls over automatically.
+              One faith-filled video featured each week on the members&apos;
+              dashboard. Paste candidates, see what&apos;s genuinely safe to
+              embed, then choose the one to feature. It goes live on its Monday
+              and rolls over automatically.
             </p>
           </div>
         </div>

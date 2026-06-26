@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { getUser } from "@/lib/supabase/server";
 import {
   addMemoryVerse,
+  setSingleMemoryVerse,
   markMemorized,
   deleteMemoryVerse,
   reactToAchievement,
@@ -57,6 +58,25 @@ export async function addVerseAction(formData: FormData) {
   if (!user?.id) return;
   const name = displayNameFromEmail(user.email);
   await addMemoryVerse(user.id, name, str(formData, "ref"), str(formData, "verseText"));
+  revalidatePath("/portal/memory");
+}
+
+/** Dashboard flashcard: set the single active memory verse (replaces any other). */
+export async function setDashVerseAction(formData: FormData) {
+  const user = await getUser();
+  if (!user?.id) return;
+  const name = displayNameFromEmail(user.email);
+  await setSingleMemoryVerse(user.id, name, str(formData, "ref"), str(formData, "verseText"));
+  revalidatePath("/portal");
+  revalidatePath("/portal/memory");
+}
+
+/** Dashboard flashcard: clear the current verse so a new one can be chosen. */
+export async function clearDashVerseAction(formData: FormData) {
+  const user = await getUser();
+  if (!user?.id) return;
+  await deleteMemoryVerse(user.id, str(formData, "id"));
+  revalidatePath("/portal");
   revalidatePath("/portal/memory");
 }
 

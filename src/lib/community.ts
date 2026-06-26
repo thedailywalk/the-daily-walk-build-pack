@@ -166,6 +166,43 @@ export async function addMemoryVerse(
   }
 }
 
+/** The member's current (still-being-memorized) verse — newest first, one shown. */
+export async function getCurrentMemoryVerse(userId: string): Promise<MemoryVerse | null> {
+  const verses = await listMyVerses(userId);
+  return verses.find((v) => v.status === "memorizing") ?? null;
+}
+
+/**
+ * Set THE single active memory verse for the dashboard flashcard. One at a time:
+ * any other in-progress verse is cleared first, then this one is added.
+ * (Already-memorized verses are kept as history.)
+ */
+export async function setSingleMemoryVerse(
+  userId: string,
+  name: string,
+  ref: string,
+  verseText: string
+): Promise<void> {
+  if (!supabaseConfigured || !ref.trim()) return;
+  try {
+    const supabase = await createClient();
+    await supabase
+      .from("memory_verses")
+      .delete()
+      .eq("user_id", userId)
+      .eq("status", "memorizing");
+    await supabase.from("memory_verses").insert({
+      user_id: userId,
+      name,
+      ref: ref.trim(),
+      verse_text: verseText.trim(),
+      status: "memorizing",
+    });
+  } catch {
+    /* ignore */
+  }
+}
+
 export async function deleteMemoryVerse(userId: string, id: string): Promise<void> {
   if (!supabaseConfigured) return;
   try {

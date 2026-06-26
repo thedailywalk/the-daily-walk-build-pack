@@ -194,6 +194,13 @@ SQL files in `supabase/`: `prayer-wall.sql`, `good-news.sql`, `study-journal.sql
 
 ## Decision Log (newest at top)
 
+### 2026-06-26 — Portal dashboard elevated (inner-circle feel, kept light) + memory flashcard + weekly video on dash
+- **Hero elevated** (`/portal`): combined the live portal with the `ic2-northstar` design while staying LIGHT (cream, not dark). Added a gold **North Star streak cluster** (glowing star w/ streak number + dove), a **journey star-path** strip (Day 1→365 with a live "you are here" marker at the member's %), a faint gold **starfield**, and refined shadows. Kept all existing info (avatar, date, greeting, "Walking since", tier badge, Walk Score). Reduced-motion safe.
+- **Rotating welcome line**: the hero subtitle now rotates daily (10 calming lines, picked by day-of-year) — `dailySub()` in `portal/page.tsx`. The "Take a breath…" line is #1 in the rotation.
+- **Memory flashcard** (`MemoryFlashcard.tsx`, client): replaces the old "＋ Memorize a verse" link. Tap **＋ Memorize** → popular-verse suggestion chips (`src/lib/popularVerses.ts`, 12 WEB/public-domain verses) + a custom ref/text field. Selecting/adding shows a **tap-to-flip flashcard** (reference ↔ full verse) right in the hero. **One verse at a time** — `setSingleMemoryVerse()` in community.ts clears any other in-progress verse first. "Change verse" clears it. Actions `setDashVerseAction`/`clearDashVerseAction` in `portal/memory/actions.ts` (reuses the existing `memory_verses` table — no new SQL).
+- **Weekly video → main dash**: the "This week's video" card now **embeds the player inline** (youtube-nocookie iframe when embeddable) instead of linking to Daily Wonders. Admin Weekly Video description updated ("on the members' dashboard," no longer "Daily Wonders tab").
+- **Status:** built, TSC/build green, committed + merged to `main`.
+
 ### 2026-06-26 — Admin polish: sidebar flyout closes on nav + workbook orphan-review cleanup
 - **Sidebar flyout** (`AdminSidebar.tsx`): after clicking a sub-link the link kept focus, so the hover flyout lingered over the page via `:focus-within`. Added a `useEffect` on pathname/qs change that blurs the active element if it's inside `.aside-flyout`/`.aside-parent`. Flyout now closes once you're on the page.
 - **Workbook "Study days in motion"**: days stuck at "Under Review" with no pending suggestions + no overrides (orphans from before the dismiss→reset logic) now auto-heal. New `resetOrphanReviewDays()` in `workbookEvolution.ts`, called at the top of `/admin/workbook` render; reverts those days to Draft so they leave the list and the counts. Dismissing a suggestion already reverts its day via `maybeResetDay`.

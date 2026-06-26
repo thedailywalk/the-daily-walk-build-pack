@@ -6276,6 +6276,142 @@ hr.div {
   margin: 0;
 }
 
+/* ===== Elevated "inner circle" hero ===== */
+.member-shell .m-hero-elevated {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 120% at 88% -20%, rgba(201, 162, 75, 0.16), transparent 55%),
+    linear-gradient(135deg, #fff8ea, #f5ead2);
+  box-shadow: 0 24px 48px -30px rgba(31, 58, 95, 0.35);
+}
+.member-shell[data-theme="night"] .m-hero-elevated {
+  background:
+    radial-gradient(120% 120% at 88% -20%, rgba(201, 162, 75, 0.2), transparent 55%),
+    linear-gradient(135deg, #2a3340, #232a34);
+}
+.member-shell .m-hero-in { position: relative; z-index: 1; }
+.member-shell .m-hero-sky { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+.member-shell .m-hero-sky i {
+  position: absolute; width: 3px; height: 3px; border-radius: 50%;
+  background: var(--m-gold); opacity: 0.35;
+}
+.member-shell .m-hero-sky i:nth-child(1){top:14%;left:84%}
+.member-shell .m-hero-sky i:nth-child(2){top:26%;left:92%;width:2px;height:2px}
+.member-shell .m-hero-sky i:nth-child(3){top:9%;left:72%;width:2px;height:2px}
+.member-shell .m-hero-sky i:nth-child(4){top:40%;left:96%}
+.member-shell .m-hero-sky i:nth-child(5){top:62%;left:88%;width:2px;height:2px}
+.member-shell .m-hero-sky i:nth-child(6){top:18%;left:60%;width:2px;height:2px}
+.member-shell .m-hero-sky i:nth-child(7){top:52%;left:78%}
+.member-shell .m-hero-sky i:nth-child(8){top:74%;left:70%;width:2px;height:2px}
+.member-shell .m-hero-sky i:nth-child(9){top:33%;left:66%;width:2px;height:2px}
+
+.member-shell .m-hero-top {
+  display: flex; justify-content: space-between; align-items: flex-start; gap: 20px;
+}
+
+/* North Star streak cluster */
+.member-shell .m-north {
+  position: relative; flex: 0 0 auto; width: 148px; min-height: 120px;
+  display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+  text-align: center;
+}
+.member-shell .m-north-dove { position: absolute; top: 2px; left: 8px; font-size: 16px; opacity: 0.9; }
+.member-shell .m-north-star { position: relative; width: 64px; height: 64px; display: grid; place-items: center; }
+.member-shell .m-north-core {
+  position: relative; z-index: 1; width: 46px; height: 46px; border-radius: 50%;
+  background: radial-gradient(circle, #fff 0%, var(--m-gold) 48%, rgba(201, 162, 75, 0.25) 76%, transparent);
+  box-shadow: 0 0 22px 6px rgba(201, 162, 75, 0.45), 0 0 44px 14px rgba(201, 162, 75, 0.2);
+}
+.member-shell .m-north-flare { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; }
+.member-shell .m-north-flare::before,
+.member-shell .m-north-flare::after { content: ""; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+.member-shell .m-north-flare::before { width: 2px; height: 86px; background: linear-gradient(to bottom, transparent, rgba(201, 162, 75, 0.7), transparent); }
+.member-shell .m-north-flare::after { width: 64px; height: 2px; background: linear-gradient(to right, transparent, rgba(201, 162, 75, 0.6), transparent); }
+.member-shell .m-north-num {
+  position: absolute; z-index: 2; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  font-family: var(--serif); font-size: 22px; font-weight: 800; color: var(--m-navy);
+}
+.member-shell .m-north-label { margin-top: 8px; }
+.member-shell .m-north-label b { display: block; font-size: 9.5px; letter-spacing: 2px; color: var(--m-gold-deep); }
+.member-shell .m-north-label span { display: block; font-size: 11px; color: var(--m-dim); margin-top: 3px; line-height: 1.4; }
+
+/* Journey star-path */
+.member-shell .m-journey { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--m-border); }
+.member-shell .m-journey-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
+.member-shell .m-journey-lbl { font-size: 10.5px; letter-spacing: 2px; font-weight: 700; color: var(--m-gold-deep); }
+.member-shell .m-journey-ends { font-size: 11px; color: var(--m-dim); }
+.member-shell .m-journeysvg { display: block; width: 100%; height: 62px; }
+.member-shell .m-journey-cap { font-size: 12px; color: var(--m-dim); margin-top: 4px; }
+
+/* Memory flashcard */
+.member-shell .m-flash { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--m-border); }
+.member-shell .m-flash-eyebrow { display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.6px; color: var(--m-gold-deep); margin-bottom: 8px; }
+.member-shell .m-flash-card {
+  width: 100%; text-align: center; cursor: pointer;
+  border: 1px solid rgba(201, 162, 75, 0.4); border-radius: 14px;
+  background: linear-gradient(135deg, #fffdf7, #f7efda);
+  padding: 20px 22px; display: flex; flex-direction: column; gap: 8px; align-items: center;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.member-shell .m-flash-card:hover { transform: translateY(-2px); box-shadow: 0 12px 26px -16px rgba(184, 144, 46, 0.6); }
+.member-shell .m-flash-ref { font-family: var(--serif); font-size: 24px; font-weight: 700; color: var(--m-navy); }
+.member-shell .m-flash-text { font-size: 16px; line-height: 1.55; color: var(--m-navy); font-style: italic; }
+.member-shell .m-flash-hint { font-size: 11px; letter-spacing: 0.4px; color: var(--m-dim); text-transform: lowercase; }
+.member-shell .m-flash-foot { margin-top: 8px; text-align: center; }
+.member-shell .m-flash-change {
+  background: none; border: none; cursor: pointer;
+  font-size: 12.5px; font-weight: 600; color: var(--m-gold-deep); text-decoration: underline;
+}
+.member-shell .m-flash-add {
+  width: 100%; cursor: pointer; border: 1px dashed rgba(201, 162, 75, 0.55); border-radius: 12px;
+  background: rgba(201, 162, 75, 0.06); color: var(--m-gold-deep); font-weight: 700; font-size: 14px;
+  padding: 14px; transition: background 0.15s;
+}
+.member-shell .m-flash-add:hover { background: rgba(201, 162, 75, 0.12); }
+.member-shell .m-flash-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+.member-shell .m-flash-chip {
+  cursor: pointer; border: 1px solid var(--m-border); border-radius: 999px;
+  background: var(--m-surface); color: var(--m-navy); font-size: 12.5px; font-weight: 600;
+  padding: 6px 13px; transition: all 0.15s;
+}
+.member-shell .m-flash-chip:hover { border-color: var(--m-gold); background: rgba(201, 162, 75, 0.1); }
+.member-shell .m-flash-custom { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.member-shell .m-flash-input {
+  flex: 1; min-width: 160px; border: 1px solid var(--m-border); border-radius: 10px;
+  padding: 9px 12px; font-size: 13.5px; background: var(--m-surface); color: var(--m-ink);
+}
+.member-shell .m-flash-picking .m-flash-change { display: inline-block; margin-top: 10px; }
+
+/* This week's video — inline embed */
+.member-shell .m-weekly-embed {
+  position: relative; aspect-ratio: 16 / 9; border-radius: 11px; overflow: hidden;
+  background: var(--m-navy); margin-bottom: 12px;
+}
+.member-shell .m-weekly-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .member-shell .m-hero-sky i { animation: m-tw 4.5s ease-in-out infinite; }
+  .member-shell .m-hero-sky i:nth-child(2n) { animation-duration: 6s; animation-delay: 1s; }
+  .member-shell .m-hero-sky i:nth-child(3n) { animation-duration: 5.2s; animation-delay: 0.5s; }
+  @keyframes m-tw { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.7; } }
+  .member-shell .m-north-core { animation: m-pulse 4.5s ease-in-out infinite; }
+  @keyframes m-pulse {
+    0%, 100% { box-shadow: 0 0 22px 6px rgba(201, 162, 75, 0.4), 0 0 44px 14px rgba(201, 162, 75, 0.18); }
+    50% { box-shadow: 0 0 28px 9px rgba(201, 162, 75, 0.6), 0 0 60px 20px rgba(201, 162, 75, 0.28); }
+  }
+  .member-shell .m-north-dove { animation: m-dove 9s ease-in-out infinite; }
+  @keyframes m-dove { 0% { transform: translate(0,0) rotate(-4deg); } 50% { transform: translate(8px,5px) rotate(3deg); } 100% { transform: translate(0,0) rotate(-4deg); } }
+  .member-shell .m-journey-you { animation: m-you 3s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+  @keyframes m-you { 0%, 100% { opacity: 1; } 50% { opacity: 0.55; } }
+}
+
+@media (max-width: 640px) {
+  .member-shell .m-hero-top { flex-direction: column; }
+  .member-shell .m-north { width: 100%; flex-direction: row; gap: 12px; justify-content: flex-start; text-align: left; min-height: 0; }
+  .member-shell .m-north-label { margin-top: 0; align-self: center; }
+}
+
 .m-section-tag {
   font-size: 11px;
   font-weight: 700;
