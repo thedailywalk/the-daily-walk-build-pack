@@ -118,20 +118,20 @@ export default function PopupColors() {
   .pcwrap h1 { font-family:Georgia,serif; font-size:34px; color:#1F3A5F; margin:8px 0 6px; }
   .pcwrap .kick { font-size:12px; font-weight:800; letter-spacing:1.4px; text-transform:uppercase; color:#B8902E; margin:0; }
   .pcwrap .lede { color:#5a5345; font-size:16px; line-height:1.6; max-width:660px; margin:0; }
-  .pc-grid { max-width:1240px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(330px,1fr)); gap:22px; }
-  .pc-frame { }
-  .pc-label { font-family:Georgia,serif; font-size:18px; color:#1F3A5F; margin:0 0 8px; }
-  .pc-label span { display:block; font-family:Inter,sans-serif; font-size:12px; color:#8a8270; }
-  .pc-card { border:1px solid var(--border); border-radius:18px; overflow:hidden; box-shadow:0 16px 40px -26px rgba(31,58,95,0.55); background:var(--body); color:var(--text); }
+  .pc-grid { max-width:560px; margin:0 auto; display:flex; flex-direction:column; align-items:center; gap:38px; }
+  .pc-frame { width:100%; max-width:520px; }
+  .pc-label { font-family:Georgia,serif; font-size:19px; color:#1F3A5F; margin:0 0 10px; }
+  .pc-label span { display:block; font-family:Inter,sans-serif; font-size:12.5px; color:#8a8270; }
+  .pc-card { width:100%; border:1px solid var(--border); border-radius:18px; overflow:hidden; box-shadow:0 22px 50px -28px rgba(31,58,95,0.6); background:var(--body); color:var(--text); }
   .pc-head { background:var(--hdr); color:var(--hdrText); display:flex; align-items:center; justify-content:space-between; padding:15px 20px; }
   .pc-brand { font-family:Georgia,serif; font-size:17px; letter-spacing:2px; }
   .pc-x { opacity:0.7; font-size:20px; }
-  .pc-body { padding:18px 22px 20px; }
+  .pc-body { padding:26px 32px 24px; }
   .pc-stat { display:flex; gap:8px; flex-wrap:wrap; font-size:11px; letter-spacing:0.5px; text-transform:uppercase; color:var(--muted); padding-bottom:13px; border-bottom:1px solid var(--border); }
   .pc-stat b { color:var(--strong); }
   .pc-eyebrow { display:flex; align-items:center; gap:8px; font-weight:700; font-size:12.5px; color:var(--accent); margin:14px 0 6px; }
   .pc-dot { width:9px; height:9px; border-radius:50%; background:#5a9a6b; box-shadow:0 0 0 4px rgba(90,154,107,0.18); }
-  .pc-title { font-family:Georgia,serif; font-size:25px; line-height:1.15; color:var(--title); margin:0 0 8px; }
+  .pc-title { font-family:Georgia,serif; font-size:27px; line-height:1.15; color:var(--title); margin:0 0 8px; }
   .pc-title span { color:var(--accent); }
   .pc-sub { font-size:14px; line-height:1.6; color:var(--text); margin:0 0 14px; }
   .pc-verse { background:var(--verseBg); border-left:4px solid var(--accent); border-radius:0 10px 10px 0; padding:13px 15px; margin:0 0 16px; }
@@ -153,7 +153,7 @@ export default function PopupColors() {
       <div className="head">
         <p className="kick">The Daily Walk · Welcome popup</p>
         <h1>Cream Classic — 5 color tones</h1>
-        <p className="lede">Same popup, same words — five tones from your brand palette (navy · gold · cream). Pick the one that feels right and I&apos;ll make it the live popup. <Link href="/designs/popup">← all popup looks</Link></p>
+        <p className="lede">Same popup, same words — shown full size (520px) in five tones from your brand palette (navy · gold · cream). Scroll through, pick the one that feels right, and I&apos;ll make it the live popup. <Link href="/designs/popup">← all popup looks</Link></p>
       </div>
       <div className="pc-grid">
         {THEMES.map((t) => <Card key={t.name} t={t} />)}
