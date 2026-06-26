@@ -194,6 +194,13 @@ SQL files in `supabase/`: `prayer-wall.sql`, `good-news.sql`, `study-journal.sql
 
 ## Decision Log (newest at top)
 
+### 2026-06-25 — Pre-launch "coming soon" gate (site hidden from public)
+- **Built:** `src/middleware.ts` shows a branded "coming soon" splash to the public while the site is hidden. **Unlock:** visit `/unlock?key=founding` (sets a year-long `tdw_preview` cookie) → see the real site. Key is `process.env.PREVIEW_KEY` (default `founding`).
+- **Stays reachable while hidden:** `/designs/*` (shareable popup/portal drafts), `/api/*`, `/auth/*`, `/admin`, `/portal`, `/account`, `/login`, the RSS feed `/devotional/rss.xml`, robots/sitemap/static.
+- **To take the site fully public:** set env `SITE_PUBLIC=true` (or remove the gate) and redeploy.
+- **Why:** owner wants the site private (just her) until ready, but still wants to share the `/designs` popup samples with a friend.
+
+
 ### 2026-06-25 — Welcome "Join free" modal on landing
 - **Built:** `JoinModal` (client) shown shortly after landing on public pages — tailored to the newsletter (brand header, "free every morning" eyebrow, headline, a Psalm 118:24 verse panel, the reusable `SignupForm`, 3 benefit bullets, "Free forever · No spam" footer, subtle Founding-Member link). Reuses `/api/subscribe` (Beehiiv). Remembers dismissal in localStorage (re-shows after 3 days); excluded on /admin, /portal, /login, /subscribe, /auth, /designs; Esc/backdrop/X to close; reduced-motion safe. Mounted in root `layout.tsx`; styles `.jm-*` in globals.css.
 - **Why:** capture signups immediately (modeled on a popup the owner liked), tailored to The Daily Walk's calm/faith tone.
