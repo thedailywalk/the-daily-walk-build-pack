@@ -342,7 +342,7 @@ export default function Page() {
             </svg>
 
             <div className="pv-header">
-              <span className="pv-brand">The Daily Walk</span>
+              <span className="pv-brand">The Daily Walk Newsletter</span>
               <a className="pv-close" aria-label="Close" role="button">&times;</a>
             </div>
           </div>
@@ -350,7 +350,7 @@ export default function Page() {
           <div className="pv-stats">
             <span>Daily Devotional</span>
             <span className="pv-sep">&middot;</span>
-            <span><b>2 MIN</b> READ</span>
+            <span><b>5 MIN</b> READ</span>
             <span className="pv-sep">&middot;</span>
             <span><b>FREE</b> ALWAYS</span>
           </div>
@@ -366,8 +366,8 @@ export default function Page() {
             </h2>
 
             <p className="pv-sub">
-              A short devotional, one honest prayer, and a little encouragement to start your
-              day &mdash; free, forever.
+              Ephesians says put on the armor every morning &mdash; and the one weapon you fight with is
+              the Word. Start your day already armed. Free, forever.
             </p>
 
             <div className="pv-verse">
@@ -383,14 +383,15 @@ export default function Page() {
             </div>
 
             <ul className="pv-benefits">
-              <li><span className="pv-emoji">📖</span> A 2-minute devotional each morning</li>
-              <li><span className="pv-emoji">🙏</span> One honest prayer</li>
-              <li><span className="pv-emoji">✨</span> Encouragement &amp; good news</li>
+              <li><span className="pv-emoji">📖</span> <span><b>Hear God in His Word every morning</b> — a 5-minute devotional</span></li>
+              <li><span className="pv-emoji">🙏</span> <span><b>Learn to talk and listen to God</b> — and notice when He&apos;s speaking</span></li>
+              <li><span className="pv-emoji">🌅</span> <span><b>Start every day walking with God</b> — not just reading about Him</span></li>
+              <li><span className="pv-emoji">🌱</span> <span><b>Build a real relationship with Jesus</b> — small steps that become a lifelong walk</span></li>
             </ul>
 
             <div className="pv-footer">
               <p className="pv-fine">Free forever &middot; No spam &middot; Unsubscribe anytime</p>
-              <a className="pv-founding" role="button">Become a Founding Member &rarr;</a>
+              <span className="pv-fine" style={{ margin: 0 }}>Ready to go deeper? <a className="pv-founding" role="button">Become a Founding Member &rarr;</a></span>
             </div>
           </div>
         </div>
