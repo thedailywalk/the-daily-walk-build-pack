@@ -27,10 +27,16 @@ export async function savePremiumAction(formData: FormData) {
     weekFocus: str(formData, "weekFocus"),
     dayLabel: str(formData, "dayLabel"),
     editorNote: str(formData, "editorNote"),
-    scienceHeading: str(formData, "scienceHeading"),
-    scienceVerse: str(formData, "scienceVerse"),
-    scienceBody: str(formData, "scienceBody"),
-    sciencePractice: str(formData, "sciencePractice"),
+    devHeading: str(formData, "devHeading"),
+    devRef: str(formData, "devRef"),
+    devIntro: str(formData, "devIntro"),
+    devVerseText: str(formData, "devVerseText"),
+    devVerseRef: str(formData, "devVerseRef"),
+    devBody: str(formData, "devBody"),
+    devKeyWord: str(formData, "devKeyWord"),
+    devReflection: str(formData, "devReflection"),
+    devApply: str(formData, "devApply"),
+    devPrayer: str(formData, "devPrayer"),
     worldHeading: str(formData, "worldHeading"),
     worldIntro: str(formData, "worldIntro"),
     world1What: str(formData, "world1What"),
@@ -56,7 +62,7 @@ export async function savePremiumAction(formData: FormData) {
     closingLine: str(formData, "closingLine"),
   };
 
-  const title = data.scienceHeading || `Premium · ${date}`;
+  const title = data.devHeading || `Premium · ${date}`;
   await premiumUpsert(date, status, title, data);
 
   revalidatePath("/admin/premium");

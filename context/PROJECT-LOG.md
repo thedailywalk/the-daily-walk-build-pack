@@ -137,7 +137,7 @@ Navy `#1F3A5F` (headings) · Gold `#C9A24B` / `#B8902E` (accents/buttons) · Cre
 
 ## Database / SQL
 
-SQL files in `supabase/`: `prayer-wall.sql`, `good-news.sql`, `study-journal.sql`, `devotionals.sql`, `content-library.sql`, `content-library-media.sql`, `content-library-capture.sql`, `weekly-video.sql`, `daily-poll.sql`, `prayer-journal.sql`, `community.sql`, `workbook-evolution.sql`, `premium-issues.sql` *(NEW — run for the premium newsletter)*.
+SQL files in `supabase/`: `prayer-wall.sql`, `good-news.sql`, `study-journal.sql`, `devotionals.sql`, `content-library.sql`, `content-library-media.sql`, `content-library-capture.sql`, `weekly-video.sql`, `daily-poll.sql`, `prayer-journal.sql`, `community.sql`, `workbook-evolution.sql`, `premium-issues.sql` *(run for the premium newsletter)*, `wellness-issues.sql` *(NEW — run for the Spiritual Wellness Guide)*.
 
 - **Run/confirmed:** `plan_progress`, `prayer_requests`, `featured_good_news`, `study_notes`+`study_favorites`, `devotionals`, `library_items`+`inspiration_sources`+media bucket+capture columns, `weekly_videos`, `poll_votes`, `prayer_journal`, `community.sql` (member_checkins/memory_verses/achievements/achievement_reactions).
 - ~~**STILL NEEDS RUNNING:** `supabase/workbook-evolution.sql`~~ → **RUN 2026-06-25** ("Success. No rows returned"). Workbook Evolution tables (`workbook_days`, `workbook_suggestions`) now live; review queue active.
@@ -194,7 +194,17 @@ SQL files in `supabase/`: `prayer-wall.sql`, `good-news.sql`, `study-journal.sql
 
 ## Decision Log (newest at top)
 
+### 2026-06-26 — Premium restructured into two products: Discipleship Newsletter + Spiritual Wellness Guide
+- **Owner product decision (final):** keep Premium *clear, not overwhelming*. **Premium = the Discipleship Newsletter** (main paid offer); **The Spiritual Wellness Guide** = a Founding-Member **bonus, 3×/week (Mon/Wed/Fri)** that can later become its own paid add-on.
+- **Premium · The Deeper Walk (`/admin/premium`, table `premium_issues`):** Main Premium Devotional (daily, deeper than free) + **The World Through God's Lens** (Thursdays — moved back from daily; 2–3 events, What Happened / How We See It Through Faith / How We Can Pray + "Light Still Breaking Through" uplifting close) + **The Weekend Study** (Saturdays) + **Inside the Circle** (live therapist + guest pastors). Science was REMOVED from here.
+- **Spiritual Wellness Guide (`/admin/wellness`, NEW table `wellness_issues`):** sent Mon/Wed/Fri. Segments: **The Science Behind It** (faith+neuroscience), **The Peace Practice** (60-sec reset: Release/Receive/Respond), **The Pattern Breaker** (old→new→note), **The Prayer Lab** (Start/Name/Surrender/Ask/Listen), **A Question Worth Sitting With**. Sage-green masthead to feel distinct/restful. Rotating content libraries in `wellness.ts` (7 science angles, 3 peace, 5 patterns, 5 prayer-lab situations, 6 questions).
+- **Files:** new `src/lib/wellness.ts` + `wellnessHtml.ts`, `src/app/admin/wellness/{page.tsx,actions.ts}`, `supabase/wellness-issues.sql`, `/designs/wellness-sample`. Rewrote `premium.ts`/`premiumHtml.ts`/premium admin for the devotional structure. Sidebar adds **Wellness Guide** (leaf icon). `/designs/premium-sample` now 3 days (regular / Thu / Sat). Pricing reworded: Premium = Discipleship Newsletter + 1 yr Wellness Guide free; added the "premium promise" lead; free devotional upsell block updated.
+- **Positioning copy (owner's words):** "Founding Members receive the Premium Discipleship Newsletter plus one full year of The Spiritual Wellness Guide included free." Premium promise: "for the reader who wants to go deeper — not just read a devotional, but learn how to live it…"
+- **Owner action:** run **`supabase/wellness-issues.sql`** (premium-issues.sql still needed too). **Live note:** the World section auto-generates a calm *template with example headlines* — no live news feed wired; swap in real stories before sending (owner previously open to a real news-source add-on later).
+- **Status:** built, TSC/build green, committed + merged to `main`.
+
 ### 2026-06-26 — "The World Today" reshaped: DAILY, 3 events through God's lens (+ uplifting close)
+- *(superseded same day — World moved back to Thursdays under "The World Through God's Lens"; see entry above.)*
 - **Changed by owner request:** the premium world segment is no longer a weekly "The World This Week" (Thursdays). It's now **daily**, called **"The World Today"** (editable; subtitle *through God's lens*).
 - **Structure (per day, 3 stories):** each story has **What Happened** → **How to See It Through Faith** → **How We Can Pray**. Then a smaller uplifting close, **"Light Still Breaking Through"** (editable name; options offered: Signs of Hope / Grace in the Headlines / Where We Still See God Moving / Good News Worth Noticing) with 2–3 positive items.
 - **Heart/tone (locked):** informed without overwhelmed; aware without fear leading; care deeply without carrying what only God can carry; compassion + wisdom + prayer, never dramatic/partisan/sensational. Points back to a sovereign, near, still-moving God.

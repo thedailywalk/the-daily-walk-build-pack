@@ -14,17 +14,20 @@ import {
 export { addDays, weekdayLabel, prettyDate, upcomingDates };
 
 /**
- * The PREMIUM (Founding Member) newsletter — the deeper-dive companion to the
- * free daily devotional. Same prep rhythm as the free one (week-ahead → open &
- * edit → mark Ready → it publishes on its date), but with the premium-only
- * segments:
- *   • The Science Behind It  — daily (neuroscience-grounded)
- *   • The World Today         — daily (3 world events through God's lens, each with
- *                               What Happened / How to See It Through Faith / How We
- *                               Can Pray) + an uplifting "Light Still Breaking
- *                               Through" close. Informed without overwhelmed.
- *   • The Weekend Study       — Saturdays (a deeper guided Bible study)
- *   • Inside the Circle        — recurring live-session invites (therapist + pastors)
+ * The PREMIUM (Founding Member) newsletter — "The Deeper Walk", the Discipleship
+ * Newsletter. The main paid offer: deeper Bible study + discipleship. Same prep
+ * rhythm as the free daily (week-ahead → open & edit → mark Ready → publishes on
+ * its date). Segments:
+ *   • The Main Premium Devotional — daily (a deeper reflection than the free one)
+ *   • The World Through God's Lens — Thursdays (2–3 events seen through faith, each
+ *                                    with What Happened / How We See It Through Faith
+ *                                    / How We Can Pray) + an uplifting close.
+ *   • The Weekend Study            — Saturdays (a deeper guided Bible study)
+ *   • Inside the Circle            — recurring live-session invites (therapist + pastors)
+ *
+ * The neuroscience/emotional-wellness tools (Science Behind It, Peace Practice,
+ * Pattern Breaker, Prayer Lab, A Question Worth Sitting With) now live in the
+ * separate Spiritual Wellness Guide — see `src/lib/wellness.ts`.
  */
 export type PremiumData = {
   weekFocus?: string;
@@ -33,16 +36,23 @@ export type PremiumData = {
   /** Short founder's note at the top of the issue. */
   editorNote?: string;
 
-  /* The Science Behind It — daily */
-  scienceHeading?: string;
-  scienceVerse?: string; // anchor verse line
-  scienceBody?: string;
-  sciencePractice?: string; // a tiny, do-it-today practice
+  /* The Main Premium Devotional — daily. A deeper reflection than the free one:
+     fuller context, a key word, an application step, and a deeper question. */
+  devHeading?: string;
+  devRef?: string; // reading reference line
+  devIntro?: string; // context / setup
+  devVerseText?: string;
+  devVerseRef?: string;
+  devBody?: string; // the deeper reflection
+  devKeyWord?: string; // "Word — meaning"
+  devReflection?: string; // a deeper question
+  devApply?: string; // "Today's walk" — one faithful step
+  devPrayer?: string;
 
-  /* The World Today — daily. Three world events seen through God's lens, each
-     with What Happened / How to See It Through Faith / How We Can Pray, then a
+  /* The World Through God's Lens — Thursdays. 2–3 events seen through faith, each
+     with What Happened / How We See It Through Faith / How We Can Pray, then a
      smaller uplifting section. Aware without anxious. */
-  worldHeading?: string; // e.g. "The World Today"
+  worldHeading?: string; // e.g. "The World Through God's Lens"
   worldIntro?: string; // gentle framing line
   world1What?: string;
   world1Faith?: string;
@@ -230,15 +240,12 @@ export async function premiumEnsureWeek(count = 7): Promise<void> {
   for (const date of dates) {
     if (have.has(date)) continue;
     const data = fullPremiumFor(date);
-    await premiumUpsert(date, "draft", data.scienceHeading ?? "", data);
+    await premiumUpsert(date, "draft", data.devHeading ?? "", data);
   }
 }
 
 /* ---------------------- full default generation ----------------------- */
 
-function weekdayIndex(date: string): number {
-  return new Date(`${date}T12:00:00Z`).getUTCDay(); // 0 = Sunday
-}
 function splitVerse(v: string): { text: string; ref: string } {
   const i = v.lastIndexOf(" — ");
   if (i === -1) return { text: v.replace(/[“”]/g, "").trim(), ref: "" };
@@ -248,69 +255,19 @@ function splitVerse(v: string): { text: string; ref: string } {
   };
 }
 
-/** Neuroscience angles that rotate by day — each pairs a brain finding with a
- *  Scripture truth, grounded and never gimmicky. */
-const SCIENCE_ANGLES: {
-  heading: string;
-  verse: string;
-  lead: string;
-  practice: string;
-}[] = [
-  {
-    heading: "Why repeating truth rewires you",
-    verse: "“…be transformed by the renewing of your mind.” — Romans 12:2",
-    lead: "Neuroscientists call it neuroplasticity: the thoughts you return to most often physically thicken the neural pathways that carry them. Repeat worry and you pave a worry highway; repeat a promise of God and you lay new road. Paul wrote “renewing of your mind” two thousand years before we could watch it happen on a scan — but the brain agrees with him.",
-    practice: "Pick one line from today's reading and say it out loud three times before noon. You're not being sentimental — you're laying track.",
-  },
-  {
-    heading: "What gratitude does to the brain",
-    verse: "“Give thanks in all circumstances.” — 1 Thessalonians 5:18",
-    lead: "Naming something you're thankful for activates the brain's reward and regulation centers and measurably lowers the stress hormone cortisol. Gratitude isn't denial of what's hard — it's your nervous system finding solid ground. Scripture told us to give thanks long before we knew it calms the very chemistry of fear.",
-    practice: "Write down three specific things from the last 24 hours. Specific beats vague — “the way the coffee smelled” works better than “my life.”",
-  },
-  {
-    heading: "Why stillness isn't laziness",
-    verse: "“Be still, and know that I am God.” — Psalm 46:10",
-    lead: "When you go quiet, the brain switches into its “default mode network” — the state where it consolidates memory, processes meaning, and restores itself. Constant input blocks it. The rest God commands isn't a reward for finishing; it's the condition under which your mind heals at all.",
-    practice: "Two minutes, no phone, eyes closed. Just breathe and let one verse sit. That's not nothing happening — that's repair.",
-  },
-  {
-    heading: "How naming a feeling calms it",
-    verse: "“Cast all your anxiety on him because he cares for you.” — 1 Peter 5:7",
-    lead: "Brain imaging shows that putting a feeling into words — “I feel afraid,” “I feel alone” — quiets the amygdala, the brain's alarm. Psychologists call it “name it to tame it.” It's exactly what the Psalms model: David doesn't hide his fear from God, he says it out loud, and the saying begins the settling.",
-    practice: "Tell God the true feeling in plain words today — not the tidy version. Naming it to Him is the first half of casting it on Him.",
-  },
-  {
-    heading: "Why community changes your biology",
-    verse: "“Carry each other's burdens.” — Galatians 6:2",
-    lead: "Felt connection releases oxytocin and dampens the body's threat response; chronic isolation, by contrast, registers in the brain much like physical pain. We were literally built to heal in company. “Carry each other's burdens” isn't only kindness — it's how God designed our nervous systems to recover.",
-    practice: "Send one honest text today — not “how are you,” but “here's how I actually am.” Connection starts when someone goes first.",
-  },
-  {
-    heading: "The brain on hope",
-    verse: "“…we have this hope as an anchor for the soul.” — Hebrews 6:19",
-    lead: "Hope isn't wishful thinking to the brain — it's a forward-looking expectation that lights up the prefrontal cortex and helps regulate everything downstream of it. People with a sense of future cope measurably better with present pain. Scripture's “anchor for the soul” is doing real work in your head, not just your heart.",
-    practice: "Name one thing you're looking forward to — small is fine. Giving your brain a future to lean toward changes how it carries today.",
-  },
-  {
-    heading: "Why morning inputs set the day",
-    verse: "“In the morning, Lord, you hear my voice.” — Psalm 5:3",
-    lead: "The first 30 minutes after waking shape your baseline stress and attention for hours — the brain is unusually open then. What you feed it first tends to win. David's “in the morning” instinct lines up with how attention and mood actually get primed.",
-    practice: "Before the feed, before the inbox — five minutes with the reading. Let God have the open window first.",
-  },
-];
-
 /**
- * A COMPLETE premium issue for any date — every relevant segment filled, seeded
- * from the study library so each day is distinct and ready to read. The owner
- * opens it, reads the whole thing, edits in her voice, and marks it Ready.
+ * A COMPLETE premium (discipleship) issue for any date — the Main Premium
+ * Devotional daily, plus Thursday's World Through God's Lens and Saturday's
+ * Weekend Study. Seeded from the study library so each day is distinct and ready
+ * to read. The owner opens it, edits in her voice, and marks it Ready.
  */
 export function fullPremiumFor(date: string): PremiumData {
-  const wIdx = weekdayIndex(date);
   const weekday = weekdayLabel(date);
   const dayIdx = dayIndexForDate(date);
   const s = getStudyDay(dayIdx);
-  const angle = SCIENCE_ANGLES[(dayIdx - 1) % SCIENCE_ANGLES.length];
+  const v = s.verses?.[0];
+  const k = s.keyWords?.[0];
+  const sv = splitVerse(s.verse);
 
   const data: PremiumData = {
     weekFocus:
@@ -320,16 +277,22 @@ export function fullPremiumFor(date: string): PremiumData {
           ? `Journey through ${s.arc}`
           : "Walking with God in real life",
     editorNote:
-      "A little extra for the people walking closest with us. Here's the deeper layer behind today — the why under the what. — Lulu",
+      "For the ones walking closest with us — the deeper layer underneath today's reading. Let's go further in. — Lulu",
 
-    // The Science Behind It — daily
-    scienceHeading: angle.heading,
-    scienceVerse: angle.verse,
-    scienceBody: `${angle.lead}\n\nToday's reading sits right here. ${s.realLife}`,
-    sciencePractice: angle.practice,
+    // The Main Premium Devotional — daily, deeper than the free issue.
+    devHeading: s.aboutGod,
+    devRef: `📖 ${s.reading}`,
+    devIntro: s.context,
+    devVerseText: sv.text,
+    devVerseRef: sv.ref,
+    devBody: s.plainEnglish,
+    devKeyWord: k ? `${k.word} — ${k.meaning}` : "",
+    devReflection: s.sideReflection || s.reflection,
+    devApply: s.step,
+    devPrayer: s.prayer,
 
     closingLine:
-      "You're not just reading more — you're going deeper, and you're helping someone find Jesus by making this possible. Thank you for being a Founding Member.",
+      "You're not just reading more — you're being discipled, and you're helping someone else find Jesus by making this possible. Thank you for being a Founding Member.",
   };
 
   // Inside the Circle — recurring live-session invite
@@ -338,43 +301,41 @@ export function fullPremiumFor(date: string): PremiumData {
   data.circleCtaLabel = "See what's coming →";
   data.circleCtaUrl = process.env.NEXT_PUBLIC_COMMUNITY_URL ?? "";
 
-  // The World Today — daily. Three events through God's lens + an uplifting close.
-  // Generated as a clear template (real headlines get swapped in before sending),
-  // written in the exact tone: informed, never fear-based, never partisan.
-  data.worldHeading = "The World Today";
-  data.worldIntro =
-    "Three things happening in the world right now, held up to God's light instead of handed to our fear. We can be informed without being overwhelmed — and care deeply without carrying what only God can carry.";
+  // The World Through God's Lens — Thursdays only. 2–3 events through faith +
+  // an uplifting close. Generated as a calm template; real headlines swap in.
+  if (weekday === "Thursday") {
+    data.worldHeading = "The World Through God's Lens";
+    data.worldIntro =
+      "A few of this week's headlines, held up to God's light instead of handed to our fear. Stay informed without becoming overwhelmed — aware, but not afraid. God is still sovereign, still near, still moving.";
 
-  data.world1What =
-    "Communities in a region hit by disaster are recovering, with many displaced and aid workers pressing in to reach those who are cut off.";
-  data.world1Faith =
-    "Suffering this size can make us feel small and helpless. But God never asks us to carry what only He can carry — He asks us to trust the One who is “close to the brokenhearted” (Psalm 34:18). He is already in that place, in the hands of every rescuer and neighbor showing up.";
-  data.world1Pray =
-    "Lord, be near to everyone who lost so much. Move through every helping hand, and make us people who pray before we scroll past.";
+    data.world1What =
+      "Communities in a region hit by disaster are recovering, with many displaced and aid workers pressing in to reach those who are cut off.";
+    data.world1Faith =
+      "Suffering this size can make us feel small and helpless. But God never asks us to carry what only He can carry — He asks us to trust the One who is “close to the brokenhearted” (Psalm 34:18). He is already in that place, in the hands of every rescuer and neighbor showing up.";
+    data.world1Pray =
+      "Lord, be near to everyone who lost so much. Move through every helping hand, and make us people who pray before we scroll past.";
 
-  data.world2What =
-    "Leaders met to work through a decision that touches millions of ordinary lives — the kind of headline that can quietly stir worry.";
-  data.world2Faith =
-    "When outcomes feel far outside our control, Proverbs 21:1 steadies us: even a ruler's heart is “in the hand of the Lord.” We can stay informed without letting the result become our peace. Our security was never in the news cycle.";
-  data.world2Pray =
-    "Father, grant wisdom and humility to those deciding things that affect so many. Guard our hearts from anxiety and keep our hope anchored in You.";
+    data.world2What =
+      "Leaders met to work through a decision that touches millions of ordinary lives — the kind of headline that can quietly stir worry.";
+    data.world2Faith =
+      "When outcomes feel far outside our control, Proverbs 21:1 steadies us: even a ruler's heart is “in the hand of the Lord.” We can stay informed without letting the result become our peace. Our security was never in the news cycle.";
+    data.world2Pray =
+      "Father, grant wisdom and humility to those deciding things that affect so many. Guard our hearts from anxiety and keep our hope anchored in You.";
 
-  data.world3What =
-    "A new development in science or health is drawing attention for its potential to help people who have been waiting a long time for answers.";
-  data.world3Faith =
-    "Every bit of healing and discovery reflects the God who made a world we are still learning to understand. We can hold even uncertain news with curiosity instead of dread, trusting the Giver behind every good gift (James 1:17).";
-  data.world3Pray =
-    "God, thank You for the gift of discovery. Guide it toward what truly heals, and toward the people who need it most.";
+    data.world3What =
+      "A new development in science or health is drawing attention for its potential to help people who have waited a long time for answers.";
+    data.world3Faith =
+      "Every bit of healing and discovery reflects the God who made a world we are still learning to understand. We can hold even uncertain news with curiosity instead of dread, trusting the Giver behind every good gift (James 1:17).";
+    data.world3Pray =
+      "God, thank You for the gift of discovery. Guide it toward what truly heals, and toward the people who need it most.";
 
-  data.brightHeading = "Light Still Breaking Through";
-  data.brightBody =
-    "Even on a heavy news day, grace keeps showing up. A few signs of it:\n\n• Somewhere this week, a community quietly rallied around a family in crisis — strangers becoming neighbors.\n\n• A long-awaited reunion, recovery, or answered prayer that never made the front page but changed someone's whole world.\n\n• Ordinary people choosing kindness in a moment that could have gone the other way.\n\n(Swap in the day's real good-news stories before you send — this is the breath of fresh air at the end.)";
+    data.brightHeading = "Light Still Breaking Through";
+    data.brightBody =
+      "Even on a heavy news week, grace keeps showing up. A few signs of it:\n\n• Somewhere this week, a community quietly rallied around a family in crisis — strangers becoming neighbors.\n\n• A long-awaited reunion, recovery, or answered prayer that never made the front page but changed someone's whole world.\n\n• Ordinary people choosing kindness in a moment that could have gone the other way.\n\n(Swap in the week's real good-news stories before you send — this is the breath of fresh air at the end.)";
+  }
 
   // The Weekend Study — Saturdays only
   if (weekday === "Saturday") {
-    const v = s.verses?.[0];
-    const k = s.keyWords?.[0];
-    const sv = splitVerse(s.verse);
     data.studyHeading = s.aboutGod || "A deeper look this weekend";
     data.studyRef = `📖 ${s.reading}`;
     data.studyBody = `${s.context}\n\n${s.plainEnglish}`;

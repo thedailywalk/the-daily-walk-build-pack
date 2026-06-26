@@ -8,12 +8,14 @@ export const metadata: Metadata = {
   robots: { index: false },
 };
 
-/** Two sample dates so you can see every premium segment: a regular weekday
- *  (Science + The World Today) and a Saturday (which also adds The Weekend
- *  Study). Shareable while the main site is hidden. */
+/** Three sample dates so you can see every premium (discipleship) segment: a
+ *  regular weekday (the Main Premium Devotional), a Thursday (which adds The
+ *  World Through God's Lens), and a Saturday (which adds The Weekend Study).
+ *  Shareable while the main site is hidden. */
 const SAMPLES = [
-  { date: "2026-06-26", note: "A regular weekday — Science + The World Today" },
-  { date: "2026-06-27", note: "Saturday — also adds The Weekend Study" },
+  { date: "2026-06-29", note: "A regular weekday — the Main Premium Devotional" },
+  { date: "2026-06-25", note: "Thursday — adds The World Through God's Lens" },
+  { date: "2026-06-27", note: "Saturday — adds The Weekend Study" },
 ];
 
 const CSS = `
@@ -35,10 +37,13 @@ export default function PremiumSamplePage() {
         <div className="ps-k">The Daily Walk · Premium</div>
         <h1 className="ps-h">The Deeper Walk — sample issues</h1>
         <p className="ps-sub">
-          This is the Founding Member newsletter. The free daily devotional still
-          goes to everyone — this is the deeper layer underneath it: the science,
-          the world through God&apos;s lens each day, a weekend study, and a seat
-          in the live room. Two days below so you can see every segment.
+          The Premium Discipleship Newsletter. The free daily devotional still
+          goes to everyone — this is the deeper layer: a richer daily devotional,
+          the world through God&apos;s lens on Thursdays, a weekend study, and a
+          seat in the live room. (The wellness tools — Peace Practice, Pattern
+          Breaker, Prayer Lab — are the separate Spiritual Wellness Guide, sampled{" "}
+          <a href="/designs/wellness-sample" style={{ color: "#B8902E" }}>here</a>
+          .)
         </p>
 
         {SAMPLES.map((s) => {

@@ -11,9 +11,8 @@ function esc(s: string | undefined): string {
 }
 
 /**
- * Inline styles only (email-safe). The premium issue shares The Daily Walk
- * palette but wears a "Founding Member" crown: deeper navy ground, gold rule,
- * and a small gold ribbon so members feel the difference the moment it opens.
+ * The Deeper Walk (Premium Discipleship Newsletter) — inline styles only
+ * (email-safe). Shares The Daily Walk palette with a "Founding Member" crown.
  */
 const S = {
   outer: "background:#10243f;padding:24px 12px;",
@@ -33,12 +32,12 @@ const S = {
   ref: "font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#6a6452;font-weight:bold;margin:0 0 12px;",
   rule: "height:1px;line-height:1px;background:#DDD3BC;margin:26px 0;",
   verse: "border-left:4px solid #C9A24B;background:#F3ECDA;padding:14px 18px;margin:16px 0;font-style:italic;color:#1F3A5F;font-size:16px;line-height:1.55;",
-  sciVerse: "font-family:Georgia,'Times New Roman',serif;font-style:italic;color:#1F3A5F;font-size:13.5px;margin:0 0 10px;",
-  sciBox: "background:#EDF2F8;border:1px solid #DCE6F0;border-radius:8px;padding:16px 18px;",
-  sciP: "font-size:15px;line-height:1.62;margin:0 0 10px;color:#2B2B2B;",
-  practice: "background:#1F3A5F;border-radius:8px;padding:14px 18px;margin:10px 0 0;color:#EDE6D4;font-size:14.5px;line-height:1.55;",
-  practiceK: "font-family:Arial,Helvetica,sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#E3C074;font-weight:bold;margin:0 0 6px;",
   keyword: "background:#ffffff;border:1px solid #E0D6BF;border-radius:8px;padding:14px 18px;margin:0 0 12px;font-size:14.5px;line-height:1.55;color:#2B2B2B;",
+  apply: "background:#EDF2F8;border:1px solid #DCE6F0;border-radius:8px;padding:14px 18px;margin:0 0 12px;font-size:15px;line-height:1.55;color:#2B2B2B;",
+  applyK: "font-family:Arial,Helvetica,sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#B8902E;font-weight:bold;margin:0 0 6px;",
+  question: "background:#F3ECDA;border-radius:8px;padding:16px 20px;font-family:Arial,Helvetica,sans-serif;color:#1F3A5F;font-size:15px;font-weight:bold;",
+  prayerBox: "background:#1F3A5F;border-radius:8px;padding:20px 22px;margin:6px 0;",
+  prayerP: "color:#EDE6D4;font-style:italic;font-size:16px;line-height:1.6;margin:0;",
   worldIntro: "font-size:15px;line-height:1.6;color:#5b5340;font-style:italic;margin:0 0 16px;",
   story: "background:#ffffff;border:1px solid #E6DECB;border-left:4px solid #C9A24B;border-radius:8px;padding:14px 18px 4px;margin:0 0 14px;",
   storyLabel: "font-family:Arial,Helvetica,sans-serif;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#B8902E;font-weight:bold;margin:0 0 4px;",
@@ -47,9 +46,6 @@ const S = {
   bright: "background:#FBF3DF;border:1px solid #EDD9A6;border-radius:10px;padding:16px 20px 6px;margin:6px 0 0;",
   brightK: "font-family:Arial,Helvetica,sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#B8902E;font-weight:bold;margin:0 0 8px;",
   brightP: "font-size:14.5px;line-height:1.6;margin:0 0 10px;color:#4a4636;",
-  question: "background:#F3ECDA;border-radius:8px;padding:16px 20px;font-family:Arial,Helvetica,sans-serif;color:#1F3A5F;font-size:15px;font-weight:bold;",
-  prayerBox: "background:#1F3A5F;border-radius:8px;padding:22px 24px;margin:6px 0;",
-  prayerP: "color:#EDE6D4;font-style:italic;font-size:16px;line-height:1.6;margin:0;",
   circle: "background:#10243f;border:1px solid #C9A24B;border-radius:10px;padding:22px 24px;",
   circleK: "font-family:Arial,Helvetica,sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#E3C074;font-weight:bold;margin:0 0 8px;",
   circleP: "font-family:Arial,Helvetica,sans-serif;color:#EDE6D4;font-size:15px;line-height:1.62;margin:0 0 14px;",
@@ -70,7 +66,7 @@ function paras(s: string | undefined, style = S.p): string {
 
 const rule = `<div style="${S.rule}"></div>`;
 
-/** Render a premium issue as branded "Founding Member" email HTML (inline styles). */
+/** Render a premium (discipleship) issue as branded email HTML (inline styles). */
 export function renderPremiumHtml(issue: PremiumIssue): string {
   const d = issue.data;
   const metaBits = [weekdayLabel(issue.date), d.dayLabel?.trim()]
@@ -84,22 +80,42 @@ export function renderPremiumHtml(issue: PremiumIssue): string {
     blocks.push(`<div style="${S.note}">${esc(d.editorNote)}</div>`);
   }
 
-  // The Science Behind It — daily
-  if (d.scienceBody?.trim()) {
+  // The Main Premium Devotional — daily, deeper
+  if (d.devBody?.trim() || d.devIntro?.trim() || d.devHeading?.trim()) {
     blocks.push(
       [
-        `<div style="${S.kicker}">✦ The Science Behind It</div>`,
-        d.scienceHeading?.trim() ? `<h2 style="${S.sec}">${esc(d.scienceHeading)}</h2>` : "",
-        d.scienceVerse?.trim() ? `<div style="${S.sciVerse}">${esc(d.scienceVerse)}</div>` : "",
-        `<div style="${S.sciBox}">${paras(d.scienceBody, S.sciP)}</div>`,
-        d.sciencePractice?.trim()
-          ? `<div style="${S.practice}"><div style="${S.practiceK}">Try this today</div>${esc(d.sciencePractice)}</div>`
+        `<div style="${S.kicker}">Today's Deeper Walk</div>`,
+        d.devHeading?.trim() ? `<h2 style="${S.sec}">${esc(d.devHeading)}</h2>` : "",
+        d.devRef?.trim() ? `<p style="${S.ref}">${esc(d.devRef)}</p>` : "",
+        paras(d.devIntro),
+        d.devVerseText?.trim()
+          ? `<div style="${S.verse}">${esc(d.devVerseText)}${d.devVerseRef?.trim() ? ` — ${esc(d.devVerseRef)}` : ""}</div>`
+          : "",
+        paras(d.devBody),
+        d.devKeyWord?.trim()
+          ? `<div style="${S.keyword}"><strong>Key word — </strong>${esc(d.devKeyWord)}</div>`
+          : "",
+        d.devApply?.trim()
+          ? `<div style="${S.apply}"><div style="${S.applyK}">Today's walk</div>${esc(d.devApply)}</div>`
+          : "",
+        d.devReflection?.trim()
+          ? `<div style="${S.question}">${esc(d.devReflection.startsWith("👉") ? d.devReflection : `👉 ${d.devReflection}`)}</div>`
           : "",
       ].join("")
     );
   }
 
-  // The World Today — daily. Three events through God's lens + uplifting close.
+  // Prayer
+  if (d.devPrayer?.trim()) {
+    blocks.push(
+      [
+        `<div style="${S.kicker}">A Prayer for Today</div>`,
+        `<div style="${S.prayerBox}">${paras(d.devPrayer, S.prayerP)}</div>`,
+      ].join("")
+    );
+  }
+
+  // The World Through God's Lens — Thursdays
   const stories = [
     { what: d.world1What, faith: d.world1Faith, pray: d.world1Pray },
     { what: d.world2What, faith: d.world2Faith, pray: d.world2Pray },
@@ -112,7 +128,7 @@ export function renderPremiumHtml(issue: PremiumIssue): string {
         (s) => `
         <div style="${S.story}">
           ${s.what?.trim() ? `<div style="${S.storyLabel}">What happened</div><p style="${S.storyP}">${esc(s.what)}</p>` : ""}
-          ${s.faith?.trim() ? `<div style="${S.storyLabel}">How to see it through faith</div><p style="${S.storyP}">${esc(s.faith)}</p>` : ""}
+          ${s.faith?.trim() ? `<div style="${S.storyLabel}">How we see it through faith</div><p style="${S.storyP}">${esc(s.faith)}</p>` : ""}
           ${s.pray?.trim() ? `<div style="${S.storyPray}"><strong style="color:#E3C074;">How we can pray · </strong>${esc(s.pray)}</div>` : ""}
         </div>`
       )
@@ -127,8 +143,7 @@ export function renderPremiumHtml(issue: PremiumIssue): string {
 
     blocks.push(
       [
-        rule,
-        `<div style="${S.kicker}">🌍 ${esc(d.worldHeading || "The World Today")} · through God's lens</div>`,
+        `<div style="${S.kicker}">🌍 ${esc(d.worldHeading || "The World Through God's Lens")}</div>`,
         d.worldIntro?.trim() ? `<p style="${S.worldIntro}">${esc(d.worldIntro)}</p>` : "",
         storyHtml,
         brightHtml,
@@ -140,7 +155,6 @@ export function renderPremiumHtml(issue: PremiumIssue): string {
   if (d.studyBody?.trim()) {
     blocks.push(
       [
-        rule,
         `<div style="${S.kicker}">📖 The Weekend Study</div>`,
         d.studyHeading?.trim() ? `<h2 style="${S.sec}">${esc(d.studyHeading)}</h2>` : "",
         d.studyRef?.trim() ? `<p style="${S.ref}">${esc(d.studyRef)}</p>` : "",
@@ -182,7 +196,7 @@ export function renderPremiumHtml(issue: PremiumIssue): string {
       <div style="${S.ribbon}">★ Founding Member</div>
       <div style="${S.logo}">THE DAILY WALK · PREMIUM</div>
       <div style="${S.title}">The Deeper Walk</div>
-      <div style="${S.tag}">the why under the what</div>
+      <div style="${S.tag}">deeper study · real discipleship</div>
     </div>
     ${metaBits ? `<div style="${S.meta}">${esc(metaBits)}</div>` : ""}
     ${d.weekFocus?.trim() ? `<div style="${S.week}">This Week's Focus: ${esc(d.weekFocus)}</div>` : `<div style="height:8px;line-height:8px;">&nbsp;</div>`}
@@ -191,7 +205,7 @@ export function renderPremiumHtml(issue: PremiumIssue): string {
     ${closingBlock}
     <div style="${S.footer}">
       <strong style="color:#C9A24B;">The Daily Walk · Premium</strong><br>
-      The deeper-dive companion for Founding Members.<br>
+      Deeper Bible study &amp; discipleship for Founding Members.<br>
       ${esc(prettyDate(issue.date))}<br><br>
       You're receiving this as a Founding Member of The Daily Walk.<br>
       <a href="${site.url}/account" style="color:#C9A24B;text-decoration:none;">Manage membership</a> · <a href="#" style="color:#C9A24B;text-decoration:none;">Unsubscribe</a>

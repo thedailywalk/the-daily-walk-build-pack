@@ -46,12 +46,17 @@ export default async function PremiumAdminPage({
               <span className="adm-tier-pill">★ Founding Member</span>
             </div>
             <p className="adm-sub">
-              The deeper-dive newsletter for paying members. Same rhythm as the
-              free daily — every date opens fully written. Read it, edit in your
-              voice, mark it <strong>Ready</strong>, and it publishes on its own
-              date. Includes <strong>The Science Behind It</strong> (daily),{" "}
-              <strong>The World Today</strong> (daily — 3 events through God&apos;s
-              lens), and <strong>The Weekend Study</strong> (Saturdays).
+              The Premium <strong>Discipleship Newsletter</strong> — the main paid
+              offer. Same rhythm as the free daily; every date opens fully
+              written. Read it, edit in your voice, mark it <strong>Ready</strong>,
+              and it publishes on its date. Includes the{" "}
+              <strong>Main Premium Devotional</strong> (daily, deeper),{" "}
+              <strong>The World Through God&apos;s Lens</strong> (Thursdays), and{" "}
+              <strong>The Weekend Study</strong> (Saturdays). The wellness tools
+              live in the{" "}
+              <Link href="/admin/wellness" className="adm-inline-link">
+                Spiritual Wellness Guide →
+              </Link>
             </p>
           </div>
           <Link href="/pricing" className="btn btn-ghost">
@@ -115,8 +120,8 @@ async function WeekView() {
         </form>
       </div>
       <p className="adm-hintline">
-        Every day is generated complete and ready to read — including{" "}
-        <strong>The World Today</strong> (3 events through God&apos;s lens).
+        Every day generates a complete <strong>Main Premium Devotional</strong>.
+        Thursdays add <strong>The World Through God&apos;s Lens</strong>;
         Saturdays add <strong>The Weekend Study</strong>. Click any date to open
         the full issue, edit it, then mark it <strong>Ready</strong>.
       </p>
@@ -125,12 +130,14 @@ async function WeekView() {
         {dates.map((date) => {
           const d = byDate.get(date);
           const gen = fullPremiumFor(date);
-          const heading = (d?.data.scienceHeading || gen.scienceHeading)?.trim();
+          const heading = (d?.data.devHeading || gen.devHeading)?.trim();
           const wd = weekdayLabel(date);
           const extra =
-            wd === "Saturday"
-              ? "Science · World Today · + Weekend Study"
-              : "The Science Behind It · The World Today";
+            wd === "Thursday"
+              ? "Devotional · + The World Through God's Lens"
+              : wd === "Saturday"
+                ? "Devotional · + The Weekend Study"
+                : "The Main Premium Devotional";
           return (
             <Link key={date} href={`/admin/premium?date=${date}`} className="adm-day">
               <div className="adm-day-top">
@@ -222,30 +229,58 @@ async function EditorView(date: string, saved: boolean) {
             <textarea name="editorNote" defaultValue={data.editorNote} className="adm-textarea" rows={3} />
           </Field>
 
-          <h3 className="adm-group">✦ The Science Behind It · daily</h3>
+          <h3 className="adm-group">The Main Premium Devotional · daily</h3>
+          <p className="adm-grouphint">
+            A deeper reflection than the free daily — fuller context, a key word,
+            an application step, and a deeper question.
+          </p>
           <Field label="Heading">
-            <input name="scienceHeading" defaultValue={data.scienceHeading} className="adm-input" />
+            <input name="devHeading" defaultValue={data.devHeading} className="adm-input" />
           </Field>
-          <Field label="Anchor verse line">
-            <input name="scienceVerse" defaultValue={data.scienceVerse} className="adm-input" />
+          <Field label="Reading reference">
+            <input name="devRef" defaultValue={data.devRef} className="adm-input" placeholder="📖 John 1" />
           </Field>
-          <Field label="Body" hint="Neuroscience-grounded, tied to today's reading">
-            <textarea name="scienceBody" defaultValue={data.scienceBody} className="adm-textarea" rows={6} />
+          <Field label="Intro / context">
+            <textarea name="devIntro" defaultValue={data.devIntro} className="adm-textarea" rows={4} />
           </Field>
-          <Field label="Try this today (small practice)">
-            <textarea name="sciencePractice" defaultValue={data.sciencePractice} className="adm-textarea" rows={2} />
+          <div className="adm-row">
+            <Field label="Key verse">
+              <textarea name="devVerseText" defaultValue={data.devVerseText} className="adm-textarea" rows={3} />
+            </Field>
+            <Field label="Verse reference">
+              <input name="devVerseRef" defaultValue={data.devVerseRef} className="adm-input" />
+            </Field>
+          </div>
+          <Field label="The deeper reflection">
+            <textarea name="devBody" defaultValue={data.devBody} className="adm-textarea" rows={6} />
+          </Field>
+          <Field label="Key word (Word — meaning)">
+            <textarea name="devKeyWord" defaultValue={data.devKeyWord} className="adm-textarea" rows={2} />
+          </Field>
+          <Field label="Today's walk (one faithful step)">
+            <textarea name="devApply" defaultValue={data.devApply} className="adm-textarea" rows={2} />
+          </Field>
+          <Field label="Deeper reflection question">
+            <textarea name="devReflection" defaultValue={data.devReflection} className="adm-textarea" rows={2} />
+          </Field>
+          <Field label="A prayer for today">
+            <textarea name="devPrayer" defaultValue={data.devPrayer} className="adm-textarea" rows={3} />
           </Field>
 
-          <h3 className="adm-group">🌍 The World Today · daily</h3>
+          <h3 className="adm-group">
+            🌍 The World Through God&apos;s Lens · Thursdays
+            {weekday !== "Thursday" && (
+              <span className="adm-hint"> · not a Thursday — leave blank to hide</span>
+            )}
+          </h3>
           <p className="adm-grouphint">
-            Three real events each day, seen through God&apos;s lens — informed
-            without overwhelmed, never fear-based or partisan. Replace the
-            generated examples with the day&apos;s actual headlines, keeping the
-            same calm tone.
+            2–3 world events seen through faith — informed without overwhelmed,
+            never fear-based or partisan. Replace the generated examples with the
+            week&apos;s actual headlines, keeping the same calm tone.
           </p>
           <div className="adm-row">
             <Field label="Section heading">
-              <input name="worldHeading" defaultValue={data.worldHeading} className="adm-input" placeholder="The World Today" />
+              <input name="worldHeading" defaultValue={data.worldHeading} className="adm-input" placeholder="The World Through God's Lens" />
             </Field>
             <Field label="Uplifting section name">
               <input name="brightHeading" defaultValue={data.brightHeading} className="adm-input" placeholder="Light Still Breaking Through" />
@@ -364,7 +399,7 @@ async function ArchiveList() {
                   {weekdayLabel(d.date)}, {prettyDate(d.date)}
                 </span>
                 <span className="adm-archrow-title">
-                  {d.data.scienceHeading?.trim() || d.title || "Untitled issue"}
+                  {d.data.devHeading?.trim() || d.title || "Untitled issue"}
                 </span>
               </div>
               <div className="adm-archrow-side">

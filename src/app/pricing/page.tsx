@@ -278,9 +278,12 @@ function FoundingOffer() {
             <div className="eyebrow">Become a Founding Member</div>
             <h1>Start free. Go deeper for $5.99.</h1>
             <p className="lead">
-              The daily walk is free, forever. <strong>Premium</strong> takes it further every day — and as a
-              Founding Member you lock in <strong>$5.99/mo for life</strong> and get the full platform we&apos;re
-              building (your guided Bible-in-a-Year journey, audio, dashboard &amp; community) the day it opens. 🙏
+              The daily walk is free, forever. <strong>Premium</strong> is for the reader who wants to go deeper —
+              not just read a devotional, but learn how to live it: Scripture, prayer, real discipleship, and
+              real-world reflection that keep you close to God and steady in your mind. Founding Members lock in{" "}
+              <strong>$5.99/mo for life</strong>, get <strong>one full year of The Spiritual Wellness Guide free</strong>,
+              and are grandfathered into the whole platform we&apos;re building (guided Bible-in-a-Year, audio,
+              dashboard &amp; community) the day it opens. 🙏
             </p>
           </div>
         </div>
@@ -313,7 +316,7 @@ function FoundingOffer() {
                 Founding Member · locked for life
               </span>
               <div style={{ fontFamily: "var(--sans)", fontSize: 12, fontWeight: 800, letterSpacing: 1, textTransform: "uppercase", color: "#B8902E", marginTop: 6 }}>
-                Premium
+                Premium · Discipleship Newsletter
               </div>
               <div style={{ fontFamily: "var(--serif)", fontSize: 30, color: navy, margin: "4px 0 2px" }}>
                 $5.99<span style={{ fontSize: 16, color: "#8a8270" }}> /mo</span>
@@ -321,11 +324,12 @@ function FoundingOffer() {
               <div style={{ color: "#8a8270", fontSize: 14, marginBottom: 14 }}>or $59/year (2 months free)</div>
               <ul style={{ listStyle: "none", padding: 0, margin: "0 0 18px" }}>
                 {check("Everything in Free, plus —", true)}
-                {check("The Science Behind It — daily: the research & neuroscience behind today's truth")}
-                {check("The World This Week — a faith lens on the headlines (Thursdays)")}
-                {check("The Weekend Study — a deeper teaching (Saturdays)")}
-                {check("Live sessions with a licensed Christian therapist — where faith & mental health meet")}
-                {check("Live conversations with pastors — join in and ask your questions")}
+                {check("A deeper daily devotional — fuller study, a key word, and a step to live it")}
+                {check("The World Through God's Lens — the headlines without the fear (Thursdays)")}
+                {check("The Weekend Study — a deeper guided Bible study (Saturdays)")}
+                {check("Inside the Circle — live sessions with a licensed Christian therapist & guest pastors")}
+                {check("BONUS: The Spiritual Wellness Guide, 3×/week — free for a full year", true)}
+                {check("Peace Practice · Pattern Breaker · Prayer Lab · faith + neuroscience tools")}
                 {check("Founding rate locked at $5.99 for life", true)}
                 {check("Grandfathered into the full platform when it launches", true)}
                 {check("Your support helps someone find Jesus — it funds free access for those who can't pay", true)}

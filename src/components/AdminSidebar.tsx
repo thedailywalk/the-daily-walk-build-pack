@@ -51,6 +51,12 @@ const I = {
   star: (
     <path d="M12 3l2.6 5.3 5.9.9-4.3 4.2 1 5.9L12 16.9 6.8 19.3l1-5.9L3.5 9.2l5.9-.9z" />
   ),
+  leaf: (
+    <>
+      <path d="M11 20A7 7 0 0 1 4 13c0-5 4-9 16-9 0 8-4 13-9 13z" />
+      <path d="M9 17c2-4 5-6 8-7" />
+    </>
+  ),
   book: (
     <>
       <path d="M4 4.5A1.5 1.5 0 0 1 5.5 3H19a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H5.5A1.5 1.5 0 0 0 4 20.5z" />
@@ -116,6 +122,24 @@ const ITEMS: Item[] = [
         href: "/admin/premium?view=archive",
         label: "Archive",
         match: (p, qs) => p.startsWith("/admin/premium") && qs.includes("view=archive"),
+      },
+    ],
+  },
+  {
+    href: "/admin/wellness",
+    label: "Wellness Guide",
+    icon: icon(I.leaf),
+    match: (p) => p.startsWith("/admin/wellness"),
+    children: [
+      {
+        href: "/admin/wellness",
+        label: "The Week Ahead",
+        match: (p, qs) => p.startsWith("/admin/wellness") && !qs.includes("view=archive"),
+      },
+      {
+        href: "/admin/wellness?view=archive",
+        label: "Archive",
+        match: (p, qs) => p.startsWith("/admin/wellness") && qs.includes("view=archive"),
       },
     ],
   },
