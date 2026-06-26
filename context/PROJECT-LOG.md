@@ -194,6 +194,11 @@ SQL files in `supabase/`: `prayer-wall.sql`, `good-news.sql`, `study-journal.sql
 
 ## Decision Log (newest at top)
 
+### 2026-06-26 — BASE LOCKED: ic2-northstar is the member-dashboard design direction
+- After reviewing 5 fresh full-dashboard concepts (`/designs/dashboard/*`: Observatory, Club, Command Deck, Trailhead, Atrium), owner chose **`/designs/portal/ic2-northstar`** as the base ("keep this one for now"). The live `/portal` is already built on that language (dark night default: north-star streak, journey star-path, starfield, glass cards, gold nav pills). Sidebar brand tag → "Inner Circle" to match.
+- The 5 concept pages stay under `/designs/dashboard` as an idea bank to pull from while polishing.
+- **Next step (owner's described workflow):** a **Design Lab** to refine each dashboard component piece-by-piece (Keep / Refine / Archive / Delete, notes, versions, Approve → master) + a drag-and-drop **Dashboard Builder**. Build in phases on top of the ic2 base.
+
 ### 2026-06-26 — Retired the /wonders page entirely; re-pointed all references
 - Deleted `src/app/wonders/page.tsx` (Daily Wonders content now lives on the dashboard: Word of the Day + This Day in His Story + Wonder of His Creation, plus the weekly video embed).
 - Re-pointed references: removed the "✦ Daily Wonders" tab link in `/journey`; weekly-video `revalidatePath("/wonders")` → `"/portal"` (admin actions ×3 + recheck cron); admin dashboard Weekly Video card sub → "Members' dashboard"; flags.ts comment updated. No live `/wonders` references remain. (Unused `.wondersec/.word-card/.hist-card` CSS left in place — harmless.)

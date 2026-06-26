@@ -67,7 +67,7 @@ export default function MemberSidebar({ tier, name }: { tier: string; name: stri
         <span className="m-brand-mark" aria-hidden="true">✦</span>
         <div>
           <div className="m-brand-name">The Daily Walk</div>
-          <div className="m-brand-tag">Member Portal</div>
+          <div className="m-brand-tag">Inner Circle</div>
         </div>
       </div>
 
