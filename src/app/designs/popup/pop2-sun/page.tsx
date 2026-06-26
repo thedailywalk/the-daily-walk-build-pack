@@ -71,7 +71,7 @@ export default function Page() {
 .pv-sun2 .pv-card {
   position: relative;
   width: 100%;
-  max-width: 440px;
+  max-width: 520px;
   background: var(--navy-card);
   border-radius: 22px;
   overflow: hidden;

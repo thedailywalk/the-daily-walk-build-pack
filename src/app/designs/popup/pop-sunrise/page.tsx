@@ -66,7 +66,7 @@ export default function PopSunrisePage() {
 .pv-sun .pv-card {
   position: relative;
   width: 100%;
-  max-width: 440px;
+  max-width: 520px;
   background: var(--cream);
   border-radius: 20px;
   overflow: hidden;

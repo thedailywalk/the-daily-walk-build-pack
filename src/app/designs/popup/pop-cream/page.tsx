@@ -66,7 +66,7 @@ export default function PopCreamPage() {
 .pv-cream .pv-card {
   position: relative;
   width: 100%;
-  max-width: 440px;
+  max-width: 520px;
   background: var(--cream);
   border-radius: 18px;
   overflow: hidden;

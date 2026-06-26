@@ -67,7 +67,7 @@ export default function Page() {
 .pv-horizon .pv-card {
   position: relative;
   width: 100%;
-  max-width: 440px;
+  max-width: 520px;
   max-height: calc(100vh - 48px);
   overflow-y: auto;
   border-radius: 22px;

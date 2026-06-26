@@ -51,7 +51,7 @@ export default function Page() {
 /* card */
 .pv-halo .pv-card{
   position:relative;z-index:1;
-  width:100%;max-width:440px;
+  width:100%;max-width:520px;
   max-height:calc(100vh - 88px);
   overflow:auto;
   background:linear-gradient(180deg,#101d31 0%,#0a1322 100%);

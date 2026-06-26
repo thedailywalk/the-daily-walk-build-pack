@@ -60,7 +60,7 @@ export default function Page() {
 .pv-min .pv-card {
   position: relative;
   width: 100%;
-  max-width: 420px;
+  max-width: 520px;
   background: #fff;
   border-radius: 18px;
   box-shadow: 0 24px 70px rgba(15,25,40,0.30);

@@ -65,7 +65,7 @@ export default function Page() {
 .pv-verse .pv-card {
   position: relative;
   width: 100%;
-  max-width: 440px;
+  max-width: 520px;
   border-radius: 22px;
   overflow: hidden;
   background:
