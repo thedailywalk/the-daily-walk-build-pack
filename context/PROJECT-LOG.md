@@ -137,7 +137,7 @@ Navy `#1F3A5F` (headings) · Gold `#C9A24B` / `#B8902E` (accents/buttons) · Cre
 
 ## Database / SQL
 
-SQL files in `supabase/`: `prayer-wall.sql`, `good-news.sql`, `study-journal.sql`, `devotionals.sql`, `content-library.sql`, `content-library-media.sql`, `content-library-capture.sql`, `weekly-video.sql`, `daily-poll.sql`, `prayer-journal.sql`, `community.sql`, `workbook-evolution.sql`, `premium-issues.sql` *(run for the premium newsletter)*, `wellness-issues.sql` *(NEW — run for the Spiritual Wellness Guide)*.
+SQL files in `supabase/`: `prayer-wall.sql`, `good-news.sql`, `study-journal.sql`, `devotionals.sql`, `content-library.sql`, `content-library-media.sql`, `content-library-capture.sql`, `weekly-video.sql`, `daily-poll.sql`, `prayer-journal.sql`, `community.sql`, `workbook-evolution.sql`, `premium-issues.sql` *(run for the premium newsletter)*, `wellness-issues.sql` *(run for the Spiritual Wellness Guide)*, `dashboard-lab.sql` *(NEW — run for the Design Studio layout config)*.
 
 - **Run/confirmed:** `plan_progress`, `prayer_requests`, `featured_good_news`, `study_notes`+`study_favorites`, `devotionals`, `library_items`+`inspiration_sources`+media bucket+capture columns, `weekly_videos`, `poll_votes`, `prayer_journal`, `community.sql` (member_checkins/memory_verses/achievements/achievement_reactions).
 - ~~**STILL NEEDS RUNNING:** `supabase/workbook-evolution.sql`~~ → **RUN 2026-06-25** ("Success. No rows returned"). Workbook Evolution tables (`workbook_days`, `workbook_suggestions`) now live; review queue active.
@@ -193,6 +193,14 @@ SQL files in `supabase/`: `prayer-wall.sql`, `good-news.sql`, `study-journal.sql
 ---
 
 ## Decision Log (newest at top)
+
+### 2026-06-26 — A+B+C: hero polish + Design Studio (Lab + Builder), config-driven portal
+- **A · hero polish:** added the ic2 signature touches to the live `/portal` hero — Day/Walk-Score/streak **chips** and the **time-of-day sky indicator** (morning/noon/night swatches, shifts with arrival time).
+- **B+C · Design Studio** (`/admin/studio`, admin-only, new sidebar "Design Studio" item): one workspace that is both the **Design Lab** (per-module status Keep/Refine/Archive/Delete + notes) and the **Dashboard Builder** (reorder ↑↓, show/hide). Writes a shared config the **live portal reads**.
+- **Config layer:** `src/lib/dashboardConfig.ts` (module registry of the 6 movable dashboard modules: today, continue, pace, accountability, wall, more; order + per-module status/visible/notes; graceful defaults). `supabase/dashboard-lab.sql` — new `dashboard_config` singleton jsonb table (**owner must run it** to persist; previews/edits work without it but won't save).
+- **Live portal is now config-driven:** the 6 modules are wrapped in `.m-mod` and ordered via CSS `order` + hidden via `display:none` from `modStyle()` — so the Studio rearranges/hides the real dashboard with no layout surgery. Hero stays fixed (core).
+- **Honest scope:** phase one delivers reorder/show-hide/status/notes live. Per-component *versions + side-by-side compare* and *true drag-and-drop* are the proposed next phases (noted in the Studio footer).
+- **Status:** TSC/build green, committed + merged to `main`.
 
 ### 2026-06-26 — BASE LOCKED: ic2-northstar is the member-dashboard design direction
 - After reviewing 5 fresh full-dashboard concepts (`/designs/dashboard/*`: Observatory, Club, Command Deck, Trailhead, Atrium), owner chose **`/designs/portal/ic2-northstar`** as the base ("keep this one for now"). The live `/portal` is already built on that language (dark night default: north-star streak, journey star-path, starfield, glass cards, gold nav pills). Sidebar brand tag → "Inner Circle" to match.

@@ -120,6 +120,12 @@ const ITEMS: Item[] = [
     ],
   },
   {
+    href: "/admin/studio",
+    label: "Design Studio",
+    icon: icon(I.spark),
+    match: (p) => p.startsWith("/admin/studio"),
+  },
+  {
     href: "/admin/devotionals",
     label: "Daily · Free",
     icon: icon(I.calendar),

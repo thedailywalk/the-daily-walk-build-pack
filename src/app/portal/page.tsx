@@ -17,6 +17,7 @@ import { getWordOfTheDay } from "@/lib/wordOfTheDay";
 import QuestionOfDay from "@/components/QuestionOfDay";
 import MemoryFlashcard from "@/components/MemoryFlashcard";
 import { POPULAR_VERSES } from "@/lib/popularVerses";
+import { getDashboardConfig, type ModuleKey } from "@/lib/dashboardConfig";
 import { listEntries } from "@/lib/prayerJournal";
 import {
   recordCheckIn,
@@ -76,6 +77,16 @@ function dailySub(): string {
   return DAILY_SUBS[doy % DAILY_SUBS.length];
 }
 
+/** Morning / noon / night — the hero "sky" shifts with the time you arrive. */
+function timeOfDay(): "morning" | "noon" | "night" {
+  const h = Number(
+    new Date().toLocaleString("en-US", { timeZone: "America/Los_Angeles", hour: "2-digit", hour12: false })
+  );
+  if (h < 12) return "morning";
+  if (h < 18) return "noon";
+  return "night";
+}
+
 const svg = (d: React.ReactNode) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">{d}</svg>
 );
@@ -126,6 +137,8 @@ export default async function PortalHome() {
   const reading = getStudyDay(day);
   const pct = progressPercent(progress);
   const done = daysCompleted(progress);
+  const tod = timeOfDay();
+  const dashCfg = await getDashboardConfig();
   const pace = await communityPace(user!.id, day);
   const [reactionsGiven, sharesPosted] = await Promise.all([
     reactionsGivenCount(user!.id),
@@ -175,6 +188,16 @@ export default async function PortalHome() {
     { href: "/account", icon: ICON.compass, label: "Account", sub: `${ent.tier} membership` },
   ];
 
+  // Dashboard Builder: order + visibility for each module come from the Studio
+  // config. We reorder with CSS `order` and hide with display:none — no layout
+  // surgery needed, so the live dashboard always reflects what you arranged.
+  const modStyle = (k: ModuleKey): { order: number; display?: "none" } => {
+    const i = dashCfg.order.indexOf(k);
+    const m = dashCfg.modules[k];
+    const hidden = !m || !m.visible || m.status === "archived" || m.status === "deleted";
+    return { order: i === -1 ? 99 : i, ...(hidden ? { display: "none" as const } : {}) };
+  };
+
   return (
     <div className="m-wrap">
       {/* Greeting hero — elevated "inner circle" feel, kept light */}
@@ -216,6 +239,13 @@ export default async function PortalHome() {
           </div>
 
           <p className="m-hero-sub">{dailySub()}</p>
+
+          {/* Quick chips */}
+          <div className="m-chips">
+            <span className="m-chip">📖 Day <b>{day}</b> of {TOTAL_DAYS}</span>
+            <span className="m-chip">⭐ Walk Score <b>{score.score}</b></span>
+            <span className="m-chip">🔥 <b>{streak.current}</b>-day streak</span>
+          </div>
 
           {/* Walk Score */}
           <div className="m-walkscore">
@@ -264,6 +294,17 @@ export default async function PortalHome() {
               );
             })()}
             <div className="m-journey-cap">Day {day} · you are here — {pct}% of the way to Day {TOTAL_DAYS}</div>
+            {/* time-of-day sky indicator */}
+            <div className="m-tod">
+              <span className="m-tod-sw" aria-hidden="true">
+                <i className={`m-tod-i m-tod-m${tod === "morning" ? " on" : ""}`} />
+                <i className={`m-tod-i m-tod-n${tod === "noon" ? " on" : ""}`} />
+                <i className={`m-tod-i m-tod-t${tod === "night" ? " on" : ""}`} />
+              </span>
+              <span className="m-tod-cap">
+                {tod === "morning" ? "☀ Morning" : tod === "noon" ? "☀ Midday" : "☾ Evening"} — your sky shifts with the time you arrive.
+              </span>
+            </div>
           </div>
 
           {/* Memory flashcard */}
@@ -276,6 +317,8 @@ export default async function PortalHome() {
         </div>
       </section>
 
+      <div className="m-modules">
+      <div className="m-mod" style={modStyle("today")}>
       {/* Today's Walk */}
       <div className="m-section-tag" id="today">Today&apos;s Walk</div>
       <section className="m-today">
@@ -302,7 +345,9 @@ export default async function PortalHome() {
           </div>
         )}
       </section>
+      </div>
 
+      <div className="m-mod" style={modStyle("continue")}>
       {/* Continue + Weekly video, side by side */}
       <div className="m-two">
         <section className="m-continue">
@@ -355,7 +400,9 @@ export default async function PortalHome() {
           )}
         </section>
       </div>
+      </div>
 
+      <div className="m-mod" style={modStyle("pace")}>
       {/* Community: walk together */}
       <div className="m-section-tag">Walk together</div>
 
@@ -377,7 +424,9 @@ export default async function PortalHome() {
           <Link href="/subscribe" className="m-invite">＋ Invite a friend to walk with you</Link>
         </div>
       </section>
+      </div>
 
+      <div className="m-mod" style={modStyle("accountability")}>
       {/* Iron sharpens iron — optional friendly accountability board */}
       <details className="m-accountability">
         <summary>
@@ -420,7 +469,9 @@ export default async function PortalHome() {
         </div>
         <p className="m-acc-foot">Iron sharpens iron — not a contest. We&apos;re cheering each other on toward Him. 🤍</p>
       </details>
+      </div>
 
+      <div className="m-mod" style={modStyle("wall")}>
       {/* Encouragement wall + share */}
       <section className="m-panel m-wall">
         <span className="m-card-eyebrow">♥ Encouragement wall</span>
@@ -475,7 +526,9 @@ export default async function PortalHome() {
           </ul>
         )}
       </section>
+      </div>
 
+      <div className="m-mod" style={modStyle("more")}>
       {/* More for today — tucked away to keep the dashboard calm */}
       <details className="m-more">
         <summary>
@@ -606,6 +659,8 @@ export default async function PortalHome() {
         ))}
       </div>
       </details>
+      </div>
+      </div>
     </div>
   );
 }
