@@ -1,10 +1,12 @@
 "use server";
 
+import { randomUUID } from "crypto";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { requireAdmin } from "@/lib/adminGuard";
 import {
   upsertLibraryItem,
+  setLibraryItemBatch,
   deleteLibraryItem,
   uploadLibraryMedia,
   deleteLibraryMedia,
@@ -12,6 +14,52 @@ import {
   deleteSource,
   MEDIA_MAX_BYTES,
 } from "@/lib/library";
+import { analyzeInspiration } from "@/lib/workbookAnalysis";
+import { insertSuggestions, type NewSuggestion } from "@/lib/workbookEvolution";
+
+/**
+ * Every Library item is also workbook inspiration: analyze its text and drop
+ * suggested workbook edits into the Evolution queue, returning the batch id so
+ * the item can deep-link to its suggestions. Inspiration-only — never verbatim.
+ */
+async function feedWorkbook(
+  text: string,
+  title: string,
+  kind: string,
+  link: string | null
+): Promise<string | null> {
+  if (text.trim().length < 40) return null;
+  try {
+    const analysis = await analyzeInspiration({
+      text,
+      sourceLabel: title || "Library inspiration",
+      sourceType: kind || "note",
+      link: link ?? "",
+      maxPlacements: 6,
+    });
+    if (!analysis.placements.length) return null;
+    const batchId = randomUUID();
+    const suggestions: NewSuggestion[] = analysis.placements.map((p) => ({
+      dayIndex: p.dayIndex,
+      batchId,
+      sourceLabel: title || "Library inspiration",
+      sourceType: kind || "note",
+      sourceLink: link ?? "",
+      sourceExcerpt: text.slice(0, 4000),
+      themes: p.themes,
+      tone: analysis.tone,
+      techniques: analysis.techniques,
+      targetField: p.targetField,
+      whyFits: p.whyFits,
+      proposedText: p.proposedText,
+      impact: p.impact,
+    }));
+    const n = await insertSuggestions(suggestions);
+    return n > 0 ? batchId : null;
+  } catch {
+    return null;
+  }
+}
 
 function str(fd: FormData, key: string): string {
   return String(fd.get(key) ?? "").trim();
@@ -57,12 +105,17 @@ export async function saveLibraryItemAction(formData: FormData) {
   const transcript = str(formData, "transcript") || null;
   const personalTake = str(formData, "personalTake") || null;
 
-  await upsertLibraryItem({
+  const isVoice = str(formData, "isVoice") === "on";
+  const kind = str(formData, "kind") || "note";
+  const title = str(formData, "title");
+  const body = personalTake || str(formData, "body") || transcript || caption || "";
+
+  const savedId = await upsertLibraryItem({
     id,
-    title: str(formData, "title"),
-    kind: str(formData, "kind") || "note",
+    title,
+    kind,
     // body powers the newsletter generator — prefer the owner's original rewrite.
-    body: personalTake || str(formData, "body") || transcript || caption || "",
+    body,
     url,
     source: str(formData, "source") || null,
     why: str(formData, "why") || null,
@@ -76,12 +129,27 @@ export async function saveLibraryItemAction(formData: FormData) {
     transcript,
     personalTake,
     sources: str(formData, "sources") || null,
-    isVoice: str(formData, "isVoice") === "on",
+    isVoice,
     needsFinalization: str(formData, "needsFinalization") === "on",
   });
 
+  // Every saved item is also workbook inspiration — generate suggested edits
+  // and stamp the item with the batch (skip "Your Voices" entries, which are
+  // people to follow, not source material).
+  let batchId: string | null = null;
+  if (savedId && !isVoice) {
+    const inspoText = [transcript, personalTake, str(formData, "body"), caption].filter(Boolean).join("\n\n");
+    batchId = await feedWorkbook(inspoText, title, kind, url);
+    if (batchId) await setLibraryItemBatch(savedId, batchId);
+  }
+
   revalidatePath("/admin/library");
-  redirect(tooBig ? "/admin/library?tab=add&err=size" : "/admin/library?saved=1");
+  revalidatePath("/admin/workbook");
+  redirect(
+    tooBig
+      ? "/admin/library?tab=add&err=size"
+      : `/admin/library?saved=1${batchId ? `&wb=${batchId}` : ""}`
+  );
 }
 
 export async function deleteLibraryItemAction(formData: FormData) {

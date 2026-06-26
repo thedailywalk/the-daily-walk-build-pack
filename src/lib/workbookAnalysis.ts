@@ -169,25 +169,22 @@ function heuristicAnalysis(input: AnalysisInput, candidates: Candidate[], themes
 
 /* ----------------------------------- AI ------------------------------------ */
 
-type AiPlacement = {
-  dayIndex: number;
-  targetField?: string;
-  whyFits?: string;
-  proposedText?: string;
-  impact?: string;
-  skip?: boolean;
-};
+const AI_SYSTEM = `You are the editorial assistant for "The Daily Walk," a Christian devotional workbook. The owner saves inspiration — reel/sermon transcripts, notes, ideas, source material. You use it as INSPIRATION ONLY to make a study day land deeper. You NEVER copy its wording, NEVER paste it in verbatim, and NEVER change doctrine.
 
-const AI_SYSTEM = `You are the editorial assistant for "The Daily Walk," a Christian devotional workbook. You improve how lessons are DELIVERED using inspiration the owner provides (reel/sermon transcripts, notes).
+What a great suggestion feels like:
+- Organic and natural — woven into the day, never bolted on or forced.
+- Personal and warm — like a trusted friend sitting beside the reader, not generic filler.
+- Spiritually grounded — anchored in THIS day's Scripture; biblically sound; beginner-friendly (no church jargon, no guilt).
+- Practical for everyday life — helps the reader see the reading through a relatable, real-life lens.
+- Intentional — the day should feel thoughtfully shaped by a person, not auto-generated.
 
-Hard rules:
-- Inspiration shapes delivery only — warmth, pacing, relatability, storytelling, gentle humor, plain-language application. NEVER change doctrine, and never copy the inspiration's wording. Everything you write is original.
-- Stay biblically sound, encouraging, and beginner-friendly. No church jargon, no guilt.
-- You revise ONE field of a study day at a time, keeping its existing meaning and Scripture, just making it land better. Keep length similar (you may add 1–3 sentences).
-- If a candidate day does not genuinely fit the inspiration's theme, set "skip": true for it. Quality over quantity.
-- Voice: like a trusted mentor sitting beside the reader. Vary naturally — some moments deeper, some lighter.
+Scope — you may ELEVATE THE WHOLE DAY, not just add a paragraph. If the inspiration shifts the day's tone or direction, improve SEVERAL fields together so they cohere (e.g. the reflection question, the prayer, the real-life application, the examples, the side reflection, the one small step, plain-English explanation). Keep each field's core meaning and Scripture intact; rewrite in original, warm, plain language; keep lengths reasonable (similar to the original, give or take a few sentences).
 
-Return ONLY valid JSON, no prose.`;
+Editable field keys: context, plainEnglish, aboutGod, aboutPeople, realLife, reflection, prayer, step, sideReflection.
+
+Only suggest where there is a genuine fit. Quality over quantity — it is better to deeply elevate one day than to lightly touch five. Return ONLY valid JSON, no prose.`;
+
+type AiDay = { dayIndex: number; fit?: boolean; edits?: Array<{ field?: string; proposedText?: string; whyFits?: string; impact?: string }> };
 
 async function aiAnalysis(
   input: AnalysisInput,
@@ -201,30 +198,27 @@ async function aiAnalysis(
 
   const dayPayload = candidates.map((c) => {
     const s = getStudyDay(c.dayIndex);
-    const field = fieldForTheme(c.overlap[0] ?? themes[0] ?? "Faith");
-    return {
-      dayIndex: c.dayIndex,
-      reading: s.reading,
-      sharedThemes: c.overlap,
-      targetField: field,
-      currentText: String((s as unknown as Record<string, unknown>)[field] ?? ""),
-    };
+    const fields: Record<string, string> = {};
+    for (const f of EDITABLE_FIELDS) fields[f] = String((s as unknown as Record<string, unknown>)[f] ?? "");
+    return { dayIndex: c.dayIndex, reading: s.reading, sharedThemes: c.overlap, fields };
   });
 
   const user = `INSPIRATION (${input.sourceType}${input.sourceLabel ? ` — ${input.sourceLabel}` : ""}):
 """
-${trimExcerpt(input.text, 2500)}
+${trimExcerpt(input.text, 2800)}
 """
 
 Detected themes: ${themes.join(", ") || "(none)"}
-Detected tone: ${tone}
+Detected tone of the inspiration: ${tone}
 
-CANDIDATE STUDY DAYS to consider improving (only where there's a real thematic fit):
+CANDIDATE STUDY DAYS (improve only where there is a real fit; you have every editable field's current text so you can elevate the whole day if it's warranted):
 ${JSON.stringify(dayPayload, null, 2)}
 
-For EACH candidate, return an object: { "dayIndex", "targetField", "whyFits" (1 sentence on the thematic connection), "proposedText" (the FULL revised field text — existing meaning kept, delivery improved, original wording), "impact" (1 sentence on what improves for the reader), "skip" (true if it doesn't truly fit) }.
+For EACH candidate day return:
+{ "dayIndex", "fit" (true only if the inspiration genuinely deepens this day), "edits": [ { "field" (one of the editable keys), "proposedText" (the FULL rewritten field — original wording, same meaning & Scripture, warmer/deeper/more relatable), "whyFits" (1 short sentence), "impact" (1 short sentence on what improves for the reader) } ] }
+Include 1–4 edits per fitting day — only the fields that genuinely get better. Omit days where fit is false.
 
-Respond with JSON: { "tone": "...", "techniques": ["..."], "placements": [ ... ] }`;
+Respond with JSON: { "tone": "...", "techniques": ["..."], "days": [ ... ] }`;
 
   try {
     const res = await fetch("https://api.anthropic.com/v1/messages", {
@@ -236,7 +230,7 @@ Respond with JSON: { "tone": "...", "techniques": ["..."], "placements": [ ... ]
       },
       body: JSON.stringify({
         model: process.env.WORKBOOK_MODEL ?? process.env.GUIDE_MODEL ?? "claude-haiku-4-5-20251001",
-        max_tokens: 3000,
+        max_tokens: 4500,
         system: AI_SYSTEM,
         messages: [{ role: "user", content: user }],
       }),
@@ -246,28 +240,32 @@ Respond with JSON: { "tone": "...", "techniques": ["..."], "placements": [ ... ]
     const data = (await res.json()) as { content?: Array<{ type: string; text?: string }> };
     const raw = (data.content ?? []).filter((c) => c.type === "text").map((c) => c.text).join("").trim();
     const json = raw.slice(raw.indexOf("{"), raw.lastIndexOf("}") + 1);
-    const parsed = JSON.parse(json) as { tone?: string; techniques?: string[]; placements?: AiPlacement[] };
+    const parsed = JSON.parse(json) as { tone?: string; techniques?: string[]; days?: AiDay[] };
 
     const byDay = new Map(candidates.map((c) => [c.dayIndex, c]));
     const placements: Placement[] = [];
-    for (const p of parsed.placements ?? []) {
-      if (p.skip || !p.proposedText?.trim()) continue;
-      const c = byDay.get(p.dayIndex);
+    for (const d of parsed.days ?? []) {
+      if (d.fit === false) continue;
+      const c = byDay.get(d.dayIndex);
       if (!c) continue;
-      const s = getStudyDay(p.dayIndex);
-      const tf = (EDITABLE_FIELDS as readonly string[]).includes(String(p.targetField))
-        ? (p.targetField as EditableField)
-        : fieldForTheme(c.overlap[0] ?? "Faith");
-      placements.push({
-        dayIndex: p.dayIndex,
-        reading: s.reading,
-        themes: c.overlap,
-        targetField: tf,
-        currentText: String((s as unknown as Record<string, unknown>)[tf] ?? ""),
-        whyFits: p.whyFits?.trim() || `Shares the theme of ${c.overlap.join(" & ")}.`,
-        proposedText: p.proposedText.trim(),
-        impact: p.impact?.trim() || "A warmer, more relatable delivery of the same truth.",
-      });
+      const s = getStudyDay(d.dayIndex);
+      const seen = new Set<string>();
+      for (const e of d.edits ?? []) {
+        const field = String(e.field ?? "");
+        if (!(EDITABLE_FIELDS as readonly string[]).includes(field)) continue;
+        if (seen.has(field) || !e.proposedText?.trim()) continue;
+        seen.add(field);
+        placements.push({
+          dayIndex: d.dayIndex,
+          reading: s.reading,
+          themes: c.overlap,
+          targetField: field as EditableField,
+          currentText: String((s as unknown as Record<string, unknown>)[field] ?? ""),
+          whyFits: e.whyFits?.trim() || `Deepens Day ${d.dayIndex}'s focus on ${c.overlap.join(" & ")}.`,
+          proposedText: e.proposedText.trim(),
+          impact: e.impact?.trim() || "A warmer, more relatable take on the same truth.",
+        });
+      }
     }
     if (!placements.length) return null;
     return {

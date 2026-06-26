@@ -43,6 +43,7 @@ export default async function LibraryPage({
     edit?: string;
     sedit?: string;
     saved?: string;
+    wb?: string;
     err?: string;
     tab?: string;
     final?: string;
@@ -114,7 +115,19 @@ export default async function LibraryPage({
           ))}
         </nav>
 
-        {sp.saved && <div className="adm-saved">Saved ✓</div>}
+        {sp.saved && (
+          <div className="adm-saved">
+            Saved ✓{" "}
+            {sp.wb ? (
+              <>
+                — and it became workbook inspiration.{" "}
+                <Link href={`/admin/workbook#batch-${sp.wb}`} className="adm-inline-link">
+                  See the suggested workbook edits →
+                </Link>
+              </>
+            ) : null}
+          </div>
+        )}
         {sp.err === "size" && (
           <div className="adm-notice">
             That file was over 4MB, so it wasn&apos;t uploaded (your text was still saved). Use a smaller
@@ -269,6 +282,11 @@ function LibCard({ item }: { item: LibraryItem }) {
         {item.emotion && <span className="lib-tag lib-tag-alt">{item.emotion}</span>}
         {item.source && <span className="lib-tag lib-tag-src">{item.source}</span>}
       </div>
+      {item.wbBatchId && (
+        <Link href={`/admin/workbook#batch-${item.wbBatchId}`} className="lib-wb-btn">
+          📖 See suggested workbook edits from this →
+        </Link>
+      )}
     </div>
   );
 }

@@ -197,9 +197,9 @@ const ITEMS: Item[] = [
         match: (p) => p === "/admin/workbook",
       },
       {
-        href: "/admin/workbook/submit",
-        label: "Add inspiration",
-        match: (p) => p.startsWith("/admin/workbook/submit"),
+        href: "/admin/library?tab=add",
+        label: "Add inspiration (Library)",
+        match: (p, qs) => p.startsWith("/admin/library") && qs.includes("tab=add"),
       },
     ],
   },

@@ -46,6 +46,7 @@ export type LibraryItem = {
   sources: string | null; // sources cited for my take
   isVoice: boolean; // saved as one of "Your Voices"
   needsFinalization: boolean; // saved as an unfinished draft (e.g. forwarded from the Workbook)
+  wbBatchId: string | null; // batch id of the workbook suggestions this item generated
   createdAt?: string;
 };
 
@@ -82,6 +83,7 @@ function toItem(r: any): LibraryItem {
     sources: r.sources ?? null,
     isVoice: !!r.is_voice,
     needsFinalization: !!r.needs_finalization,
+    wbBatchId: r.wb_batch_id ?? null,
     createdAt: r.created_at,
   };
 }
@@ -146,8 +148,10 @@ export async function getLibraryItem(id: string): Promise<LibraryItem | null> {
   }
 }
 
-export async function upsertLibraryItem(item: Partial<LibraryItem> & { id?: string }) {
-  if (!adminDbConfigured) return;
+export async function upsertLibraryItem(
+  item: Partial<LibraryItem> & { id?: string }
+): Promise<string | null> {
+  if (!adminDbConfigured) return null;
   try {
     const supabase = createServiceClient();
     const row = {
@@ -170,9 +174,26 @@ export async function upsertLibraryItem(item: Partial<LibraryItem> & { id?: stri
       sources: item.sources ?? null,
       is_voice: !!item.isVoice,
       needs_finalization: !!item.needsFinalization,
+      ...(item.wbBatchId !== undefined ? { wb_batch_id: item.wbBatchId } : {}),
       updated_at: new Date().toISOString(),
     };
-    await supabase.from("library_items").upsert(row);
+    const { data } = await supabase
+      .from("library_items")
+      .upsert(row)
+      .select("id")
+      .maybeSingle();
+    return (data?.id as string) ?? item.id ?? null;
+  } catch {
+    return null;
+  }
+}
+
+/** Stamp a library item with the workbook batch it produced (no full re-save). */
+export async function setLibraryItemBatch(id: string, batchId: string): Promise<void> {
+  if (!adminDbConfigured) return;
+  try {
+    const supabase = createServiceClient();
+    await supabase.from("library_items").update({ wb_batch_id: batchId }).eq("id", id);
   } catch {
     /* ignore */
   }

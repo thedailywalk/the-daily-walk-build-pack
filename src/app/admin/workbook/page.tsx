@@ -86,7 +86,7 @@ export default async function WorkbookDashboard({
             ))}
           </div>
           <div className="lib-hero-cta">
-            <Link href="/admin/workbook/submit" className="btn-gold">＋ Add inspiration</Link>
+            <Link href="/admin/library?tab=add" className="btn-gold">＋ Add inspiration in the Content Library</Link>
           </div>
         </header>
 
@@ -108,12 +108,12 @@ export default async function WorkbookDashboard({
         <h2 className="wb-h2" id="review">New inspiration waiting for review</h2>
         {batches.length === 0 ? (
           <p className="adm-sub">
-            Nothing waiting. <Link href="/admin/workbook/submit">Paste a reel or sermon transcript</Link> and
-            the system will suggest where it strengthens the workbook.
+            Nothing waiting. <Link href="/admin/library?tab=add">Add a reel, sermon transcript, or note to your Content Library</Link> and
+            it&apos;ll automatically suggest where it strengthens the workbook.
           </p>
         ) : (
           batches.map((b) => (
-            <div key={b.batchId} className="wb-batch">
+            <div key={b.batchId} id={`batch-${b.batchId}`} className="wb-batch" style={{ scrollMarginTop: 90 }}>
               <div className="wb-batch-head">
                 <span className="wb-src-type">{b.sourceType}</span>
                 <strong>{b.sourceLabel}</strong>

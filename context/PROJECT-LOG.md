@@ -137,7 +137,7 @@ Navy `#1F3A5F` (headings) · Gold `#C9A24B` / `#B8902E` (accents/buttons) · Cre
 
 ## Database / SQL
 
-SQL files in `supabase/`: `prayer-wall.sql`, `good-news.sql`, `study-journal.sql`, `devotionals.sql`, `content-library.sql`, `content-library-media.sql`, `content-library-capture.sql`, `weekly-video.sql`, `daily-poll.sql`, `prayer-journal.sql`, `community.sql`, `workbook-evolution.sql`, `premium-issues.sql` *(run for the premium newsletter)*, `wellness-issues.sql` *(run for the Spiritual Wellness Guide)*, `dashboard-lab.sql` *(NEW — run for the Design Studio layout config)*.
+SQL files in `supabase/`: `prayer-wall.sql`, `good-news.sql`, `study-journal.sql`, `devotionals.sql`, `content-library.sql`, `content-library-media.sql`, `content-library-capture.sql`, `weekly-video.sql`, `daily-poll.sql`, `prayer-journal.sql`, `community.sql`, `workbook-evolution.sql`, `premium-issues.sql` *(run for the premium newsletter)*, `wellness-issues.sql` *(run for the Spiritual Wellness Guide)*, `dashboard-lab.sql` *(run for the Design Studio layout config)*, `library-workbook-link.sql` *(NEW — adds `library_items.wb_batch_id`)*.
 
 - **Run/confirmed:** `plan_progress`, `prayer_requests`, `featured_good_news`, `study_notes`+`study_favorites`, `devotionals`, `library_items`+`inspiration_sources`+media bucket+capture columns, `weekly_videos`, `poll_votes`, `prayer_journal`, `community.sql` (member_checkins/memory_verses/achievements/achievement_reactions).
 - ~~**STILL NEEDS RUNNING:** `supabase/workbook-evolution.sql`~~ → **RUN 2026-06-25** ("Success. No rows returned"). Workbook Evolution tables (`workbook_days`, `workbook_suggestions`) now live; review queue active.
@@ -193,6 +193,15 @@ SQL files in `supabase/`: `prayer-wall.sql`, `good-news.sql`, `study-journal.sql
 ---
 
 ## Decision Log (newest at top)
+
+### 2026-06-26 — Content Library is now the single inbox; auto-feeds the Workbook Evolution engine
+- **Owner decision:** retire the standalone Workbook "+ Add inspiration" page; the **Content Library is the one place** to add inspiration/transcripts/notes. Every saved item becomes BOTH newsletter inspiration AND workbook inspiration.
+- **Auto-feed:** `saveLibraryItemAction` now runs `analyzeInspiration` on each saved item (skips "Your Voices") → inserts suggested workbook edits as a batch → stamps the item with `wb_batch_id`. New `feedWorkbook()` helper; `upsertLibraryItem` now returns the id; added `setLibraryItemBatch`.
+- **Deep link:** each Library card shows "📖 See suggested workbook edits from this →" → `/admin/workbook#batch-<id>` (batch blocks now have `id`/scroll-margin). Saved-flash also links to the new suggestions.
+- **Retired the tab:** sidebar workbook child → "Add inspiration (Library)" (points to Library Add); workbook dashboard CTA + empty-state link point to the Library; `/admin/workbook/submit` now redirects to `/admin/library?tab=add`.
+- **Quality upgrade (inspiration-only, whole-day):** rewrote the AI prompt in `workbookAnalysis.ts` — never verbatim; organic/personal/warm/Scripture-grounded/practical/relatable; and it can now elevate the **whole day** (1–4 fields: reflection, prayer, application, examples, side reflection, step, plain-English) when the inspiration shifts tone/direction, not just add a paragraph. AI now returns `days[].edits[]` (multi-field) → multiple suggestion cards per day in the batch.
+- **Owner must run** `supabase/library-workbook-link.sql` (adds `library_items.wb_batch_id`). Deeper, more personal suggestions require `ANTHROPIC_API_KEY` set (otherwise the heuristic fallback is used).
+- **Status:** TSC/build green, committed + merged to `main`.
 
 ### 2026-06-26 — Live dashboard matched to ic2-northstar composition (2-col grid)
 - Owner: make the live member dashboard the ic2-northstar design. The live `/portal` already used the ic2 *styling* (dark, north star, journey, time-of-day, chips, Inner Circle); now its *layout* matches too: `.m-modules` is a 2-column grid, and **Today's Devotional | Encouragement Wall** pair side-by-side (the signature ic2 composition), with the Inner Circle + rest below. Default module order reordered to lead with today + wall; module labels renamed (Today's Devotional, Encouragement Wall, The Inner Circle).

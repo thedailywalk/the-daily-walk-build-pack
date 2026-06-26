@@ -5149,6 +5149,24 @@ hr.div {
   align-items: center;
   gap: 12px;
 }
+.lib-wb-btn {
+  display: inline-block;
+  margin-top: 14px;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--navy);
+  background: linear-gradient(180deg, #f6e7c2, #ecd6a3);
+  border: 1px solid var(--gold);
+  border-radius: 10px;
+  padding: 9px 14px;
+  text-decoration: none;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.lib-wb-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px -10px rgba(184, 144, 46, 0.6);
+}
 .lib-title {
   font-family: var(--serif);
   font-size: 17px;
