@@ -44,12 +44,17 @@ export default async function DevotionalAdminPage({
         <div className="adm-head">
           <div>
             <div className="sec-tag" style={{ textAlign: "left" }}>
-              Admin · Devotional Prep
+              Admin · Devotional Prep{" "}
+              <span className="adm-tier-pill adm-tier-pill-free">Free Daily</span>
             </div>
             <p className="adm-sub">
-              Plan, write, and schedule the daily devotional. Every date opens
-              fully written — read it, edit in your voice, mark it{" "}
-              <strong>Ready</strong>, and it publishes on its own date.
+              Plan, write, and schedule the free daily devotional that goes to
+              everyone. Every date opens fully written — read it, edit in your
+              voice, mark it <strong>Ready</strong>, and it publishes on its own
+              date. Looking for the paid newsletter?{" "}
+              <Link href="/admin/premium" className="adm-inline-link">
+                Open Premium Prep →
+              </Link>
             </p>
           </div>
           <Link href="/devotional" className="btn btn-ghost">

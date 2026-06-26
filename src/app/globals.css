@@ -4549,6 +4549,46 @@ hr.div {
   background: #efece4;
 }
 
+/* tier pill (Free Daily / Premium) + day tagline */
+.adm-tier-pill {
+  display: inline-block;
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 10px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 999px;
+  vertical-align: middle;
+  margin-left: 8px;
+  color: #1f3a5f;
+  background: linear-gradient(180deg, #e8cd86, #c9a24b);
+  border: 1px solid #b8902e;
+}
+.adm-tier-pill-free {
+  color: #4a5568;
+  background: #eef1f6;
+  border-color: #d7deea;
+}
+.adm-day-tagline {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  margin: 2px 0 8px;
+  opacity: 0.85;
+}
+.adm-inline-link {
+  color: var(--gold-deep);
+  font-weight: 700;
+  text-decoration: none;
+}
+.adm-inline-link:hover {
+  text-decoration: underline;
+}
+
 /* Editor */
 .adm-cols {
   display: grid;

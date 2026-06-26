@@ -48,6 +48,9 @@ const I = {
     <path d="M12 21s-7-4.35-7-9a4 4 0 0 1 7-2.6A4 4 0 0 1 19 12c0 4.65-7 9-7 9z" />
   ),
   chevron: <path d="m9 6 6 6-6 6" />,
+  star: (
+    <path d="M12 3l2.6 5.3 5.9.9-4.3 4.2 1 5.9L12 16.9 6.8 19.3l1-5.9L3.5 9.2l5.9-.9z" />
+  ),
   book: (
     <>
       <path d="M4 4.5A1.5 1.5 0 0 1 5.5 3H19a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H5.5A1.5 1.5 0 0 0 4 20.5z" />
@@ -82,7 +85,7 @@ const ITEMS: Item[] = [
   },
   {
     href: "/admin/devotionals",
-    label: "Devotionals",
+    label: "Daily · Free",
     icon: icon(I.calendar),
     match: (p) => p.startsWith("/admin/devotionals"),
     children: [
@@ -95,6 +98,24 @@ const ITEMS: Item[] = [
         href: "/admin/devotionals?view=archive",
         label: "Archive",
         match: (p, qs) => p.startsWith("/admin/devotionals") && qs.includes("view=archive"),
+      },
+    ],
+  },
+  {
+    href: "/admin/premium",
+    label: "Premium ★",
+    icon: icon(I.star),
+    match: (p) => p.startsWith("/admin/premium"),
+    children: [
+      {
+        href: "/admin/premium",
+        label: "The Week Ahead",
+        match: (p, qs) => p.startsWith("/admin/premium") && !qs.includes("view=archive"),
+      },
+      {
+        href: "/admin/premium?view=archive",
+        label: "Archive",
+        match: (p, qs) => p.startsWith("/admin/premium") && qs.includes("view=archive"),
       },
     ],
   },
