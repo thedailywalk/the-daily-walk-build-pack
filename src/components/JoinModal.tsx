@@ -137,9 +137,9 @@ export default function JoinModal() {
           <p className="jmd-eyebrow"><span className="jmd-dot" /> Free every morning — before the world gets loud</p>
           <h2 className="jmd-headline">A few quiet minutes <span className="g">with God.</span> Every morning.</h2>
           <p className="jmd-sub">
-            You&apos;ll never grow close to someone you never actually talk to — not even God. This is where the
-            conversation starts: ten honest minutes in His Word each morning that quietly change the other
-            twenty-three hours. Ephesians calls it putting on your armor — so start your day already armed. Free, forever.
+            Five honest minutes in His Word each morning quietly change the other twenty-three hours. Ephesians
+            calls it putting on your armor — and the Word is the one weapon you fight with. Start your day already
+            armed. Free, forever.
           </p>
           <div className="jmd-verse">
             <p>&ldquo;This is the day that the Lord has made; let us rejoice and be glad in it.&rdquo;<cite>— Psalm 118:24 · lands at 6:30 AM PT</cite></p>
