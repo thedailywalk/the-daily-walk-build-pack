@@ -137,7 +137,7 @@ Navy `#1F3A5F` (headings) · Gold `#C9A24B` / `#B8902E` (accents/buttons) · Cre
 
 ## Database / SQL
 
-SQL files in `supabase/`: `prayer-wall.sql`, `good-news.sql`, `study-journal.sql`, `devotionals.sql`, `content-library.sql`, `content-library-media.sql`, `content-library-capture.sql`, `weekly-video.sql`, `daily-poll.sql`, `prayer-journal.sql`, `community.sql`, `workbook-evolution.sql`.
+SQL files in `supabase/`: `prayer-wall.sql`, `good-news.sql`, `study-journal.sql`, `devotionals.sql`, `content-library.sql`, `content-library-media.sql`, `content-library-capture.sql`, `weekly-video.sql`, `daily-poll.sql`, `prayer-journal.sql`, `community.sql`, `workbook-evolution.sql`, `premium-issues.sql` *(NEW — run for the premium newsletter)*.
 
 - **Run/confirmed:** `plan_progress`, `prayer_requests`, `featured_good_news`, `study_notes`+`study_favorites`, `devotionals`, `library_items`+`inspiration_sources`+media bucket+capture columns, `weekly_videos`, `poll_votes`, `prayer_journal`, `community.sql` (member_checkins/memory_verses/achievements/achievement_reactions).
 - ~~**STILL NEEDS RUNNING:** `supabase/workbook-evolution.sql`~~ → **RUN 2026-06-25** ("Success. No rows returned"). Workbook Evolution tables (`workbook_days`, `workbook_suggestions`) now live; review queue active.
@@ -193,6 +193,14 @@ SQL files in `supabase/`: `prayer-wall.sql`, `good-news.sql`, `study-journal.sql
 ---
 
 ## Decision Log (newest at top)
+
+### 2026-06-26 — Premium Prep workspace + sample issues (the actual premium newsletter)
+- **Built:** a full **Premium (Founding Member) newsletter** prep workspace at `/admin/premium`, mirroring the free Devotional Prep exactly (week-ahead cards → open & edit → live preview → mark **Ready** → it publishes on its date → Archive → **Copy email HTML**). New sidebar items: **Daily · Free** (was "Devotionals") and **Premium ★**.
+- **Premium segments (auto-generated complete on every date):** **The Science Behind It** (daily, neuroscience-grounded, rotates through 7 brain-research angles each paired with Scripture + a "Try this today" practice), **The World This Week** (Thursdays — faith-lens world items, never partisan, + a prayer), **The Weekend Study** (Saturdays — deeper study seeded from the study library: context, key word, study verse, reflection), plus a recurring **Inside the Circle** live-sessions block (guest pastor + licensed Christian therapist). Founder's note at top; gratitude closing.
+- **Files:** `src/lib/premium.ts` (model + DB + `fullPremiumFor(date)` generation), `src/lib/premiumHtml.ts` (`renderPremiumHtml` — distinct gold "★ Founding Member / The Deeper Walk" masthead, email-safe inline styles), `src/app/admin/premium/{page.tsx,actions.ts}`, sidebar `star` icon, `.adm-tier-pill`/`.adm-day-tagline` CSS.
+- **Shareable sample (no login):** `/designs/premium-sample` renders 3 sample issues (Fri daily-only, Thu = World This Week, Sat = Weekend Study). Under `/designs` so it's viewable while the site is hidden.
+- **DB:** new table — **owner must run `supabase/premium-issues.sql`** (same shape/RLS as `devotionals`). Until then the workspace still previews/edits every issue (generated), it just won't persist saves.
+- **Status:** committed + merged to `main` (live). Premium *delivery* is still gated to paying members in Beehiiv (see prior entry: connect Stripe, create the $5.99/$59 tier, send the checkout URL to wire `NEXT_PUBLIC_BEEHIIV_PREMIUM_URL`).
 
 ### 2026-06-25 — Pre-launch "coming soon" gate (site hidden from public)
 - **Built:** `src/middleware.ts` shows a branded "coming soon" splash to the public while the site is hidden. **Unlock:** visit `/unlock?key=founding` (sets a year-long `tdw_preview` cookie) → see the real site. Key is `process.env.PREVIEW_KEY` (default `founding`).
