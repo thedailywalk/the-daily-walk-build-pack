@@ -194,6 +194,10 @@ SQL files in `supabase/`: `prayer-wall.sql`, `good-news.sql`, `study-journal.sql
 
 ## Decision Log (newest at top)
 
+### 2026-06-26 — Admin polish: sidebar flyout closes on nav + workbook orphan-review cleanup
+- **Sidebar flyout** (`AdminSidebar.tsx`): after clicking a sub-link the link kept focus, so the hover flyout lingered over the page via `:focus-within`. Added a `useEffect` on pathname/qs change that blurs the active element if it's inside `.aside-flyout`/`.aside-parent`. Flyout now closes once you're on the page.
+- **Workbook "Study days in motion"**: days stuck at "Under Review" with no pending suggestions + no overrides (orphans from before the dismiss→reset logic) now auto-heal. New `resetOrphanReviewDays()` in `workbookEvolution.ts`, called at the top of `/admin/workbook` render; reverts those days to Draft so they leave the list and the counts. Dismissing a suggestion already reverts its day via `maybeResetDay`.
+
 ### 2026-06-26 — Premium restructured into two products: Discipleship Newsletter + Spiritual Wellness Guide
 - **Owner product decision (final):** keep Premium *clear, not overwhelming*. **Premium = the Discipleship Newsletter** (main paid offer); **The Spiritual Wellness Guide** = a Founding-Member **bonus, 3×/week (Mon/Wed/Fri)** that can later become its own paid add-on.
 - **Premium · The Deeper Walk (`/admin/premium`, table `premium_issues`):** Main Premium Devotional (daily, deeper than free) + **The World Through God's Lens** (Thursdays — moved back from daily; 2–3 events, What Happened / How We See It Through Faith / How We Can Pray + "Light Still Breaking Through" uplifting close) + **The Weekend Study** (Saturdays) + **Inside the Circle** (live therapist + guest pastors). Science was REMOVED from here.

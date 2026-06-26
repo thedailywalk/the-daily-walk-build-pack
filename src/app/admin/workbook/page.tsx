@@ -7,6 +7,7 @@ import {
   pendingBatches,
   listSuggestions,
   listDayStates,
+  resetOrphanReviewDays,
   STATUS_LABEL,
   FIELD_LABEL,
   DAY_STATUSES,
@@ -53,6 +54,10 @@ export default async function WorkbookDashboard({
       </section>
     );
   }
+
+  // Clean up any days stuck at "Under Review" with nothing pending (e.g. left
+  // over from before dismiss auto-reset existed) so they leave "in motion".
+  await resetOrphanReviewDays();
 
   const [counts, batches, applied, states] = await Promise.all([
     dashboardCounts(),

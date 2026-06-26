@@ -423,6 +423,31 @@ async function maybeResetDay(dayIndex: number): Promise<void> {
   if (remaining.length === 0) await setDayStatus(dayIndex, "draft");
 }
 
+/**
+ * Self-heal: revert any day stuck at "Under Review" that has no pending
+ * suggestions and no approved edits back to Draft, so dismissed/cleared days
+ * stop lingering in "Study days in motion". Returns how many were reset.
+ * (Cleans up days left over from before the dismiss→reset logic existed.)
+ */
+export async function resetOrphanReviewDays(): Promise<number> {
+  if (!adminDbConfigured) return 0;
+  const states = await listDayStates();
+  const candidates = [...states.values()].filter(
+    (d) => d.status === "review" && Object.keys(d.overrides).length === 0
+  );
+  if (candidates.length === 0) return 0;
+  const pending = await listSuggestions({ status: "pending", limit: 300 });
+  const daysWithPending = new Set(pending.map((s) => s.dayIndex));
+  let reset = 0;
+  for (const d of candidates) {
+    if (!daysWithPending.has(d.dayIndex)) {
+      await setDayStatus(d.dayIndex, "draft");
+      reset++;
+    }
+  }
+  return reset;
+}
+
 /** Pending suggestions grouped by submission batch — the "waiting" queue. */
 export type Batch = {
   batchId: string;

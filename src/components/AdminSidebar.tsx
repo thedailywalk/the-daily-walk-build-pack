@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 
@@ -190,6 +191,15 @@ const ITEMS: Item[] = [
 export default function AdminSidebar() {
   const pathname = usePathname() ?? "";
   const qs = useSearchParams()?.toString() ?? "";
+
+  // After navigating, drop focus from the clicked sub-link so the hover/flyout
+  // menu doesn't linger open over the page (it stays via :focus-within otherwise).
+  useEffect(() => {
+    const el = document.activeElement;
+    if (el instanceof HTMLElement && el.closest(".aside-flyout, .aside-parent")) {
+      el.blur();
+    }
+  }, [pathname, qs]);
 
   return (
     <aside className="aside">
