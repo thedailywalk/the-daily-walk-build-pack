@@ -194,6 +194,17 @@ SQL files in `supabase/`: `prayer-wall.sql`, `good-news.sql`, `study-journal.sql
 
 ## Decision Log (newest at top)
 
+### 2026-06-26 — Admin "Newsletters" hub: all editions in one place (List / Calendar / One of each)
+- **Built `/admin/newsletters`** (admin-only) — a unified ops view of every edition across all publications, modeled on the TradeAlgo "Signal" admin the owner shared. Three tabs:
+  - **List** — every edition in a ~10-week window (newest first), Date · Type · Tier · Status, filter by publication, edition count, Preview + Edit links.
+  - **Calendar** — month grid (prev/next/this-month) with each edition as a clickable chip (color-coded per publication, F/P tier marker), today highlighted.
+  - **One of each** — renders a live example of every newsletter inline (Free daily, Premium weekday, Premium Thursday w/ World, Premium Saturday w/ Weekend Study, Wellness Guide). Answers "generate an example of each."
+  - **Preview mode** (`?preview=<pub>&date=`) renders the actual email HTML (saved data if present, else generated) with an "Edit this edition →" link.
+- **Schedule source:** `src/lib/newsletterSchedule.ts` — `editionsForRange()` merges the three issue tables + generation: Free daily (every day), Premium daily (every day; +World Thu, +Weekend Study Sat), Wellness (Mon/Wed/Fri). Status = ready/draft (saved) or "generated".
+- **Sidebar:** new **Newsletters** item (layers icon) at the top with List/Calendar/One-of-each children.
+- **Note:** no "Subscribers" tab — subscribers live in **Beehiiv** (the site only reads entitlement by email), so that view would need the Beehiiv API. Flagged to owner.
+- **Status:** built, TSC/build green, committed + merged to `main`.
+
 ### 2026-06-26 — Portal dashboard elevated (inner-circle feel, kept light) + memory flashcard + weekly video on dash
 - **Hero elevated** (`/portal`): combined the live portal with the `ic2-northstar` design while staying LIGHT (cream, not dark). Added a gold **North Star streak cluster** (glowing star w/ streak number + dove), a **journey star-path** strip (Day 1→365 with a live "you are here" marker at the member's %), a faint gold **starfield**, and refined shadows. Kept all existing info (avatar, date, greeting, "Walking since", tier badge, Walk Score). Reduced-motion safe.
 - **Rotating welcome line**: the hero subtitle now rotates daily (10 calming lines, picked by day-of-year) — `dailySub()` in `portal/page.tsx`. The "Take a breath…" line is #1 in the rotation.

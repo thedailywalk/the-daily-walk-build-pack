@@ -58,6 +58,12 @@ const I = {
       <path d="M9 17c2-4 5-6 8-7" />
     </>
   ),
+  layers: (
+    <>
+      <path d="M12 3 3 8l9 5 9-5z" />
+      <path d="M3 13l9 5 9-5M3 18l9 5 9-5" opacity="0.6" />
+    </>
+  ),
   book: (
     <>
       <path d="M4 4.5A1.5 1.5 0 0 1 5.5 3H19a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H5.5A1.5 1.5 0 0 0 4 20.5z" />
@@ -89,6 +95,29 @@ const ITEMS: Item[] = [
     label: "Dashboard",
     icon: icon(I.grid),
     match: (p) => p === "/admin",
+  },
+  {
+    href: "/admin/newsletters",
+    label: "Newsletters",
+    icon: icon(I.layers),
+    match: (p) => p.startsWith("/admin/newsletters"),
+    children: [
+      {
+        href: "/admin/newsletters",
+        label: "List",
+        match: (p, qs) => p.startsWith("/admin/newsletters") && !qs.includes("view="),
+      },
+      {
+        href: "/admin/newsletters?view=calendar",
+        label: "Calendar",
+        match: (p, qs) => p.startsWith("/admin/newsletters") && qs.includes("calendar"),
+      },
+      {
+        href: "/admin/newsletters?view=samples",
+        label: "One of each",
+        match: (p, qs) => p.startsWith("/admin/newsletters") && qs.includes("samples"),
+      },
+    ],
   },
   {
     href: "/admin/devotionals",
