@@ -1,13 +1,10 @@
 "use server";
 
-import { randomUUID } from "crypto";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { requireAdmin } from "@/lib/adminGuard";
 import {
   upsertLibraryItem,
-  setLibraryItemBatch,
-  setLibraryItemWellnessDraft,
   deleteLibraryItem,
   uploadLibraryMedia,
   deleteLibraryMedia,
@@ -15,9 +12,6 @@ import {
   deleteSource,
   MEDIA_MAX_BYTES,
 } from "@/lib/library";
-import { analyzeInspiration } from "@/lib/workbookAnalysis";
-import { draftWellnessScience } from "@/lib/wellnessAnalysis";
-import { insertSuggestions, type NewSuggestion } from "@/lib/workbookEvolution";
 
 const ALL_DEST = ["newsletter", "workbook", "wellness"];
 
@@ -28,50 +22,6 @@ function deriveTitle(text: string, topics: string[]): string {
   const cleaned = firstLine.replace(/^[#\d.)\-\s📖✦🙏🌍“"]+/, "").trim();
   if (cleaned) return cleaned.length > 56 ? cleaned.slice(0, 56).replace(/\s+\S*$/, "") + "…" : cleaned;
   return "Saved inspiration";
-}
-
-/**
- * Every Library item is also workbook inspiration: analyze its text and drop
- * suggested workbook edits into the Evolution queue, returning the batch id so
- * the item can deep-link to its suggestions. Inspiration-only — never verbatim.
- */
-async function feedWorkbook(
-  text: string,
-  title: string,
-  kind: string,
-  link: string | null
-): Promise<{ batchId: string; mode: "ai" | "heuristic" } | null> {
-  if (text.trim().length < 40) return null;
-  try {
-    const analysis = await analyzeInspiration({
-      text,
-      sourceLabel: title || "Library inspiration",
-      sourceType: kind || "note",
-      link: link ?? "",
-      maxPlacements: 6,
-    });
-    if (!analysis.placements.length) return null;
-    const batchId = randomUUID();
-    const suggestions: NewSuggestion[] = analysis.placements.map((p) => ({
-      dayIndex: p.dayIndex,
-      batchId,
-      sourceLabel: title || "Library inspiration",
-      sourceType: kind || "note",
-      sourceLink: link ?? "",
-      sourceExcerpt: text.slice(0, 4000),
-      themes: p.themes,
-      tone: analysis.tone,
-      techniques: analysis.techniques,
-      targetField: p.targetField,
-      whyFits: p.whyFits,
-      proposedText: p.proposedText,
-      impact: p.impact,
-    }));
-    const n = await insertSuggestions(suggestions);
-    return n > 0 ? { batchId, mode: analysis.mode } : null;
-  } catch {
-    return null;
-  }
 }
 
 function str(fd: FormData, key: string): string {
@@ -153,26 +103,17 @@ export async function saveLibraryItemAction(formData: FormData) {
     destinations,
   });
 
-  // Route the inspiration to the right engines (skip "Your Voices" entries).
-  let fed: { batchId: string; mode: "ai" | "heuristic" } | null = null;
-  if (savedId && !isVoice) {
-    if (destinations.includes("workbook")) {
-      fed = await feedWorkbook(inspoText, title, kind, url);
-      if (fed) await setLibraryItemBatch(savedId, fed.batchId);
-    }
-    if (destinations.includes("wellness")) {
-      const draft = await draftWellnessScience(inspoText, title);
-      if (draft) await setLibraryItemWellnessDraft(savedId, draft);
-    }
-  }
+  // The save is instant. The AI generation (workbook suggestions + wellness
+  // draft) runs AFTER, off the save path, kicked off by the Library page —
+  // so saving never hangs on a slow model call.
+  const needsGen =
+    !!savedId && !isVoice && (destinations.includes("workbook") || destinations.includes("wellness"));
 
   revalidatePath("/admin/library");
-  revalidatePath("/admin/workbook");
-  revalidatePath("/admin/wellness");
   redirect(
     tooBig
       ? "/admin/library?tab=add&err=size"
-      : `/admin/library?saved=1${fed ? `&wb=${fed.batchId}&wbmode=${fed.mode}` : ""}`
+      : `/admin/library?saved=1${needsGen ? `&gen=${savedId}` : ""}`
   );
 }
 

@@ -22,6 +22,7 @@ import {
   deleteSourceAction,
 } from "./actions";
 import SmartLibraryForm from "@/components/SmartLibraryForm";
+import LibraryAutoGen from "@/components/LibraryAutoGen";
 
 export const metadata: Metadata = { title: "Content Library", robots: { index: false } };
 
@@ -43,6 +44,7 @@ export default async function LibraryPage({
     edit?: string;
     sedit?: string;
     saved?: string;
+    gen?: string;
     wb?: string;
     wbmode?: string;
     err?: string;
@@ -116,22 +118,11 @@ export default async function LibraryPage({
           ))}
         </nav>
 
-        {sp.saved && (
-          <div className="adm-saved">
-            Saved ✓{" "}
-            {sp.wb ? (
-              <>
-                — and it became workbook inspiration{" "}
-                {sp.wbmode === "ai"
-                  ? "✦ written by AI"
-                  : "(quick draft — set ANTHROPIC_API_KEY for the deeper version)"}.{" "}
-                <Link href={`/admin/workbook#batch-${sp.wb}`} className="adm-inline-link">
-                  See the suggested workbook edits →
-                </Link>
-              </>
-            ) : null}
-          </div>
-        )}
+        {sp.gen ? (
+          <LibraryAutoGen id={sp.gen} />
+        ) : sp.saved ? (
+          <div className="adm-saved">Saved ✓</div>
+        ) : null}
         {sp.err === "size" && (
           <div className="adm-notice">
             That file was over 4MB, so it wasn&apos;t uploaded (your text was still saved). Use a smaller

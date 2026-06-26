@@ -5149,6 +5149,9 @@ hr.div {
   align-items: center;
   gap: 12px;
 }
+.lib-gen { display: flex; align-items: center; gap: 10px; }
+.lib-gen-spin { width: 14px; height: 14px; border-radius: 50%; border: 2px solid rgba(184,144,46,0.3); border-top-color: var(--gold-deep); animation: lib-spin 0.7s linear infinite; flex: none; }
+@keyframes lib-spin { to { transform: rotate(360deg); } }
 .lib-dest { display: flex; flex-wrap: wrap; gap: 8px; }
 .lib-dest-opt {
   display: inline-flex; align-items: center; gap: 8px;
