@@ -324,8 +324,11 @@ function FoundingOffer() {
                 {check("The Science Behind It — daily: the research & neuroscience behind today's truth")}
                 {check("The World This Week — a faith lens on the headlines (Thursdays)")}
                 {check("The Weekend Study — a deeper teaching (Saturdays)")}
+                {check("Live sessions with a licensed Christian therapist — where faith & mental health meet")}
+                {check("Live conversations with pastors — join in and ask your questions")}
                 {check("Founding rate locked at $5.99 for life", true)}
                 {check("Grandfathered into the full platform when it launches", true)}
+                {check("Your support helps someone find Jesus — it funds free access for those who can't pay", true)}
               </ul>
               {premiumReady ? (
                 <a href={premiumUrl} className="btn btn-gold" style={{ width: "100%", textAlign: "center" }}>
@@ -353,13 +356,15 @@ function FoundingOffer() {
               You&apos;re getting in before the doors open.
             </h2>
             <p style={{ fontSize: 15.5, lineHeight: 1.65, maxWidth: 640, margin: "0 0 14px", color: "#cfd8e4" }}>
-              We&apos;re building a full members&apos; home — and Founding Members are grandfathered into all of it at
-              the same $5.99, even after the price goes up:
+              You&apos;re not just subscribing — you&apos;re helping build it. Your $5.99 funds the mission of helping
+              people find and follow Jesus, and carries it to those who need it. Founding Members are grandfathered
+              into the whole platform at the same price, even after it goes up:
             </p>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 10 }}>
               {[
                 "Your guided Bible-in-a-Year journey, from your Day 1",
                 "Daily audio devotionals",
+                "Live sessions with a Christian therapist + pastors you can join",
                 "A personal dashboard — streaks, milestones, your Walk Score",
                 "A real community: prayer wall + encouragement wall",
               ].map((t) => (
