@@ -5,12 +5,12 @@ import { useEffect, useState } from "react";
 const KEY = "tdw-portal-theme";
 
 /**
- * Night-mode switch for the member portal. Toggles a `data-theme` on the portal
- * shell and remembers the choice. Default is the warm "day" reading look; "night"
- * is a calm, low-contrast dark — peaceful, not techy.
+ * Theme switch for the member portal. Toggles a `data-theme` on the portal
+ * shell and remembers the choice. Default is the elevated "night" Inner Circle
+ * look; "day" is a clean light reading mode.
  */
 export default function ThemeToggle() {
-  const [theme, setTheme] = useState<"day" | "night">("day");
+  const [theme, setTheme] = useState<"day" | "night">("night");
 
   // Load saved preference on mount.
   useEffect(() => {

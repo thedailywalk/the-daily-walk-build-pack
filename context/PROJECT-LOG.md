@@ -194,6 +194,13 @@ SQL files in `supabase/`: `prayer-wall.sql`, `good-news.sql`, `study-journal.sql
 
 ## Decision Log (newest at top)
 
+### 2026-06-26 — Portal re-skinned to the Inner Circle (dark) look as the DEFAULT
+- Owner wants the portal's main vibe to be the `ic2-northstar` dark inner-circle look — elevated, masculine-but-classy, tech-forward, Duolingo-clean, subtle animations — while keeping every feature (weekly video on dash, sidebar nav, top greeting, memory flashcard, rotating subtitle).
+- **Approach (low-risk, leverages existing infra):** the portal already had a `night` theme + Day/Night toggle. Made **night the DEFAULT** (`portal/layout.tsx` data-theme="night"; `ThemeToggle` default state "night") and **elevated the night theme** into the inner-circle aesthetic: deep navy radial-gradient page bg (fixed), glassy translucent surfaces w/ backdrop-blur + soft elevation, gold-tinted hairlines, gold section labels, solid gold "inner circle" active-nav pills, ic2 hero gradient + brighter starfield. Day toggle still gives the clean light look.
+- **Dark-surface patches** for spots that assumed a light/navy bg under the overloaded `--m-navy` var: `.m-word-side`, `.m-weekly-thumb/.arc-vid-thumb/.m-weekly-embed`, `.m-flash-card/.m-flash-add/.m-flash-chip/.m-flash-input`, `.m-walkscore`.
+- Confirmed prior fixes are in code (admin weekly-video copy = "on the members' dashboard"; Daily Wonders removed from sidebar) — owner's screenshots were pre-redeploy cache.
+- **Status:** built, TSC/build green, committed + merged to `main`.
+
 ### 2026-06-26 — Removed "Daily Wonders" from portal nav; Word of the Day moved into the dashboard
 - Owner: remove the **Daily Wonders** portal entry since the content now lives on the dashboard. Removed it from `MemberSidebar.tsx` (nav) and the dashboard Quick-access grid + the "Open Daily Wonders →" button.
 - To avoid losing content, **moved Word of the Day onto the dashboard** ("A little more wonder today" now shows Word of the Day + This Day in His Story + Wonder of His Creation). `getWordOfTheDay()` in `portal/page.tsx`; new `.m-word*` styles (navy term panel + reflection).

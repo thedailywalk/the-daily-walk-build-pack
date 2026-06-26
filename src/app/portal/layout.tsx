@@ -28,7 +28,7 @@ export default async function PortalLayout({ children }: { children: React.React
   if (ent.tier === "free") redirect("/pricing");
 
   return (
-    <div className="member-shell" data-theme="day">
+    <div className="member-shell" data-theme="night">
       <MemberSidebar tier={TIER_LABEL[ent.tier] ?? "Member"} name={nameFrom(user.email)} />
       <div className="member-main">{children}</div>
     </div>

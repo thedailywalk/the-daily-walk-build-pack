@@ -6114,17 +6114,83 @@ hr.div {
   -webkit-font-smoothing: antialiased;
 }
 .member-shell[data-theme="night"] {
-  --m-bg: #1b2026;
-  --m-surface: #242b34;
-  --m-surface-2: #1f262e;
-  --m-border: #343d49;
-  --m-text: #ece7dd;
-  --m-dim: #b7b1a5;
-  --m-muted: #8b897f;
-  --m-navy: #d6e0ee;
+  --m-bg: #0b1424;
+  --m-surface: rgba(20, 33, 56, 0.66);
+  --m-surface-2: rgba(13, 24, 42, 0.5);
+  --m-border: rgba(227, 192, 116, 0.16);
+  --m-text: #e8edf6;
+  --m-dim: #9fb0c8;
+  --m-muted: #6f829e;
+  --m-navy: #eef3fb; /* used as heading/emphasis text on dark */
   --m-gold: #d9b15c;
   --m-gold-deep: #e3c074;
 }
+
+/* ===== Inner Circle (night) — elevated dark theme, the default look ===== */
+.member-shell[data-theme="night"] {
+  background:
+    radial-gradient(1100px 720px at 85% -12%, rgba(70, 110, 170, 0.22), transparent 60%),
+    radial-gradient(900px 620px at 2% 112%, rgba(40, 70, 120, 0.18), transparent 60%),
+    linear-gradient(160deg, #0b1424, #16263f);
+  background-attachment: fixed;
+}
+/* glassy surfaces + elevation on the big containers */
+.member-shell[data-theme="night"] .m-aside,
+.member-shell[data-theme="night"] .m-panel,
+.member-shell[data-theme="night"] .m-today,
+.member-shell[data-theme="night"] .m-continue,
+.member-shell[data-theme="night"] .m-weekly,
+.member-shell[data-theme="night"] .m-momentum,
+.member-shell[data-theme="night"] .m-badges,
+.member-shell[data-theme="night"] .m-more,
+.member-shell[data-theme="night"] .m-accountability,
+.member-shell[data-theme="night"] .m-word,
+.member-shell[data-theme="night"] .m-grid .m-card {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 20px 44px -30px rgba(0, 0, 0, 0.85);
+}
+/* gold-tinted hairlines everywhere */
+.member-shell[data-theme="night"] .m-aside { border-right-color: rgba(227, 192, 116, 0.14); }
+/* section labels glow gold */
+.member-shell[data-theme="night"] .m-section-tag { color: var(--m-gold-deep); }
+/* active nav = solid gold "inner circle" pill (Duolingo-clean) */
+.member-shell[data-theme="night"] .m-link.is-on {
+  background: linear-gradient(150deg, var(--m-gold), var(--m-gold-deep));
+  color: #0b1424;
+  box-shadow: 0 6px 18px -6px rgba(227, 192, 116, 0.5);
+}
+.member-shell[data-theme="night"] .m-link.is-on .m-ico,
+.member-shell[data-theme="night"] .m-link.is-on .m-link-sub { color: rgba(11, 20, 36, 0.72); }
+.member-shell[data-theme="night"] .m-link:hover { background: rgba(255, 255, 255, 0.04); }
+.member-shell[data-theme="night"] .m-link.is-on:hover { background: linear-gradient(150deg, var(--m-gold), var(--m-gold-deep)); }
+/* brand mark + member avatar keep their gold glow */
+.member-shell[data-theme="night"] .m-brand-mark {
+  box-shadow: 0 6px 18px rgba(201, 162, 75, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+/* hero: the ic2-northstar gradient */
+.member-shell[data-theme="night"] .m-hero-elevated {
+  background:
+    radial-gradient(140% 120% at 50% -30%, rgba(120, 160, 220, 0.18), transparent 55%),
+    radial-gradient(80% 90% at 50% 0%, rgba(20, 38, 66, 0.92), rgba(8, 16, 30, 0.96));
+  border-color: rgba(227, 192, 116, 0.2);
+}
+.member-shell[data-theme="night"] .m-hero-sky i { background: #dce8ff; opacity: 0.5; }
+/* dark-surface fixes for spots that assumed a navy background */
+.member-shell[data-theme="night"] .m-word-side { background: rgba(8, 16, 30, 0.55); }
+.member-shell[data-theme="night"] .m-weekly-thumb,
+.member-shell[data-theme="night"] .arc-vid-thumb,
+.member-shell[data-theme="night"] .m-weekly-embed { background: rgba(8, 16, 30, 0.6); }
+/* flashcard reads as a dark glass tile on the inner-circle look */
+.member-shell[data-theme="night"] .m-flash-card {
+  background: linear-gradient(150deg, rgba(28, 44, 72, 0.7), rgba(16, 28, 48, 0.7));
+  border-color: rgba(227, 192, 116, 0.4);
+}
+.member-shell[data-theme="night"] .m-flash-add { background: rgba(227, 192, 116, 0.08); }
+.member-shell[data-theme="night"] .m-flash-chip { background: rgba(255, 255, 255, 0.04); }
+.member-shell[data-theme="night"] .m-flash-input { background: rgba(8, 16, 30, 0.5); }
+/* prayer/verse "navy" boxes that should stay dark */
+.member-shell[data-theme="night"] .m-walkscore { background: rgba(8, 16, 30, 0.4); }
 
 /* ---- Sidebar ---- */
 .m-aside {
