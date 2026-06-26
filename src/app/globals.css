@@ -8484,3 +8484,24 @@ hr.div {
 /* Stack the embedded signup form nicely inside the modal */
 .jm-body .signup { display: flex; gap: 8px; flex-wrap: wrap; }
 .jm-body .signup input { flex: 1; min-width: 0; }
+
+/* Join modal — subtle "inner circle" motion (soft, premium, reduced-motion safe) */
+@media (prefers-reduced-motion: no-preference) {
+  .jm-dot { animation: jm-dotpulse 2.8s ease-in-out infinite; }
+  @keyframes jm-dotpulse {
+    0%, 100% { box-shadow: 0 0 0 4px rgba(90,154,107,0.18); }
+    50%      { box-shadow: 0 0 0 8px rgba(90,154,107,0.06); }
+  }
+  .jm-body .signup .btn-gold { animation: jm-btnglow 3.4s ease-in-out infinite; }
+  @keyframes jm-btnglow {
+    0%, 100% { box-shadow: 0 2px 8px -4px rgba(184,144,46,0.25); }
+    50%      { box-shadow: 0 8px 24px -6px rgba(201,162,75,0.55); }
+  }
+  .jm-verse { animation: jm-rise 0.6s ease 0.16s both; }
+  .jm-list li { animation: jm-rise 0.5s ease both; }
+  .jm-list li:nth-child(1) { animation-delay: 0.20s; }
+  .jm-list li:nth-child(2) { animation-delay: 0.27s; }
+  .jm-list li:nth-child(3) { animation-delay: 0.34s; }
+  .jm-list li:nth-child(4) { animation-delay: 0.41s; }
+  @keyframes jm-rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+}

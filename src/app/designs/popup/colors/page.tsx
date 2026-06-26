@@ -146,6 +146,16 @@ export default function PopupColors() {
   .pc-foot { text-align:center; font-size:12px; color:var(--muted); padding-top:10px; border-top:1px solid var(--border); }
   .pc-more { text-align:center; font-size:13px; color:var(--text); margin-top:10px; }
   .pc-more span { color:var(--accent); font-weight:700; }
+  @media (prefers-reduced-motion: no-preference) {
+    .pc-frame { animation: pc-rise .6s ease both; }
+    @keyframes pc-rise { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:none; } }
+    .pc-dot { animation: pc-dotpulse 2.8s ease-in-out infinite; }
+    @keyframes pc-dotpulse { 0%,100% { box-shadow:0 0 0 4px rgba(90,154,107,.18);} 50% { box-shadow:0 0 0 8px rgba(90,154,107,.06);} }
+    .pc-btn { animation: pc-btnglow 3.4s ease-in-out infinite; }
+    @keyframes pc-btnglow { 0%,100% { box-shadow:0 2px 8px -4px rgba(184,144,46,.25);} 50% { box-shadow:0 8px 24px -6px rgba(201,162,75,.5);} }
+    .pc-sun .pc-sunhead svg { animation: pc-sunglow 6s ease-in-out infinite; transform-origin:center bottom; }
+    @keyframes pc-sunglow { 0%,100% { opacity:.92; } 50% { opacity:1; } }
+  }
   `;
   return (
     <div className="pcwrap">
