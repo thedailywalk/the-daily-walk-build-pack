@@ -83,6 +83,40 @@ export async function setStatusAction(formData: FormData) {
   redirect("/admin/studio");
 }
 
+/* ---- Visual Studio (called directly from the canvas client component) ---- */
+
+/** Save a new module order from drag-and-drop. */
+export async function saveOrderAction(order: ModuleKey[]) {
+  await requireAdmin();
+  const cfg = await getDashboardConfig();
+  const valid = order.filter((k) => cfg.order.includes(k));
+  const rest = cfg.order.filter((k) => !valid.includes(k));
+  cfg.order = [...valid, ...rest];
+  await saveDashboardConfig(cfg);
+  refresh();
+}
+
+/** Save a section's notes, inspiration image, status, and visibility from the inspector. */
+export async function saveModuleMetaAction(
+  key: ModuleKey,
+  patch: { notes?: string; inspoUrl?: string; status?: ModuleStatus; visible?: boolean }
+) {
+  await requireAdmin();
+  const cfg = await getDashboardConfig();
+  const m = cfg.modules[key];
+  if (!m) return;
+  if (patch.notes !== undefined) m.notes = patch.notes;
+  if (patch.inspoUrl !== undefined) m.inspoUrl = patch.inspoUrl;
+  if (patch.status !== undefined && STATUSES.includes(patch.status)) {
+    m.status = patch.status;
+    if (patch.status === "archived" || patch.status === "deleted") m.visible = false;
+    if (patch.status === "keep" || patch.status === "refine") m.visible = true;
+  }
+  if (patch.visible !== undefined) m.visible = patch.visible;
+  await saveDashboardConfig(cfg);
+  refresh();
+}
+
 export async function resetDashboardAction() {
   await requireAdmin();
   await saveDashboardConfig(defaultConfig());

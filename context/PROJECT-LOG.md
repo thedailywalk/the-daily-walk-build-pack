@@ -194,6 +194,13 @@ SQL files in `supabase/`: `prayer-wall.sql`, `good-news.sql`, `study-journal.sql
 
 ## Decision Log (newest at top)
 
+### 2026-06-26 — Dash → ic2 (Inner Circle surfaced) + Studio rebuilt as a VISUAL canvas
+- **Dash:** surfaced the **Inner Circle** leaderboards (was collapsed in "Iron sharpens iron") as an always-visible section to match ic2-northstar. Confirmed base = ic2-northstar.
+- **Studio rebuilt (owner request):** `/admin/studio` is now a **visual mock of the real dashboard** (`StudioCanvas.tsx`, client). Owner can **drag sections to reorder** (saves order to live portal), and **click or right-click any section** to open an inspector to (a) write what to change, (b) **paste an inspiration image URL** (preview shown), (c) set status (Keep/Refine/Archive/Delete), (d) show/hide. Persists via `saveOrderAction`/`saveModuleMetaAction`; config extended with per-module `inspoUrl`. Each section renders a small mock resembling the real one.
+- **Honest scope:** image inspiration is via URL paste (file-upload to storage = next phase); reorder is real drag-and-drop. Per-component version history/compare still a future phase.
+- **Owner must run** `supabase/dashboard-lab.sql` (done) for persistence.
+- **Status:** TSC/build green, committed + merged to `main`.
+
 ### 2026-06-26 — A+B+C: hero polish + Design Studio (Lab + Builder), config-driven portal
 - **A · hero polish:** added the ic2 signature touches to the live `/portal` hero — Day/Walk-Score/streak **chips** and the **time-of-day sky indicator** (morning/noon/night swatches, shifts with arrival time).
 - **B+C · Design Studio** (`/admin/studio`, admin-only, new sidebar "Design Studio" item): one workspace that is both the **Design Lab** (per-module status Keep/Refine/Archive/Delete + notes) and the **Dashboard Builder** (reorder ↑↓, show/hide). Writes a shared config the **live portal reads**.

@@ -21,7 +21,7 @@ export const DASHBOARD_MODULES = [
 export type ModuleKey = (typeof DASHBOARD_MODULES)[number]["key"];
 export type ModuleStatus = "keep" | "refine" | "archived" | "deleted";
 
-export type ModuleState = { status: ModuleStatus; visible: boolean; notes: string };
+export type ModuleState = { status: ModuleStatus; visible: boolean; notes: string; inspoUrl?: string };
 export type DashboardConfig = { order: ModuleKey[]; modules: Record<ModuleKey, ModuleState> };
 
 export const MODULE_LABEL: Record<ModuleKey, string> = Object.fromEntries(
@@ -32,7 +32,7 @@ const ALL_KEYS = DASHBOARD_MODULES.map((m) => m.key) as ModuleKey[];
 
 export function defaultConfig(): DashboardConfig {
   const modules = {} as Record<ModuleKey, ModuleState>;
-  for (const k of ALL_KEYS) modules[k] = { status: "keep", visible: true, notes: "" };
+  for (const k of ALL_KEYS) modules[k] = { status: "keep", visible: true, notes: "", inspoUrl: "" };
   return { order: [...ALL_KEYS], modules };
 }
 
@@ -44,7 +44,7 @@ function normalize(raw: Partial<DashboardConfig> | null | undefined): DashboardC
   if (raw.modules) {
     for (const k of ALL_KEYS) {
       const m = raw.modules[k];
-      if (m) modules[k] = { status: m.status ?? "keep", visible: m.visible !== false, notes: m.notes ?? "" };
+      if (m) modules[k] = { status: m.status ?? "keep", visible: m.visible !== false, notes: m.notes ?? "", inspoUrl: m.inspoUrl ?? "" };
     }
   }
   // order: keep stored keys that still exist, then append any new modules.

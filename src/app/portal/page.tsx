@@ -427,12 +427,9 @@ export default async function PortalHome() {
       </div>
 
       <div className="m-mod" style={modStyle("accountability")}>
-      {/* Iron sharpens iron — optional friendly accountability board */}
-      <details className="m-accountability">
-        <summary>
-          <span className="m-acc-title">⚔️ Iron sharpens iron</span>
-          <span className="m-acc-hint">Optional — a friendly nudge to keep each other accountable. Tap to open.</span>
-        </summary>
+      {/* The Inner Circle — surfaced leaderboards (ic2-northstar) */}
+      <div className="m-section-tag">The Inner Circle · this week</div>
+      <section className="m-innercircle">
         <div className="m-two m-acc-boards">
           <section className="m-panel m-leaderboard">
             <span className="m-card-eyebrow">🔥 Longest streaks right now</span>
@@ -468,7 +465,7 @@ export default async function PortalHome() {
           </section>
         </div>
         <p className="m-acc-foot">Iron sharpens iron — not a contest. We&apos;re cheering each other on toward Him. 🤍</p>
-      </details>
+      </section>
       </div>
 
       <div className="m-mod" style={modStyle("wall")}>
