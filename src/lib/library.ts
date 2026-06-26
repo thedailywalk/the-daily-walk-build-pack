@@ -47,6 +47,8 @@ export type LibraryItem = {
   isVoice: boolean; // saved as one of "Your Voices"
   needsFinalization: boolean; // saved as an unfinished draft (e.g. forwarded from the Workbook)
   wbBatchId: string | null; // batch id of the workbook suggestions this item generated
+  destinations: string[]; // where this should be used: "newsletter" | "workbook" | "wellness"
+  wellnessDraft: string | null; // AI-drafted "Science Behind It" angle for the Wellness Guide
   createdAt?: string;
 };
 
@@ -84,6 +86,8 @@ function toItem(r: any): LibraryItem {
     isVoice: !!r.is_voice,
     needsFinalization: !!r.needs_finalization,
     wbBatchId: r.wb_batch_id ?? null,
+    destinations: r.destinations ?? ["newsletter", "workbook", "wellness"],
+    wellnessDraft: r.wellness_draft ?? null,
     createdAt: r.created_at,
   };
 }
@@ -175,6 +179,7 @@ export async function upsertLibraryItem(
       is_voice: !!item.isVoice,
       needs_finalization: !!item.needsFinalization,
       ...(item.wbBatchId !== undefined ? { wb_batch_id: item.wbBatchId } : {}),
+      ...(item.destinations !== undefined ? { destinations: item.destinations } : {}),
       updated_at: new Date().toISOString(),
     };
     const { data } = await supabase
@@ -196,6 +201,34 @@ export async function setLibraryItemBatch(id: string, batchId: string): Promise<
     await supabase.from("library_items").update({ wb_batch_id: batchId }).eq("id", id);
   } catch {
     /* ignore */
+  }
+}
+
+/** Cache the AI-drafted "Science Behind It" angle for a Wellness-routed item. */
+export async function setLibraryItemWellnessDraft(id: string, draft: string): Promise<void> {
+  if (!adminDbConfigured) return;
+  try {
+    const supabase = createServiceClient();
+    await supabase.from("library_items").update({ wellness_draft: draft }).eq("id", id);
+  } catch {
+    /* ignore */
+  }
+}
+
+/** Wellness-routed inspiration (newest first) — shown in the Wellness Guide admin. */
+export async function listWellnessInspiration(limit = 20): Promise<LibraryItem[]> {
+  if (!adminDbConfigured) return [];
+  try {
+    const supabase = createServiceClient();
+    const { data } = await supabase
+      .from("library_items")
+      .select("*")
+      .contains("destinations", ["wellness"])
+      .order("created_at", { ascending: false })
+      .limit(limit);
+    return (data ?? []).map(toItem);
+  } catch {
+    return [];
   }
 }
 

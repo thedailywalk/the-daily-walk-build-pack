@@ -30,6 +30,7 @@ type EditItem = {
   sources: string | null;
   isVoice: boolean;
   needsFinalization: boolean;
+  destinations?: string[];
 };
 
 export default function SmartLibraryForm({
@@ -107,7 +108,7 @@ export default function SmartLibraryForm({
             <input name="source" defaultValue={d?.source ?? ""} className="adm-input" placeholder="Name or @handle" />
           </label>
           <label className="adm-field">
-            <span className="adm-label">Type</span>
+            <span className="adm-label">Format</span>
             <select name="kind" defaultValue={d?.kind ?? "newsletter inspiration"} className="sg-select">
               {contentTypes.map((k) => (
                 <option key={k} value={k}>{k}</option>
@@ -115,13 +116,38 @@ export default function SmartLibraryForm({
             </select>
           </label>
         </div>
+
+        {/* Where should this inspiration be used? */}
+        <div className="adm-field">
+          <span className="adm-label">
+            Use this for <em>— pick any (all three by default)</em>
+          </span>
+          <div className="lib-dest">
+            {([
+              ["newsletter", "📰 Newsletter Inspiration"],
+              ["workbook", "📖 Workbook Inspiration"],
+              ["wellness", "🕊 Wellness Guide Inspiration"],
+            ] as const).map(([val, label]) => (
+              <label key={val} className="lib-dest-opt">
+                <input
+                  type="checkbox"
+                  name="dest"
+                  value={val}
+                  defaultChecked={d?.destinations ? d.destinations.includes(val) : true}
+                />
+                {label}
+              </label>
+            ))}
+          </div>
+        </div>
+
         <label className="lib-check lib-check-wide lib-voice">
           <input type="checkbox" name="isVoice" defaultChecked={d?.isVoice} />
           ⭐ Save this person as one of <strong>“Your Voices”</strong> — a creator you want to feature &amp; pull from often (not just a one-off save).
         </label>
         <label className="adm-field">
-          <span className="adm-label">Title</span>
-          <input name="title" value={title} onChange={(e) => setTitle(e.target.value)} className="adm-input" placeholder="A short line that names this" />
+          <span className="adm-label">Title <em>— leave blank and we&apos;ll name it for you</em></span>
+          <input name="title" value={title} onChange={(e) => setTitle(e.target.value)} className="adm-input" placeholder="Auto-generated from your content if left blank" />
         </label>
       </section>
 

@@ -7,6 +7,7 @@ import { requireAdmin } from "@/lib/adminGuard";
 import {
   upsertLibraryItem,
   setLibraryItemBatch,
+  setLibraryItemWellnessDraft,
   deleteLibraryItem,
   uploadLibraryMedia,
   deleteLibraryMedia,
@@ -15,7 +16,19 @@ import {
   MEDIA_MAX_BYTES,
 } from "@/lib/library";
 import { analyzeInspiration } from "@/lib/workbookAnalysis";
+import { draftWellnessScience } from "@/lib/wellnessAnalysis";
 import { insertSuggestions, type NewSuggestion } from "@/lib/workbookEvolution";
+
+const ALL_DEST = ["newsletter", "workbook", "wellness"];
+
+/** Auto-name an item when the Title is left blank: prefer chosen topics, else the first line. */
+function deriveTitle(text: string, topics: string[]): string {
+  if (topics.length) return `Notes on ${topics.slice(0, 2).join(" & ")}`;
+  const firstLine = text.split(/\n/).map((s) => s.trim()).find((s) => s.length > 0) ?? "";
+  const cleaned = firstLine.replace(/^[#\d.)\-\s📖✦🙏🌍“"]+/, "").trim();
+  if (cleaned) return cleaned.length > 56 ? cleaned.slice(0, 56).replace(/\s+\S*$/, "") + "…" : cleaned;
+  return "Saved inspiration";
+}
 
 /**
  * Every Library item is also workbook inspiration: analyze its text and drop
@@ -107,8 +120,14 @@ export async function saveLibraryItemAction(formData: FormData) {
 
   const isVoice = str(formData, "isVoice") === "on";
   const kind = str(formData, "kind") || "note";
-  const title = str(formData, "title");
+  const topics = list(formData, "topics");
+  const inspoText = [transcript, personalTake, str(formData, "body"), caption].filter(Boolean).join("\n\n");
+  // Auto-generate a clear title when none is entered.
+  const title = str(formData, "title") || deriveTitle(inspoText, topics);
   const body = personalTake || str(formData, "body") || transcript || caption || "";
+  // Where this should be used (defaults to all three if nothing is checked).
+  const destPicked = list(formData, "dest").filter((d) => ALL_DEST.includes(d));
+  const destinations = destPicked.length ? destPicked : ALL_DEST;
 
   const savedId = await upsertLibraryItem({
     id,
@@ -119,7 +138,7 @@ export async function saveLibraryItemAction(formData: FormData) {
     url,
     source: str(formData, "source") || null,
     why: str(formData, "why") || null,
-    topics: list(formData, "topics"),
+    topics,
     scriptures: split(formData, "scriptures"),
     holiday: str(formData, "holiday") || null,
     emotion: str(formData, "emotion") || null,
@@ -131,20 +150,25 @@ export async function saveLibraryItemAction(formData: FormData) {
     sources: str(formData, "sources") || null,
     isVoice,
     needsFinalization: str(formData, "needsFinalization") === "on",
+    destinations,
   });
 
-  // Every saved item is also workbook inspiration — generate suggested edits
-  // and stamp the item with the batch (skip "Your Voices" entries, which are
-  // people to follow, not source material).
+  // Route the inspiration to the right engines (skip "Your Voices" entries).
   let fed: { batchId: string; mode: "ai" | "heuristic" } | null = null;
   if (savedId && !isVoice) {
-    const inspoText = [transcript, personalTake, str(formData, "body"), caption].filter(Boolean).join("\n\n");
-    fed = await feedWorkbook(inspoText, title, kind, url);
-    if (fed) await setLibraryItemBatch(savedId, fed.batchId);
+    if (destinations.includes("workbook")) {
+      fed = await feedWorkbook(inspoText, title, kind, url);
+      if (fed) await setLibraryItemBatch(savedId, fed.batchId);
+    }
+    if (destinations.includes("wellness")) {
+      const draft = await draftWellnessScience(inspoText, title);
+      if (draft) await setLibraryItemWellnessDraft(savedId, draft);
+    }
   }
 
   revalidatePath("/admin/library");
   revalidatePath("/admin/workbook");
+  revalidatePath("/admin/wellness");
   redirect(
     tooBig
       ? "/admin/library?tab=add&err=size"

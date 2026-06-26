@@ -15,6 +15,7 @@ import {
   type WellnessData,
 } from "@/lib/wellness";
 import { renderWellnessHtml } from "@/lib/wellnessHtml";
+import { listWellnessInspiration } from "@/lib/library";
 import CopyButton from "../devotionals/CopyButton";
 import {
   saveWellnessAction,
@@ -153,7 +154,10 @@ function StatusBadge({ status, saved }: { status?: string; saved?: boolean }) {
 
 /* -------------------------------- editor -------------------------------- */
 async function EditorView(date: string, saved: boolean) {
-  const existing = await wellnessGetByDate(date);
+  const [existing, inspo] = await Promise.all([
+    wellnessGetByDate(date),
+    listWellnessInspiration(12),
+  ]);
   const data: WellnessData = existing?.data ?? fullWellnessFor(date);
   const status = existing?.status ?? "draft";
   const weekday = weekdayLabel(date);
@@ -196,6 +200,30 @@ async function EditorView(date: string, saved: boolean) {
           ✨ This is a complete, auto-generated wellness draft. Edit anything
           below, then <strong>Save</strong> to keep your version.
         </div>
+      )}
+
+      {inspo.length > 0 && (
+        <details className="adm-refs" style={{ marginBottom: 16 }}>
+          <summary className="adm-refs-sum">
+            🕊 Science inspiration from your Library{" "}
+            <span className="adm-refs-note">({inspo.length}) — pull from these for “The Science Behind It”</span>
+          </summary>
+          <div className="wl-inspo">
+            {inspo.map((it) => (
+              <div key={it.id} className="wl-inspo-item">
+                <div className="wl-inspo-title">{it.title || "(untitled)"}</div>
+                {it.wellnessDraft ? (
+                  <pre className="wl-inspo-draft">{it.wellnessDraft}</pre>
+                ) : (
+                  <p className="wl-inspo-body">{(it.transcript || it.body || "").slice(0, 320)}</p>
+                )}
+                <Link href={`/admin/library?edit=${it.id}`} className="adm-inline-link" style={{ fontSize: 12.5 }}>
+                  Open in Library →
+                </Link>
+              </div>
+            ))}
+          </div>
+        </details>
       )}
 
       <div className="adm-cols">

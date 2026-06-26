@@ -137,7 +137,7 @@ Navy `#1F3A5F` (headings) · Gold `#C9A24B` / `#B8902E` (accents/buttons) · Cre
 
 ## Database / SQL
 
-SQL files in `supabase/`: `prayer-wall.sql`, `good-news.sql`, `study-journal.sql`, `devotionals.sql`, `content-library.sql`, `content-library-media.sql`, `content-library-capture.sql`, `weekly-video.sql`, `daily-poll.sql`, `prayer-journal.sql`, `community.sql`, `workbook-evolution.sql`, `premium-issues.sql` *(run for the premium newsletter)*, `wellness-issues.sql` *(run for the Spiritual Wellness Guide)*, `dashboard-lab.sql` *(run for the Design Studio layout config)*, `library-workbook-link.sql` *(NEW — adds `library_items.wb_batch_id`)*.
+SQL files in `supabase/`: `prayer-wall.sql`, `good-news.sql`, `study-journal.sql`, `devotionals.sql`, `content-library.sql`, `content-library-media.sql`, `content-library-capture.sql`, `weekly-video.sql`, `daily-poll.sql`, `prayer-journal.sql`, `community.sql`, `workbook-evolution.sql`, `premium-issues.sql` *(run for the premium newsletter)*, `wellness-issues.sql` *(run for the Spiritual Wellness Guide)*, `dashboard-lab.sql` *(run for the Design Studio layout config)*, `library-workbook-link.sql` *(adds `library_items.wb_batch_id`)*, `library-destinations.sql` *(NEW — adds `destinations` + `wellness_draft`)*.
 
 - **Run/confirmed:** `plan_progress`, `prayer_requests`, `featured_good_news`, `study_notes`+`study_favorites`, `devotionals`, `library_items`+`inspiration_sources`+media bucket+capture columns, `weekly_videos`, `poll_votes`, `prayer_journal`, `community.sql` (member_checkins/memory_verses/achievements/achievement_reactions).
 - ~~**STILL NEEDS RUNNING:** `supabase/workbook-evolution.sql`~~ → **RUN 2026-06-25** ("Success. No rows returned"). Workbook Evolution tables (`workbook_days`, `workbook_suggestions`) now live; review queue active.
@@ -193,6 +193,14 @@ SQL files in `supabase/`: `prayer-wall.sql`, `good-news.sql`, `study-journal.sql
 ---
 
 ## Decision Log (newest at top)
+
+### 2026-06-26 — Library: auto-title + destination routing (Newsletter / Workbook / Wellness)
+- **Auto-title:** if Title is left blank, the Library now generates one from chosen topics ("Notes on …") or the first line. Title field relabeled "leave blank and we'll name it."
+- **Destinations:** the old single "Type" dropdown is now **Format** (kept), plus a new **"Use this for"** checkbox group — **📰 Newsletter / 📖 Workbook / 🕊 Wellness Guide** — all checked by default ("all 3"). Stored as `library_items.destinations text[]`. Cards show destination tags; the save routes by what's checked.
+- **Routing on save:** workbook feed only runs if "workbook" is checked; if "wellness" is checked, an AI **"Science Behind It" draft** is generated from the inspiration (inspiration-only, never verbatim) and cached on the item (`wellness_draft`). `src/lib/wellnessAnalysis.ts` (`draftWellnessScience`, AI + heuristic).
+- **Wellness pulls from the Library:** the Wellness Guide editor (`/admin/wellness`) shows a **"Science inspiration from your Library"** panel (wellness-tagged items + their drafts) to pull from for The Science Behind It. `listWellnessInspiration()` in library.ts.
+- **Owner must run** `supabase/library-destinations.sql` (adds `destinations` + `wellness_draft`).
+- **Status:** TSC/build green, committed + merged to `main`.
 
 ### 2026-06-26 — Content Library is now the single inbox; auto-feeds the Workbook Evolution engine
 - **Owner decision:** retire the standalone Workbook "+ Add inspiration" page; the **Content Library is the one place** to add inspiration/transcripts/notes. Every saved item becomes BOTH newsletter inspiration AND workbook inspiration.

@@ -286,6 +286,19 @@ function LibCard({ item }: { item: LibraryItem }) {
         {item.emotion && <span className="lib-tag lib-tag-alt">{item.emotion}</span>}
         {item.source && <span className="lib-tag lib-tag-src">{item.source}</span>}
       </div>
+      {item.destinations?.length ? (
+        <div className="lib-dest-tags">
+          {item.destinations.includes("newsletter") && <span className="lib-dest-tag">📰 Newsletter</span>}
+          {item.destinations.includes("workbook") && <span className="lib-dest-tag">📖 Workbook</span>}
+          {item.destinations.includes("wellness") && <span className="lib-dest-tag">🕊 Wellness</span>}
+        </div>
+      ) : null}
+      {item.wellnessDraft && (
+        <details className="lib-sci">
+          <summary>🕊 “Science Behind It” draft from this (for the Wellness Guide)</summary>
+          <pre>{item.wellnessDraft}</pre>
+        </details>
+      )}
       {item.wbBatchId && (
         <Link href={`/admin/workbook#batch-${item.wbBatchId}`} className="lib-wb-btn">
           📖 See suggested workbook edits from this →
