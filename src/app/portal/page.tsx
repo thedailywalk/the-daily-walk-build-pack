@@ -318,7 +318,7 @@ export default async function PortalHome() {
       </section>
 
       <div className="m-modules">
-      <div className="m-mod" style={modStyle("today")}>
+      <div className="m-mod m-mod-half" style={modStyle("today")}>
       {/* Today's Walk */}
       <div className="m-section-tag" id="today">Today&apos;s Walk</div>
       <section className="m-today">
@@ -468,7 +468,7 @@ export default async function PortalHome() {
       </section>
       </div>
 
-      <div className="m-mod" style={modStyle("wall")}>
+      <div className="m-mod m-mod-half" style={modStyle("wall")}>
       {/* Encouragement wall + share */}
       <section className="m-panel m-wall">
         <span className="m-card-eyebrow">♥ Encouragement wall</span>

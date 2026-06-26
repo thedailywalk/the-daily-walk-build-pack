@@ -194,6 +194,12 @@ SQL files in `supabase/`: `prayer-wall.sql`, `good-news.sql`, `study-journal.sql
 
 ## Decision Log (newest at top)
 
+### 2026-06-26 — Live dashboard matched to ic2-northstar composition (2-col grid)
+- Owner: make the live member dashboard the ic2-northstar design. The live `/portal` already used the ic2 *styling* (dark, north star, journey, time-of-day, chips, Inner Circle); now its *layout* matches too: `.m-modules` is a 2-column grid, and **Today's Devotional | Encouragement Wall** pair side-by-side (the signature ic2 composition), with the Inner Circle + rest below. Default module order reordered to lead with today + wall; module labels renamed (Today's Devotional, Encouragement Wall, The Inner Circle).
+- The **Studio mock** reflects these same sections (canvas labels/mocks updated via the registry), so reordering/editing in `/admin/studio` mirrors the real dash.
+- **Note:** if a saved Studio config exists from earlier dragging, the old order persists — click **Reset layout** in the Studio to get the new ic2 default.
+- **Status:** TSC/build green, committed + merged to `main`. (Members access it live at /portal after login.)
+
 ### 2026-06-26 — Dash → ic2 (Inner Circle surfaced) + Studio rebuilt as a VISUAL canvas
 - **Dash:** surfaced the **Inner Circle** leaderboards (was collapsed in "Iron sharpens iron") as an always-visible section to match ic2-northstar. Confirmed base = ic2-northstar.
 - **Studio rebuilt (owner request):** `/admin/studio` is now a **visual mock of the real dashboard** (`StudioCanvas.tsx`, client). Owner can **drag sections to reorder** (saves order to live portal), and **click or right-click any section** to open an inspector to (a) write what to change, (b) **paste an inspiration image URL** (preview shown), (c) set status (Keep/Refine/Archive/Delete), (d) show/hide. Persists via `saveOrderAction`/`saveModuleMetaAction`; config extended with per-module `inspoUrl`. Each section renders a small mock resembling the real one.

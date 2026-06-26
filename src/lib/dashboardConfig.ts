@@ -10,11 +10,11 @@ import { createServiceClient, adminDbConfigured } from "@/lib/supabase/admin";
  */
 
 export const DASHBOARD_MODULES = [
-  { key: "today", label: "Today's Walk", desc: "The day's devotional with the read button." },
+  { key: "today", label: "Today's Devotional", desc: "The day's devotional with the read button." },
+  { key: "wall", label: "Encouragement Wall", desc: "Community praises, reactions, and sharing." },
+  { key: "accountability", label: "The Inner Circle", desc: "Streak & verses-memorized leaderboards." },
   { key: "continue", label: "Continue + Weekly Video", desc: "Bible-in-a-Year progress and the embedded weekly video." },
   { key: "pace", label: "Where everyone's at", desc: "Grace-first community pace + invite a friend." },
-  { key: "accountability", label: "Iron sharpens iron", desc: "Optional streak & memory leaderboards (collapsed)." },
-  { key: "wall", label: "Encouragement wall", desc: "Community praises, reactions, and sharing." },
   { key: "more", label: "A little more for today", desc: "Momentum, badges, reflection, Word of the Day, wonder & quick access." },
 ] as const;
 
