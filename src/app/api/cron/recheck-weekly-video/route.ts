@@ -26,7 +26,7 @@ export async function GET(request: Request) {
   const result = await recheckSelectedVideos();
   if (result.flagged.length > 0) {
     revalidatePath("/admin/weekly-video");
-    revalidatePath("/wonders");
+    revalidatePath("/portal");
   }
 
   return NextResponse.json({

@@ -70,9 +70,6 @@ export default async function JourneyPage({
               {t.label}
             </Link>
           ))}
-          <Link href="/wonders" className="sg-tabnav">
-            ✦ Daily Wonders
-          </Link>
         </nav>
       </div>
 

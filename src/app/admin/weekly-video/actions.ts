@@ -68,7 +68,7 @@ export async function selectVideoAction(formData: FormData) {
   const weekStart = str(formData, "weekStart");
   if (id) await selectVideo(id);
   revalidatePath("/admin/weekly-video");
-  revalidatePath("/wonders");
+  revalidatePath("/portal");
   redirect(`/admin/weekly-video?week=${weekStart}&selected=1`);
 }
 
@@ -77,7 +77,7 @@ export async function clearSelectionAction(formData: FormData) {
   const weekStart = str(formData, "weekStart");
   if (weekStart) await clearSelection(weekStart);
   revalidatePath("/admin/weekly-video");
-  revalidatePath("/wonders");
+  revalidatePath("/portal");
   redirect(`/admin/weekly-video?week=${weekStart}`);
 }
 
@@ -96,7 +96,7 @@ export async function updateCopyAction(formData: FormData) {
     });
   }
   revalidatePath("/admin/weekly-video");
-  revalidatePath("/wonders");
+  revalidatePath("/portal");
   redirect(`/admin/weekly-video?week=${weekStart}&saved=1`);
 }
 

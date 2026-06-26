@@ -96,7 +96,7 @@ export default async function AdminDashboard() {
       icon: ICONS.video,
       label: "Weekly Video",
       stat: vidStat,
-      sub: "Members' Daily Wonders",
+      sub: "Members' dashboard",
       tone: vidTone,
       pill: vidPill,
     },

@@ -194,6 +194,11 @@ SQL files in `supabase/`: `prayer-wall.sql`, `good-news.sql`, `study-journal.sql
 
 ## Decision Log (newest at top)
 
+### 2026-06-26 — Retired the /wonders page entirely; re-pointed all references
+- Deleted `src/app/wonders/page.tsx` (Daily Wonders content now lives on the dashboard: Word of the Day + This Day in His Story + Wonder of His Creation, plus the weekly video embed).
+- Re-pointed references: removed the "✦ Daily Wonders" tab link in `/journey`; weekly-video `revalidatePath("/wonders")` → `"/portal"` (admin actions ×3 + recheck cron); admin dashboard Weekly Video card sub → "Members' dashboard"; flags.ts comment updated. No live `/wonders` references remain. (Unused `.wondersec/.word-card/.hist-card` CSS left in place — harmless.)
+- **Status:** clean build + TSC green, committed + merged to `main`.
+
 ### 2026-06-26 — Portal re-skinned to the Inner Circle (dark) look as the DEFAULT
 - Owner wants the portal's main vibe to be the `ic2-northstar` dark inner-circle look — elevated, masculine-but-classy, tech-forward, Duolingo-clean, subtle animations — while keeping every feature (weekly video on dash, sidebar nav, top greeting, memory flashcard, rotating subtitle).
 - **Approach (low-risk, leverages existing infra):** the portal already had a `night` theme + Day/Night toggle. Made **night the DEFAULT** (`portal/layout.tsx` data-theme="night"; `ThemeToggle` default state "night") and **elevated the night theme** into the inner-circle aesthetic: deep navy radial-gradient page bg (fixed), glassy translucent surfaces w/ backdrop-blur + soft elevation, gold-tinted hairlines, gold section labels, solid gold "inner circle" active-nav pills, ic2 hero gradient + brighter starfield. Day toggle still gives the clean light look.

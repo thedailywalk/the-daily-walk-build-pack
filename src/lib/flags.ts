@@ -10,7 +10,7 @@ export const GOOD_NEWS_ENABLED = true;
 /**
  * GOOD_NEWS_PUBLIC — whether Good News shows on the PUBLIC site (homepage
  * section + nav + footer link). OFF: replaced publicly by the Weekly Featured
- * Video in the members' Daily Wonders tab. The admin curator stays available
+ * Video on the members' dashboard. The admin curator stays available
  * (gated by GOOD_NEWS_ENABLED) so stories can still be browsed, organized, and
  * referenced internally — with thumbnails — even though they aren't shown
  * publicly. Flip to `true` to bring Good News back on the public site.
