@@ -27,7 +27,7 @@ async function feedWorkbook(
   title: string,
   kind: string,
   link: string | null
-): Promise<string | null> {
+): Promise<{ batchId: string; mode: "ai" | "heuristic" } | null> {
   if (text.trim().length < 40) return null;
   try {
     const analysis = await analyzeInspiration({
@@ -55,7 +55,7 @@ async function feedWorkbook(
       impact: p.impact,
     }));
     const n = await insertSuggestions(suggestions);
-    return n > 0 ? batchId : null;
+    return n > 0 ? { batchId, mode: analysis.mode } : null;
   } catch {
     return null;
   }
@@ -136,11 +136,11 @@ export async function saveLibraryItemAction(formData: FormData) {
   // Every saved item is also workbook inspiration — generate suggested edits
   // and stamp the item with the batch (skip "Your Voices" entries, which are
   // people to follow, not source material).
-  let batchId: string | null = null;
+  let fed: { batchId: string; mode: "ai" | "heuristic" } | null = null;
   if (savedId && !isVoice) {
     const inspoText = [transcript, personalTake, str(formData, "body"), caption].filter(Boolean).join("\n\n");
-    batchId = await feedWorkbook(inspoText, title, kind, url);
-    if (batchId) await setLibraryItemBatch(savedId, batchId);
+    fed = await feedWorkbook(inspoText, title, kind, url);
+    if (fed) await setLibraryItemBatch(savedId, fed.batchId);
   }
 
   revalidatePath("/admin/library");
@@ -148,7 +148,7 @@ export async function saveLibraryItemAction(formData: FormData) {
   redirect(
     tooBig
       ? "/admin/library?tab=add&err=size"
-      : `/admin/library?saved=1${batchId ? `&wb=${batchId}` : ""}`
+      : `/admin/library?saved=1${fed ? `&wb=${fed.batchId}&wbmode=${fed.mode}` : ""}`
   );
 }
 

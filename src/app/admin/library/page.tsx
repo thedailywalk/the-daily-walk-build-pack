@@ -44,6 +44,7 @@ export default async function LibraryPage({
     sedit?: string;
     saved?: string;
     wb?: string;
+    wbmode?: string;
     err?: string;
     tab?: string;
     final?: string;
@@ -120,7 +121,10 @@ export default async function LibraryPage({
             Saved ✓{" "}
             {sp.wb ? (
               <>
-                — and it became workbook inspiration.{" "}
+                — and it became workbook inspiration{" "}
+                {sp.wbmode === "ai"
+                  ? "✦ written by AI"
+                  : "(quick draft — set ANTHROPIC_API_KEY for the deeper version)"}.{" "}
                 <Link href={`/admin/workbook#batch-${sp.wb}`} className="adm-inline-link">
                   See the suggested workbook edits →
                 </Link>
