@@ -66,7 +66,7 @@ function DawnCard({ t }: { t: Theme }) {
           <div className="dw-stats"><span><b>DAILY</b> DEVOTIONAL</span><span>·</span><span><b>5 MIN</b> READ</span><span>·</span><span><b>FREE</b> ALWAYS</span></div>
           <p className="dw-eyebrow"><span className="dw-dot" /> Free every morning — before the world gets loud</p>
           <h2 className="dw-headline">A few quiet minutes <span className="g">with God.</span> Every morning.</h2>
-          <p className="dw-sub">A short devotional, one honest prayer, and a little encouragement to start your day — no noise, no guilt, just the walk. Free, forever.</p>
+          <p className="dw-sub">Ephesians says put on the armor every morning — and the one weapon you fight with is the Word. Start your day already armed. Free, forever.</p>
           <div className="dw-verse"><p>&ldquo;This is the day that the Lord has made; let us rejoice and be glad in it.&rdquo;<cite>— Psalm 118:24 · lands at 6:30 AM PT</cite></p></div>
           <div className="dw-form"><span className="dw-input">Your email address</span><span className="dw-btn">Join free →</span></div>
           <ul className="dw-list">
