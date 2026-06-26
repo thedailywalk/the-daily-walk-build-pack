@@ -23,6 +23,17 @@ function str(fd: FormData, key: string): string {
   return String(fd.get(key) ?? "").trim();
 }
 
+/** Auto-name an inspiration when "What is this?" is left blank: prefer the
+ *  detected themes ("Notes on Generosity & Money"), else the first real line. */
+function deriveLabel(text: string, themes: string[], type: string): string {
+  if (themes.length) return `Notes on ${themes.slice(0, 2).join(" & ")}`;
+  const firstLine =
+    text.split(/\n/).map((s) => s.trim()).find((s) => s.length > 0) ?? "";
+  const cleaned = firstLine.replace(/^[#\d.)\-\s📖✦🙏🌍“"]+/, "").trim();
+  if (cleaned) return cleaned.length > 52 ? cleaned.slice(0, 52).replace(/\s+\S*$/, "") + "…" : cleaned;
+  return `${type} inspiration`;
+}
+
 /** Analyze pasted inspiration and drop targeted suggestions into the queue. */
 export async function submitInspirationAction(formData: FormData) {
   await requireAdmin();
@@ -45,6 +56,9 @@ export async function submitInspirationAction(formData: FormData) {
     maxPlacements,
   });
 
+  // Auto-fill "What is this?" with a fitting name when it was left blank.
+  const label = sourceLabel || deriveLabel(text, analysis.themes, sourceType);
+
   // Optionally forward the same inspiration to the Content Library as an
   // unfinished draft — so research captured once feeds both the workbook AND
   // the newsletter without re-typing it.
@@ -54,12 +68,12 @@ export async function submitInspirationAction(formData: FormData) {
       (TOPICS as readonly string[]).includes(t)
     );
     await upsertLibraryItem({
-      title: sourceLabel || `${sourceType} inspiration`,
+      title: label,
       kind: sourceType === "note" ? "note" : "newsletter inspiration",
       body: text,
       transcript: text,
       url: link || null,
-      source: sourceLabel || null,
+      source: label,
       topics,
       why: "Forwarded from the Workbook — finish in the Content Library when you have time.",
       isOriginal: false,
@@ -79,7 +93,7 @@ export async function submitInspirationAction(formData: FormData) {
   const suggestions: NewSuggestion[] = analysis.placements.map((p) => ({
     dayIndex: p.dayIndex,
     batchId,
-    sourceLabel: sourceLabel || `${sourceType} inspiration`,
+    sourceLabel: label,
     sourceType,
     sourceLink: link,
     sourceExcerpt: text.slice(0, 4000),
@@ -95,7 +109,7 @@ export async function submitInspirationAction(formData: FormData) {
   const n = await insertSuggestions(suggestions);
   revalidatePath("/admin/workbook");
   if (savedToLibrary) revalidatePath("/admin/library");
-  redirect(`/admin/workbook?added=${n}&mode=${analysis.mode}${libQ}`);
+  redirect(`/admin/workbook?added=${n}&mode=${analysis.mode}${libQ}#review`);
 }
 
 export async function approveSuggestionAction(formData: FormData) {

@@ -105,7 +105,7 @@ export default async function WorkbookDashboard({
         )}
 
         {/* Waiting for review */}
-        <h2 className="wb-h2">New inspiration waiting for review</h2>
+        <h2 className="wb-h2" id="review">New inspiration waiting for review</h2>
         {batches.length === 0 ? (
           <p className="adm-sub">
             Nothing waiting. <Link href="/admin/workbook/submit">Paste a reel or sermon transcript</Link> and
