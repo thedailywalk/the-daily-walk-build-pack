@@ -57,7 +57,7 @@ export default function JoinModal() {
     <div className="jm-backdrop" role="dialog" aria-modal="true" aria-label="Join The Daily Walk" onClick={dismiss}>
       <div className="jm-card" onClick={(e) => e.stopPropagation()}>
         <div className="jm-head">
-          <span className="jm-brand">THE DAILY WALK</span>
+          <span className="jm-brand">THE DAILY WALK NEWSLETTER</span>
           <button className="jm-close" onClick={dismiss} aria-label="Close">×</button>
         </div>
 
@@ -65,7 +65,7 @@ export default function JoinModal() {
           <div className="jm-stats">
             <span><b>DAILY</b> DEVOTIONAL</span>
             <span>·</span>
-            <span><b>2 MIN</b> READ</span>
+            <span><b>5 MIN</b> READ</span>
             <span>·</span>
             <span><b>FREE</b> ALWAYS</span>
           </div>
