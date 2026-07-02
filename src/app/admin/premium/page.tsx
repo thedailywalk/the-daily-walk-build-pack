@@ -14,6 +14,8 @@ import {
   type PremiumData,
 } from "@/lib/premium";
 import { renderPremiumHtml } from "@/lib/premiumHtml";
+import { pendingForIssue } from "@/lib/newsletterEvolution";
+import NewsletterIssueReview from "@/components/NewsletterIssueReview";
 import CopyButton from "../devotionals/CopyButton";
 import {
   savePremiumAction,
@@ -171,6 +173,7 @@ async function EditorView(date: string, saved: boolean) {
   const data: PremiumData = existing?.data ?? fullPremiumFor(date);
   const status = existing?.status ?? "draft";
   const weekday = weekdayLabel(date);
+  const pending = await pendingForIssue("premium", date);
   const previewIssue: PremiumIssue = {
     date,
     status,
@@ -206,8 +209,30 @@ async function EditorView(date: string, saved: boolean) {
         </div>
       )}
 
-      <div className="adm-cols">
-        {/* form */}
+      {/* Suggested edits (inline diffs) + live preview, side by side */}
+      <div className="adm-review-cols">
+        <div className="adm-review-left">
+          <NewsletterIssueReview
+            publication="premium"
+            date={date}
+            pending={pending}
+            backPath={`/admin/premium?date=${date}`}
+          />
+        </div>
+        <div className="adm-preview adm-preview-sticky">
+          <div className="adm-preview-tag">
+            Live preview · Premium · {weekday}, {prettyDate(date)}
+          </div>
+          <div
+            className="adm-preview-frame"
+            dangerouslySetInnerHTML={{ __html: renderPremiumHtml(previewIssue) }}
+          />
+        </div>
+      </div>
+
+      {/* Hand-edit form — at the bottom */}
+      <h3 className="adm-group" id="edit" style={{ marginTop: 28 }}>✏️ Edit this issue by hand</h3>
+      <div className="adm-cols-single">
         <form action={savePremiumAction} className="adm-form">
           <input type="hidden" name="date" value={date} />
 
@@ -371,17 +396,6 @@ async function EditorView(date: string, saved: boolean) {
             <CopyButton text={renderPremiumHtml(previewIssue)} />
           </div>
         </form>
-
-        {/* live preview */}
-        <div className="adm-preview">
-          <div className="adm-preview-tag">
-            Live preview · Premium · {weekday}, {prettyDate(date)}
-          </div>
-          <div
-            className="adm-preview-frame"
-            dangerouslySetInnerHTML={{ __html: renderPremiumHtml(previewIssue) }}
-          />
-        </div>
       </div>
     </div>
   );

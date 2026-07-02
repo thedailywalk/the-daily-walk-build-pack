@@ -14,9 +14,14 @@ import { adminEnsureWeek } from "@/lib/devotionals";
 import { premiumEnsureWeek } from "@/lib/premium";
 import { wellnessEnsureWeek } from "@/lib/wellness";
 
-/** Back to where you were: a review section (#free-suggestions / …) or the list. */
+/**
+ * Back to where you were. `from` may be a review-section anchor
+ * (#free-suggestions / …) OR a full internal admin path (the issue editor), so
+ * approving inside an editor lands you right back on that editor.
+ */
 function backTo(formData: FormData): string {
   const from = String(formData.get("from") ?? "").trim();
+  if (/^\/admin\/[a-z0-9/?=&_-]+$/i.test(from)) return from;
   const anchor = /^#[a-z-]+$/.test(from) ? from : "";
   return `/admin/newsletters${anchor}`;
 }

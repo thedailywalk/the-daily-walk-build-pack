@@ -4928,6 +4928,21 @@ hr.div {
   gap: 26px;
   align-items: start;
 }
+/* Review (inline diffs) on the left, live email preview on the right. */
+.adm-review-cols {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 26px;
+  align-items: start;
+}
+.adm-review-left { min-width: 0; }
+.admin-shell .adm-preview-sticky { position: sticky; top: 16px; }
+.adm-cols-single { min-width: 0; }
+.admin-shell .wbp-lock { margin-top: 14px; }
+@media (max-width: 1000px) {
+  .adm-review-cols { grid-template-columns: 1fr; }
+  .admin-shell .adm-preview-sticky { position: static; }
+}
 .adm-form {
   display: flex;
   flex-direction: column;

@@ -146,6 +146,15 @@ export async function listNewsletterSuggestions(opts?: {
   }
 }
 
+/** Pending suggestions for one specific issue (publication + date). */
+export async function pendingForIssue(
+  publication: Publication,
+  date: string
+): Promise<NewsletterSuggestion[]> {
+  const all = await listNewsletterSuggestions({ status: "pending", publication, limit: 100 });
+  return all.filter((s) => s.issueDate === date);
+}
+
 export async function getNewsletterSuggestion(id: string): Promise<NewsletterSuggestion | null> {
   if (!adminDbConfigured) return null;
   try {

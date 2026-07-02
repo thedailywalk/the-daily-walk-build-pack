@@ -15,6 +15,9 @@ import {
 } from "@/lib/devotionals";
 import { renderDevotionalHtml } from "@/lib/devotionalHtml";
 import { getDevotionalReferences } from "@/lib/library";
+import { getDailyGoodNews } from "@/lib/goodNews";
+import { pendingForIssue } from "@/lib/newsletterEvolution";
+import NewsletterIssueReview from "@/components/NewsletterIssueReview";
 import AdminNav from "@/components/AdminNav";
 import {
   saveDevotionalAction,
@@ -137,9 +140,11 @@ function StatusBadge({ status, saved }: { status?: string; saved?: boolean }) {
 
 /* -------------------------------- editor -------------------------------- */
 async function EditorView(date: string, saved: boolean) {
-  const [existing, refs] = await Promise.all([
+  const [existing, refs, pending, goodNews] = await Promise.all([
     adminGetByDate(date),
     getDevotionalReferences(date),
+    pendingForIssue("free", date),
+    getDailyGoodNews(3),
   ]);
   const data: DevotionalData = existing?.data ?? fullDevotionalFor(date);
   const status = existing?.status ?? "draft";
@@ -177,8 +182,30 @@ async function EditorView(date: string, saved: boolean) {
         </div>
       )}
 
-      <div className="adm-cols">
-        {/* form */}
+      {/* Suggested edits (inline diffs) + live preview, side by side */}
+      <div className="adm-review-cols">
+        <div className="adm-review-left">
+          <NewsletterIssueReview
+            publication="free"
+            date={date}
+            pending={pending}
+            backPath={`/admin/devotionals?date=${date}`}
+          />
+        </div>
+        <div className="adm-preview adm-preview-sticky">
+          <div className="adm-preview-tag">
+            Live preview · {weekdayLabel(date)}, {prettyDate(date)}
+          </div>
+          <div
+            className="adm-preview-frame"
+            dangerouslySetInnerHTML={{ __html: renderDevotionalHtml(previewDev, goodNews) }}
+          />
+        </div>
+      </div>
+
+      {/* Hand-edit form — at the bottom */}
+      <h3 className="adm-group" id="edit" style={{ marginTop: 28 }}>✏️ Edit this issue by hand</h3>
+      <div className="adm-cols-single">
         <form action={saveDevotionalAction} className="adm-form">
           <input type="hidden" name="date" value={date} />
 
@@ -272,20 +299,9 @@ async function EditorView(date: string, saved: boolean) {
             <button type="submit" className="btn btn-gold">
               Save
             </button>
-            <CopyButton text={renderDevotionalHtml(previewDev)} />
+            <CopyButton text={renderDevotionalHtml(previewDev, goodNews)} />
           </div>
         </form>
-
-        {/* live, scrollable preview of the full newsletter for this date */}
-        <div className="adm-preview">
-          <div className="adm-preview-tag">
-            Live preview · {weekdayLabel(date)}, {prettyDate(date)}
-          </div>
-          <div
-            className="adm-preview-frame"
-            dangerouslySetInnerHTML={{ __html: renderDevotionalHtml(previewDev) }}
-          />
-        </div>
       </div>
 
       <ReferencesPanel refs={refs} />

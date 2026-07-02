@@ -153,8 +153,11 @@ function NlBatchCard({ b, from }: { b: NlBatch; from: string }) {
               <input type="hidden" name="from" value={from} />
               <button className="wb-btn wb-btn-no" type="submit">Dismiss</button>
             </form>
-            <Link href={`/admin/newsletters?preview=${b.publication}&date=${b.issueDate}`} className="wb-btn wb-btn-ghost">
-              Preview issue →
+            <Link
+              href={`${b.publication === "premium" ? "/admin/premium" : "/admin/devotionals"}?date=${b.issueDate}`}
+              className="wb-btn wb-btn-ghost"
+            >
+              Open issue (review + preview) →
             </Link>
           </div>
         </div>
