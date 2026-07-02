@@ -86,23 +86,29 @@ export default async function HomePage() {
           <h2 className="h">Life doesn&apos;t come with an instruction manual.</h2>
           <div className="manifesto-body">
             <p className="manifesto-lead">
-              It does — most of us just never opened it. God didn&apos;t leave you
-              to guess your way through.
+              It does — most of us just never opened it.
             </p>
             <p>
-              His Word is where you learn how to live, how to heal, how to make
-              the braver call, how to fight the battles no one else can see — and
-              how to become the person He made you to be. It was never a religious
-              box to check. It&apos;s wisdom when you&apos;re lost, strength when
-              you&apos;re running on empty, an anchor when you&apos;ve forgotten
-              who you are, and healing for the places nothing else has reached.
-              Pick it up, and you stop walking through life blind.
+              You&apos;ll never grow close to someone you never actually talk to.
+              Not your closest friend, not the person you love most — and not God.
             </p>
             <p>
-              Ephesians 6 says to put on the armor of God every day — and the one
-              weapon in it is the <em>sword of the Spirit, the Word of God.</em>{" "}
-              If you do one thing each morning, pick up your sword. Here&apos;s
-              how — and honestly, it doesn&apos;t have to be complicated.
+              His Word is where you learn how to live, how to heal, and how to
+              become the person He made you to be. Wisdom when you&apos;re lost,
+              strength when you&apos;re empty, an anchor when you&apos;ve forgotten
+              who you are — it was never a box to check.
+            </p>
+            <p>
+              There are battles no one else can see; the Word is how you learn to
+              fight them — and win. The armor of God has one weapon:{" "}
+              <em>His Word.</em> Start your morning with it, and nothing meets you
+              unarmed.
+            </p>
+            <p>
+              A little, every day, adds up. Ten honest minutes each morning for a
+              year, and you&apos;ll know God in a way that quietly changes
+              everything. You don&apos;t have to have it figured out. You just have
+              to open it.
             </p>
           </div>
           <div className="manifesto-cta">
