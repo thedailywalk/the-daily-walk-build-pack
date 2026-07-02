@@ -13,6 +13,7 @@ import {
   type PremiumStatus,
 } from "@/lib/premium";
 import { draftWorldNews } from "@/lib/worldNews";
+import { findCommonsImage } from "@/lib/commonsImage";
 
 function str(fd: FormData, key: string): string {
   return String(fd.get(key) ?? "").trim();
@@ -110,16 +111,52 @@ export async function draftWorldNewsAction(formData: FormData) {
   };
   stories.forEach((s, i) => {
     const n = i + 1;
-    (next as unknown as Record<string, string>)[`world${n}What`] = s.what;
-    (next as unknown as Record<string, string>)[`world${n}Faith`] = s.faith;
-    (next as unknown as Record<string, string>)[`world${n}Pray`] = s.pray;
-    (next as unknown as Record<string, string>)[`world${n}Url`] = s.url;
-    (next as unknown as Record<string, string>)[`world${n}Source`] = s.source;
+    const rec = next as unknown as Record<string, string>;
+    rec[`world${n}What`] = s.what;
+    rec[`world${n}Faith`] = s.faith;
+    rec[`world${n}Pray`] = s.pray;
+    rec[`world${n}Url`] = s.url;
+    rec[`world${n}Source`] = s.source;
+    if (s.img) {
+      rec[`world${n}Img`] = s.img;
+      rec[`world${n}Credit`] = s.credit ?? "Wikimedia Commons";
+    }
   });
 
   await premiumUpsert(date, existing?.status ?? "draft", existing?.title || next.devHeading || `Premium · ${date}`, next);
   revalidatePath("/admin/premium");
   redirect(`/admin/premium?date=${date}&worldnews=1`);
+}
+
+/**
+ * Find a reshare-cleared Wikimedia Commons photo for each World story that has
+ * text but no image yet. Fills the photo URL + credit; never overwrites a photo
+ * you already set.
+ */
+export async function findWorldImagesAction(formData: FormData) {
+  await requireAdmin();
+  const date = str(formData, "date");
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return;
+
+  const existing = await premiumGetByDate(date);
+  const base: PremiumData = existing?.data ?? fullPremiumFor(date);
+  const next: PremiumData = { ...base };
+  const rec = next as unknown as Record<string, string>;
+
+  for (let n = 1; n <= 3; n++) {
+    const what = rec[`world${n}What`];
+    const hasImg = rec[`world${n}Img`];
+    if (!what || hasImg) continue;
+    const found = await findCommonsImage(what);
+    if (found) {
+      rec[`world${n}Img`] = found.url;
+      rec[`world${n}Credit`] = found.credit;
+    }
+  }
+
+  await premiumUpsert(date, existing?.status ?? "draft", existing?.title || next.devHeading || `Premium · ${date}`, next);
+  revalidatePath("/admin/premium");
+  redirect(`/admin/premium?date=${date}&worldimg=1`);
 }
 
 export async function preparePremiumWeekAction() {

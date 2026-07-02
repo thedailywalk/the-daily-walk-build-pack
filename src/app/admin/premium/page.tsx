@@ -20,6 +20,7 @@ import {
   preparePremiumWeekAction,
   deletePremiumAction,
   draftWorldNewsAction,
+  findWorldImagesAction,
 } from "./actions";
 
 export const metadata: Metadata = {
@@ -290,7 +291,15 @@ async function EditorView(date: string, saved: boolean) {
             >
               🌍 Draft from real headlines
             </button>
-            <span className="adm-hint">Pulls live world news · save other edits first</span>
+            <button
+              type="submit"
+              formAction={findWorldImagesAction}
+              className="btn btn-ghost"
+              title="Search Wikimedia Commons for a reshare-cleared photo for each story that has text but no image"
+            >
+              🖼 Find free photos
+            </button>
+            <span className="adm-hint">Live world news + Wikimedia Commons · save other edits first</span>
           </div>
           <div className="adm-row">
             <Field label="Section heading">

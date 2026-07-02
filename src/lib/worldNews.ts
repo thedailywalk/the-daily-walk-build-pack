@@ -1,4 +1,5 @@
 import "server-only";
+import { findCommonsImage } from "@/lib/commonsImage";
 
 /**
  * "The World Through God's Lens" — drafts the premium World section from REAL,
@@ -25,6 +26,8 @@ export type WorldStory = {
   pray: string;
   url: string;
   source: string;
+  img?: string; // reshare-cleared Wikimedia Commons photo, when one is found
+  credit?: string; // attribution for that photo
 };
 
 type RawItem = { title: string; summary: string; link: string };
@@ -136,7 +139,16 @@ export async function draftWorldNews(count = 3): Promise<WorldStory[]> {
   try {
     const items = await fetchHeadlines(n);
     if (!items.length) return [];
-    return (await withFaithLens(items)) ?? heuristic(items);
+    const base = (await withFaithLens(items)) ?? heuristic(items);
+    // Best-effort reshare-cleared photo from Wikimedia Commons (may be none).
+    const imgs = await Promise.all(
+      items.map((it) => findCommonsImage(it.title).catch(() => null))
+    );
+    return base.map((s, i) => ({
+      ...s,
+      img: imgs[i]?.url,
+      credit: imgs[i]?.credit,
+    }));
   } catch {
     return [];
   }
