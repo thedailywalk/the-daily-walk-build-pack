@@ -9,7 +9,8 @@ type Result = {
   batchId?: string | null;
   wbmode?: string | null;
   wbCount?: number;
-  nlCount?: number;
+  nlFree?: number;
+  nlPremium?: number;
   nlmode?: string | null;
   wellness?: boolean;
 };
@@ -73,15 +74,20 @@ export default function LibraryAutoGen({ id }: { id: string }) {
       {res.wellness ? " · wellness draft ready 🕊" : null}
       <div className="adm-saved-links">
         {res.batchId ? (
-          <Link href={`/admin/workbook#review`} className="adm-inline-link">
+          <Link href="/admin/workbook#review" className="adm-inline-link">
             See suggested workbook edits
             {typeof res.wbCount === "number" ? ` (${res.wbCount})` : ""}
             {res.wbmode === "ai" ? " ✦" : ""} →
           </Link>
         ) : null}
-        {res.nlCount ? (
-          <Link href={`/admin/newsletters#suggestions`} className="adm-inline-link">
-            See suggested newsletter updates ({res.nlCount}) ✦ →
+        {res.nlFree ? (
+          <Link href="/admin/newsletters#free-suggestions" className="adm-inline-link">
+            See suggested free daily edits ({res.nlFree}) ✦ →
+          </Link>
+        ) : null}
+        {res.nlPremium ? (
+          <Link href="/admin/newsletters#premium-suggestions" className="adm-inline-link">
+            See suggested premium edits ({res.nlPremium}) ✦ →
           </Link>
         ) : null}
       </div>

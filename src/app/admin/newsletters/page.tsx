@@ -32,6 +32,7 @@ import {
   approveNewsletterSuggestionAction,
   rejectNewsletterSuggestionAction,
   regenerateNewsletterSuggestionsAction,
+  prepareWeekAheadAction,
 } from "./actions";
 
 export const metadata: Metadata = { title: "Newsletters", robots: { index: false } };
@@ -98,11 +99,92 @@ function NlSnippet({ text, n = 380 }: { text: string; n?: number }) {
   return <p className="wb-snippet">{short}</p>;
 }
 
+type NlBatch = Awaited<ReturnType<typeof pendingNewsletterBatches>>[number];
+
+function NlBatchCard({ b, from }: { b: NlBatch; from: string }) {
+  return (
+    <div className="wb-batch">
+      <div className="wb-batch-head">
+        <span className={`nl-dot nl-dot-${b.publication}`} aria-hidden="true" />
+        <strong>{weekdayLabel(b.issueDate)}, {prettyDate(b.issueDate)}</strong>
+        <span className="wb-batch-count">
+          {b.suggestions.length} suggested update{b.suggestions.length === 1 ? "" : "s"}
+        </span>
+      </div>
+      {b.suggestions.map((s) => (
+        <div key={s.id} className="wb-sug">
+          <div className="wb-sug-top">
+            <span className="wb-sug-field">→ {NL_FIELD_LABEL[s.targetField] ?? s.targetField}</span>
+            <span className="wb-themes">{s.themes.map((t) => <em key={t}>{t}</em>)}</span>
+          </div>
+          <p className="wb-why"><span className="wb-tag">Why it fits</span> {s.whyFits}</p>
+          <div className="wb-proposed">
+            <span className="wb-tag">Proposed revision</span>
+            <NlSnippet text={s.proposedText} />
+          </div>
+          {s.currentText && (
+            <details className="wb-current">
+              <summary>Compare with the current text</summary>
+              <NlSnippet text={s.currentText} n={500} />
+            </details>
+          )}
+          <p className="wb-impact"><span className="wb-tag">Impact</span> {s.impact}</p>
+          <div className="wb-sug-actions">
+            <form action={approveNewsletterSuggestionAction}>
+              <input type="hidden" name="id" value={s.id} />
+              <input type="hidden" name="from" value={from} />
+              <button className="wb-btn wb-btn-yes" type="submit">Approve &amp; apply</button>
+            </form>
+            <form action={rejectNewsletterSuggestionAction}>
+              <input type="hidden" name="id" value={s.id} />
+              <input type="hidden" name="from" value={from} />
+              <button className="wb-btn wb-btn-no" type="submit">Dismiss</button>
+            </form>
+            <Link href={`/admin/newsletters?preview=${b.publication}&date=${b.issueDate}`} className="wb-btn wb-btn-ghost">
+              Preview issue →
+            </Link>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function PubSection({
+  id,
+  title,
+  blurb,
+  batches,
+}: {
+  id: string;
+  title: string;
+  blurb: string;
+  batches: NlBatch[];
+}) {
+  const count = batches.reduce((n, b) => n + b.suggestions.length, 0);
+  return (
+    <div id={id} style={{ scrollMarginTop: 90, marginTop: 22 }}>
+      <h3 className="adm-group" style={{ marginBottom: 2 }}>
+        {title} {count > 0 && <span className="wb-batch-count">· {count} waiting</span>}
+      </h3>
+      <p className="adm-grouphint">{blurb}</p>
+      {batches.length === 0 ? (
+        <p className="adm-sub" style={{ marginTop: 0 }}>Nothing waiting here right now.</p>
+      ) : (
+        batches.map((b) => <NlBatchCard key={b.key} b={b} from={`#${id}`} />)
+      )}
+    </div>
+  );
+}
+
 async function SuggestionsReview() {
   const [batches, applied] = await Promise.all([
     pendingNewsletterBatches(),
     appliedNewsletterSuggestions(12),
   ]);
+  const free = batches.filter((b) => b.publication === "free");
+  const premium = batches.filter((b) => b.publication === "premium");
+  const total = batches.reduce((n, b) => n + b.suggestions.length, 0);
 
   return (
     <div id="suggestions" style={{ scrollMarginTop: 90, marginBottom: 26 }}>
@@ -110,10 +192,10 @@ async function SuggestionsReview() {
         <div>
           <h2 className="adm-h2" style={{ margin: 0 }}>Suggested updates · the week ahead</h2>
           <p className="adm-sub" style={{ marginTop: 4 }}>
-            Built from your Content Library (items routed to <em>Newsletter</em>). Each
-            time you add inspiration, this rebuilds into the most up-to-date set for
-            the next 7 days of the free daily and premium editions. Approving writes
-            the revision straight into that issue. Scripture is never changed.
+            Built from your Content Library (items routed to <em>Newsletter</em>). Every
+            time you add inspiration, this rebuilds into the most up-to-date set for the
+            next 7 days — Approve to write it straight into that issue, or Dismiss.
+            Scripture is never changed. {total > 0 ? `${total} waiting.` : ""}
           </p>
         </div>
         <form action={regenerateNewsletterSuggestionsAction}>
@@ -127,51 +209,20 @@ async function SuggestionsReview() {
           route it to <em>Newsletter</em> — it&apos;ll suggest how to make the week ahead read fresher.
         </p>
       ) : (
-        batches.map((b) => (
-          <div key={b.key} className="wb-batch">
-            <div className="wb-batch-head">
-              <span className={`nl-dot nl-dot-${b.publication}`} aria-hidden="true" />
-              <span className="wb-src-type">{PUBLICATION_LABEL[b.publication]}</span>
-              <strong>{weekdayLabel(b.issueDate)}, {prettyDate(b.issueDate)}</strong>
-              <span className="wb-batch-count">
-                {b.suggestions.length} suggested update{b.suggestions.length === 1 ? "" : "s"}
-              </span>
-            </div>
-            {b.suggestions.map((s) => (
-              <div key={s.id} className="wb-sug">
-                <div className="wb-sug-top">
-                  <span className="wb-sug-field">→ {NL_FIELD_LABEL[s.targetField] ?? s.targetField}</span>
-                  <span className="wb-themes">{s.themes.map((t) => <em key={t}>{t}</em>)}</span>
-                </div>
-                <p className="wb-why"><span className="wb-tag">Why it fits</span> {s.whyFits}</p>
-                <div className="wb-proposed">
-                  <span className="wb-tag">Proposed revision</span>
-                  <NlSnippet text={s.proposedText} />
-                </div>
-                {s.currentText && (
-                  <details className="wb-current">
-                    <summary>Compare with the current text</summary>
-                    <NlSnippet text={s.currentText} n={500} />
-                  </details>
-                )}
-                <p className="wb-impact"><span className="wb-tag">Impact</span> {s.impact}</p>
-                <div className="wb-sug-actions">
-                  <form action={approveNewsletterSuggestionAction}>
-                    <input type="hidden" name="id" value={s.id} />
-                    <button className="wb-btn wb-btn-yes" type="submit">Approve &amp; apply</button>
-                  </form>
-                  <form action={rejectNewsletterSuggestionAction}>
-                    <input type="hidden" name="id" value={s.id} />
-                    <button className="wb-btn wb-btn-no" type="submit">Dismiss</button>
-                  </form>
-                  <Link href={`/admin/newsletters?preview=${b.publication}&date=${b.issueDate}`} className="wb-btn wb-btn-ghost">
-                    Preview issue →
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
-        ))
+        <>
+          <PubSection
+            id="free-suggestions"
+            title="📿 Free Daily · the week ahead"
+            blurb="Edits to the free devotional (Mon · Wed · Fri) that make it read fresher and more relevant to today."
+            batches={free}
+          />
+          <PubSection
+            id="premium-suggestions"
+            title="✦ The Deeper Walk (Premium) · the week ahead"
+            blurb="Edits to the premium edition — deeper reflection, study, and application."
+            batches={premium}
+          />
+        </>
       )}
 
       {applied.length > 0 && (
@@ -233,7 +284,14 @@ async function ListView(pubFilter?: string) {
             </Link>
           ))}
         </div>
-        <span className="nl-count">{editions.length} editions</span>
+        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          <form action={prepareWeekAheadAction}>
+            <button className="btn btn-ghost" type="submit" title="Stage the next 7 days of every edition as drafts (they render with the current look)">
+              ↻ Prepare the week ahead
+            </button>
+          </form>
+          <span className="nl-count">{editions.length} editions</span>
+        </div>
       </div>
 
       <div className="nl-list">

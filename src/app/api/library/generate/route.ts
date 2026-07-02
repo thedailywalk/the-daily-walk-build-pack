@@ -45,7 +45,8 @@ export async function POST(req: Request) {
   let batchId: string | null = null;
   let wbmode: "ai" | "heuristic" | null = null;
   let wbCount = 0;
-  let nlCount = 0;
+  let nlFree = 0;
+  let nlPremium = 0;
   let nlmode: "ai" | "none" = "none";
   let wellness = false;
 
@@ -78,7 +79,8 @@ export async function POST(req: Request) {
   if (dest.includes("newsletter")) {
     try {
       const r = await regenerateNewsletterSuggestions();
-      nlCount = r.inserted;
+      nlFree = r.free;
+      nlPremium = r.premium;
       nlmode = r.mode;
     } catch {
       /* ignore */
@@ -90,7 +92,8 @@ export async function POST(req: Request) {
     batchId,
     wbmode,
     wbCount,
-    nlCount,
+    nlFree,
+    nlPremium,
     nlmode,
     wellness,
   });

@@ -129,6 +129,8 @@ export async function regenerateWorkbookSuggestions(): Promise<RegenResult> {
 export type NewsletterRegenResult = {
   ok: boolean;
   inserted: number;
+  free: number;
+  premium: number;
   considered: number;
   mode: "ai" | "none";
 };
@@ -144,7 +146,7 @@ export async function regenerateNewsletterSuggestions(): Promise<NewsletterRegen
   const { text, used } = combineText(items);
   if (!text.trim()) {
     await deletePendingNewsletterSuggestions();
-    return { ok: true, inserted: 0, considered: 0, mode: "none" };
+    return { ok: true, inserted: 0, free: 0, premium: 0, considered: 0, mode: "none" };
   }
 
   const analysis = await analyzeNewsletters({
@@ -177,5 +179,8 @@ export async function regenerateNewsletterSuggestions(): Promise<NewsletterRegen
 
   await deletePendingNewsletterSuggestions();
   const inserted = fresh.length ? await insertNewsletterSuggestions(fresh) : 0;
-  return { ok: true, inserted, considered: used.length, mode: analysis.mode };
+  // When some inserted, split the counts by publication for the save banner.
+  const free = inserted ? fresh.filter((f) => f.publication === "free").length : 0;
+  const premium = inserted ? fresh.filter((f) => f.publication === "premium").length : 0;
+  return { ok: true, inserted, free, premium, considered: used.length, mode: analysis.mode };
 }
