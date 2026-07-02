@@ -17,7 +17,9 @@ export const site = {
   // A USPS P.O. Box is fine. Shown in every newsletter footer; hidden if blank.
   // Set here directly, or via NEXT_PUBLIC_MAILING_ADDRESS.
   // e.g. "The Daily Walk · PO Box 1234 · Yourtown, CA 90000"
-  mailingAddress: process.env.NEXT_PUBLIC_MAILING_ADDRESS ?? "",
+  mailingAddress:
+    process.env.NEXT_PUBLIC_MAILING_ADDRESS ??
+    "The Daily Walk · PO Box 1571 · Sunset Beach, CA 90742",
   // Beehiiv-hosted destinations (filled in once the publication exists).
   // Falls back to the on-site subscribe form / pricing page when unset.
   beehiiv: {
