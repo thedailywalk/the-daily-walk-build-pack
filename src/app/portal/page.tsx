@@ -25,7 +25,6 @@ import {
   streakLeaderboard,
   communityPace,
   weeklyActivity,
-  weeklyCheckinPattern,
   walkScore,
   communityWall,
   computeBadges,
@@ -112,7 +111,7 @@ export default async function PortalHome() {
 
   await recordCheckIn(user!.id); // count today toward the streak
 
-  const [today, progress, video, noteDays, favorites, pollCounts, streak, mem, prayers, streakBoard, activity, week7, wall, currentVerse] =
+  const [today, progress, video, noteDays, favorites, pollCounts, streak, mem, prayers, streakBoard, activity, wall, currentVerse] =
     await Promise.all([
       getLiveDevotional(),
       getOrCreateProgress(user!.id),
@@ -125,7 +124,6 @@ export default async function PortalHome() {
       listEntries(user!.id),
       streakLeaderboard(user!.id, 5),
       weeklyActivity(user!.id),
-      weeklyCheckinPattern(user!.id),
       communityWall(user!.id, 6),
       getCurrentMemoryVerse(user!.id),
     ]);
@@ -181,10 +179,6 @@ export default async function PortalHome() {
     { href: "/prayer-wall", icon: ICON.hands, label: "Prayer Wall", sub: "Pray & be prayed for" },
   ];
 
-  // "You are here" on the star path, computed from real progress.
-  const youX = 30 + (pct / 100) * 840;
-  const youY = 80 - (pct / 100) * 68;
-
   const todTag = tod === "morning" ? "MORNING" : tod === "noon" ? "MIDDAY" : "EVENING";
   const avColors = ["blue", "green"] as const;
 
@@ -214,7 +208,6 @@ export default async function PortalHome() {
           <div className="northwrap" aria-label={`${streak.current} day streak`}>
             <div className="dove" aria-hidden="true">🕊️</div>
             <div className="nstar">
-              <span className="flare" aria-hidden="true" />
               <span className="core" />
               <span className="num">{streak.current}</span>
             </div>
@@ -229,47 +222,6 @@ export default async function PortalHome() {
           </div>
         </div>
 
-        {/* Star-path constellation */}
-        <div className="pathwrap">
-          <div className="path-head">
-            <span className="lbl">YOUR JOURNEY</span>
-            <span className="ends">Day 1 ——— Day {TOTAL_DAYS}</span>
-          </div>
-          <svg className="pathsvg" viewBox="0 0 900 96" preserveAspectRatio="none" aria-hidden="true">
-            <defs>
-              <linearGradient id="mp-line" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0" stopColor="rgba(227,192,116,.25)" />
-                <stop offset="0.5" stopColor="rgba(227,192,116,.55)" />
-                <stop offset="1" stopColor="rgba(120,160,220,.35)" />
-              </linearGradient>
-            </defs>
-            <line x1="30" y1="80" x2="870" y2="12" stroke="url(#mp-line)" strokeWidth="2" strokeLinecap="round" />
-            <line className="shimmer" x1="30" y1="80" x2="870" y2="12" stroke="rgba(255,247,225,.6)" strokeWidth="2.2" strokeLinecap="round" strokeDasharray="14 226" />
-            {[0, 20, 40, 60, 80, 100].map((p) => (
-              <circle key={p} cx={30 + (p / 100) * 840} cy={80 - (p / 100) * 68} r="2.8" fill="#cfe0ff" opacity="0.6" />
-            ))}
-            {/* destination north star */}
-            <circle cx="870" cy="12" r="5" fill="#fff" />
-            <circle cx="870" cy="12" r="10" fill="none" stroke="rgba(227,192,116,.5)" strokeWidth="1.5" />
-            {/* you-are-here */}
-            <circle className="youstar" cx={youX} cy={youY} r="6" fill="var(--gold)" />
-            <circle cx={youX} cy={youY} r="11" fill="none" stroke="rgba(227,192,116,.4)" strokeWidth="1.5" />
-          </svg>
-          <div className="path-cap">Day {day} · you are here — {pct}% of the way to Day {TOTAL_DAYS}</div>
-
-          {/* time-of-day indicator */}
-          <div className="tod">
-            <div className="swatches" aria-hidden="true">
-              <span className={`sw m${tod === "morning" ? " on" : ""}`} title="morning" />
-              <span className={`sw n${tod === "noon" ? " on" : ""}`} title="midday" />
-              <span className={`sw t${tod === "night" ? " on" : ""}`} title="night" />
-            </div>
-            <span className="arc">☀ → ☾</span>
-            <span className="cap">
-              {tod === "morning" ? "Morning" : tod === "noon" ? "Midday" : "Evening"} — your sky shifts with the time you arrive.
-            </span>
-          </div>
-        </div>
       </section>
 
       {/* Memory flashcard */}
@@ -356,35 +308,8 @@ export default async function PortalHome() {
         </section>
       </div>
 
-      {/* ============= This Week + The Inner Circle ============= */}
-      <div className="grid2">
-        <section className="card chart">
-          <div className="crow">
-            <span className="ctitle serif">This Week</span>
-            <span className="tag">RHYTHM</span>
-          </div>
-          <svg viewBox="0 0 320 120" preserveAspectRatio="none" aria-hidden="true">
-            <defs>
-              <linearGradient id="mp-bar" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stopColor="var(--gold)" />
-                <stop offset="1" stopColor="rgba(201,162,75,.35)" />
-              </linearGradient>
-            </defs>
-            {week7.map((on, i) => {
-              const h = on ? 82 : 16;
-              const x = 10 + i * 44;
-              return <rect key={i} className="bar" x={x} y={110 - h} width="30" height={h} rx="5" fill={on ? "url(#mp-bar)" : "rgba(255,255,255,.06)"} />;
-            })}
-          </svg>
-          <div className="week">
-            <span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span>
-          </div>
-          <p className="chart-cap">
-            {week7.filter(Boolean).length} {week7.filter(Boolean).length === 1 ? "day" : "days"} walked this week — small and steady. 🌱
-          </p>
-        </section>
-
-        <section className="card lb">
+      {/* ============= The Inner Circle ============= */}
+      <section className="card lb">
           <div className="crow">
             <span className="ctitle serif">The Inner Circle</span>
             <span className="tag">THIS WEEK</span>
@@ -412,8 +337,7 @@ export default async function PortalHome() {
             {earnedBadges.length === 0 && !nextBadge && <div className="bdg lock" title="Your first badge is one step away">✦</div>}
           </div>
           <p className="lb-foot">Iron sharpens iron — not a contest. We&apos;re cheering each other on toward Him. 🤍</p>
-        </section>
-      </div>
+      </section>
 
       {/* ============= Continue + Weekly video ============= */}
       <div className="grid2">
@@ -614,21 +538,19 @@ const MP_CSS = `
   background:rgba(255,255,255,.04);border:1px solid var(--line);color:var(--ink)}
 .mp .chip b{color:var(--gold)}
 
-/* North Star cluster */
-.mp .northwrap{position:relative;width:172px;min-width:172px;height:150px;flex-shrink:0}
-.mp .nstar{position:absolute;top:8px;left:50%;transform:translateX(-50%);width:74px;height:74px;display:grid;place-items:center}
-.mp .nstar .core{position:relative;width:40px;height:40px;border-radius:50%;
-  background:radial-gradient(circle,#fff 0%,var(--gold) 45%,rgba(227,192,116,.2) 75%,transparent);
-  box-shadow:0 0 26px 8px rgba(227,192,116,.6),0 0 60px 18px rgba(227,192,116,.28)}
-.mp .flare{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
-.mp .flare:before,.mp .flare:after{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}
-.mp .flare:before{width:2.5px;height:104px;background:linear-gradient(to bottom,transparent,rgba(255,247,225,.95),transparent)}
-.mp .flare:after{width:78px;height:2.5px;top:42%;background:linear-gradient(to right,transparent,rgba(255,247,225,.85),transparent)}
-.mp .nstar .num{position:relative;z-index:2;font-size:22px;font-weight:800;color:var(--navy);text-shadow:0 1px 0 rgba(255,255,255,.4)}
-.mp .nstar-label{position:absolute;top:84px;left:0;right:0;text-align:center}
+/* North Star cluster — a calm, neutral streak medallion (not a glowing beacon) */
+.mp .northwrap{position:relative;width:184px;min-width:184px;height:150px;flex-shrink:0}
+.mp .nstar{position:absolute;top:8px;left:50%;transform:translateX(-50%);width:84px;height:84px;display:grid;place-items:center}
+.mp .nstar .core{position:relative;width:70px;height:70px;border-radius:50%;
+  background:linear-gradient(155deg,#fdf4e2 0%,#f0dcb0 46%,#e3c074 100%);
+  border:1px solid rgba(255,255,255,.55);
+  box-shadow:0 10px 24px -8px rgba(12,20,36,.75),inset 0 2px 5px rgba(255,255,255,.6),inset 0 -5px 10px rgba(184,144,46,.28)}
+.mp .nstar::after{content:"✦";position:absolute;top:-3px;right:8px;font-size:14px;color:var(--gold);opacity:.85}
+.mp .nstar .num{position:relative;z-index:2;font-size:27px;font-weight:800;color:#3b2f10}
+.mp .nstar-label{position:absolute;top:96px;left:0;right:0;text-align:center}
 .mp .nstar-label .t{font-size:10px;letter-spacing:2.4px;color:var(--gold);font-weight:600}
 .mp .nstar-label .d{font-size:11.5px;color:var(--mut);margin-top:3px;line-height:1.4}
-.mp .dove{position:absolute;top:18px;left:18px;font-size:17px;opacity:.92;filter:drop-shadow(0 0 6px rgba(220,235,255,.5))}
+.mp .dove{position:absolute;top:14px;left:14px;font-size:16px;opacity:.85;filter:drop-shadow(0 1px 2px rgba(12,20,36,.4))}
 
 /* star-path */
 .mp .pathwrap{position:relative;margin-top:24px;padding-top:18px;border-top:1px solid var(--line)}
@@ -792,12 +714,6 @@ const MP_CSS = `
   .mp .sky i:nth-child(2n){animation-duration:5.5s;animation-delay:1s}
   .mp .sky i:nth-child(3n){animation-duration:6.5s;animation-delay:.5s}
   @keyframes mp-tw{0%,100%{opacity:.25}50%{opacity:.9}}
-  .mp .nstar .core{animation:mp-pulse 4.5s ease-in-out infinite}
-  @keyframes mp-pulse{
-    0%,100%{box-shadow:0 0 26px 8px rgba(227,192,116,.55),0 0 60px 18px rgba(227,192,116,.24)}
-    50%{box-shadow:0 0 34px 12px rgba(227,192,116,.8),0 0 80px 26px rgba(227,192,116,.36)}}
-  .mp .flare{animation:mp-flare 4.5s ease-in-out infinite}
-  @keyframes mp-flare{0%,100%{opacity:.55;transform:translate(-50%,-50%) scale(.96)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.04)}}
   .mp .dove{animation:mp-dove 9s ease-in-out infinite}
   @keyframes mp-dove{0%{transform:translate(0,0) rotate(-4deg)}50%{transform:translate(14px,8px) rotate(3deg)}100%{transform:translate(0,0) rotate(-4deg)}}
   .mp .shimmer{animation:mp-shim 5s linear infinite}
