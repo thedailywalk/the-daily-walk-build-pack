@@ -113,9 +113,10 @@ export default function PricingPage() {
           </h1>
           <p className="sub">
             The Daily Walk makes Scripture clear, honest, and easy to live out.
-            Get a daily devotional, a real prayer, and good news from around the
-            world — free, forever. And when you&apos;re ready, let Premium guide
-            you through the whole Bible in a year, starting on your Day 1.
+            Get the devotional, a real prayer, and good news from around the
+            world three mornings a week — free. And when you&apos;re ready, become
+            a Founding Member and be guided through the whole Bible in a year,
+            starting on your Day 1.
           </p>
         </div>
 

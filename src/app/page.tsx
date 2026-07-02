@@ -12,13 +12,13 @@ import { studyTips as tips } from "@/lib/studyTips";
 const freeFeatures = [
   {
     icon: "🙏",
-    title: "A prayer every day",
+    title: "A prayer with each issue",
     body: "Short, honest, ready to pray. No performance, no pretending — just real words for a real day.",
   },
   {
     icon: "🌍",
     title: "Good News briefing",
-    body: "Three uplifting, real stories each day — proof that even when the world feels heavy, good is still happening.",
+    body: "Three uplifting, real stories every issue — proof that even when the world feels heavy, good is still happening.",
   },
   {
     icon: "🤝",

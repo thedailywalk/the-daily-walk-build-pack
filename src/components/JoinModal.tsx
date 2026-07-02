@@ -133,11 +133,11 @@ export default function JoinModal() {
         </div>
 
         <div className="jmd-body">
-          <div className="jmd-stats"><span><b>DAILY</b> DEVOTIONAL</span><span className="sep">·</span><span><b>5 MIN</b> READ</span><span className="sep">·</span><span><b>FREE</b> ALWAYS</span></div>
-          <p className="jmd-eyebrow"><span className="jmd-dot" /> Free every morning — before the world gets loud</p>
-          <h2 className="jmd-headline">A few quiet minutes <span className="g">with God.</span> Every morning.</h2>
+          <div className="jmd-stats"><span><b>3× A WEEK</b> DEVOTIONAL</span><span className="sep">·</span><span><b>2 MIN</b> READ</span><span className="sep">·</span><span><b>FREE</b> ALWAYS</span></div>
+          <p className="jmd-eyebrow"><span className="jmd-dot" /> Free three mornings a week — before the world gets loud</p>
+          <h2 className="jmd-headline">A few quiet minutes <span className="g">with God.</span> Mon · Wed · Fri.</h2>
           <p className="jmd-sub">
-            Five honest minutes in His Word each morning quietly change the other twenty-three hours. Ephesians
+            A few honest minutes in His Word quietly change the other twenty-three hours. Ephesians
             calls it putting on your armor — and the Word is the one weapon you fight with. Start your day already
             armed. Free, forever.
           </p>
@@ -148,7 +148,7 @@ export default function JoinModal() {
           <SignupForm buttonLabel="Join free →" />
 
           <ul className="jmd-list">
-            <li><span className="em" aria-hidden="true">📖</span><span><b>Hear God in His Word every morning</b> — a 5-minute devotional</span></li>
+            <li><span className="em" aria-hidden="true">📖</span><span><b>Hear God in His Word</b> — a short devotional, Mon · Wed · Fri</span></li>
             <li><span className="em" aria-hidden="true">🙏</span><span><b>Learn to talk and listen to God</b> — and notice when He&apos;s speaking</span></li>
             <li><span className="em" aria-hidden="true">🌅</span><span><b>Start every day walking with God</b> — not just reading about Him</span></li>
             <li><span className="em" aria-hidden="true">🌱</span><span><b>Build a real relationship with Jesus</b> — small steps that become a lifelong walk</span></li>

@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SignupForm from "@/components/SignupForm";
+import PricingCards from "@/components/PricingCards";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Subscribe — Start free",
   description:
-    "Join The Daily Walk free. A short devotional, a real prayer, and good news from around the world — every morning at 6:30 AM PT.",
+    "Join The Daily Walk free — the devotional, a real prayer, and good news, three mornings a week. Or become a Founding Member for $5.99/mo and get everything.",
 };
 
 const included = [
@@ -67,6 +68,19 @@ export default function SubscribePage() {
             </a>
           </p>
         ) : null}
+      </div>
+
+      {/* Full plan options — pick Free or go all-in as a Founding Member */}
+      <div className="wrap" style={{ maxWidth: 940, marginTop: 40 }}>
+        <div className="sec-tag">Or go all-in</div>
+        <h2 className="h center" style={{ marginBottom: 6 }}>
+          Choose your plan
+        </h2>
+        <p className="sub" style={{ marginTop: 0 }}>
+          Start free three mornings a week — or become a Founding Member and get
+          everything, every day, at a rate locked in for life.
+        </p>
+        <PricingCards />
       </div>
     </section>
   );

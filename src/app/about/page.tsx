@@ -62,14 +62,14 @@ export default function AboutPage() {
 
         <h2>The two rhythms</h2>
         <p>
-          Everything runs on two rhythms. The <strong>daily newsletter</strong>{" "}
-          goes out to everyone each morning — a short devotional, one honest
-          prayer, three Good News stories, the Wednesday Pastor&apos;s Take, and
-          the Sunday Rest &amp; Reflect. The{" "}
-          <strong>Bible-in-a-Year journey</strong> is personal and guided: it
-          starts on your Day 1 and walks you through Scripture beginning with
-          Jesus, with a plain-English breakdown, real-life application, a
-          reflection question, and audio for every day.
+          Everything runs on two rhythms. The <strong>free newsletter</strong>{" "}
+          goes out three mornings a week — Monday, Wednesday &amp; Friday — with a
+          short devotional, one honest prayer, three Good News stories, and the
+          Wednesday Pastor&apos;s Take. The{" "}
+          <strong>Bible-in-a-Year journey</strong> (for Founding Members) is
+          personal and guided: it starts on your Day 1 and walks you through
+          Scripture beginning with Jesus, with a plain-English breakdown,
+          real-life application, a reflection question, and audio for every day.
         </p>
 
         <h2>Who&apos;s behind it</h2>
@@ -80,10 +80,10 @@ export default function AboutPage() {
           free for everyone, because no one should have to pay to belong.
         </p>
 
-        <h2>Start tomorrow morning</h2>
+        <h2>Start this week</h2>
         <p>
-          Join free and get your first devotional in your inbox tomorrow at 6:30
-          AM PT.
+          Join free and get your first devotional on the next send morning — Mon,
+          Wed, or Fri — at 6:30 AM PT.
         </p>
         <SignupForm />
         </div>

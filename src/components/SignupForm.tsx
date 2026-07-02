@@ -31,7 +31,7 @@ export default function SignupForm({
         setStatus("success");
         setMessage(
           data.message ??
-            "🎉 You're in! Your first devotional lands tomorrow at 6:30 AM PT."
+            "🎉 You're in! Your first devotional lands on our next send morning (Mon · Wed · Fri) at 6:30 AM PT."
         );
       } else {
         setStatus("error");

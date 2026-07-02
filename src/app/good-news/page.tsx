@@ -20,9 +20,9 @@ export default async function GoodNewsPage() {
           <div className="sec-tag">Coming soon</div>
           <h1 className="h">The full reading room is on its way</h1>
           <p className="sub">
-            Your daily Good News briefing is already in every issue. The full
+            Your Good News briefing is already in every issue. The full
             reading room — dozens of uplifting, sourced stories in one calm place
-            — is coming soon. In the meantime, the daily devotional and prayer
+            — is coming soon. In the meantime, the devotional and prayer
             wall are here for you. 🙏
           </p>
           <div style={{ textAlign: "center", marginTop: 18 }}>
