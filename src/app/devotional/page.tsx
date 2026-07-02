@@ -1,17 +1,27 @@
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 import { getLiveDevotional, prettyDate } from "@/lib/devotionals";
 import { renderDevotionalHtml } from "@/lib/devotionalHtml";
+import { getDailyGoodNews } from "@/lib/goodNews";
+import { getUser, supabaseConfigured } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
   title: "Today's Devotional",
   description:
     "A daily guide for walking with God in real life — today's devotional from The Daily Walk.",
+  robots: { index: false },
 };
 
-// Re-render through the day so the right date's issue goes live automatically.
-export const revalidate = 600;
+export const dynamic = "force-dynamic";
 
 export default async function DevotionalPage() {
+  // Today's devotional is for members/subscribers now — read it in your inbox,
+  // or sign in to read it on the site. Signed-out visitors are sent to log in.
+  if (supabaseConfigured) {
+    const user = await getUser();
+    if (!user) redirect("/login?next=/devotional");
+  }
+
   const dev = await getLiveDevotional();
 
   if (!dev) {
@@ -32,12 +42,14 @@ export default async function DevotionalPage() {
     );
   }
 
+  const goodNews = await getDailyGoodNews(3);
+
   return (
     <section className="dev-reader">
       <div
         className="dev-issue-frame"
         // Server-rendered, escaped, brand-scoped markup (see renderDevotionalHtml).
-        dangerouslySetInnerHTML={{ __html: renderDevotionalHtml(dev) }}
+        dangerouslySetInnerHTML={{ __html: renderDevotionalHtml(dev, goodNews) }}
       />
       <p className="dev-reader-note">
         Walking with God in real life · {prettyDate(dev.date)}

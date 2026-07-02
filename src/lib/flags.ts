@@ -29,7 +29,7 @@ export const GOOD_NEWS_ROOM_ENABLED = false;
  * page, the "Pricing" nav + footer links, and the homepage pricing section).
  * Turned OFF until payments are set up. Flip to `true` to show pricing again.
  */
-export const PRICING_ENABLED = false;
+export const PRICING_ENABLED = true;
 
 /**
  * DEVOTIONAL_AUTO_PUBLISH — when ON, the daily cron automatically publishes that
