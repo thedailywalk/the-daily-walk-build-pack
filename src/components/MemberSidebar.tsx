@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import ThemeToggle from "@/components/ThemeToggle";
 
 const stroke = (path: React.ReactNode) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -78,7 +77,6 @@ export default function MemberSidebar({ tier, name }: { tier: string; name: stri
       </nav>
 
       <div className="m-aside-foot">
-        <ThemeToggle />
         <Link href="/portal/settings" className={`m-link${isOn("/portal/settings") ? " is-on" : ""}`}>
           <span className="m-ico">{I.user}</span>
           <span className="m-link-text">

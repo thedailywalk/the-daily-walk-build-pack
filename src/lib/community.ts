@@ -561,6 +561,30 @@ export async function weeklyActivity(userId: string): Promise<WeeklyActivity> {
   }
 }
 
+/**
+ * This week's check-in pattern as 7 flags, Monday → Sunday (Pacific). Powers the
+ * "This Week" rhythm chart on the dashboard from real attendance.
+ */
+export async function weeklyCheckinPattern(userId: string): Promise<boolean[]> {
+  const week = Array.from({ length: 7 }, () => false);
+  if (!supabaseConfigured) return week;
+  try {
+    const supabase = await createClient();
+    const start = weekStartPT();
+    const days = Array.from({ length: 7 }, (_, i) => addDaysStr(start, i));
+    const { data } = await supabase
+      .from("member_checkins")
+      .select("day")
+      .eq("user_id", userId)
+      .gte("day", start)
+      .lte("day", days[6]);
+    const set = new Set((data ?? []).map((r) => r.day as string));
+    return days.map((d) => set.has(d));
+  } catch {
+    return week;
+  }
+}
+
 /** Post a member's own encouragement/praise to the wall. */
 export async function shareToWall(userId: string, name: string, text: string): Promise<void> {
   const clean = text.trim().slice(0, 280);

@@ -6243,27 +6243,10 @@ hr.div {
 /* MEMBER PORTAL — warm faith "home base" (day + night modes)    */
 /* Scoped under .member-shell; public + admin untouched.         */
 /* ============================================================ */
-.member-shell {
-  --m-bg: #faf7f1;
-  --m-surface: #ffffff;
-  --m-surface-2: #fbf6ec;
-  --m-border: #ece3d3;
-  --m-text: #24282e;
-  --m-dim: #59616e;
-  --m-muted: #8a8f99;
-  --m-navy: #1f3a5f;
-  --m-gold: #c9a24b;
-  --m-gold-deep: #b8902e;
-
-  display: grid;
-  grid-template-columns: 252px minmax(0, 1fr);
-  min-height: 100vh;
-  background: var(--m-bg);
-  color: var(--m-text);
-  font-family: var(--sans);
-  -webkit-font-smoothing: antialiased;
-}
+.member-shell,
 .member-shell[data-theme="night"] {
+  /* The Inner Circle look is the one and only portal theme now: an elevated,
+     polished dark canvas. Defined on the base so it can never render light. */
   --m-bg: #0b1424;
   --m-surface: rgba(20, 33, 56, 0.66);
   --m-surface-2: rgba(13, 24, 42, 0.5);
@@ -6275,9 +6258,13 @@ hr.div {
   --m-gold: #d9b15c;
   --m-gold-deep: #e3c074;
 }
-
-/* ===== Inner Circle (night) — elevated dark theme, the default look ===== */
-.member-shell[data-theme="night"] {
+.member-shell {
+  display: grid;
+  grid-template-columns: 252px minmax(0, 1fr);
+  min-height: 100vh;
+  color: var(--m-text);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
   background:
     radial-gradient(1100px 720px at 85% -12%, rgba(70, 110, 170, 0.22), transparent 60%),
     radial-gradient(900px 620px at 2% 112%, rgba(40, 70, 120, 0.18), transparent 60%),
@@ -6377,9 +6364,12 @@ hr.div {
   color: var(--m-navy);
 }
 .m-brand-tag {
-  font-size: 11px;
-  color: var(--m-muted);
-  letter-spacing: 0.4px;
+  font-size: 9.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--m-gold-deep);
+  letter-spacing: 2.2px;
+  margin-top: 2px;
 }
 .m-nav {
   display: flex;
