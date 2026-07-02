@@ -60,29 +60,33 @@ async function buildEditions(days: number): Promise<{
   const current = new Map<string, string>();
 
   for (const date of dates) {
-    // Free daily
+    // Free daily — skip locked (Ready) issues so they stop getting suggestions.
     {
       const existing = await adminGetByDate(date);
-      const data: DevotionalData = existing?.data ?? fullDevotionalFor(date);
-      const fields: Record<string, string> = {};
-      for (const f of fieldsFor("free")) {
-        const v = String((data as unknown as Record<string, unknown>)[f] ?? "");
-        fields[f] = v;
-        current.set(`free:${date}:${f}`, v);
+      if (existing?.status !== "ready") {
+        const data: DevotionalData = existing?.data ?? fullDevotionalFor(date);
+        const fields: Record<string, string> = {};
+        for (const f of fieldsFor("free")) {
+          const v = String((data as unknown as Record<string, unknown>)[f] ?? "");
+          fields[f] = v;
+          current.set(`free:${date}:${f}`, v);
+        }
+        payload.push({ publication: "free", issueDate: date, weekday: weekdayLabel(date), fields });
       }
-      payload.push({ publication: "free", issueDate: date, weekday: weekdayLabel(date), fields });
     }
-    // Premium
+    // Premium — skip locked (Ready) issues too.
     {
       const existing = await premiumGetByDate(date);
-      const data: PremiumData = existing?.data ?? fullPremiumFor(date);
-      const fields: Record<string, string> = {};
-      for (const f of fieldsFor("premium")) {
-        const v = String((data as unknown as Record<string, unknown>)[f] ?? "");
-        fields[f] = v;
-        current.set(`premium:${date}:${f}`, v);
+      if (existing?.status !== "ready") {
+        const data: PremiumData = existing?.data ?? fullPremiumFor(date);
+        const fields: Record<string, string> = {};
+        for (const f of fieldsFor("premium")) {
+          const v = String((data as unknown as Record<string, unknown>)[f] ?? "");
+          fields[f] = v;
+          current.set(`premium:${date}:${f}`, v);
+        }
+        payload.push({ publication: "premium", issueDate: date, weekday: weekdayLabel(date), fields });
       }
-      payload.push({ publication: "premium", issueDate: date, weekday: weekdayLabel(date), fields });
     }
   }
   return { payload, current };

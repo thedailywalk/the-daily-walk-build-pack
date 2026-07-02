@@ -33,6 +33,7 @@ import {
   rejectNewsletterSuggestionAction,
   regenerateNewsletterSuggestionsAction,
   prepareWeekAheadAction,
+  lockNewsletterIssueAction,
 } from "./actions";
 
 export const metadata: Metadata = { title: "Newsletters", robots: { index: false } };
@@ -110,6 +111,18 @@ function NlBatchCard({ b, from }: { b: NlBatch; from: string }) {
         <span className="wb-batch-count">
           {b.suggestions.length} suggested update{b.suggestions.length === 1 ? "" : "s"}
         </span>
+        <form action={lockNewsletterIssueAction} style={{ marginLeft: "auto" }}>
+          <input type="hidden" name="publication" value={b.publication} />
+          <input type="hidden" name="date" value={b.issueDate} />
+          <input type="hidden" name="from" value={from} />
+          <button
+            type="submit"
+            className="wb-btn wb-btn-ghost"
+            title="Mark this issue Ready and stop it from getting new suggested edits"
+          >
+            🔒 Lock this issue
+          </button>
+        </form>
       </div>
       {b.suggestions.map((s) => (
         <div key={s.id} className="wb-sug">

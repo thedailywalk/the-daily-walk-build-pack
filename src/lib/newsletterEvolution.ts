@@ -260,6 +260,40 @@ export async function rejectNewsletterSuggestion(id: string): Promise<void> {
   }
 }
 
+/** Clear any still-pending suggestions for one issue (used when it's locked). */
+export async function clearPendingForIssue(publication: Publication, date: string): Promise<void> {
+  if (!adminDbConfigured) return;
+  try {
+    const supabase = createServiceClient();
+    await supabase
+      .from("newsletter_suggestions")
+      .delete()
+      .eq("publication", publication)
+      .eq("issue_date", date)
+      .eq("status", "pending");
+  } catch {
+    /* ignore */
+  }
+}
+
+/**
+ * "Lock" an issue: mark it Ready (finalized) so the cumulative engine stops
+ * proposing edits to it, and clear anything still pending for it. The newsletter
+ * equivalent of locking a workbook day.
+ */
+export async function lockNewsletterIssue(publication: Publication, date: string): Promise<void> {
+  if (publication === "premium") {
+    const ex = await premiumGetByDate(date);
+    const data: PremiumData = ex?.data ?? fullPremiumFor(date);
+    await premiumUpsert(date, "ready", ex?.title || data.devHeading || "", data);
+  } else {
+    const ex = await adminGetByDate(date);
+    const data: DevotionalData = ex?.data ?? fullDevotionalFor(date);
+    await adminUpsert(date, "ready", ex?.title || data.readingHeading || "", data);
+  }
+  await clearPendingForIssue(publication, date);
+}
+
 /** Pending suggestions grouped by issue (publication + date) for the review UI. */
 export type NewsletterBatch = {
   key: string;
