@@ -5308,6 +5308,14 @@ hr.div {
 .wl-inspo-title { font-family: var(--sans); font-weight: 700; font-size: 13.5px; color: var(--navy); margin-bottom: 6px; }
 .wl-inspo-draft { white-space: pre-wrap; font-family: inherit; font-size: 12.5px; line-height: 1.55; color: #3a4a40; margin: 0 0 8px; }
 .wl-inspo-body { font-size: 12.5px; color: var(--grey); line-height: 1.5; margin: 0 0 8px; }
+.lib-sug-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 14px;
+}
+.lib-sug-links .lib-wb-btn { margin-top: 0; }
 .lib-wb-btn {
   display: inline-block;
   margin-top: 14px;

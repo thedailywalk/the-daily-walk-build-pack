@@ -290,10 +290,25 @@ function LibCard({ item }: { item: LibraryItem }) {
           <pre>{item.wellnessDraft}</pre>
         </details>
       )}
-      {item.wbBatchId && (
-        <Link href={`/admin/workbook#batch-${item.wbBatchId}`} className="lib-wb-btn">
-          📖 See suggested workbook edits from this →
-        </Link>
+      {(item.destinations?.includes("workbook") ||
+        item.destinations?.includes("newsletter")) && (
+        <div className="lib-sug-links">
+          {item.destinations?.includes("workbook") && (
+            <Link href="/admin/workbook#review" className="lib-wb-btn">
+              📖 See suggested workbook edits from this →
+            </Link>
+          )}
+          {item.destinations?.includes("newsletter") && (
+            <>
+              <Link href="/admin/newsletters#free-suggestions" className="lib-wb-btn">
+                📿 See suggested free daily edits from this →
+              </Link>
+              <Link href="/admin/newsletters#premium-suggestions" className="lib-wb-btn">
+                ✦ See suggested premium edits from this →
+              </Link>
+            </>
+          )}
+        </div>
       )}
     </div>
   );
