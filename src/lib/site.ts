@@ -13,6 +13,11 @@ export const site = {
   url: process.env.APP_URL ?? "https://thedailywalknewsletter.com",
   replyTo: "thedailywalknewsletter@gmail.com",
   owner: "Lulu Jimenez",
+  // Physical mailing address — legally REQUIRED in every marketing email (CAN-SPAM).
+  // A USPS P.O. Box is fine. Shown in every newsletter footer; hidden if blank.
+  // Set here directly, or via NEXT_PUBLIC_MAILING_ADDRESS.
+  // e.g. "The Daily Walk · PO Box 1234 · Yourtown, CA 90000"
+  mailingAddress: process.env.NEXT_PUBLIC_MAILING_ADDRESS ?? "",
   // Beehiiv-hosted destinations (filled in once the publication exists).
   // Falls back to the on-site subscribe form / pricing page when unset.
   beehiiv: {

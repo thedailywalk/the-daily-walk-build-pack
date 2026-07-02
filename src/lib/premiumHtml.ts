@@ -221,6 +221,7 @@ export function renderPremiumHtml(issue: PremiumIssue): string {
       Deeper Bible study &amp; discipleship for Founding Members.<br>
       ${esc(prettyDate(issue.date))}<br><br>
       You're receiving this as a Founding Member of The Daily Walk.<br>
+      ${site.mailingAddress ? `${esc(site.mailingAddress)}<br>` : ""}
       <a href="${site.url}/account" style="color:#C9A24B;text-decoration:none;">Manage membership</a> · <a href="#" style="color:#C9A24B;text-decoration:none;">Unsubscribe</a>
     </div>
   </div>

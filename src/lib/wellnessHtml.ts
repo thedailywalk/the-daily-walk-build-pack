@@ -167,6 +167,7 @@ export function renderWellnessHtml(issue: WellnessIssue): string {
       A Founding-Member bonus from The Daily Walk · Mon · Wed · Fri.<br>
       ${esc(prettyDate(issue.date))}<br><br>
       You're receiving this as a Founding Member of The Daily Walk.<br>
+      ${site.mailingAddress ? `${esc(site.mailingAddress)}<br>` : ""}
       <a href="${site.url}/account" style="color:#D8C58A;text-decoration:none;">Manage membership</a> · <a href="#" style="color:#D8C58A;text-decoration:none;">Unsubscribe</a>
     </div>
   </div>
