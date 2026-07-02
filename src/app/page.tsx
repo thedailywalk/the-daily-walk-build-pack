@@ -65,10 +65,11 @@ export default async function HomePage() {
             <div className="eyebrow">A Christian devotional newsletter</div>
             <h1>Walk with God in real life.</h1>
             <p className="lead">
-              Three mornings a week: a short, honest devotional, a real prayer,
-              and good news from around the world — free. And when you&apos;re
-              ready, be guided through the whole Bible in a year, starting on
-              your Day 1.
+              You&apos;ll never grow close to someone you never talk to — not
+              even God. His Word is the one weapon He gave you: wisdom when
+              you&apos;re lost, strength when you&apos;re empty, an anchor when
+              you&apos;ve forgotten who you are. Ten honest minutes a morning,
+              and nothing meets you unarmed.
             </p>
             <SignupForm variant="hero" />
             <div className="reassure">
@@ -89,26 +90,15 @@ export default async function HomePage() {
               It does — most of us just never opened it.
             </p>
             <p>
-              You&apos;ll never grow close to someone you never actually talk to.
-              Not your closest friend, not the person you love most — and not God.
-            </p>
-            <p>
               His Word is where you learn how to live, how to heal, and how to
-              become the person He made you to be. Wisdom when you&apos;re lost,
-              strength when you&apos;re empty, an anchor when you&apos;ve forgotten
-              who you are — it was never a box to check.
+              become the person He made you to be. There are even battles no one
+              else can see — and it&apos;s how you learn to fight them, and win.
             </p>
             <p>
-              There are battles no one else can see; the Word is how you learn to
-              fight them — and win. The armor of God has one weapon:{" "}
-              <em>His Word.</em> Start your morning with it, and nothing meets you
-              unarmed.
-            </p>
-            <p>
-              A little, every day, adds up. Ten honest minutes each morning for a
-              year, and you&apos;ll know God in a way that quietly changes
-              everything. You don&apos;t have to have it figured out. You just have
-              to open it.
+              A little, every day, adds up. Give it ten honest minutes each
+              morning for a year, and you&apos;ll know God in a way that quietly
+              changes everything. You don&apos;t have to have it figured out. You
+              just have to open it.
             </p>
           </div>
           <div className="manifesto-cta">

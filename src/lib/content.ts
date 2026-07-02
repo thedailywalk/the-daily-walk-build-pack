@@ -6,7 +6,7 @@
 export const hero = {
   eyebrow: "A daily devotional newsletter",
   title: "Walk with God in real life.",
-  lead: "Every morning: a short, honest devotional, a real prayer, and good news from around the world — free. And when you're ready, be guided through the whole Bible in a year, starting on your Day 1.",
+  lead: "You'll never grow close to someone you never talk to — not even God. His Word is the one weapon He gave you: wisdom when you're lost, strength when you're empty, an anchor when you've forgotten who you are. Ten honest minutes a morning, and nothing meets you unarmed.",
   reassure: "Free forever · No card required · Welcoming wherever you are on the journey.",
 };
 
