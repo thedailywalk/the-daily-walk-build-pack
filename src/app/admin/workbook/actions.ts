@@ -130,6 +130,15 @@ export async function rejectSuggestionAction(formData: FormData) {
   redirect(day ? `/admin/workbook/${day}` : "/admin/workbook");
 }
 
+/** Rebuild the pending workbook queue from your latest library inspiration. */
+export async function regenerateWorkbookSuggestionsAction() {
+  await requireAdmin();
+  const { regenerateWorkbookSuggestions } = await import("@/lib/cumulativeSuggestions");
+  await regenerateWorkbookSuggestions();
+  revalidatePath("/admin/workbook");
+  redirect("/admin/workbook#review");
+}
+
 export async function setStatusAction(formData: FormData) {
   await requireAdmin();
   const day = Number(str(formData, "day"));

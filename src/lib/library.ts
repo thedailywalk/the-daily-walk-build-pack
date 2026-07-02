@@ -215,6 +215,31 @@ export async function setLibraryItemWellnessDraft(id: string, draft: string): Pr
   }
 }
 
+/**
+ * Recent inspiration routed to a given destination ("workbook" | "newsletter" |
+ * "wellness"), newest first. Skips items saved as Voices. Powers the cumulative
+ * suggestion engines, which re-read the latest window every time you add.
+ */
+export async function listInspirationForDestination(
+  dest: string,
+  limit = 12
+): Promise<LibraryItem[]> {
+  if (!adminDbConfigured) return [];
+  try {
+    const supabase = createServiceClient();
+    const { data } = await supabase
+      .from("library_items")
+      .select("*")
+      .contains("destinations", [dest])
+      .eq("is_voice", false)
+      .order("created_at", { ascending: false })
+      .limit(limit);
+    return (data ?? []).map(toItem);
+  } catch {
+    return [];
+  }
+}
+
 /** Wellness-routed inspiration (newest first) — shown in the Wellness Guide admin. */
 export async function listWellnessInspiration(limit = 20): Promise<LibraryItem[]> {
   if (!adminDbConfigured) return [];

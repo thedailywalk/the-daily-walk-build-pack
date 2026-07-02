@@ -4,12 +4,21 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-type Result = { ok?: boolean; batchId?: string | null; wbmode?: string | null; wellness?: boolean };
+type Result = {
+  ok?: boolean;
+  batchId?: string | null;
+  wbmode?: string | null;
+  wbCount?: number;
+  nlCount?: number;
+  nlmode?: string | null;
+  wellness?: boolean;
+};
 
 /**
  * Runs right after a Library save: kicks off the background AI generation
- * (workbook suggestions + wellness draft) so the save itself stays instant.
- * Shows a gentle progress banner, then refreshes to reveal the results.
+ * (cumulative workbook + newsletter suggestions + wellness draft) so the save
+ * itself stays instant. Shows a gentle progress banner, then refreshes to
+ * reveal the results.
  */
 export default function LibraryAutoGen({ id }: { id: string }) {
   const [status, setStatus] = useState<"working" | "done" | "error">("working");
@@ -60,17 +69,22 @@ export default function LibraryAutoGen({ id }: { id: string }) {
   }
   return (
     <div className="adm-saved">
-      Saved ✓
-      {res.wbmode ? <> — workbook edits {res.wbmode === "ai" ? "✦ written by AI" : "(quick draft)"}</> : null}
+      Saved ✓ — suggestions rebuilt from everything you&apos;ve added.
       {res.wellness ? " · wellness draft ready 🕊" : null}
-      {res.batchId ? (
-        <>
-          {" "}
-          <Link href={`/admin/workbook#batch-${res.batchId}`} className="adm-inline-link">
-            See the suggested workbook edits →
+      <div className="adm-saved-links">
+        {res.batchId ? (
+          <Link href={`/admin/workbook#review`} className="adm-inline-link">
+            See suggested workbook edits
+            {typeof res.wbCount === "number" ? ` (${res.wbCount})` : ""}
+            {res.wbmode === "ai" ? " ✦" : ""} →
           </Link>
-        </>
-      ) : null}
+        ) : null}
+        {res.nlCount ? (
+          <Link href={`/admin/newsletters#suggestions`} className="adm-inline-link">
+            See suggested newsletter updates ({res.nlCount}) ✦ →
+          </Link>
+        ) : null}
+      </div>
     </div>
   );
 }

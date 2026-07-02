@@ -21,6 +21,17 @@ import { wellnessGetByDate, fullWellnessFor, type WellnessIssue } from "@/lib/we
 import { renderDevotionalHtml } from "@/lib/devotionalHtml";
 import { renderPremiumHtml } from "@/lib/premiumHtml";
 import { renderWellnessHtml } from "@/lib/wellnessHtml";
+import {
+  pendingNewsletterBatches,
+  appliedNewsletterSuggestions,
+  FIELD_LABEL as NL_FIELD_LABEL,
+  PUBLICATION_LABEL,
+} from "@/lib/newsletterEvolution";
+import {
+  approveNewsletterSuggestionAction,
+  rejectNewsletterSuggestionAction,
+  regenerateNewsletterSuggestionsAction,
+} from "./actions";
 
 export const metadata: Metadata = { title: "Newsletters", robots: { index: false } };
 export const dynamic = "force-dynamic";
@@ -79,6 +90,107 @@ export default async function NewslettersPage({
   );
 }
 
+/* --------------------- suggested updates (review) ------------------------ */
+function NlSnippet({ text, n = 380 }: { text: string; n?: number }) {
+  const t = (text ?? "").trim();
+  const short = t.length > n ? t.slice(0, n).replace(/\s+\S*$/, "") + "…" : t;
+  return <p className="wb-snippet">{short}</p>;
+}
+
+async function SuggestionsReview() {
+  const [batches, applied] = await Promise.all([
+    pendingNewsletterBatches(),
+    appliedNewsletterSuggestions(12),
+  ]);
+
+  return (
+    <div id="suggestions" style={{ scrollMarginTop: 90, marginBottom: 26 }}>
+      <div className="adm-head" style={{ alignItems: "flex-end" }}>
+        <div>
+          <h2 className="adm-h2" style={{ margin: 0 }}>Suggested updates · the week ahead</h2>
+          <p className="adm-sub" style={{ marginTop: 4 }}>
+            Built from your Content Library (items routed to <em>Newsletter</em>). Each
+            time you add inspiration, this rebuilds into the most up-to-date set for
+            the next 7 days of the free daily and premium editions. Approving writes
+            the revision straight into that issue. Scripture is never changed.
+          </p>
+        </div>
+        <form action={regenerateNewsletterSuggestionsAction}>
+          <button className="btn btn-ghost" type="submit">↻ Rebuild now</button>
+        </form>
+      </div>
+
+      {batches.length === 0 ? (
+        <p className="adm-sub">
+          Nothing waiting. <Link href="/admin/library?tab=add">Add inspiration to your Content Library</Link> and
+          route it to <em>Newsletter</em> — it&apos;ll suggest how to make the week ahead read fresher.
+        </p>
+      ) : (
+        batches.map((b) => (
+          <div key={b.key} className="wb-batch">
+            <div className="wb-batch-head">
+              <span className={`nl-dot nl-dot-${b.publication}`} aria-hidden="true" />
+              <span className="wb-src-type">{PUBLICATION_LABEL[b.publication]}</span>
+              <strong>{weekdayLabel(b.issueDate)}, {prettyDate(b.issueDate)}</strong>
+              <span className="wb-batch-count">
+                {b.suggestions.length} suggested update{b.suggestions.length === 1 ? "" : "s"}
+              </span>
+            </div>
+            {b.suggestions.map((s) => (
+              <div key={s.id} className="wb-sug">
+                <div className="wb-sug-top">
+                  <span className="wb-sug-field">→ {NL_FIELD_LABEL[s.targetField] ?? s.targetField}</span>
+                  <span className="wb-themes">{s.themes.map((t) => <em key={t}>{t}</em>)}</span>
+                </div>
+                <p className="wb-why"><span className="wb-tag">Why it fits</span> {s.whyFits}</p>
+                <div className="wb-proposed">
+                  <span className="wb-tag">Proposed revision</span>
+                  <NlSnippet text={s.proposedText} />
+                </div>
+                {s.currentText && (
+                  <details className="wb-current">
+                    <summary>Compare with the current text</summary>
+                    <NlSnippet text={s.currentText} n={500} />
+                  </details>
+                )}
+                <p className="wb-impact"><span className="wb-tag">Impact</span> {s.impact}</p>
+                <div className="wb-sug-actions">
+                  <form action={approveNewsletterSuggestionAction}>
+                    <input type="hidden" name="id" value={s.id} />
+                    <button className="wb-btn wb-btn-yes" type="submit">Approve &amp; apply</button>
+                  </form>
+                  <form action={rejectNewsletterSuggestionAction}>
+                    <input type="hidden" name="id" value={s.id} />
+                    <button className="wb-btn wb-btn-no" type="submit">Dismiss</button>
+                  </form>
+                  <Link href={`/admin/newsletters?preview=${b.publication}&date=${b.issueDate}`} className="wb-btn wb-btn-ghost">
+                    Preview issue →
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        ))
+      )}
+
+      {applied.length > 0 && (
+        <details className="wb-applied-wrap" style={{ marginTop: 14 }}>
+          <summary className="adm-sub">Recently applied ({applied.length})</summary>
+          <div className="wb-archive">
+            {applied.map((s) => (
+              <div key={s.id} className="wb-arch-row">
+                <span className="wb-day-n">{PUBLICATION_LABEL[s.publication]}</span>
+                <span className="wb-arch-field">{NL_FIELD_LABEL[s.targetField] ?? s.targetField}</span>
+                <span className="wb-arch-src">{prettyDate(s.issueDate)}</span>
+              </div>
+            ))}
+          </div>
+        </details>
+      )}
+    </div>
+  );
+}
+
 /* --------------------------------- badges -------------------------------- */
 function TierBadge({ tier }: { tier: "Free" | "Premium" }) {
   return <span className={`nl-tier nl-tier-${tier.toLowerCase()}`}>{tier}</span>;
@@ -106,6 +218,8 @@ async function ListView(pubFilter?: string) {
 
   return (
     <div>
+      {await SuggestionsReview()}
+
       <div className="nl-bar">
         <div className="nl-filters">
           {filters.map((f) => (

@@ -335,6 +335,35 @@ export async function insertSuggestions(list: NewSuggestion[]): Promise<number> 
   }
 }
 
+/** Delete all still-pending suggestions — used before a cumulative regeneration. */
+export async function deletePendingSuggestions(): Promise<void> {
+  if (!adminDbConfigured) return;
+  try {
+    const supabase = createServiceClient();
+    await supabase.from("workbook_suggestions").delete().eq("status", "pending");
+  } catch {
+    /* ignore */
+  }
+}
+
+/** "day:field" pairs the owner has already rejected — never re-surface these. */
+export async function rejectedFieldPairs(): Promise<Set<string>> {
+  const set = new Set<string>();
+  const rejected = await listSuggestions({ status: "rejected", limit: 500 });
+  for (const s of rejected) set.add(`${s.dayIndex}:${s.targetField}`);
+  return set;
+}
+
+/** "day:field" pairs the owner has already approved (an override exists). */
+export async function approvedFieldPairs(): Promise<Set<string>> {
+  const set = new Set<string>();
+  const states = await listDayStates();
+  for (const d of states.values()) {
+    for (const f of Object.keys(d.overrides)) set.add(`${d.dayIndex}:${f}`);
+  }
+  return set;
+}
+
 export async function listSuggestions(opts?: {
   status?: SuggestionStatus;
   dayIndex?: number;

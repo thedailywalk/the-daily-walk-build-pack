@@ -16,6 +16,7 @@ import {
 import {
   approveSuggestionAction,
   rejectSuggestionAction,
+  regenerateWorkbookSuggestionsAction,
 } from "./actions";
 
 export const metadata: Metadata = { title: "Workbook Evolution", robots: { index: false } };
@@ -105,7 +106,17 @@ export default async function WorkbookDashboard({
         )}
 
         {/* Waiting for review */}
-        <h2 className="wb-h2" id="review">New inspiration waiting for review</h2>
+        <div className="wb-review-head">
+          <h2 className="wb-h2" id="review" style={{ margin: 0 }}>Suggested edits waiting for review</h2>
+          <form action={regenerateWorkbookSuggestionsAction}>
+            <button className="btn btn-ghost" type="submit">↻ Rebuild now</button>
+          </form>
+        </div>
+        <p className="adm-sub" style={{ marginTop: 4 }}>
+          One up-to-date set, rebuilt from everything in your Content Library each time you add
+          something — grouped so there are no duplicates. Edits you approve stay; ones you dismiss
+          don&apos;t come back; locked days are never touched.
+        </p>
         {batches.length === 0 ? (
           <p className="adm-sub">
             Nothing waiting. <Link href="/admin/library?tab=add">Add a reel, sermon transcript, or note to your Content Library</Link> and

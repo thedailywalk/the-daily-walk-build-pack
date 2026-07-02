@@ -1,13 +1,10 @@
 import { NextResponse } from "next/server";
-import { randomUUID } from "crypto";
 import { requireAdmin } from "@/lib/adminGuard";
+import { getLibraryItem, setLibraryItemWellnessDraft } from "@/lib/library";
 import {
-  getLibraryItem,
-  setLibraryItemBatch,
-  setLibraryItemWellnessDraft,
-} from "@/lib/library";
-import { analyzeInspiration } from "@/lib/workbookAnalysis";
-import { insertSuggestions, type NewSuggestion } from "@/lib/workbookEvolution";
+  regenerateWorkbookSuggestions,
+  regenerateNewsletterSuggestions,
+} from "@/lib/cumulativeSuggestions";
 import { draftWellnessScience } from "@/lib/wellnessAnalysis";
 
 // AI generation can take 10–20s — keep it off the save path and give it room.
@@ -47,48 +44,12 @@ export async function POST(req: Request) {
 
   let batchId: string | null = null;
   let wbmode: "ai" | "heuristic" | null = null;
+  let wbCount = 0;
+  let nlCount = 0;
+  let nlmode: "ai" | "none" = "none";
   let wellness = false;
 
-  // Workbook suggestions
-  if (dest.includes("workbook") && text.trim().length >= 40) {
-    try {
-      const analysis = await analyzeInspiration({
-        text,
-        sourceLabel: item.title || "Library inspiration",
-        sourceType: item.kind || "note",
-        link: item.url ?? "",
-        maxPlacements: 6,
-      });
-      if (analysis.placements.length) {
-        const bid = randomUUID();
-        const suggestions: NewSuggestion[] = analysis.placements.map((p) => ({
-          dayIndex: p.dayIndex,
-          batchId: bid,
-          sourceLabel: item.title || "Library inspiration",
-          sourceType: item.kind || "note",
-          sourceLink: item.url ?? "",
-          sourceExcerpt: text.slice(0, 4000),
-          themes: p.themes,
-          tone: analysis.tone,
-          techniques: analysis.techniques,
-          targetField: p.targetField,
-          whyFits: p.whyFits,
-          proposedText: p.proposedText,
-          impact: p.impact,
-        }));
-        const n = await insertSuggestions(suggestions);
-        if (n > 0) {
-          batchId = bid;
-          wbmode = analysis.mode;
-          await setLibraryItemBatch(id, bid);
-        }
-      }
-    } catch {
-      /* ignore — leave unprocessed */
-    }
-  }
-
-  // Wellness "Science Behind It" draft
+  // Wellness "Science Behind It" draft — stays per-item (each is a distinct angle).
   if (dest.includes("wellness") && text.trim().length >= 40) {
     try {
       const draft = await draftWellnessScience(text, item.title);
@@ -101,5 +62,36 @@ export async function POST(req: Request) {
     }
   }
 
-  return NextResponse.json({ ok: true, batchId, wbmode, wellness });
+  // Workbook — cumulative: rebuild ONE up-to-date set from all recent inspiration.
+  if (dest.includes("workbook")) {
+    try {
+      const r = await regenerateWorkbookSuggestions();
+      wbCount = r.inserted;
+      wbmode = r.mode;
+      batchId = r.batchId;
+    } catch {
+      /* ignore */
+    }
+  }
+
+  // Newsletter — cumulative: rebuild suggested updates for the week ahead.
+  if (dest.includes("newsletter")) {
+    try {
+      const r = await regenerateNewsletterSuggestions();
+      nlCount = r.inserted;
+      nlmode = r.mode;
+    } catch {
+      /* ignore */
+    }
+  }
+
+  return NextResponse.json({
+    ok: true,
+    batchId,
+    wbmode,
+    wbCount,
+    nlCount,
+    nlmode,
+    wellness,
+  });
 }
