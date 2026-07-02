@@ -8,7 +8,7 @@ export const site = {
   wordmark: "THE DAILY WALK",
   tagline: "Walking with God in real life",
   description:
-    "A daily devotional, a real prayer, and good news from around the world — every morning. Read the Bible in a year, guided. Free to start.",
+    "Three mornings a week: a short, honest devotional, a real prayer, and good news from around the world — free. And when you're ready, be guided through the whole Bible in a year, starting on your Day 1.",
   domain: "thedailywalknewsletter.com",
   url: process.env.APP_URL ?? "https://thedailywalknewsletter.com",
   replyTo: "thedailywalknewsletter@gmail.com",

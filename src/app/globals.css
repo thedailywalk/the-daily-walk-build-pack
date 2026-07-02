@@ -1678,6 +1678,47 @@ a.gncard:hover .gnh {
   margin-left: auto;
   margin-right: auto;
 }
+
+/* "Why open it" — the captivate narrative under the hero */
+.manifesto {
+  background: var(--cream);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.manifesto .h {
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+.manifesto-body {
+  max-width: 680px;
+  margin: 18px auto 0;
+}
+.manifesto-body p {
+  font-size: 18px;
+  line-height: 1.72;
+  color: var(--ink);
+  margin: 0 0 18px;
+}
+.manifesto-body .manifesto-lead {
+  font-size: 21px;
+  line-height: 1.55;
+  color: var(--navy);
+  font-family: var(--serif);
+}
+.manifesto-body em {
+  color: var(--gold-deep);
+  font-style: italic;
+}
+.manifesto-cta {
+  text-align: center;
+  margin-top: 8px;
+}
+@media (max-width: 640px) {
+  .manifesto-body p { font-size: 16.5px; }
+  .manifesto-body .manifesto-lead { font-size: 19px; }
+}
 .pt {
   border: 1px solid var(--line);
   border-radius: 16px;

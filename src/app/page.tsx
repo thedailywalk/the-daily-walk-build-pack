@@ -62,12 +62,13 @@ export default async function HomePage() {
         <div className="wrap">
           <div className="inner">
             <div className="rule" />
-            <div className="eyebrow">A daily devotional newsletter</div>
+            <div className="eyebrow">A Christian devotional newsletter</div>
             <h1>Walk with God in real life.</h1>
             <p className="lead">
-              Every morning: a short, honest devotional, a real prayer, and good
-              news from around the world — free. And when you&apos;re ready, be
-              guided through the whole Bible in a year, starting on your Day 1.
+              Three mornings a week: a short, honest devotional, a real prayer,
+              and good news from around the world — free. And when you&apos;re
+              ready, be guided through the whole Bible in a year, starting on
+              your Day 1.
             </p>
             <SignupForm variant="hero" />
             <div className="reassure">
@@ -77,6 +78,38 @@ export default async function HomePage() {
           </div>
         </div>
       </header>
+
+      {/* WHY OPEN IT — the captivate */}
+      <section className="manifesto">
+        <div className="wrap">
+          <div className="sec-tag">Why open it</div>
+          <h2 className="h">Life doesn&apos;t come with an instruction manual.</h2>
+          <div className="manifesto-body">
+            <p className="manifesto-lead">
+              It does — most of us just never opened it. God didn&apos;t leave you
+              to guess your way through.
+            </p>
+            <p>
+              His Word is where you learn how to live, how to heal, how to make
+              the braver call, how to fight the battles no one else can see — and
+              how to become the person He made you to be. It was never a religious
+              box to check. It&apos;s wisdom when you&apos;re lost, strength when
+              you&apos;re running on empty, an anchor when you&apos;ve forgotten
+              who you are, and healing for the places nothing else has reached.
+              Pick it up, and you stop walking through life blind.
+            </p>
+            <p>
+              Ephesians 6 says to put on the armor of God every day — and the one
+              weapon in it is the <em>sword of the Spirit, the Word of God.</em>{" "}
+              If you do one thing each morning, pick up your sword. Here&apos;s
+              how — and honestly, it doesn&apos;t have to be complicated.
+            </p>
+          </div>
+          <div className="manifesto-cta">
+            <Link href="/subscribe" className="btn btn-gold">Start free →</Link>
+          </div>
+        </div>
+      </section>
 
       {/* HOW IT WORKS — two rhythms */}
       <section id="how">
@@ -91,15 +124,15 @@ export default async function HomePage() {
             {/* FREE — newsletter + its features */}
             <div className="tiercol">
               <div className="rcard">
-                <div className="rk">Every day · Free</div>
+                <div className="rk">Mon · Wed · Fri · Free</div>
                 <h3>The Daily Walk newsletter</h3>
                 <p>
                   A 2-minute devotional, one honest prayer, three uplifting Good
-                  News stories, the Wednesday Pastor&apos;s Take, and a Sunday
-                  Rest &amp; Reflect. Encouragement that meets you in real life.
+                  News stories, and the Wednesday Pastor&apos;s Take — three
+                  mornings a week. Encouragement that meets you in real life.
                 </p>
                 <div className="who">
-                  For anyone who wants daily encouragement, prayer, and hope.
+                  For anyone who wants encouragement, prayer, and hope.
                 </div>
               </div>
               <div className="tierfeats">
