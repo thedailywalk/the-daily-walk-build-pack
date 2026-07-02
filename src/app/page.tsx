@@ -84,25 +84,26 @@ export default async function HomePage() {
       <section className="manifesto">
         <div className="wrap">
           <div className="sec-tag">Why open it</div>
-          <h2 className="h">Life doesn&apos;t come with an instruction manual.</h2>
+          <h2 className="h">
+            Everyone says life doesn&apos;t come with an instruction manual.
+          </h2>
           <div className="manifesto-body">
             <p className="manifesto-lead">
               It does — most of us just never opened it.
             </p>
             <p>
-              His Word is where you learn how to live, how to heal, and how to
-              become the person He made you to be. There are even battles no one
-              else can see — and it&apos;s how you learn to fight them, and win.
-            </p>
-            <p>
-              A little, every day, adds up. Give it ten honest minutes each
-              morning for a year, and you&apos;ll know God in a way that quietly
-              changes everything. You don&apos;t have to have it figured out. You
-              just have to open it.
+              God didn&apos;t leave you to guess your way through. His Word is
+              where you learn how to live, how to heal, how to make the braver
+              call, how to fight the battles no one else can see — and how to
+              become the person He made you to be. It was never a religious box to
+              check. It&apos;s wisdom when you&apos;re lost, strength when
+              you&apos;re running on empty, an anchor when you&apos;ve forgotten
+              who you are, and healing for the places nothing else has reached.
+              Pick it up, and you stop walking through life blind.
             </p>
           </div>
           <div className="manifesto-cta">
-            <Link href="/subscribe" className="btn btn-gold">Start free →</Link>
+            <Link href="/subscribe" className="btn btn-gold">Pick up your sword →</Link>
           </div>
         </div>
       </section>
