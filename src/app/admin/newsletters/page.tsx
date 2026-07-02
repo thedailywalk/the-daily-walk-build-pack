@@ -261,8 +261,10 @@ function TierBadge({ tier }: { tier: "Free" | "Premium" }) {
   return <span className={`nl-tier nl-tier-${tier.toLowerCase()}`}>{tier}</span>;
 }
 function StatusBadge({ status }: { status: Edition["status"] }) {
-  const label = status === "ready" ? "Ready" : status === "draft" ? "Draft" : "Generated";
-  return <span className={`adm-badge adm-badge-${status === "ready" ? "ready" : status === "draft" ? "draft" : "none"}`}>{label}</span>;
+  if (status === "ready")
+    return <span className="adm-badge adm-badge-ready" title="Locked — publishes on its date; no new suggestions">🔒 Ready</span>;
+  const label = status === "draft" ? "Draft" : "Generated";
+  return <span className={`adm-badge adm-badge-${status === "draft" ? "draft" : "none"}`}>{label}</span>;
 }
 
 /* --------------------------------- LIST ---------------------------------- */
@@ -273,6 +275,7 @@ async function ListView(pubFilter?: string) {
     ? (pubFilter as Publication)
     : null;
   const editions = (pub ? all.filter((e) => e.publication === pub) : all).reverse(); // newest first
+  const today = upcomingDates(1)[0];
 
   const filters: { key: string; label: string }[] = [
     { key: "", label: "All" },
@@ -331,6 +334,17 @@ async function ListView(pubFilter?: string) {
             <span className="nl-row-actions">
               <Link href={e.previewHref} className="nl-link">Preview</Link>
               <Link href={e.editHref} className="nl-link nl-link-edit">Edit →</Link>
+              {(e.publication === "free" || e.publication === "premium") &&
+                e.status !== "ready" &&
+                e.date >= today && (
+                  <form action={lockNewsletterIssueAction} className="nl-row-lock">
+                    <input type="hidden" name="publication" value={e.publication} />
+                    <input type="hidden" name="date" value={e.date} />
+                    <button type="submit" className="nl-link" title="Mark Ready & stop new suggestions">
+                      🔒 Lock
+                    </button>
+                  </form>
+                )}
             </span>
           </div>
         ))}

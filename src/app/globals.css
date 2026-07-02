@@ -4880,7 +4880,11 @@ hr.div {
 .nl-dot-wellness { background: #6f9b7e; }
 .nl-row-extra { color: var(--gold-deep); font-weight: 600; font-style: normal; font-size: 12.5px; }
 .nl-row-headline { color: var(--grey); font-weight: 400; font-size: 12.5px; }
-.nl-row-actions { display: flex; gap: 12px; justify-content: flex-end; }
+.nl-row-actions { display: flex; gap: 12px; justify-content: flex-end; align-items: center; }
+.nl-row-lock { display: inline; }
+.nl-row-lock button.nl-link {
+  background: none; border: 0; cursor: pointer; padding: 0; font: inherit;
+}
 .nl-link { font-family: var(--sans); font-size: 12.5px; font-weight: 700; color: var(--gold-deep); text-decoration: none; }
 .nl-link:hover { text-decoration: underline; }
 .nl-link-edit { color: var(--navy); }

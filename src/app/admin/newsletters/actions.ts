@@ -14,10 +14,10 @@ import { adminEnsureWeek } from "@/lib/devotionals";
 import { premiumEnsureWeek } from "@/lib/premium";
 import { wellnessEnsureWeek } from "@/lib/wellness";
 
-/** Back to the review, at the section (#free-suggestions / #premium-suggestions) you were in. */
+/** Back to where you were: a review section (#free-suggestions / …) or the list. */
 function backTo(formData: FormData): string {
   const from = String(formData.get("from") ?? "").trim();
-  const anchor = /^#[a-z-]+$/.test(from) ? from : "#suggestions";
+  const anchor = /^#[a-z-]+$/.test(from) ? from : "";
   return `/admin/newsletters${anchor}`;
 }
 
