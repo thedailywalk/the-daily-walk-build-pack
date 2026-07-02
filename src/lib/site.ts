@@ -19,7 +19,7 @@ export const site = {
   // e.g. "The Daily Walk · PO Box 1234 · Yourtown, CA 90000"
   mailingAddress:
     process.env.NEXT_PUBLIC_MAILING_ADDRESS ??
-    "The Daily Walk · PO Box 1571 · Sunset Beach, CA 90742",
+    "The Daily Walk Newsletter · PO Box 1571 · Sunset Beach, CA 90742",
   // Beehiiv-hosted destinations (filled in once the publication exists).
   // Falls back to the on-site subscribe form / pricing page when unset.
   beehiiv: {
