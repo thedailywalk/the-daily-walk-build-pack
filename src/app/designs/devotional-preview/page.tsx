@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { fullDevotionalFor, weekdayLabel, prettyDate, type Devotional } from "@/lib/devotionals";
 import { renderDevotionalHtml } from "@/lib/devotionalHtml";
+import { getDailyGoodNews } from "@/lib/goodNews";
 
 export const metadata: Metadata = {
   title: "The Daily Walk — newsletter preview",
@@ -25,6 +26,7 @@ export default async function DevotionalPreview({
     title: fullDevotionalFor(date).readingHeading ?? "",
     data: fullDevotionalFor(date),
   };
+  const goodNews = await getDailyGoodNews(3);
 
   const CSS = `
     body{margin:0;background:#E8E2D4}
@@ -39,7 +41,7 @@ export default async function DevotionalPreview({
       <div className="dp-wrap">
         <div className="dp-kick">The Daily Walk · A preview</div>
         <div className="dp-date">{weekdayLabel(date)}, {prettyDate(date)}</div>
-        <div dangerouslySetInnerHTML={{ __html: renderDevotionalHtml(issue) }} />
+        <div dangerouslySetInnerHTML={{ __html: renderDevotionalHtml(issue, goodNews) }} />
       </div>
     </>
   );

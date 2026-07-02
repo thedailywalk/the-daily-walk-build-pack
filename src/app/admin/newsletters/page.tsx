@@ -21,6 +21,7 @@ import { wellnessGetByDate, fullWellnessFor, type WellnessIssue } from "@/lib/we
 import { renderDevotionalHtml } from "@/lib/devotionalHtml";
 import { renderPremiumHtml } from "@/lib/premiumHtml";
 import { renderWellnessHtml } from "@/lib/wellnessHtml";
+import { getDailyGoodNews } from "@/lib/goodNews";
 import {
   pendingNewsletterBatches,
   appliedNewsletterSuggestions,
@@ -345,10 +346,11 @@ async function SamplesView() {
   // Representative dates so every segment shows: a weekday, a Thursday (World),
   // a Saturday (Weekend Study), and a Mon/Wed/Fri wellness day.
   const today = upcomingDates(1)[0];
+  const gn = await getDailyGoodNews(3);
   const samples: { label: string; html: string }[] = [
     {
-      label: "Free · Daily Devotional (goes to everyone)",
-      html: renderDevotionalHtml(wrapDev(today, fullDevotionalFor(today))),
+      label: "Free · Devotional (Mon · Wed · Fri, goes to everyone)",
+      html: renderDevotionalHtml(wrapDev(today, fullDevotionalFor(today)), gn),
     },
     {
       label: "Premium · The Deeper Walk — a regular weekday",
@@ -398,8 +400,9 @@ async function PreviewView({ pub, date }: { pub: Publication; date: string }) {
     label = "Spiritual Wellness Guide";
   } else {
     const saved = await adminGetByDate(date);
-    html = renderDevotionalHtml(wrapDev(date, saved?.data ?? fullDevotionalFor(date), saved?.status));
-    label = "Daily Devotional · Free";
+    const gn = await getDailyGoodNews(3);
+    html = renderDevotionalHtml(wrapDev(date, saved?.data ?? fullDevotionalFor(date), saved?.status), gn);
+    label = "Devotional · Free (Mon · Wed · Fri)";
   }
 
   const editBase = PUBLICATION_META[pub].editBase;

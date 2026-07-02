@@ -1,5 +1,6 @@
 import "server-only";
 import type { Devotional } from "@/lib/devotionals";
+import type { GoodNewsItem } from "@/lib/content";
 import { weekdayLabel, prettyDate } from "@/lib/devotionals";
 import { site } from "@/lib/site";
 
@@ -58,11 +59,38 @@ function paras(s: string | undefined, style = S.p): string {
 
 const rule = `<div style="${S.rule}"></div>`;
 
+/** The "Good News · 3 reasons for hope" grid — branded, email-safe cards. */
+function goodNewsBlock(items: GoodNewsItem[]): string {
+  const list = (items ?? []).slice(0, 3);
+  if (!list.length) return "";
+  const cards = list
+    .map((g) => {
+      const tile = g.image
+        ? `<img src="${esc(g.image)}" alt="" style="width:100%;height:96px;object-fit:cover;display:block;">`
+        : `<div style="height:96px;background:linear-gradient(135deg,#1F3A5F 0%,#2E5481 55%,#C9A24B 100%);"></div>`;
+      return `<a href="${esc(g.href)}" style="display:inline-block;vertical-align:top;width:31%;margin:0 1% 10px;border:1px solid #E4DAC4;border-radius:10px;overflow:hidden;background:#ffffff;text-decoration:none;color:inherit;">${tile}<div style="padding:10px 11px 11px;">${
+        g.category
+          ? `<span style="font-family:Arial,Helvetica,sans-serif;font-size:8.5px;letter-spacing:1px;text-transform:uppercase;color:#B8902E;border:1px solid #E3C786;padding:2px 7px;border-radius:20px;font-weight:700;">${esc(g.category)}</span>`
+          : ""
+      }<div style="font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#1F3A5F;font-weight:700;line-height:1.28;margin:8px 0 6px;">${esc(g.headline)}</div><span style="display:block;font-family:Arial,Helvetica,sans-serif;font-size:9.5px;color:#8a8270;">${esc(g.source)}</span><span style="display:inline-block;margin-top:3px;font-family:Arial,Helvetica,sans-serif;font-size:9.5px;letter-spacing:.5px;text-transform:uppercase;color:#B8902E;font-weight:700;">Read more →</span></div></a>`;
+    })
+    .join("");
+  return `<div style="${S.pad}">${rule}
+      <div style="${S.kicker}">Good News</div>
+      <h2 style="${S.sec}">3 reasons for hope from around the world</h2>
+      <p style="${S.ref}">Real stories · real sources · tap any headline for the full article.</p>
+      <div style="text-align:center;font-size:0;">${cards}</div>
+      <div style="${S.closing}">Even when the world feels heavy, God is still moving. Keep your eyes open today.</div>
+      <div style="height:14px;line-height:14px;">&nbsp;</div>
+    </div>`;
+}
+
 /**
  * Render a devotional as the branded "issue" HTML using only inline styles —
- * safe to inject on-page, copy into Beehiiv, and serve in the RSS feed.
+ * safe to inject on-page, copy into Beehiiv, and serve in the RSS feed. Pass the
+ * day's Good News stories to include the "3 reasons for hope" grid.
  */
-export function renderDevotionalHtml(dev: Devotional): string {
+export function renderDevotionalHtml(dev: Devotional, goodNews: GoodNewsItem[] = []): string {
   const d = dev.data;
   const metaBits = [weekdayLabel(dev.date), d.dayLabel?.trim()].filter(Boolean).join(" · ");
 
@@ -149,12 +177,12 @@ export function renderDevotionalHtml(dev: Devotional): string {
     ? `<div style="${S.pad}">${rule}<div style="${S.closing}">${esc(d.closingLine)}</div><div style="height:8px;line-height:8px;">&nbsp;</div></div>`
     : "";
 
-  // Founding-member upgrade nudge (free issue → premium). Absolute link for email.
+  // Founding-member upgrade nudge (free issue → the one paid tier). Absolute link for email.
   const upsellBlock = `
     <div style="${S.pad}">${rule}
       <div style="background:#10243f;border:1px solid #C9A24B;border-radius:10px;padding:22px 24px;text-align:center;">
         <div style="font-family:Arial,Helvetica,sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#E3C074;font-weight:bold;margin:0 0 8px;">Go deeper · Founding Member</div>
-        <p style="font-family:Arial,Helvetica,sans-serif;color:#EDE6D4;font-size:15px;line-height:1.6;margin:0 0 14px;">Premium is the deeper <strong style="color:#fff;">Discipleship Newsletter</strong> — a richer daily devotional, <strong style="color:#fff;">The World Through God's Lens</strong>, <strong style="color:#fff;">The Weekend Study</strong>, and live sessions — plus a full year of <strong style="color:#fff;">The Spiritual Wellness Guide</strong> free. Founding Members lock in <strong style="color:#fff;">$5.99/mo for life</strong> and are grandfathered into the whole platform when it launches.</p>
+        <p style="font-family:Arial,Helvetica,sans-serif;color:#EDE6D4;font-size:15px;line-height:1.6;margin:0 0 14px;">You&apos;re reading the free edition (Mon · Wed · Fri). Founding Members get <strong style="color:#fff;">the devotional every day</strong>, the deeper <strong style="color:#fff;">Deeper Walk</strong> discipleship newsletter, and the full <strong style="color:#fff;">Spiritual Wellness Guide</strong> — everything, in one membership. Lock in <strong style="color:#fff;">$5.99/mo (or $59/yr)</strong> for life.</p>
         <a href="${site.url}/pricing" style="${S.btn}">Become a Founding Member →</a>
       </div>
       <div style="height:14px;line-height:14px;">&nbsp;</div>
@@ -172,12 +200,15 @@ export function renderDevotionalHtml(dev: Devotional): string {
     <div style="${S.pad}">${blocks.join("")}</div>
     ${pastorBlock}
     ${ctaBlock}
+    ${goodNewsBlock(goodNews)}
     ${closingBlock}
     ${upsellBlock}
     <div style="${S.footer}">
       <strong style="color:#C9A24B;">The Daily Walk</strong><br>
-      A daily guide for walking with God in real life.<br>
+      Encouragement three mornings a week — Monday, Wednesday &amp; Friday.<br>
+      Missed one? Don't restart — just pick up where you left off.<br>
       ${esc(prettyDate(dev.date))}<br><br>
+      <a href="${site.url}" style="color:#C9A24B;text-decoration:none;">Today's full plan</a> · <a href="${site.url}/community" style="color:#C9A24B;text-decoration:none;">Community</a> · <a href="${site.url}/subscribe" style="color:#C9A24B;text-decoration:none;">Forward to a friend</a><br><br>
       You're receiving this because you signed up at thedailywalknewsletter.com.<br>
       <a href="#" style="color:#C9A24B;text-decoration:none;">Update preferences</a> · <a href="#" style="color:#C9A24B;text-decoration:none;">Unsubscribe</a>
     </div>

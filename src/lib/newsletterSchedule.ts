@@ -20,7 +20,7 @@ import {
  * One unified view of every newsletter edition across all publications, so the
  * owner can see and track the whole publishing schedule in one admin hub.
  *
- *   • Free Daily Devotional   — every day (tier: Free)
+ *   • Free Devotional         — Mon/Wed/Fri (tier: Free)
  *   • The Deeper Walk (Premium) — every day; +World (Thu), +Weekend Study (Sat)
  *   • Spiritual Wellness Guide  — Mon / Wed / Fri (Founding bonus)
  */
@@ -53,6 +53,12 @@ function statusOf(row: { status?: string } | undefined): EditionStatus {
   return row.status === "ready" ? "ready" : "draft";
 }
 
+/** The free newsletter sends 3× a week: Monday · Wednesday · Friday. */
+export function isFreeDay(date: string): boolean {
+  const wd = weekdayLabel(date);
+  return wd === "Monday" || wd === "Wednesday" || wd === "Friday";
+}
+
 /** Build the edition objects for a single date from the (optional) saved rows. */
 function editionsForDate(
   date: string,
@@ -63,18 +69,20 @@ function editionsForDate(
   const wd = weekdayLabel(date);
   const out: Edition[] = [];
 
-  // Free daily
-  const devHeadline = (dev?.data.readingHeading || fullDevotionalFor(date).readingHeading || "").trim();
-  out.push({
-    date,
-    publication: "free",
-    type: "Daily Devotional",
-    headline: devHeadline,
-    tier: "Free",
-    status: statusOf(dev),
-    editHref: `/admin/devotionals?date=${date}`,
-    previewHref: `/admin/newsletters?preview=free&date=${date}`,
-  });
+  // Free devotional — Mon/Wed/Fri (3× a week)
+  if (isFreeDay(date)) {
+    const devHeadline = (dev?.data.readingHeading || fullDevotionalFor(date).readingHeading || "").trim();
+    out.push({
+      date,
+      publication: "free",
+      type: "Devotional (Free)",
+      headline: devHeadline,
+      tier: "Free",
+      status: statusOf(dev),
+      editHref: `/admin/devotionals?date=${date}`,
+      previewHref: `/admin/newsletters?preview=free&date=${date}`,
+    });
+  }
 
   // Premium daily
   const premHeadline = (prem?.data.devHeading || fullPremiumFor(date).devHeading || "").trim();

@@ -47,7 +47,7 @@ export default async function GoodNewsPage() {
           <h1 className="h">The Good News reading room</h1>
           <p className="sub">
             Every day, 30 fresh, uplifting stories — faith, heroes, animals, and
-            hope — in one calm place to read. A Premium &amp; Patron benefit.
+            hope — in one calm place to read. A Founding Member benefit.
           </p>
           <div className="prayer-submit" style={{ textAlign: "center" }}>
             <div className="prayer-thanks-emoji" aria-hidden="true">
@@ -57,7 +57,7 @@ export default async function GoodNewsPage() {
               <>
                 <h3>This is a Premium feature</h3>
                 <p>
-                  Upgrade to Premium or Patron to open your daily Good News
+                  Become a Founding Member to open your daily Good News
                   reading room.
                 </p>
                 <Link href="/pricing" className="btn btn-gold">
@@ -68,7 +68,7 @@ export default async function GoodNewsPage() {
               <>
                 <h3>Members only</h3>
                 <p>
-                  Sign in as a Premium or Patron member to open your daily Good
+                  Sign in as a Founding Member to open your daily Good
                   News reading room.
                 </p>
                 <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>

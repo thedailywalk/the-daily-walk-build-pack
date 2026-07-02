@@ -100,8 +100,8 @@ export type Entitlement = {
 };
 
 /**
- * Owner / comp access. These emails get full Patron access regardless of
- * Beehiiv billing — for the owner testing the product, staff, or free grants.
+ * Owner / comp access. These emails get full paid access regardless of Beehiiv
+ * billing — for the owner testing the product, staff, or free grants.
  * Edit this list, or add a comma-separated COMP_PATRON_EMAILS env var.
  */
 const COMP_PATRON_EMAILS = new Set(
@@ -122,7 +122,7 @@ const COMP_PATRON_EMAILS = new Set(
 export async function getEntitlement(email: string): Promise<Entitlement> {
   // Owner / comp access wins over Beehiiv billing.
   if (COMP_PATRON_EMAILS.has(email.trim().toLowerCase())) {
-    return { tier: "patron", status: "active", tierNames: ["patron (comp)"], onList: true };
+    return { tier: "premium", status: "active", tierNames: ["premium (comp)"], onList: true };
   }
 
   const apiKey = process.env.BEEHIIV_API_KEY;
@@ -172,9 +172,11 @@ export async function getEntitlement(email: string): Promise<Entitlement> {
     .filter(Boolean)
     .map((n) => n.toLowerCase());
 
+  // One paid tier now: any premium/patron/founding tier name → "premium".
   let tier: Tier = "free";
-  if (names.some((n) => n.includes("patron"))) tier = "patron";
-  else if (names.some((n) => n.includes("premium"))) tier = "premium";
+  if (names.some((n) => n.includes("premium") || n.includes("patron") || n.includes("founding"))) {
+    tier = "premium";
+  }
 
   return {
     tier,

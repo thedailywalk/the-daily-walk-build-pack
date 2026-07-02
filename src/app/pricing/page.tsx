@@ -7,65 +7,58 @@ import { site } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Pricing",
   description:
-    "Start free. Premium guides you through the Bible in a year, from your Day 1. Patron helps keep The Daily Walk free for everyone.",
+    "Start free — the devotional 3× a week. Become a Founding Member for $5.99/mo and get everything: the daily devotional, the Deeper Walk, and the Spiritual Wellness Guide.",
 };
 
 const schedule = [
-  ["Daily Devotional (prayer + Good News)", "Mon–Fri", "6:30 AM", [1, 1, 1]],
-  ["Sunday Rest & Reflect", "Sunday", "7:00 AM", [1, 1, 1]],
-  ["Wednesday Pastor's Take", "Wednesday", "in the daily", [1, 1, 1]],
-  ["Bible-in-a-Year guided reading", "Daily · your Day 1", "6:30 AM", [0, 1, 1]],
-  ["Audio devotional", "Daily", "6:30 AM", [0, 1, 1]],
-  ["Weekend Deep-Dive", "Saturday", "8:00 AM", [0, 1, 1]],
-  ["Monthly study workbook", "Monthly", "—", [0, 1, 1]],
-  ["Patron Letter + Live Prayer Night", "Monthly", "8:00 PM", [0, 0, 1]],
-  ["Quarterly Mini-Study", "Quarterly", "—", [0, 0, 1]],
+  ["Devotional (prayer + Good News)", "Mon · Wed · Fri", "6:30 AM", [1, 1]],
+  ["The devotional every day", "Daily", "6:30 AM", [0, 1]],
+  ["Wednesday Pastor's Take", "Wednesday", "in the issue", [1, 1]],
+  ["Bible-in-a-Year guided reading", "Daily · your Day 1", "6:30 AM", [0, 1]],
+  ["Audio devotional", "Daily", "6:30 AM", [0, 1]],
+  ["The Deeper Walk (premium newsletter)", "Daily", "6:30 AM", [0, 1]],
+  ["The World Through God's Lens", "Thursday", "in Deeper Walk", [0, 1]],
+  ["Weekend Study deep-dive", "Saturday", "8:00 AM", [0, 1]],
+  ["The Spiritual Wellness Guide", "Mon · Wed · Fri", "—", [0, 1]],
+  ["Monthly study workbook", "Monthly", "—", [0, 1]],
 ] as const;
 
 const comparison: Array<
-  { group: string } | { row: string; tiers: [number, number, number] }
+  { group: string } | { row: string; tiers: [number, number] }
 > = [
-  { group: "The Daily Newsletter · free for everyone" },
-  { row: "Daily devotional (Mon–Fri)", tiers: [1, 1, 1] },
-  { row: "One honest prayer every day", tiers: [1, 1, 1] },
-  { row: "Daily “Good News” — 3 uplifting stories", tiers: [1, 1, 1] },
-  { row: "Wednesday Pastor's Take", tiers: [1, 1, 1] },
-  { row: "Sunday Rest & Reflect", tiers: [1, 1, 1] },
-  { row: "Weekly Scripture reading preview", tiers: [1, 1, 1] },
-  { row: "Free community access", tiers: [1, 1, 1] },
-  { group: "The Bible-in-a-Year Journey · Premium" },
-  { row: "Full guided plan, starting on your Day 1", tiers: [0, 1, 1] },
-  { row: "Daily guided Scripture reading", tiers: [0, 1, 1] },
-  { row: "Plain-English breakdown of each passage", tiers: [0, 1, 1] },
-  { row: "“What this shows us about God” reflection", tiers: [0, 1, 1] },
-  { row: "Real-life application for modern life", tiers: [0, 1, 1] },
-  { row: "Daily reflection question + prayer prompt", tiers: [0, 1, 1] },
-  { row: "Audio devotional for each day", tiers: [0, 1, 1] },
-  { row: "Saturday Weekend Deep-Dive", tiers: [0, 1, 1] },
-  { row: "Monthly downloadable study workbook", tiers: [0, 1, 1] },
-  { row: "Full searchable archive", tiers: [0, 1, 1] },
-  { row: "Restart or catch up your plan anytime", tiers: [0, 1, 1] },
-  { group: "Community & Participation · Patron" },
-  { row: "Monthly Patron-only devotional letter", tiers: [0, 0, 1] },
-  { row: "Patron Prayer Wall (submit & pray for others)", tiers: [0, 0, 1] },
-  { row: "Monthly live prayer night + replay", tiers: [0, 0, 1] },
-  { row: "Submit questions for Pastor's Take", tiers: [0, 0, 1] },
-  { row: "Vote on upcoming studies & themes", tiers: [0, 0, 1] },
-  { row: "Private Patron room in the community", tiers: [0, 0, 1] },
-  { group: "Keepsakes & Printables · Patron" },
-  { row: "Complete printable prayer-card library", tiers: [0, 0, 1] },
-  { row: "Quarterly mini-study (PDF)", tiers: [0, 0, 1] },
-  { row: "Monthly Scripture wallpapers (phone + desktop)", tiers: [0, 0, 1] },
-  { group: "Support the Mission" },
-  { row: "Helps fund The Daily Walk", tiers: [0, 1, 1] },
-  { row: "Sponsors free access for readers who can't pay", tiers: [0, 0, 1] },
-  { row: "“Founding Supporter” badge in the community", tiers: [0, 0, 1] },
+  { group: "The free devotional · 3× a week" },
+  { row: "The devotional (Mon · Wed · Fri)", tiers: [1, 1] },
+  { row: "One honest prayer with each issue", tiers: [1, 1] },
+  { row: "“Good News” — 3 uplifting stories", tiers: [1, 1] },
+  { row: "Wednesday Pastor's Take", tiers: [1, 1] },
+  { row: "Free community access", tiers: [1, 1] },
+  { group: "Founding Member · everything, one membership" },
+  { row: "The devotional every day (not just 3× a week)", tiers: [0, 1] },
+  { row: "Full Bible-in-a-Year journey, from your Day 1", tiers: [0, 1] },
+  { row: "Daily guided Scripture reading", tiers: [0, 1] },
+  { row: "Plain-English breakdown of each passage", tiers: [0, 1] },
+  { row: "“What this shows us about God” reflection", tiers: [0, 1] },
+  { row: "Real-life application for modern life", tiers: [0, 1] },
+  { row: "Daily reflection question + prayer prompt", tiers: [0, 1] },
+  { row: "Audio devotional for each day", tiers: [0, 1] },
+  { row: "The Deeper Walk discipleship newsletter", tiers: [0, 1] },
+  { row: "The World Through God's Lens (Thursdays)", tiers: [0, 1] },
+  { row: "Saturday Weekend Study", tiers: [0, 1] },
+  { row: "The Spiritual Wellness Guide (Mon · Wed · Fri)", tiers: [0, 1] },
+  { row: "Peace Practice · Pattern Breaker · Prayer Lab tools", tiers: [0, 1] },
+  { row: "Live sessions with a Christian therapist + pastors", tiers: [0, 1] },
+  { row: "Monthly downloadable workbook + full archive", tiers: [0, 1] },
+  { row: "Restart or catch up your plan anytime", tiers: [0, 1] },
+  { group: "Support the mission" },
+  { row: "Helps fund The Daily Walk", tiers: [0, 1] },
+  { row: "Sponsors free access for readers who can't pay", tiers: [0, 1] },
+  { row: "Founding Member price locked in for life", tiers: [0, 1] },
 ];
 
 const faqs = [
   {
     q: "Is the free version really free forever?",
-    a: "Yes. The daily devotional, a prayer, three Good News stories, the Wednesday Pastor's Take, the Sunday Rest & Reflect, and the community are all free with no card required. Premium adds the full guided Bible-in-a-Year journey; Patron adds deeper community and helps keep the free version free for everyone.",
+    a: "Yes. Three mornings a week (Mon · Wed · Fri) you get the devotional, a prayer, three Good News stories, the Wednesday Pastor's Take, and the community — all free, no card required. Founding Members ($5.99/mo) get everything: the devotional every day, the full guided Bible-in-a-Year journey, the Deeper Walk discipleship newsletter, and the Spiritual Wellness Guide.",
   },
   {
     q: "When does my Bible-in-a-Year plan start?",
@@ -126,10 +119,10 @@ export default function PricingPage() {
           </p>
         </div>
 
-        <h2 className="section">Pick your tier</h2>
+        <h2 className="section">Pick your plan</h2>
         <p className="section-sub">
-          The daily walk is free. Premium guides you through the Bible in a year.
-          Patron helps build the mission and keep it free for everyone.
+          The devotional is free three mornings a week. Founding Members get
+          everything — every day — for $5.99/mo (or $59/yr).
         </p>
 
         <PricingCards />
@@ -145,8 +138,7 @@ export default function PricingPage() {
                 <th>Day</th>
                 <th>Time PT</th>
                 <th className="c">Free</th>
-                <th className="c">Premium</th>
-                <th className="c">Patron</th>
+                <th className="c">Founding</th>
               </tr>
             </thead>
             <tbody>
@@ -166,10 +158,10 @@ export default function PricingPage() {
           </table>
         </div>
         <p className="muted-note">
-          Everyone gets the daily newsletter. Premium adds the full guided
-          Bible-in-a-Year journey — starting on <em>your</em> Day 1, not wherever
-          the public newsletter is. Patron adds live prayer, the Patron letter,
-          and deeper community.
+          Everyone gets the free devotional three mornings a week. Founding
+          Members get it every day plus the full guided Bible-in-a-Year journey —
+          starting on <em>your</em> Day 1 — the Deeper Walk, and the Spiritual
+          Wellness Guide, all in one $5.99 membership.
         </p>
 
         {/* EXPLAINER */}
@@ -178,16 +170,17 @@ export default function PricingPage() {
           <h3>Two rhythms, one walk</h3>
           <p>
             The Daily Walk runs on two rhythms. The{" "}
-            <strong>daily newsletter</strong> goes out to everyone on the
-            calendar — encouragement, a prayer, Good News from around the world,
-            the Wednesday Pastor&apos;s Take, and the Sunday Rest &amp; Reflect.
-            The <strong>Bible-in-a-Year journey</strong> is personal: it starts
-            on <em>your</em> Day 1, the day you join, so you&apos;re never dropped
-            into the middle and never feel behind before you begin.
+            <strong>free devotional</strong> goes out to everyone three mornings
+            a week — Monday, Wednesday &amp; Friday — with encouragement, a
+            prayer, Good News from around the world, and the Wednesday
+            Pastor&apos;s Take. The <strong>Bible-in-a-Year journey</strong> (for
+            Founding Members) is personal: it starts on <em>your</em> Day 1, the
+            day you join, so you&apos;re never dropped into the middle and never
+            feel behind before you begin.
           </p>
           <p className="punch">
-            Free walks with you daily. Premium guides you through the Bible.
-            Patron helps build the mission.
+            Free walks with you three mornings a week. Founding Members get
+            everything, every day — and help build the mission.
           </p>
           <p style={{ marginBottom: 0, color: "var(--grey)", fontSize: 13.5 }}>
             Community access stays free for every reader — because no one should
@@ -203,15 +196,14 @@ export default function PricingPage() {
               <tr>
                 <th>What you get</th>
                 <th className="c">Free</th>
-                <th className="c">Premium</th>
-                <th className="c">Patron</th>
+                <th className="c">Founding</th>
               </tr>
             </thead>
             <tbody>
               {comparison.map((item, idx) =>
                 "group" in item ? (
                   <tr className="grp" key={`g-${idx}`}>
-                    <td colSpan={4}>{item.group}</td>
+                    <td colSpan={3}>{item.group}</td>
                   </tr>
                 ) : (
                   <tr key={item.row}>
@@ -300,10 +292,10 @@ function FoundingOffer() {
               <div style={{ fontFamily: "var(--serif)", fontSize: 30, color: navy, margin: "4px 0 2px" }}>Free</div>
               <div style={{ color: "#8a8270", fontSize: 14, marginBottom: 14 }}>$0 — forever, no card</div>
               <ul style={{ listStyle: "none", padding: 0, margin: "0 0 18px" }}>
-                {check("A short daily devotional")}
-                {check("One honest prayer every day")}
-                {check("A daily moment of encouragement")}
-                {check("Be first to know as the platform opens")}
+                {check("The devotional 3× a week (Mon · Wed · Fri)")}
+                {check("One honest prayer with each issue")}
+                {check("3 uplifting Good News stories")}
+                {check("Free community access")}
               </ul>
               <Link href="/subscribe" className="btn btn-ghost" style={{ width: "100%", textAlign: "center" }}>
                 Join free →

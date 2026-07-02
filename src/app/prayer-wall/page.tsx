@@ -76,7 +76,7 @@ export default async function PrayerWallPage() {
               </div>
               <h3>Sharing is a Premium feature</h3>
               <p>
-                Upgrade to Premium or Patron to post your own prayer requests.
+                Become a Founding Member to post your own prayer requests.
                 Praying over the wall below is always free.
               </p>
               <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
@@ -92,7 +92,7 @@ export default async function PrayerWallPage() {
               </div>
               <h3>Have a prayer request?</h3>
               <p>
-                Premium &amp; Patron members can share requests with the
+                Founding Members can share requests with the
                 community. Anyone can pray over the wall below.
               </p>
               <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>

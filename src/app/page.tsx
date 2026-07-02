@@ -298,23 +298,23 @@ export default async function HomePage() {
       <section id="pricing">
         <div className="wrap">
           <div className="sec-tag">Simple pricing</div>
-          <h2 className="h">Start free. Go deeper when you&apos;re ready.</h2>
+          <h2 className="h">Start free. Go all-in when you&apos;re ready.</h2>
           <p className="sub">
-            The daily walk is free. Premium guides you through the Bible in a
-            year. Patron helps build the mission and keep it free for everyone.
+            The devotional is free three mornings a week. Founding Members get
+            everything — every day — for $5.99/mo, and help keep it free for
+            others.
           </p>
-          <div className="ptiers">
+          <div className="ptiers ptiers-two">
             <div className="pt">
               <div className="tname" style={{ color: "#7a828c" }}>
                 Free
               </div>
               <div className="pr">$0</div>
-              <div className="pd">Always free</div>
+              <div className="pd">Always free · Mon · Wed · Fri</div>
               <ul>
-                <li>Daily devotional + prayer</li>
-                <li>3 Good News stories daily</li>
+                <li>The devotional 3× a week + prayer</li>
+                <li>3 Good News stories</li>
                 <li>Wednesday Pastor&apos;s Take</li>
-                <li>Sunday Rest &amp; Reflect</li>
                 <li>Free community access</li>
               </ul>
               <Link href="/subscribe" className="btn btn-ghost btn-block">
@@ -322,41 +322,24 @@ export default async function HomePage() {
               </Link>
             </div>
             <div className="pt feat-tier">
-              <span className="pop">MOST POPULAR</span>
+              <span className="pop">FOUNDING MEMBER</span>
               <div className="tname" style={{ color: "var(--gold-deep)" }}>
-                Premium
+                Founding Member
               </div>
               <div className="pr">
                 $5.99<small>/mo</small>
               </div>
-              <div className="pd">Just 20¢ a day · or $59/yr</div>
+              <div className="pd">Just 20¢ a day · or $59/yr · everything</div>
               <ul>
-                <li>Everything in Free</li>
+                <li>Everything in Free — plus every day</li>
                 <li>Guided Bible-in-a-Year from your Day 1</li>
-                <li>Plain-English breakdowns + application</li>
-                <li>Daily audio devotional</li>
-                <li>Weekend Deep-Dive + monthly workbook</li>
-                <li>Full searchable archive</li>
+                <li>The Deeper Walk discipleship newsletter</li>
+                <li>The Spiritual Wellness Guide</li>
+                <li>Audio, Weekend Study + monthly workbook</li>
+                <li>Founding price locked in for life</li>
               </ul>
               <Link href="/pricing" className="btn btn-gold btn-block">
-                Get Premium
-              </Link>
-            </div>
-            <div className="pt">
-              <div className="tname">Patron</div>
-              <div className="pr">
-                $19.99<small>/mo</small>
-              </div>
-              <div className="pd">Just 66¢ a day · or $199/yr</div>
-              <ul>
-                <li>Everything in Premium</li>
-                <li>Monthly Patron letter + live prayer</li>
-                <li>Patron Prayer Wall + private room</li>
-                <li>A say in upcoming studies</li>
-                <li>Helps keep The Daily Walk free</li>
-              </ul>
-              <Link href="/pricing" className="btn btn-ghost btn-block">
-                Become a Patron
+                Become a Founding Member
               </Link>
             </div>
           </div>

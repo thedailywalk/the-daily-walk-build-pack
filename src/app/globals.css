@@ -1566,6 +1566,12 @@ a.gncard:hover .gnh {
   gap: 18px;
   align-items: start;
 }
+.ptiers-two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
 .pt {
   border: 1px solid var(--line);
   border-radius: 16px;
@@ -1788,6 +1794,13 @@ footer.site .legal {
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   margin-top: 26px;
+}
+/* Two-tier pricing (Free + Founding Member) — center the pair. */
+.cards-two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .card {
   border: 1px solid var(--line);
