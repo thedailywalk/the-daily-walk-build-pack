@@ -19,6 +19,7 @@ import {
   savePremiumAction,
   preparePremiumWeekAction,
   deletePremiumAction,
+  draftWorldNewsAction,
 } from "./actions";
 
 export const metadata: Metadata = {
@@ -275,9 +276,22 @@ async function EditorView(date: string, saved: boolean) {
           </h3>
           <p className="adm-grouphint">
             2–3 world events seen through faith — informed without overwhelmed,
-            never fear-based or partisan. Replace the generated examples with the
-            week&apos;s actual headlines, keeping the same calm tone.
+            never fear-based or partisan. Use the button below to pull{" "}
+            <strong>real current headlines</strong> (paraphrased, with a source
+            link on each), then edit to taste. Photos stay manual — add a
+            reshare-cleared image + credit only.
           </p>
+          <div className="adm-worldnews-bar">
+            <button
+              type="submit"
+              formAction={draftWorldNewsAction}
+              className="btn btn-ghost"
+              title="Save your other edits first — this fills the World section from today's real headlines"
+            >
+              🌍 Draft from real headlines
+            </button>
+            <span className="adm-hint">Pulls live world news · save other edits first</span>
+          </div>
           <div className="adm-row">
             <Field label="Section heading">
               <input name="worldHeading" defaultValue={data.worldHeading} className="adm-input" placeholder="The World Through God's Lens" />
@@ -467,21 +481,35 @@ async function ArchiveDetail(date: string) {
 }
 
 function WorldStory({ n, data }: { n: 1 | 2 | 3; data: PremiumData }) {
-  const what = data[`world${n}What` as keyof PremiumData] as string | undefined;
-  const faith = data[`world${n}Faith` as keyof PremiumData] as string | undefined;
-  const pray = data[`world${n}Pray` as keyof PremiumData] as string | undefined;
+  const g = (k: string) => data[`world${n}${k}` as keyof PremiumData] as string | undefined;
   return (
     <div className="adm-worldstory">
       <div className="adm-worldstory-num">Story {n}</div>
       <Field label="What happened">
-        <textarea name={`world${n}What`} defaultValue={what} className="adm-textarea" rows={2} />
+        <textarea name={`world${n}What`} defaultValue={g("What")} className="adm-textarea" rows={2} />
       </Field>
       <Field label="How to see it through faith">
-        <textarea name={`world${n}Faith`} defaultValue={faith} className="adm-textarea" rows={3} />
+        <textarea name={`world${n}Faith`} defaultValue={g("Faith")} className="adm-textarea" rows={3} />
       </Field>
       <Field label="How we can pray">
-        <textarea name={`world${n}Pray`} defaultValue={pray} className="adm-textarea" rows={2} />
+        <textarea name={`world${n}Pray`} defaultValue={g("Pray")} className="adm-textarea" rows={2} />
       </Field>
+      <div className="adm-row">
+        <Field label="Source link (the real article)">
+          <input name={`world${n}Url`} defaultValue={g("Url")} className="adm-input" placeholder="https://…" />
+        </Field>
+        <Field label="Source name">
+          <input name={`world${n}Source`} defaultValue={g("Source")} className="adm-input" placeholder="BBC News" />
+        </Field>
+      </div>
+      <div className="adm-row">
+        <Field label="Photo URL (reshare-cleared only)" hint="Wikimedia Commons, USGS, NASA, etc. — leave blank if none">
+          <input name={`world${n}Img`} defaultValue={g("Img")} className="adm-input" placeholder="https://…" />
+        </Field>
+        <Field label="Photo credit (required if photo used)">
+          <input name={`world${n}Credit`} defaultValue={g("Credit")} className="adm-input" placeholder="e.g. USGS / Wikimedia Commons (CC BY 2.0)" />
+        </Field>
+      </div>
     </div>
   );
 }

@@ -57,12 +57,24 @@ export type PremiumData = {
   world1What?: string;
   world1Faith?: string;
   world1Pray?: string;
+  world1Url?: string; // link to the real article this summarizes
+  world1Source?: string; // e.g. "BBC News"
+  world1Img?: string; // OPTIONAL reshare-cleared photo URL (see world1Credit)
+  world1Credit?: string; // required attribution when an image is used
   world2What?: string;
   world2Faith?: string;
   world2Pray?: string;
+  world2Url?: string;
+  world2Source?: string;
+  world2Img?: string;
+  world2Credit?: string;
   world3What?: string;
   world3Faith?: string;
   world3Pray?: string;
+  world3Url?: string;
+  world3Source?: string;
+  world3Img?: string;
+  world3Credit?: string;
   brightHeading?: string; // uplifting section name, e.g. "Light Still Breaking Through"
   brightBody?: string; // 2–3 positive items, blank-line separated
 

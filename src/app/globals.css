@@ -4713,6 +4713,13 @@ hr.div {
   color: var(--grey);
   margin: -4px 0 12px;
 }
+.adm-worldnews-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 0 0 16px;
+}
 .adm-worldstory {
   border: 1px solid #e6decb;
   border-left: 3px solid var(--gold);

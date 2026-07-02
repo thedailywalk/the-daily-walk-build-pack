@@ -19,6 +19,16 @@ const profileItems: { href: string; label: string; sub?: string }[] = [
   { href: "/journey?tab=notes", label: "Saved Notes" },
 ];
 
+/** "Admin" groups the owner's workspaces (shown to admins only). */
+const adminItems: { href: string; label: string; sub?: string }[] = [
+  { href: "/admin/devotionals", label: "Daily (Free)", sub: "the week ahead" },
+  { href: "/admin/premium", label: "The Deeper Walk", sub: "premium · week ahead" },
+  { href: "/admin/wellness", label: "Wellness Guide", sub: "week ahead" },
+  { href: "/admin/weekly-video", label: "Weekly Video" },
+  { href: "/admin/library", label: "Content Library" },
+  { href: "/admin/workbook", label: "Workbook Evolution" },
+];
+
 export default async function Header() {
   const user = await getUser();
   const showAdmin = isAdminEmail(user?.email);
@@ -73,7 +83,25 @@ export default async function Header() {
             Premium
           </Link>
           {accountLink && <Link href={accountLink.href}>{accountLink.label}</Link>}
-          {showAdmin && <Link href="/admin/devotionals">Admin</Link>}
+
+          {/* Admin ▾ (admins only) */}
+          {showAdmin && (
+            <div className="navdrop">
+              <button type="button" className="navdrop-t" aria-haspopup="true">
+                Admin <span className="navdrop-caret" aria-hidden="true">▾</span>
+              </button>
+              <div className="navdrop-menu" role="menu">
+                {adminItems.map((i) => (
+                  <Link key={i.href} href={i.href} role="menuitem">
+                    {i.label}
+                    {i.sub && <small className="navdrop-sub">{i.sub}</small>}
+                  </Link>
+                ))}
+                <Link href="/admin" role="menuitem">Admin home</Link>
+              </div>
+            </div>
+          )}
+
           {!user && (
             <Link href="/subscribe" className="btn btn-gold navcta">
               Start free
@@ -113,7 +141,19 @@ export default async function Header() {
             <div className="mobilegroup">More</div>
             <Link href="/pricing">Premium</Link>
             {accountLink && <Link href={accountLink.href}>{accountLink.label}</Link>}
-            {showAdmin && <Link href="/admin/devotionals">Admin</Link>}
+
+            {showAdmin && (
+              <>
+                <div className="mobilegroup">Admin</div>
+                {adminItems.map((i) => (
+                  <Link key={i.href} href={i.href}>
+                    {i.label}
+                  </Link>
+                ))}
+                <Link href="/admin">Admin home</Link>
+              </>
+            )}
+
             {!user && (
               <Link href="/subscribe" className="btn btn-gold btn-block">
                 Start free
