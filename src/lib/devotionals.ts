@@ -249,7 +249,9 @@ export async function adminEnsureWeek(count = 7): Promise<void> {
       const topics = deriveTopics(
         [s.context, s.plainEnglish, s.aboutGod, s.aboutPeople, s.realLife, s.reflection].join(" ")
       );
-      const libraryMaterial = await libraryMaterialForTopics(topics).catch(() => "");
+      const libraryMaterial = await libraryMaterialForTopics(topics, {
+        rotate: dayIndexForDate(date),
+      }).catch(() => "");
       const fresh = await draftDevotionalFromBible({
         reading: s.reading,
         arc: s.arc,

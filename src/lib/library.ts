@@ -442,19 +442,29 @@ export function deriveTopics(text: string): string[] {
  */
 export async function libraryMaterialForTopics(
   topics: string[],
-  limit = 4
+  opts: { limit?: number; rotate?: number } = {}
 ): Promise<string> {
   if (!adminDbConfigured || !topics.length) return "";
-  const items = await listLibrary({ topics });
+  const limit = opts.limit ?? 2; // keep it a light touch, not the backbone
+  const all = await listLibrary({ topics });
+  // Only items with usable, non-verbatim material of your own.
+  const usable = all.filter((it) => {
+    if (it.isVoice) return false; // style-only samples, not source material
+    return !!((it.personalTake ?? "").trim() || (it.body ?? "").trim() || (it.why ?? "").trim());
+  });
+  if (!usable.length) return "";
+  // Rotate the pool by a per-day seed so consecutive days on the same topic
+  // don't keep surfacing the SAME notes — spreads usage, keeps it a blend.
+  const seed = ((opts.rotate ?? 0) % usable.length + usable.length) % usable.length;
+  const ordered = [...usable.slice(seed), ...usable.slice(0, seed)];
+
   const blocks: string[] = [];
   const clip = (s: string, n: number) =>
     s.trim().length > n ? `${s.trim().slice(0, n).trim()}…` : s.trim();
-  for (const it of items) {
-    if (it.isVoice) continue; // style-only samples, not source material
+  for (const it of ordered) {
     const take = (it.personalTake ?? "").trim();
     const note = (it.body ?? "").trim();
     const why = (it.why ?? "").trim();
-    if (!take && !note && !why) continue; // nothing usable (or only verbatim)
     const parts: string[] = [];
     const label = it.title?.trim() || it.topics[0] || "Saved note";
     parts.push(`• ${label}${it.topics.length ? ` [${it.topics.join(", ")}]` : ""}`);

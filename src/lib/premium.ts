@@ -10,6 +10,8 @@ import {
   upcomingDates,
   dayIndexForDate,
 } from "@/lib/devotionals";
+import { draftPremiumFromBible } from "@/lib/premiumFromBible";
+import { deriveTopics, libraryMaterialForTopics } from "@/lib/library";
 
 export { addDays, weekdayLabel, prettyDate, upcomingDates };
 
@@ -225,7 +227,32 @@ export async function premiumEnsureWeek(count = 7): Promise<void> {
   const have = new Set(existing.map((d) => d.date));
   for (const date of dates) {
     if (have.has(date)) continue;
+    // Library-seeded base — the guaranteed fallback if the AI is unavailable.
     const data = fullPremiumFor(date);
+    // Preferred: write the Deeper Walk FROM the day's actual passage, in our
+    // voice, blending in your own material sparingly. Best-effort; on any miss
+    // we keep the library base. Locked/existing issues are never touched (we
+    // only create days that are missing).
+    try {
+      const s = getStudyDay(dayIndexForDate(date));
+      const topics = deriveTopics(
+        [s.context, s.plainEnglish, s.aboutGod, s.aboutPeople, s.realLife, s.reflection].join(" ")
+      );
+      const libraryMaterial = await libraryMaterialForTopics(topics, {
+        rotate: dayIndexForDate(date) + 3, // offset from the free issue so they don't twin
+      }).catch(() => "");
+      const fresh = await draftPremiumFromBible({
+        reading: s.reading,
+        arc: s.arc,
+        theme: s.arc ? `Journey through ${s.arc}` : undefined,
+        weekday: weekdayLabel(date),
+        isSaturday: weekdayLabel(date) === "Saturday",
+        libraryMaterial,
+      });
+      if (fresh) Object.assign(data, fresh);
+    } catch {
+      /* ignore — fall back to the library base */
+    }
     await premiumUpsert(date, "draft", data.devHeading ?? "", data);
   }
 }

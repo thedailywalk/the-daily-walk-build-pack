@@ -25,8 +25,21 @@ function readContext(file: string): string {
   }
 }
 
+/**
+ * The blend + the feel — shared by the daily and premium generators. Keeps the
+ * Bible as the backbone, AI as the connective tissue, and your saved material as
+ * an occasional personal touch (never the crutch).
+ */
+export const BLEND_AND_FEEL = `THE BLEND (how to weave the sources — this matters):
+- The Bible passage is the BACKBONE. Everything grows out of what the passage actually says.
+- YOU, the writer, fill the gaps: make it clear, real, relevant to today, and quietly motivating. This connective tissue is most of the piece.
+- The author's own saved material (when provided below) is an OCCASIONAL personal touch — draw on it ONLY when it genuinely fits today's passage and adds something the text alone doesn't. Never lean on it two days in a row, never let it carry the piece, and always rework it into your own flow. Most days, the passage + your own writing are all you need.
+
+THE FEEL (your north star):
+Write so that by the last line it feels real and written for today — clear, honest, and quietly motivating. It should help get the reader's mind right and ready for the day's battles, and leave them wanting tomorrow's. No fluff, no guilt, no church clichés.`;
+
 let voiceCache: string | null = null;
-function voiceGuide(): string {
+export function voiceGuide(): string {
   if (voiceCache) return voiceCache;
 
   // Brand voice, straight from your own docs.
@@ -97,7 +110,7 @@ export async function draftDevotionalFromBible(
 YOUR OWN MATERIAL (the author personally wrote this — her "Personal Take · In My Own Words · The Science Behind It," plus notes):
 ${input.libraryMaterial.trim()}
 
-HOW TO USE IT: You MAY draw directly on this material — its insight, angle, or the science/psychology in it — BUT ONLY where it genuinely fits ${input.reading} and this week's focus. When you use it, reword and polish it into your own smooth flow so it reads as one seamless piece; never paste it in verbatim, and always tweak it a little. If a note doesn't fit today's passage, ignore it completely — never force it in.`
+HOW TO USE IT: This is the OCCASIONAL personal touch from "THE BLEND" above — not the backbone. You MAY draw on its insight, angle, or science/psychology ONLY where it genuinely fits ${input.reading} and today's focus, and even then keep it light — a thread, not the whole cloth. Rework it into your own smooth flow; never paste it verbatim, always tweak it. If nothing here fits today's passage, ignore all of it and write from the passage alone — that's the normal case, not a failure.`
     : "";
 
   const user = `Write today's short devotional for The Daily Walk, grounded ENTIRELY in this Bible passage:
@@ -112,7 +125,9 @@ RULES:
 - Keep it short and readable — a 2–3 minute read total.
 - Follow the voice below closely (match the feel; never reuse its example words).
 
-${voiceGuide()}${material}
+${voiceGuide()}
+
+${BLEND_AND_FEEL}${material}
 
 Return ONLY a JSON object (no markdown, no commentary) with these exact keys:
 {
