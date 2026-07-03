@@ -182,6 +182,6 @@ export const tiers: Tier[] = [
 
 export const mission = {
   heading: "A daily guide for walking with God in real life.",
-  body: "The Daily Walk exists to help anyone find and follow Jesus — and to feel welcome the moment they do, whether they've followed Him for forty years or have never opened a Bible in their life. Every morning: real Scripture in plain words, an honest prayer, and good news to remind you God is still moving — a few honest minutes that meet you right where you are.",
+  body: "The Daily Walk exists to help people find Jesus — and learn how to build and grow that relationship into a peace that passes all understanding. You're welcome the moment you come, whether you've followed Him for forty years or have never opened a Bible. Every morning: real Scripture in plain words, an honest prayer, and good news to remind you God is still moving — a few honest minutes that meet you right where you are.",
   verse: "“Your word is a lamp to my feet and a light to my path.” — Psalm 119:105",
 };

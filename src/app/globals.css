@@ -2952,6 +2952,22 @@ td.c {
   border: 1px solid #edd9a6;
   border-radius: 14px;
   padding: 16px 22px;
+  animation: launch-slide 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes launch-slide {
+  from {
+    opacity: 0;
+    transform: translateY(-22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .launch-banner {
+    animation: none;
+  }
 }
 .launch-k {
   display: inline-block;

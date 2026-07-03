@@ -138,9 +138,10 @@ export default async function HomePage() {
             <h2 className="h">Bigger than an inbox</h2>
           </div>
           <p className="mh-lead">
-            We&apos;re here to help anyone find and follow Jesus — and to feel
-            welcome the moment they do, whether they&apos;ve followed Him for
-            forty years or have never opened a Bible in their life.
+            We&apos;re here to help people find Jesus — and learn how to build and
+            grow that relationship into a peace that passes all understanding.
+            You&apos;re welcome the moment you come, whether you&apos;ve followed
+            Him for forty years or have never opened a Bible in your life.
           </p>
           <p className="mh-body">
             Every morning, The Daily Walk is a place to start: real Scripture in

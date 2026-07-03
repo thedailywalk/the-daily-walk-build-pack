@@ -5,7 +5,7 @@ import { site } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Vision & Mission",
   description:
-    "The Daily Walk's vision and mission: help people meet Jesus and walk with Him, keep it welcoming and affordable for everyone, and turn what we build into learning centers and hope for kids around the world.",
+    "The Daily Walk's vision and mission: help people find Jesus and learn how to build and grow that relationship into a peace that passes all understanding — keep it welcoming and affordable for everyone, and turn what we build into learning centers and hope for kids around the world.",
 };
 
 /** Vision & Mission — full-width, broken into Vision vs Mission + how we do it. */
@@ -40,10 +40,10 @@ export default function MissionPage() {
             <div className="vm-eyebrow">The &ldquo;how&rdquo; · what we do now</div>
             <h2 className="vm-title">Our Mission</h2>
             <p className="vm-lead">
-              To help people meet Jesus and keep walking with Him — in a way that
-              feels real and welcoming, one honest morning at a time — and to turn
-              what we build into learning centers and hope for kids around the
-              world.
+              To help people find Jesus — and learn how to build and grow that
+              relationship into a peace that passes all understanding — one honest
+              morning at a time. And to turn what we build into learning centers
+              and hope for kids around the world.
             </p>
           </div>
         </div>
@@ -52,9 +52,10 @@ export default function MissionPage() {
         <h2 className="mission-sec-h">How we do it</h2>
         <div className="mission-cards">
           <MissionCard kicker="Why we're here" title="Everyone deserves the chance">
-            We believe everyone deserves the chance to find their way to Jesus —
-            and to feel welcome the moment they do, whether they&apos;ve followed
-            Him for forty years or have never opened a Bible in their life.
+            We believe everyone deserves the chance to find Jesus — and to learn
+            how to build and grow that relationship into a peace that passes all
+            understanding. You&apos;re welcome the moment you come, whether
+            you&apos;ve followed Him for forty years or have never opened a Bible.
           </MissionCard>
           <MissionCard kicker="The newsletter" title="A place to start, every morning">
             Every morning, The Daily Walk is a place to start: real Scripture in

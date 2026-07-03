@@ -22,6 +22,14 @@ export default function SubscribePage() {
   return (
     <section>
       <div className="wrap" style={{ maxWidth: 720 }}>
+        <div className="launch-banner" style={{ marginTop: 20 }}>
+          <span className="launch-k">✨ Limited launch special</span>
+          <p>
+            Psst — don&apos;t miss out. Founding prices are locked in{" "}
+            <strong>for life</strong>{" "}while we&apos;re building. They go up at
+            launch.
+          </p>
+        </div>
         <div className="sec-tag">Start free</div>
         <h1
           className="center"
