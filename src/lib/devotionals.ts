@@ -4,6 +4,7 @@ import { createServiceClient, adminDbConfigured } from "@/lib/supabase/admin";
 import { todayPT } from "@/lib/progress";
 import { getStudyDay } from "@/lib/studyGuide";
 import { draftStepExample } from "@/lib/devotionalExample";
+import { draftDevotionalFromBible } from "@/lib/devotionalFromBible";
 
 /** The editable sections of one daily devotional (matches the issue template). */
 export type DevotionalData = {
@@ -235,14 +236,35 @@ export async function adminEnsureWeek(count = 7): Promise<void> {
   const have = new Set(existing.map((d) => d.date));
   for (const date of dates) {
     if (have.has(date)) continue;
+    // Library-seeded base — the guaranteed fallback if the AI is unavailable.
     const data = fullDevotionalFor(date);
-    // Always give the "Try this today" step a concrete example (AI, best-effort).
+    const s = getStudyDay(dayIndexForDate(date));
+    let wroteFromBible = false;
+    // Preferred: write the devotional FROM the day's actual Bible passage,
+    // in our voice. Best-effort; on any miss we keep the library base below.
     try {
-      const s = getStudyDay(dayIndexForDate(date));
-      const ex = await draftStepExample(s.step, s.reading);
-      if (ex) data.makeItRealBody = `${data.makeItRealBody} ${ex}`;
+      const fresh = await draftDevotionalFromBible({
+        reading: s.reading,
+        arc: s.arc,
+        theme: ARC_FOCUS[s.arc],
+        weekday: weekdayLabel(date),
+        isWednesday: weekdayLabel(date) === "Wednesday",
+      });
+      if (fresh) {
+        Object.assign(data, fresh);
+        wroteFromBible = true;
+      }
     } catch {
-      /* ignore — the step still stands on its own */
+      /* ignore — fall back to the library base */
+    }
+    // If we fell back to the library, still give its step a concrete example.
+    if (!wroteFromBible) {
+      try {
+        const ex = await draftStepExample(s.step, s.reading);
+        if (ex) data.makeItRealBody = `${data.makeItRealBody} ${ex}`;
+      } catch {
+        /* ignore — the step still stands on its own */
+      }
     }
     await adminUpsert(date, "draft", data.readingHeading ?? "", data);
   }

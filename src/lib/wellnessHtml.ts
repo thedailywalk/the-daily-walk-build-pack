@@ -168,7 +168,8 @@ export function renderWellnessHtml(issue: WellnessIssue): string {
       ${esc(prettyDate(issue.date))}<br><br>
       You're receiving this as a Founding Member of The Daily Walk.<br>
       ${site.mailingAddress ? `${esc(site.mailingAddress)}<br>` : ""}
-      <a href="${site.url}/account" style="color:#D8C58A;text-decoration:none;">Manage membership</a> · <a href="#" style="color:#D8C58A;text-decoration:none;">Unsubscribe</a>
+      <a href="${site.url}/account" style="color:#D8C58A;text-decoration:none;">Manage membership</a> · <a href="#" style="color:#D8C58A;text-decoration:none;">Unsubscribe</a><br><br>
+      <span style="color:#8b9c8f;font-size:10.5px;line-height:1.6;">${esc(site.scriptureNotice)}</span>
     </div>
   </div>
 </div>`;

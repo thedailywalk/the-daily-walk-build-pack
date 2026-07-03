@@ -20,6 +20,9 @@ export const site = {
   mailingAddress:
     process.env.NEXT_PUBLIC_MAILING_ADDRESS ??
     "The Daily Walk Newsletter · PO Box 1571 · Sunset Beach, CA 90742",
+  // Required attribution when quoting the NIV in emails (Biblica permission terms).
+  scriptureNotice:
+    "Scripture quotations taken from the Holy Bible, New International Version® NIV®. Copyright © 1973, 1978, 1984, 2011 by Biblica, Inc.® Used by permission. All rights reserved worldwide.",
   // Beehiiv-hosted destinations (filled in once the publication exists).
   // Falls back to the on-site subscribe form / pricing page when unset.
   beehiiv: {

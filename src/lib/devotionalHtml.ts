@@ -218,7 +218,8 @@ export function renderDevotionalHtml(dev: Devotional, goodNews: GoodNewsItem[] =
       <a href="${site.url}" style="color:#C9A24B;text-decoration:none;">Today's full plan</a> · <a href="${site.url}/community" style="color:#C9A24B;text-decoration:none;">Community</a> · <a href="${site.url}/subscribe" style="color:#C9A24B;text-decoration:none;">Forward to a friend</a><br><br>
       You're receiving this because you signed up at thedailywalknewsletter.com.<br>
       ${site.mailingAddress ? `${esc(site.mailingAddress)}<br>` : ""}
-      <a href="#" style="color:#C9A24B;text-decoration:none;">Update preferences</a> · <a href="#" style="color:#C9A24B;text-decoration:none;">Unsubscribe</a>
+      <a href="#" style="color:#C9A24B;text-decoration:none;">Update preferences</a> · <a href="#" style="color:#C9A24B;text-decoration:none;">Unsubscribe</a><br><br>
+      <span style="color:#6f83a0;font-size:10.5px;line-height:1.6;">${esc(site.scriptureNotice)}</span>
     </div>
   </div>
 </div>`;
