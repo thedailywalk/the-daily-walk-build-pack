@@ -27,19 +27,6 @@ export type Candidate = GoodNewsItem & {
   excerpt: string;
 };
 
-export type MagazineItem = {
-  category: string;
-  headline: string;
-  href: string;
-  image: string;
-  source: string;
-  faith: boolean;
-  mood: Mood;
-  excerpt: string;
-  date: number;
-  dateLabel: string;
-};
-
 const DAY = 86400;
 const UA =
   "Mozilla/5.0 (compatible; TheDailyWalkBot/1.0; +https://thedailywalknewsletter.com)";
@@ -289,35 +276,6 @@ function clip(s: string, n: number): string {
   const t = s.trim();
   if (t.length <= n) return t;
   return t.slice(0, n).replace(/\s+\S*$/, "") + "…";
-}
-
-/** A daily "magazine" of ~30 varied good-news stories for paying members. */
-export async function getGoodNewsMagazine(limit = 30): Promise<MagazineItem[]> {
-  try {
-    const pages = await Promise.all(CANDIDATE_FEEDS.map(fetchFeed));
-    const picked = interleave(pages, limit);
-    return picked.map((it) => ({
-      category: it.category,
-      headline: it.headline,
-      href: it.href,
-      source: it.source,
-      faith: it.faith,
-      mood: it.mood,
-      excerpt: it.excerpt,
-      date: it.date,
-      dateLabel: it.date
-        ? new Date(it.date).toLocaleDateString("en-US", {
-            month: "long",
-            day: "numeric",
-            year: "numeric",
-          })
-        : "",
-      image: "",
-    }));
-  } catch (err) {
-    console.error("getGoodNewsMagazine:", (err as Error).message);
-    return [];
-  }
 }
 
 function pickCategory(categories: string[]): string {
