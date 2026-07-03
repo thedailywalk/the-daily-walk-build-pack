@@ -13,6 +13,9 @@ export const site = {
   url: process.env.APP_URL ?? "https://thedailywalknewsletter.com",
   replyTo: "thedailywalknewsletter@gmail.com",
   founderPhone: "310-303-4580",
+  // GoFundMe for the learning-center mission. Set NEXT_PUBLIC_GOFUNDME_URL when
+  // the campaign is live; until then the button shows a "launching soon" note.
+  gofundmeUrl: process.env.NEXT_PUBLIC_GOFUNDME_URL ?? "",
   owner: "Lulu Jimenez",
   // Physical mailing address — legally REQUIRED in every marketing email (CAN-SPAM).
   // A USPS P.O. Box is fine. Shown in every newsletter footer; hidden if blank.

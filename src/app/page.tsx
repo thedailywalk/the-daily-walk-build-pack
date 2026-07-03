@@ -130,6 +130,58 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* OUR MISSION + GOFUNDME */}
+      <section id="mission-home" className="mhsec">
+        <div className="wrap">
+          <div className="why-head">
+            <div className="sec-tag">Our mission</div>
+            <h2 className="h">Bigger than an inbox</h2>
+          </div>
+          <p className="mh-lead">
+            We&apos;re here to help anyone find and follow Jesus — and to feel
+            welcome the moment they do, whether they&apos;ve followed Him for
+            forty years or have never opened a Bible in their life. But the
+            mission doesn&apos;t stop at your inbox.
+          </p>
+          <p className="mh-body">
+            As The Daily Walk grows, we turn what it earns into{" "}
+            <strong>learning centers in communities that lack computers,
+            teachers, and schools</strong> — giving kids around the world a
+            chance, an education, and hope for what&apos;s ahead.{" "}
+            <Link href="/mission" className="mh-inline">
+              Read our full mission →
+            </Link>
+          </p>
+
+          {/* GoFundMe — the first build */}
+          <div className="gfm-card">
+            <div className="gfm-k">The first build · GoFundMe</div>
+            <h3 className="gfm-h">A learning center — and a bus to reach it</h3>
+            <p className="gfm-p">
+              Our first project: build a learning center for kids who&apos;ve
+              never had one — and provide a <strong>bus</strong>, so children in
+              towns with no transportation can finally get to school. Every gift
+              goes toward giving a child a real classroom, a real chance, and
+              real hope — all in God&apos;s name.
+            </p>
+            {site.gofundmeUrl ? (
+              <a
+                href={site.gofundmeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-gold gfm-cta"
+              >
+                Give on GoFundMe →
+              </a>
+            ) : (
+              <span className="gfm-soon">
+                Our GoFundMe is launching soon — watch this space.
+              </span>
+            )}
+          </div>
+        </div>
+      </section>
+
       {/* ARM YOURSELF — practical how-to-start */}
       <section id="arm" className="armsec">
         <div className="wrap">
@@ -168,29 +220,6 @@ export default async function HomePage() {
                 </p>
               </div>
             ))}
-          </div>
-
-          {/* Closing moment */}
-          <div className="arm-close">
-            <span className="arm-close-rule" aria-hidden="true" />
-            <p className="arm-close-lead">
-              Everyone says life doesn&apos;t come with an instruction manual.
-              It does — most of us just never opened it.
-            </p>
-            <p className="arm-close-body">
-              God didn&apos;t leave you to guess your way through. His Word is
-              where you learn how to live, how to heal, how to make the braver
-              call, how to fight the battles no one else can see — and how to
-              become the person He made you to be. It was never a religious box
-              to check. It&apos;s wisdom when you&apos;re lost, strength when
-              you&apos;re running on empty, an anchor when you&apos;ve forgotten
-              who you are, and healing for the places nothing else has reached.
-              Pick it up, and you stop walking through life blind.
-            </p>
-            <Link href="/subscribe" className="btn btn-gold arm-cta">
-              Pick up your sword →
-            </Link>
-            <p className="arm-close-sub">Free to start · no card required</p>
           </div>
         </div>
       </section>

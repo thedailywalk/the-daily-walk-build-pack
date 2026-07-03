@@ -1718,6 +1718,73 @@ a.gncard:focus-visible {
   color: var(--grey);
 }
 
+/* ---- Homepage mission + GoFundMe ---- */
+.mhsec {
+  padding: 20px 0 8px;
+}
+.mh-lead {
+  max-width: 680px;
+  margin: 6px auto 16px;
+  text-align: center;
+  font-family: var(--serif);
+  font-size: 20px;
+  line-height: 1.55;
+  color: var(--navy);
+}
+.mh-body {
+  max-width: 680px;
+  margin: 0 auto 26px;
+  text-align: center;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--ink);
+}
+.mh-inline {
+  color: var(--gold-deep);
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.gfm-card {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+  background: var(--cream);
+  border: 1px solid #ecdcaf;
+  border-top: 4px solid var(--gold);
+  border-radius: 16px;
+  padding: 28px 30px 30px;
+}
+.gfm-k {
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.gfm-h {
+  font-family: var(--serif);
+  font-size: 24px;
+  color: var(--navy);
+  margin: 0 0 12px;
+  line-height: 1.2;
+}
+.gfm-p {
+  font-size: 15.5px;
+  line-height: 1.68;
+  color: var(--ink);
+  margin: 0 auto 20px;
+  max-width: 560px;
+}
+.gfm-soon {
+  display: inline-block;
+  font-style: italic;
+  color: var(--grey);
+  font-size: 14.5px;
+}
+
 /* ---- How it works (interactive: habit-loop flow + click-to-switch) ---- */
 .hiw {
   max-width: 980px;
