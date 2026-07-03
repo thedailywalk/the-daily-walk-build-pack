@@ -30,7 +30,7 @@ const S = {
   sec: "font-family:Arial,Helvetica,sans-serif;font-size:21px;color:#1F3A5F;margin:0 0 10px;",
   p: "font-size:16px;line-height:1.62;margin:0 0 14px;",
   ref: "font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#6a6452;font-weight:bold;margin:0 0 8px;",
-  readInvite: "font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:14px;color:#7a7360;line-height:1.55;margin:0 0 14px;",
+  readInvite: "font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:14.5px;color:#3f3a2c;line-height:1.55;margin:0 0 14px;",
   rule: "height:1px;line-height:1px;background:#DDD3BC;margin:26px 0;",
   verse: "border-left:4px solid #C9A24B;background:#F3ECDA;padding:14px 18px;margin:16px 0;font-style:italic;color:#1F3A5F;font-size:16px;line-height:1.55;",
   keyword: "background:#ffffff;border:1px solid #E0D6BF;border-radius:8px;padding:14px 18px;margin:0 0 12px;font-size:14.5px;line-height:1.55;color:#2B2B2B;",
@@ -89,7 +89,7 @@ export function renderPremiumHtml(issue: PremiumIssue): string {
         d.devHeading?.trim() ? `<h2 style="${S.sec}">${esc(d.devHeading)}</h2>` : "",
         d.devRef?.trim() ? `<p style="${S.ref}">${esc(d.devRef)}</p>` : "",
         d.devRef?.trim()
-          ? `<p style="${S.readInvite}">If you can, open your Bible and read it for yourself — there's nothing like meeting God's Word firsthand. Short on time? No guilt — today's reflection opens it up for you below.</p>`
+          ? `<p style="${S.readInvite}">Open your Bible if you can — or let today's reflection walk you through it.</p>`
           : "",
         paras(d.devIntro),
         d.devVerseText?.trim()
