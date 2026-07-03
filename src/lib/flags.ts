@@ -15,7 +15,7 @@ export const GOOD_NEWS_ENABLED = true;
  * referenced internally — with thumbnails — even though they aren't shown
  * publicly. Flip to `true` to bring Good News back on the public site.
  */
-export const GOOD_NEWS_PUBLIC = false;
+export const GOOD_NEWS_PUBLIC = true;
 
 /**
  * GOOD_NEWS_ROOM_ENABLED — sub-switch for the full Premium /good-news reading
