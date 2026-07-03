@@ -2789,6 +2789,74 @@ td.c {
   font-size: 15px;
   max-width: 760px;
 }
+/* FAQ accordion — click a question to open its answer */
+.faq-item {
+  border-top: 1px solid var(--line);
+}
+.faq-item > summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin: 0;
+  padding: 16px 2px;
+}
+.faq-item > summary::-webkit-details-marker {
+  display: none;
+}
+.faq-item > summary::after {
+  content: "+";
+  flex: 0 0 auto;
+  font-family: var(--sans);
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--gold-deep);
+  transition: transform 0.18s;
+}
+.faq-item[open] > summary::after {
+  content: "–";
+}
+.faq-item .a {
+  padding: 0 2px 18px;
+}
+/* Collapsible full-comparison table */
+.cmp-collapse {
+  margin-top: 30px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--cream);
+}
+.cmp-collapse > summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 22px;
+}
+.cmp-collapse > summary::-webkit-details-marker {
+  display: none;
+}
+.cmp-summary-title {
+  font-family: var(--serif);
+  font-size: 22px;
+  color: var(--navy);
+}
+.cmp-summary-hint {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--gold-deep);
+}
+.cmp-collapse[open] > summary {
+  border-bottom: 1px solid var(--line);
+}
+.cmp-collapse > .tbl-card {
+  margin: 0 16px 18px !important;
+}
 hr.div {
   border: none;
   border-top: 1px solid var(--line2);

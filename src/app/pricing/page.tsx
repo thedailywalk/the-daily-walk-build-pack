@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import PricingCards from "@/components/PricingCards";
-import MorningFlow from "@/components/MorningFlow";
 import { PRICING_ENABLED } from "@/lib/flags";
 import { site } from "@/lib/site";
 
@@ -15,13 +14,11 @@ const schedule = [
   ["Devotional (prayer + Good News)", "Mon · Wed · Fri", "5:00 AM ET", [1, 1, 1]],
   ["The devotional every day", "Daily", "5:00 AM ET", [0, 1, 1]],
   ["Wednesday Pastor's Take", "Wednesday", "in the issue", [1, 1, 1]],
-  ["Bible-in-a-Year guided reading", "Daily · your Day 1", "5:00 AM ET", [0, 1, 1]],
-  ["Audio devotional", "Daily", "5:00 AM ET", [0, 1, 1]],
+  ["Bible-in-a-Year guided reading", "Daily · your Day 1", "your pace", [0, 1, 1]],
   ["The Deeper Walk (premium newsletter)", "Daily", "5:00 AM ET", [0, 1, 1]],
-  ["Reflective “pause & reflect” moments", "Daily", "in Deeper Walk", [0, 1, 1]],
-  ["Weekend Study deep-dive", "Saturday", "5:00 AM ET", [0, 1, 1]],
   ["The Spiritual Wellness Guide", "Mon · Wed · Fri", "—", [0, 1, 1]],
   ["Monthly study workbook", "Monthly", "—", [0, 1, 1]],
+  ["The entire platform + all its features", "At launch", "locked at $5.99", [0, 1, 1]],
 ] as const;
 
 const comparison: Array<
@@ -127,14 +124,6 @@ export default function PricingPage() {
           </p>
         </div>
 
-        <h2 className="section">How a morning works</h2>
-        <p className="section-sub">
-          Small enough to actually do — before the world gets loud.
-        </p>
-        <div className="hiw hiw-flowonly">
-          <MorningFlow />
-        </div>
-
         <h2 className="section">Pick your plan</h2>
         <p className="section-sub">
           The devotional is free three mornings a week. Founding Members get
@@ -153,7 +142,7 @@ export default function PricingPage() {
               <tr>
                 <th>What you get</th>
                 <th>Day</th>
-                <th>Time PT</th>
+                <th>When</th>
                 <th className="c">Free</th>
                 <th className="c">Founding</th>
                 <th className="c">Partner</th>
@@ -181,30 +170,6 @@ export default function PricingPage() {
           starting on <em>your</em> Day 1 — the Deeper Walk, and the Spiritual
           Wellness Guide, all in one $5.99 membership.
         </p>
-
-        {/* EXPLAINER */}
-        <h2 className="section">What a tier actually looks like</h2>
-        <div className="explain">
-          <h3>Two rhythms, one walk</h3>
-          <p>
-            The Daily Walk runs on two rhythms. The{" "}
-            <strong>free devotional</strong> goes out to everyone three mornings
-            a week — Monday, Wednesday &amp; Friday — with encouragement, a
-            prayer, Good News from around the world, and the Wednesday
-            Pastor&apos;s Take. The <strong>Bible-in-a-Year journey</strong> (for
-            Founding Members) is personal: it starts on <em>your</em> Day 1, the
-            day you join, so you&apos;re never dropped into the middle and never
-            feel behind before you begin.
-          </p>
-          <p className="punch">
-            Free walks with you three mornings a week. Founding Members get
-            everything, every day — and help build the mission.
-          </p>
-          <p style={{ marginBottom: 0, color: "var(--grey)", fontSize: 13.5 }}>
-            Community access stays free for every reader — because no one should
-            have to pay to belong.
-          </p>
-        </div>
 
         {/* FOUNDING PARTNER */}
         <h2 className="section">About Founding Partner</h2>
@@ -243,9 +208,13 @@ export default function PricingPage() {
           </p>
         </div>
 
-        {/* FULL COMPARISON */}
-        <h2 className="section">The full comparison</h2>
-        <div className="tbl-card scroll">
+        {/* FULL COMPARISON — collapsible so it doesn't take up space */}
+        <details className="cmp-collapse">
+          <summary>
+            <span className="cmp-summary-title">The full comparison</span>
+            <span className="cmp-summary-hint">tap to expand ▾</span>
+          </summary>
+          <div className="tbl-card scroll" style={{ marginTop: 16 }}>
           <table>
             <thead>
               <tr>
@@ -274,16 +243,17 @@ export default function PricingPage() {
               )}
             </tbody>
           </table>
-        </div>
+          </div>
+        </details>
 
-        {/* FAQ */}
+        {/* FAQ — click to open */}
         <h2 className="section">Frequently asked questions</h2>
         <div className="faq">
           {faqs.map((f) => (
-            <div key={f.q}>
-              <div className="q">{f.q}</div>
+            <details className="faq-item" key={f.q}>
+              <summary className="q">{f.q}</summary>
               <div className="a">{f.a}</div>
-            </div>
+            </details>
           ))}
         </div>
 
