@@ -96,10 +96,7 @@ export default async function HomePage() {
               where you learn how to live, how to heal, how to make the braver
               call, how to fight the battles no one else can see — and how to
               become the person He made you to be. It was never a religious box to
-              check. It&apos;s answers you didn&apos;t know where to look for,
-              direction when you&apos;re lost, peace you could never manufacture on
-              your own, and healing for the places nothing else has reached. Pick
-              it up, and you stop walking through life blind.
+              check. Pick it up, and you stop walking through life blind.
             </p>
           </div>
           <div className="manifesto-cta">
