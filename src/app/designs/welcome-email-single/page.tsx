@@ -9,7 +9,8 @@ export const dynamic = "force-static";
 
 /**
  * Email-safe SINGLE-COLUMN welcome email (600px) — renders reliably in Gmail,
- * Outlook, and on phones. Same content/look as the wide preview, stacked.
+ * Outlook, and on phones. The optional P.S. bonus sits at the very bottom, after
+ * the sign-off, so the letter reads clean first.
  */
 export default function WelcomeEmailSingle() {
   const addr = site.mailingAddress || "The Daily Walk Newsletter · PO Box 1571 · Sunset Beach, CA 90742";
@@ -52,29 +53,33 @@ export default function WelcomeEmailSingle() {
       <p style="font-family:${sans};font-size:15.5px;line-height:1.7;color:#2b2b2b;margin:0;">Your first devotional is on its way. Until then — welcome. We're glad you're here, and we mean that.</p>
     </div>
 
-    <div style="height:28px;line-height:28px;">&nbsp;</div>
+    <!-- Close / sign-off -->
+    <div style="padding:22px 34px 4px;">
+      <p style="font-family:${sans};font-size:15.5px;line-height:1.7;color:#2b2b2b;margin:0 0 20px;">If you ever have a question, some feedback, or a prayer request, don't hesitate to reach out.</p>
+      <p style="font-family:${sans};font-size:15.5px;line-height:1.5;color:#2b2b2b;margin:0;">Much love and blessings,<br><span style="font-family:${serif};font-size:22px;color:#1F3A5F;font-weight:bold;">The Daily Walk Newsletter</span></p>
+    </div>
 
-    <!-- Optional P.S. bonus (stacked) -->
+    <div style="height:30px;line-height:30px;">&nbsp;</div>
+
+    <!-- Optional P.S. bonus — at the very bottom -->
     <div style="padding:0 26px;">
       <div style="background:#faf5e7;border:1px solid #ecdcaf;border-radius:14px;padding:12px 24px 22px;">
-        <div style="text-align:center;margin-top:-22px;margin-bottom:8px;">
+        <div style="text-align:center;margin-top:-22px;margin-bottom:10px;">
           <span style="font-family:${sans};font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#ffffff;background:#1F3A5F;padding:6px 15px;border-radius:20px;font-weight:bold;">P.S.</span>
         </div>
-        <p style="font-family:${sans};font-size:11.5px;letter-spacing:.4px;color:#9a8c63;margin:0 0 14px;text-align:center;text-transform:uppercase;">Read on if you're curious — no pressure</p>
+        <p style="font-family:${sans};font-size:14.5px;font-weight:bold;color:#1F3A5F;margin:0 0 14px;text-align:center;">Pssttt…. read on if you're curious — no pressure.</p>
 
         <p style="font-family:${sans};font-size:14px;line-height:1.72;color:#4a4433;margin:0 0 14px;"><strong style="color:#1F3A5F;">Want to go all in?</strong> Founding Members ($5.99/mo) get <strong>the devotional every day</strong> — plus <strong>The Spiritual Wellness Guide</strong>, with practical, real-life tools for the relationships that matter most: as a parent, a child, a husband or wife, or a friend. You'll also get <strong>full access to the platform we're building right now</strong> — a personal dashboard and portal that opens into your immersive, guided walk through the whole Bible in a year, starting on your own Day 1.</p>
 
-        <p style="font-family:${sans};font-size:14px;line-height:1.72;color:#4a4433;margin:0;">Here's the honest part: we're a small family who love Jesus and want to help others find Him — so we need all the support we can get to build this. Join while it's being built, help make it happen, and <strong style="color:#B8902E;">your price locks in at $5.99 for life</strong>, even after it goes up when the platform launches. And the <strong>first 3,000 members</strong> get access to live streams and sessions with a licensed Christian therapist and guest pastors, all coming soon.</p>
+        <p style="font-family:${sans};font-size:14px;line-height:1.72;color:#4a4433;margin:0 0 16px;">Here's the honest part: we're a small family who love Jesus and want to help others find Him — so we need all the support we can get to build this. Join while it's being built, help make it happen, and <strong style="color:#B8902E;">your price locks in at $5.99 for life</strong>, even after it goes up when the platform launches. And the <strong>first 3,000 members</strong> get access to live streams and sessions with a licensed Christian therapist and guest pastors, all coming soon.</p>
+
+        <div style="height:1px;line-height:1px;background:#e6d7ad;margin:0 0 16px;">&nbsp;</div>
+
+        <p style="font-family:${sans};font-size:14px;line-height:1.72;color:#4a4433;margin:0;"><strong style="color:#1F3A5F;">Want to help beyond a subscription?</strong> Getting the Word of God out into the world through technology is new ground for us — we know our mission and exactly where we're headed, and we're pouring everything we have into doing it well. If you feel called to come alongside us — with a donation toward the mission, a partnership, or your own gifts and ideas for what's next — we'd truly love to talk and find out how we can help each other. Reach out anytime: call <a href="tel:+13103034580" style="color:#B8902E;font-weight:bold;text-decoration:none;">310-303-4580</a> or email <a href="mailto:thedailywalknewsletter@gmail.com" style="color:#B8902E;font-weight:bold;text-decoration:none;">thedailywalknewsletter@gmail.com</a>.</p>
       </div>
     </div>
 
     <div style="height:24px;line-height:24px;">&nbsp;</div>
-
-    <!-- Close -->
-    <div style="padding:0 34px 28px;">
-      <p style="font-family:${sans};font-size:15.5px;line-height:1.7;color:#2b2b2b;margin:0 0 20px;">If you ever have a question, some feedback, or a prayer request, don't hesitate to reach out.</p>
-      <p style="font-family:${sans};font-size:15.5px;line-height:1.5;color:#2b2b2b;margin:0;">Much love and blessings,<br><span style="font-family:${serif};font-size:22px;color:#1F3A5F;font-weight:bold;">The Daily Walk Newsletter</span></p>
-    </div>
 
     <!-- Footer -->
     <div style="border-top:1px solid #ece4d3;padding:20px 30px;text-align:center;font-family:${sans};font-size:11.5px;line-height:1.7;color:#9a927f;">
