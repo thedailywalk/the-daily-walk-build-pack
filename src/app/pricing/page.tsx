@@ -133,6 +133,47 @@ export default function PricingPage() {
 
         <PricingCards />
 
+        {/* WHAT FOUNDING MEMBER REALLY GIVES YOU */}
+        <h2 className="section">The big things you&apos;re getting</h2>
+        <p className="section-sub">
+          Founding Member is everything, one membership — here&apos;s what that
+          really means.
+        </p>
+        <div className="price-note">
+          For a limited time, as a thank-you for your early support, your price{" "}
+          <strong>locks in for life</strong> — even after it goes up at launch.
+        </div>
+        <div className="price-boxes">
+          <div className="hiw-box">
+            <div className="hiw-box-k">The daily upgrade</div>
+            <h4>The Deeper Walk newsletter</h4>
+            <p>
+              A daily 5-minute devotional that goes further than the free one:
+              fuller context, a key word unpacked, a reflective pause as you read,
+              and a real next step to live it out.
+            </p>
+          </div>
+          <div className="hiw-box hiw-box-soft">
+            <div className="hiw-box-k">3× a week</div>
+            <h4>The Spiritual Wellness Guide</h4>
+            <p>
+              Practical, real-life tools for the relationships that matter most —
+              as a parent, a child, a spouse, or a friend — plus the Saturday
+              Weekend Study deep-dive.
+            </p>
+          </div>
+          <div className="hiw-box hiw-box-coming">
+            <div className="hiw-box-k">Coming in the next couple months</div>
+            <h4>The full platform — locked in for life</h4>
+            <p>
+              Your guided Bible-in-a-Year journey and dashboard, plus{" "}
+              <strong>live group sessions with some of the best Christian
+              therapists</strong> and <strong>live streams with pastors from all
+              over the world</strong>.
+            </p>
+          </div>
+        </div>
+
         {/* WEEKLY SCHEDULE */}
         <h2 className="section">What hits your inbox each week</h2>
         <p className="section-sub">A quick scan of what arrives, by tier and day.</p>

@@ -140,11 +140,20 @@ export default async function HomePage() {
           <p className="mh-lead">
             We&apos;re here to help anyone find and follow Jesus — and to feel
             welcome the moment they do, whether they&apos;ve followed Him for
-            forty years or have never opened a Bible in their life. But the
-            mission doesn&apos;t stop at your inbox.
+            forty years or have never opened a Bible in their life.
           </p>
           <p className="mh-body">
-            As The Daily Walk grows, we turn what it earns into{" "}
+            Every morning, The Daily Walk is a place to start: real Scripture in
+            plain words, an honest prayer, and good news to remind you God is
+            still moving. And because it&apos;s meant for <em>anyone</em>, we keep
+            it as affordable as we possibly can — so money is never the reason
+            someone can&apos;t walk with God.
+          </p>
+          <p className="mh-body">
+            The platform is how we go further together — a way to connect, to
+            teach clearly, and to put real tools within reach of anyone who wants
+            to grow. And the mission doesn&apos;t stop at your inbox: as The Daily
+            Walk grows, we turn what it earns into{" "}
             <strong>learning centers in communities that lack computers,
             teachers, and schools</strong> — giving kids around the world a
             chance, an education, and hope for what&apos;s ahead.{" "}

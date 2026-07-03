@@ -13,7 +13,7 @@
   --gold-deep: #b8902e; /* gold text/links on white (better contrast) */
   --cream: #faf6ee; /* soft section backgrounds */
   --ink: #22262b; /* body text */
-  --grey: #5a6270; /* secondary text */
+  --grey: #3f4653; /* secondary text — kept dark enough to read easily */
   --white: #ffffff;
   --green: #1f9d55; /* yes/checkmarks */
   --red: #bf4a4a;
@@ -2856,6 +2856,37 @@ td.c {
 }
 .cmp-collapse > .tbl-card {
   margin: 0 16px 18px !important;
+}
+/* Pricing: "the big things you're getting" explainer */
+.price-note {
+  max-width: 720px;
+  margin: 4px auto 20px;
+  text-align: center;
+  background: #fbf3df;
+  border: 1px solid #edd9a6;
+  border-radius: 12px;
+  padding: 14px 20px;
+  font-size: 15px;
+  line-height: 1.55;
+  color: #4a4433;
+}
+.price-boxes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+.price-boxes .hiw-box h4 {
+  font-size: 17px;
+}
+.price-boxes .hiw-box p {
+  color: var(--ink);
+}
+@media (max-width: 820px) {
+  .price-boxes {
+    grid-template-columns: 1fr;
+  }
 }
 hr.div {
   border: none;

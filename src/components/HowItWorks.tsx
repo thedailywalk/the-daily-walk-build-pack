@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import MorningFlow from "@/components/MorningFlow";
 
 /**
  * Interactive "How it works" — the morning-flow (habit loop) up top, then a
@@ -36,8 +35,6 @@ export default function HowItWorks() {
 
   return (
     <div className="hiw">
-      <MorningFlow />
-
       <div className="hiw-tabs hiw-tabs-3" role="tablist" aria-label="How each option works">
         {TABS.map((t) => (
           <button
