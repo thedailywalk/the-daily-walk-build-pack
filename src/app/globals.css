@@ -17,6 +17,8 @@
   --white: #ffffff;
   --green: #1f9d55; /* yes/checkmarks */
   --red: #bf4a4a;
+  --sage: #4f8a74; /* soft secondary accent — a gentle pop, growth/hope */
+  --sage-soft: #e7f1ec; /* sage tint for chips/icon backgrounds */
   --line: #e6e0d2; /* warm hairline */
   --line2: #eceff3; /* cool hairline */
 
@@ -1842,6 +1844,12 @@ a.gncard:focus-visible {
 }
 .hiw-step-ic {
   font-size: 24px;
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  background: var(--sage-soft);
+  border-radius: 14px;
 }
 .hiw-step h4 {
   margin: 0 0 6px;

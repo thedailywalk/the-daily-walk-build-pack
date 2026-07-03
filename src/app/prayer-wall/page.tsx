@@ -58,7 +58,7 @@ export default async function PrayerWallPage() {
         </p>
 
         {/* SUBMIT — kept right at the top so it's the first thing members reach. */}
-        <div className="prayer-submit">
+        <div className="prayer-submit" id="share">
           <div className="prayer-submit-head">
             <span aria-hidden="true">🙏</span> Lift it up together
           </div>

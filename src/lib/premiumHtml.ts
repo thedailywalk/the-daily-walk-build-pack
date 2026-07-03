@@ -150,7 +150,7 @@ export function renderPremiumHtml(issue: PremiumIssue, goodNews: GoodNewsItem[] 
           ? `<div style="${S.keyword}"><strong>Key word — </strong>${esc(d.devKeyWord)}</div>`
           : "",
         d.devApply?.trim()
-          ? `<div style="${S.apply}"><div style="${S.applyK}">Today's walk</div>${esc(d.devApply)}</div>`
+          ? `<div style="${S.apply}"><div style="${S.applyK}">So what, for today?</div>${esc(d.devApply)}</div>`
           : "",
         d.devReflection?.trim()
           ? `<div style="${S.question}">${esc(d.devReflection.startsWith("👉") ? d.devReflection : `👉 ${d.devReflection}`)}</div>`
@@ -191,15 +191,14 @@ export function renderPremiumHtml(issue: PremiumIssue, goodNews: GoodNewsItem[] 
   const gn = goodNewsBlock(goodNews);
   if (gn) blocks.push(gn);
 
-  // Walk together — the community platform isn't live yet, so the best way to
-  // walk together right now is to bring someone with you: share it, free.
-  const shareUrl = site.beehiiv?.subscribeUrl?.trim() || `${site.url}/subscribe`;
+  // Walk together — an invite to the live Prayer Wall.
+  const prayerUrl = `${site.url}/prayer-wall#share`;
   blocks.push(
     [
-      `<div style="${S.kicker}" >Walk together</div>`,
+      `<div style="${S.kicker}">Walk together</div>`,
       `<div style="${S.share}">`,
-      `<p style="${S.shareP}">You weren't meant to do this alone. The community space is still being built — so for now, the best way to walk together is to bring someone with you. Know someone who could use a little hope each morning? Send them today's issue — it's completely free to start.</p>`,
-      `<div style="${S.cta}"><a href="${esc(shareUrl)}" style="${S.btn}">Share it free with a friend →</a></div>`,
+      `<p style="${S.shareP}">We were never meant to walk alone. Need a prayer today — or have a few minutes to pray for someone else? Come lift it up with us.</p>`,
+      `<div style="${S.cta}"><a href="${esc(prayerUrl)}" style="${S.btn}">Write &amp; share a prayer →</a></div>`,
       `</div>`,
     ].join("")
   );

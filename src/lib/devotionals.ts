@@ -3,6 +3,7 @@ import { createClient, supabaseConfigured } from "@/lib/supabase/server";
 import { createServiceClient, adminDbConfigured } from "@/lib/supabase/admin";
 import { todayPT } from "@/lib/progress";
 import { getStudyDay } from "@/lib/studyGuide";
+import { site } from "@/lib/site";
 import { draftStepExample } from "@/lib/devotionalExample";
 import { draftDevotionalFromBible } from "@/lib/devotionalFromBible";
 import { deriveTopics, libraryMaterialForTopics } from "@/lib/library";
@@ -17,6 +18,7 @@ export type DevotionalData = {
   verseText?: string;
   verseRef?: string;
   readingAfter?: string;
+  keyWord?: string; // one key word from the passage, "Word — plain-English meaning"
   makeItRealHeading?: string;
   makeItRealBody?: string;
   question?: string;
@@ -376,14 +378,16 @@ export function fullDevotionalFor(date: string): DevotionalData {
     verseText,
     verseRef,
     readingAfter: s.plainEnglish,
+    keyWord: s.keyWords?.[0] ? `${s.keyWords[0].word} — ${s.keyWords[0].meaning}` : "",
     makeItRealHeading: weekday === "Sunday" ? "Be still for a moment" : "So what, for today?",
     makeItRealBody: `${s.realLife} ${s.aboutPeople} Try this today: ${s.step}`,
     question: s.reflection.startsWith("👉") ? s.reflection : `👉 ${s.reflection}`,
     prayer: s.prayer,
-    // Community CTA intentionally left blank until the community is live.
-    communityText: "",
-    ctaLabel: "",
-    ctaUrl: "",
+    // Walk together — an invite to the live Prayer Wall.
+    communityText:
+      "We were never meant to walk alone. Need a prayer today — or have a few minutes to pray for someone else?",
+    ctaLabel: "Write & share a prayer →",
+    ctaUrl: `${site.url}/prayer-wall#share`,
     closingLine: CLOSINGS[wIdx],
   };
 

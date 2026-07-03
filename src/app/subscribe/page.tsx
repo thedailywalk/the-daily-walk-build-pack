@@ -31,7 +31,7 @@ export default function SubscribePage() {
         </h1>
         <p className="sub">
           Join free — no card required. Your first devotional lands on our next
-          send morning (Mon · Wed · Fri) at 6:30 AM PT.
+          send morning (Mon · Wed · Fri) at 5:00 AM ET.
         </p>
 
         <div style={{ display: "flex", justifyContent: "center" }}>

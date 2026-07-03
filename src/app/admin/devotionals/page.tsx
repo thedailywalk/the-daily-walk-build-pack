@@ -246,6 +246,9 @@ async function EditorView(date: string, saved: boolean) {
           <Field label="After the verse (optional)">
             <textarea name="readingAfter" defaultValue={data.readingAfter} className="adm-textarea" rows={3} />
           </Field>
+          <Field label="Key word (Word — plain-English meaning)" hint="One term from the passage, unpacked">
+            <textarea name="keyWord" defaultValue={data.keyWord} className="adm-textarea" rows={2} />
+          </Field>
 
           <h3 className="adm-group">Make It Real</h3>
           <Field label="Heading">

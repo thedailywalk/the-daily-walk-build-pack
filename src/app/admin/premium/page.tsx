@@ -281,8 +281,8 @@ async function EditorView(date: string, saved: boolean) {
           <Field label="Key word (Word — meaning)">
             <textarea name="devKeyWord" defaultValue={data.devKeyWord} className="adm-textarea" rows={2} />
           </Field>
-          <Field label="Today's walk (one faithful step)">
-            <textarea name="devApply" defaultValue={data.devApply} className="adm-textarea" rows={2} />
+          <Field label="So what, for today? (application + Try this today + example)">
+            <textarea name="devApply" defaultValue={data.devApply} className="adm-textarea" rows={4} />
           </Field>
           <Field label="Pause & reflect (a quiet line mid-read)" hint="Premium touch — shows as an italic pause between the reflection and the key word">
             <textarea name="devPause" defaultValue={data.devPause} className="adm-textarea" rows={2} />

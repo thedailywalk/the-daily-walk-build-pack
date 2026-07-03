@@ -12,6 +12,7 @@ import {
 } from "@/lib/devotionals";
 import { draftPremiumFromBible } from "@/lib/premiumFromBible";
 import { deriveTopics, libraryMaterialForTopics } from "@/lib/library";
+import { draftStepExample } from "@/lib/devotionalExample";
 
 export { addDays, weekdayLabel, prettyDate, upcomingDates };
 
@@ -248,7 +249,13 @@ export async function premiumEnsureWeek(count = 7): Promise<void> {
         isSaturday: weekdayLabel(date) === "Saturday",
         libraryMaterial,
       });
-      if (fresh) Object.assign(data, fresh);
+      if (fresh) {
+        Object.assign(data, fresh);
+      } else {
+        // Fell back to the library base — still give its step a concrete example.
+        const ex = await draftStepExample(s.step, s.reading).catch(() => "");
+        if (ex) data.devApply = `${data.devApply} ${ex}`;
+      }
     } catch {
       /* ignore — fall back to the library base */
     }
@@ -300,7 +307,8 @@ export function fullPremiumFor(date: string): PremiumData {
     devBody: s.plainEnglish,
     devKeyWord: k ? `${k.word} — ${k.meaning}` : "",
     devReflection: s.sideReflection || s.reflection,
-    devApply: s.step,
+    // "So what, for today?" — same shape as the free issue's Make It Real.
+    devApply: `${s.realLife} ${s.aboutPeople} Try this today: ${s.step}`,
     devPrayer: s.prayer,
 
     closingLine:

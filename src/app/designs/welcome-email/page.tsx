@@ -39,7 +39,7 @@ export default function WelcomeEmailSingle() {
 
       <div style="font-family:${sans};font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#B8902E;font-weight:bold;margin:0 0 12px;">Here's what happens now</div>
 
-      <p style="font-family:${sans};font-size:15.5px;line-height:1.7;color:#2b2b2b;margin:0 0 16px;">Three mornings a week — <strong>Monday, Wednesday &amp; Friday</strong>, around 6:30 AM PT — a short devotional lands in your inbox. It takes about two minutes, and you leave with something to carry into your day:</p>
+      <p style="font-family:${sans};font-size:15.5px;line-height:1.7;color:#2b2b2b;margin:0 0 16px;">Three mornings a week — <strong>Monday, Wednesday &amp; Friday</strong>, around 5:00 AM ET — a short devotional lands in your inbox. It takes about two minutes, and you leave with something to carry into your day:</p>
 
       <table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;margin:0 0 20px;">
         ${bullet("📖", "Scripture in plain English — clear enough to actually use")}

@@ -33,6 +33,7 @@ const S = {
   readInvite: "font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:14.5px;color:#3f3a2c;line-height:1.55;margin:0 0 14px;",
   rule: "height:1px;line-height:1px;background:#DDD3BC;margin:26px 0;",
   verse: "border-left:4px solid #C9A24B;background:#F3ECDA;padding:14px 18px;margin:16px 0;font-style:italic;color:#1F3A5F;font-size:16px;line-height:1.55;",
+  keyword: "background:#ffffff;border:1px solid #E0D6BF;border-radius:8px;padding:14px 18px;margin:6px 0 4px;font-size:14.5px;line-height:1.55;color:#2B2B2B;",
   prayerBox: "background:#1F3A5F;border-radius:8px;padding:22px 24px;margin:6px 0;",
   prayerP: "color:#EDE6D4;font-style:italic;font-size:16px;line-height:1.6;margin:0;",
   healVerse: "font-family:Georgia,'Times New Roman',serif;font-style:italic;color:#1F3A5F;font-size:13.5px;margin:0 0 10px;",
@@ -118,6 +119,9 @@ export function renderDevotionalHtml(dev: Devotional, goodNews: GoodNewsItem[] =
         ? `<div style="${S.verse}">${esc(d.verseText)}${d.verseRef?.trim() ? ` — ${esc(d.verseRef)}` : ""}</div>`
         : "",
       paras(d.readingAfter),
+      d.keyWord?.trim()
+        ? `<div style="${S.kicker}margin-top:16px;">Key word</div><div style="${S.keyword}">${esc(d.keyWord)}</div>`
+        : "",
     ].join("")
   );
 

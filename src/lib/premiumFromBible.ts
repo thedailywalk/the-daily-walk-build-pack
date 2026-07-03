@@ -90,7 +90,7 @@ Return ONLY a JSON object (no markdown, no commentary) with these exact keys:
   "devVerseRef": "the reference for that verse, e.g. 'John 1:5'",
   "devBody": "the deeper reflection — 5–7 sentences walking through ${input.reading}, what it means, and why it matters today",
   "devKeyWord": "one key word from ${input.reading} as 'Word — plain-English meaning'",
-  "devApply": "one concrete faithful step to live this out today",
+  "devApply": "how this lands in real, everyday life, then 'Try this today: <one small concrete step>', then 'For example, <a specific relatable example of doing it>.'",
   "devPause": "one short reflective line (about 12–20 words) inviting the reader to pause and sit with what they just read — quiet, personal, not a question",
   "devReflection": "one honest, deeper reflection question, beginning with 👉",
   "devPrayer": "a short first-person prayer (2–3 sentences) flowing from this passage"${sat}

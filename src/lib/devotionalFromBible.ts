@@ -86,6 +86,7 @@ type Draft = {
   verseText: string; // ONE verse quoted from the passage, NIV wording
   verseRef: string; // e.g. "John 1:5"
   readingAfter: string; // plain-English walk-through of the actual passage
+  keyWord: string; // "Word — plain-English meaning"
   makeItRealHeading: string;
   makeItRealBody: string; // application + "Try this today: …" + a concrete example
   question: string; // one honest reflection question
@@ -136,6 +137,7 @@ Return ONLY a JSON object (no markdown, no commentary) with these exact keys:
   "verseText": "the NIV text of one verse from ${input.reading}, no quotation marks",
   "verseRef": "the reference for that verse, e.g. 'John 1:5'",
   "readingAfter": "a plain-English walk-through of what actually happens in ${input.reading} and why it matters (3–5 sentences)",
+  "keyWord": "one key word from ${input.reading} as 'Word — plain-English meaning' (max ~30 words)",
   "makeItRealHeading": "a short, human heading for the application (max ~6 words)",
   "makeItRealBody": "how this lands in real, everyday life, then 'Try this today: <one small concrete step>', then 'For example, <a specific relatable example of doing it>.'",
   "question": "one honest reflection question, beginning with the emoji 👉",
@@ -180,6 +182,7 @@ Return ONLY a JSON object (no markdown, no commentary) with these exact keys:
       verseText: draft.verseText.replace(/^["“]|["”]$/g, "").trim(),
       verseRef: draft.verseRef.trim(),
       readingAfter: draft.readingAfter.trim(),
+      keyWord: draft.keyWord.trim(),
       makeItRealHeading: draft.makeItRealHeading.trim(),
       makeItRealBody: draft.makeItRealBody.trim(),
       question: q.startsWith("👉") ? q : `👉 ${q}`,
@@ -218,6 +221,7 @@ function parseDraft(raw: string): Draft | null {
       verseText: obj.verseText ?? "",
       verseRef: obj.verseRef ?? "",
       readingAfter: obj.readingAfter ?? "",
+      keyWord: obj.keyWord ?? "",
       makeItRealHeading: obj.makeItRealHeading ?? "",
       makeItRealBody: obj.makeItRealBody ?? "",
       question: obj.question ?? "",

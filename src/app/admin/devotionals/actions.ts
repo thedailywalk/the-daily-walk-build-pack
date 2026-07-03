@@ -32,6 +32,7 @@ export async function saveDevotionalAction(formData: FormData) {
     verseText: str(formData, "verseText"),
     verseRef: str(formData, "verseRef"),
     readingAfter: str(formData, "readingAfter"),
+    keyWord: str(formData, "keyWord"),
     makeItRealHeading: str(formData, "makeItRealHeading"),
     makeItRealBody: str(formData, "makeItRealBody"),
     question: str(formData, "question"),

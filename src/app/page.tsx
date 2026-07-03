@@ -72,7 +72,7 @@ export default async function HomePage() {
       <section id="how">
         <div className="wrap">
           <div className="sec-tag">How it works</div>
-          <h2 className="h">Two rhythms, one walk</h2>
+          <h2 className="h">How each walk works</h2>
           <p className="sub">
             Small enough to actually do, every morning — encouragement for
             everyone, and a personal, guided journey for those who want to go

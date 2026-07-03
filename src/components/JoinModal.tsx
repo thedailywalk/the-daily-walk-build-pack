@@ -142,7 +142,7 @@ export default function JoinModal() {
             armed. Free, forever.
           </p>
           <div className="jmd-verse">
-            <p>&ldquo;This is the day that the Lord has made; let us rejoice and be glad in it.&rdquo;<cite>— Psalm 118:24 · lands at 6:30 AM PT</cite></p>
+            <p>&ldquo;This is the day that the Lord has made; let us rejoice and be glad in it.&rdquo;<cite>— Psalm 118:24 · lands at 5:00 AM ET</cite></p>
           </div>
 
           <SignupForm buttonLabel="Join free →" />

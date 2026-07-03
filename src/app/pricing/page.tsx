@@ -12,14 +12,14 @@ export const metadata: Metadata = {
 };
 
 const schedule = [
-  ["Devotional (prayer + Good News)", "Mon · Wed · Fri", "6:30 AM", [1, 1, 1]],
-  ["The devotional every day", "Daily", "6:30 AM", [0, 1, 1]],
+  ["Devotional (prayer + Good News)", "Mon · Wed · Fri", "5:00 AM ET", [1, 1, 1]],
+  ["The devotional every day", "Daily", "5:00 AM ET", [0, 1, 1]],
   ["Wednesday Pastor's Take", "Wednesday", "in the issue", [1, 1, 1]],
-  ["Bible-in-a-Year guided reading", "Daily · your Day 1", "6:30 AM", [0, 1, 1]],
-  ["Audio devotional", "Daily", "6:30 AM", [0, 1, 1]],
-  ["The Deeper Walk (premium newsletter)", "Daily", "6:30 AM", [0, 1, 1]],
+  ["Bible-in-a-Year guided reading", "Daily · your Day 1", "5:00 AM ET", [0, 1, 1]],
+  ["Audio devotional", "Daily", "5:00 AM ET", [0, 1, 1]],
+  ["The Deeper Walk (premium newsletter)", "Daily", "5:00 AM ET", [0, 1, 1]],
   ["Reflective “pause & reflect” moments", "Daily", "in Deeper Walk", [0, 1, 1]],
-  ["Weekend Study deep-dive", "Saturday", "8:00 AM", [0, 1, 1]],
+  ["Weekend Study deep-dive", "Saturday", "5:00 AM ET", [0, 1, 1]],
   ["The Spiritual Wellness Guide", "Mon · Wed · Fri", "—", [0, 1, 1]],
   ["Monthly study workbook", "Monthly", "—", [0, 1, 1]],
 ] as const;
