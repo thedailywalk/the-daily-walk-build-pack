@@ -2564,9 +2564,11 @@ footer.site .legal {
 /* Three-tier pricing (Free + Founding Member + Founding Partner). */
 .cards-three {
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  max-width: 1060px;
-  margin-left: auto;
-  margin-right: auto;
+  /* A touch wider than the page wrap so the columns aren't so tall. */
+  width: min(1180px, 96vw);
+  max-width: none;
+  margin-left: 50%;
+  transform: translateX(-50%);
 }
 .card {
   border: 1px solid var(--line);
@@ -2720,6 +2722,13 @@ ul.feat li::before {
   height: 7px;
   border-radius: 50%;
   background: var(--gold);
+}
+.feat-sub {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--grey);
 }
 .free ul.feat li::before {
   background: #aab2bc;

@@ -121,7 +121,7 @@ export default function MissionPage() {
           <a href={`tel:+1${site.founderPhone.replace(/[^0-9]/g, "")}`}>{site.founderPhone}</a>{" "}
           or email <a href={`mailto:${site.replyTo}`}>{site.replyTo}</a>.
           <br />
-          <span className="mission-sign">— Lulu &amp; the founding family</span>
+          <span className="mission-sign">— the founding family</span>
         </p>
       </div>
     </section>

@@ -110,17 +110,10 @@ export default function PricingPage() {
     <>
       <div className="topbar" />
       <div className="wrap">
-        <div className="launch-banner">
-          <span className="launch-k">✨ Limited launch special</span>
-          <p>
-            Psst — don&apos;t miss out. Founding prices are locked in{" "}
-            <strong>for life</strong>{" "}while we&apos;re building. They go up at
-            launch.
-          </p>
-        </div>
-
-        <h2 className="section">Pick your plan</h2>
-        <p className="section-sub">
+        <h2 className="section" style={{ textAlign: "center", marginTop: 48 }}>
+          Pick your plan
+        </h2>
+        <p className="section-sub" style={{ textAlign: "center", maxWidth: 660, margin: "0 auto 22px" }}>
           The devotional is free three mornings a week. Founding Members get
           everything — every day — for $5.99/mo (or $59/yr). Founding Partners
           give a little more to keep it free for those who can&apos;t.
@@ -208,7 +201,9 @@ export default function PricingPage() {
         </p>
 
         {/* FOUNDING PARTNER */}
-        <h2 className="section">About Founding Partner</h2>
+        <h2 className="section" id="founding-partner" style={{ scrollMarginTop: 90 }}>
+          About Founding Partner
+        </h2>
         <div className="explain partner-explain">
           <div className="partner-eyebrow">Founding Partner · pay it forward</div>
           <h3>Give a little more, and it goes a long way</h3>

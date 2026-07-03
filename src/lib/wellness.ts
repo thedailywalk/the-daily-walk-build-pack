@@ -313,7 +313,7 @@ export function fullWellnessFor(date: string): WellnessData {
   return {
     weekFocus: "Steady your heart, mind, and walk with God",
     editorNote:
-      "Your midweek breath of fresh air. A few small practices to steady your mind and bring your real life to God. — Lulu",
+      "Your midweek breath of fresh air. A few small practices to steady your mind and bring your real life to God. — the founding family",
 
     scienceHeading: angle.heading,
     scienceVerse: angle.verse,

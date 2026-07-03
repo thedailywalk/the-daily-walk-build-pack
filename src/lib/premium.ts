@@ -296,7 +296,7 @@ export function fullPremiumFor(date: string): PremiumData {
           ? `Journey through ${s.arc}`
           : "Walking with God in real life",
     editorNote:
-      "For the ones walking closest with us — the deeper layer underneath today's reading. Let's go further in. — Lulu",
+      "For the ones walking closest with us — the deeper layer underneath today's reading. Let's go further in. — the founding family",
 
     // The Main Premium Devotional — daily, deeper than the free issue.
     devHeading: s.aboutGod,

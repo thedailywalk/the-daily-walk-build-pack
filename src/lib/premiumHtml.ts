@@ -208,28 +208,17 @@ export function renderPremiumHtml(issue: PremiumIssue, goodNews: GoodNewsItem[] 
     [
       `<div style="${S.kicker}">From the founders</div>`,
       `<div style="${S.founder}">`,
-      `<p style="${S.founderP}">The Daily Walk is built by a small family who love Jesus and want to help others find Him. If this is walking with you — or you'd like to partner, give toward the mission, or just say hello — we'd genuinely love to hear from you. Call or text <a href="tel:+1${site.founderPhone.replace(/[^0-9]/g, "")}" style="color:#B8902E;font-weight:bold;text-decoration:none;">${esc(site.founderPhone)}</a>, or email <a href="mailto:${esc(site.replyTo)}" style="color:#B8902E;font-weight:bold;text-decoration:none;">${esc(site.replyTo)}</a>.<br><span style="font-style:italic;color:#6a6452;">— Lulu &amp; the founding family</span></p>`,
+      `<p style="${S.founderP}">The Daily Walk is built by a small family who love Jesus and want to help others find Him. If this is walking with you — or you'd like to partner, give toward the mission, or just say hello — we'd genuinely love to hear from you. Call or text <a href="tel:+1${site.founderPhone.replace(/[^0-9]/g, "")}" style="color:#B8902E;font-weight:bold;text-decoration:none;">${esc(site.founderPhone)}</a>, or email <a href="mailto:${esc(site.replyTo)}" style="color:#B8902E;font-weight:bold;text-decoration:none;">${esc(site.replyTo)}</a>.<br><span style="font-style:italic;color:#6a6452;">— the founding family</span></p>`,
       `</div>`,
     ].join("")
   );
 
-  // Inside the Circle — live sessions
-  let circleBlock = "";
-  if (d.circleBody?.trim()) {
-    circleBlock = `
+  // Learn more about becoming a Founding Partner (replaces the live-sessions block).
+  const partnerCta = `
       <div style="${S.pad}">${rule}
-        <div style="${S.circle}">
-          <div style="${S.circleK}">Inside the Circle · Live</div>
-          ${paras(d.circleBody, S.circleP)}
-          ${
-            d.circleCtaUrl?.trim()
-              ? `<div style="${S.cta}"><a href="${esc(d.circleCtaUrl)}" style="${S.btn}">${esc(d.circleCtaLabel || "See what's coming →")}</a></div>`
-              : ""
-          }
-        </div>
+        <div style="${S.cta}"><a href="${site.url}/pricing#founding-partner" style="${S.btn}">Learn more about becoming a Founding Partner →</a></div>
         <div style="height:14px;line-height:14px;">&nbsp;</div>
       </div>`;
-  }
 
   const closingBlock = d.closingLine?.trim()
     ? `<div style="${S.pad}">${rule}<div style="${S.closing}">${esc(d.closingLine)}</div><div style="height:8px;line-height:8px;">&nbsp;</div></div>`
@@ -246,7 +235,7 @@ export function renderPremiumHtml(issue: PremiumIssue, goodNews: GoodNewsItem[] 
     ${metaBits ? `<div style="${S.meta}">${esc(metaBits)}</div>` : ""}
     ${d.weekFocus?.trim() ? `<div style="${S.week}">This Week's Focus: ${esc(d.weekFocus)}</div>` : `<div style="height:8px;line-height:8px;">&nbsp;</div>`}
     <div style="${S.pad}">${blocks.join(rule)}</div>
-    ${circleBlock}
+    ${partnerCta}
     ${closingBlock}
     <div style="${S.footer}">
       <strong style="color:#C9A24B;">The Daily Walk · Premium</strong><br>

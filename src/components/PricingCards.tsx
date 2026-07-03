@@ -90,14 +90,22 @@ export default function PricingCards() {
             </div>
             <ul className="feat">
               <li>Everything in Free</li>
-              <li>The devotional <b>every day</b> — not just 3× a week</li>
-              <li>The guided <b>Bible-in-a-Year</b> journey, from your own Day 1</li>
-              <li>The <b>Deeper Walk</b> premium discipleship newsletter</li>
+              <li>
+                The <b>Deeper Walk</b> — the premium devotional, <b>every day</b>{" "}
+                (not just 3× a week)
+              </li>
               <li>The full <b>Spiritual Wellness Guide</b> (Mon · Wed · Fri)</li>
               <li>Daily guided Scripture with plain-English breakdowns + audio</li>
-              <li>Saturday &ldquo;Weekend Study&rdquo; deep-dive</li>
               <li>Progress, streaks, notes &amp; favorite verses</li>
               <li>Monthly downloadable workbook + full archive</li>
+              <li>
+                <b>Lifetime access to the whole platform as it launches</b>
+                <span className="feat-sub">
+                  Your guided Bible-in-a-Year journey and dashboard, plus live
+                  group sessions with some of the best Christian therapists and
+                  live streams with pastors from all over the world.
+                </span>
+              </li>
               <li>Founding Member price locked in for life</li>
             </ul>
           </div>
