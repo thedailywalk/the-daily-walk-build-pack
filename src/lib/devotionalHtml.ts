@@ -68,11 +68,14 @@ function goodNewsBlock(items: GoodNewsItem[]): string {
       const tile = g.image
         ? `<img src="${esc(g.image)}" alt="" style="width:100%;height:96px;object-fit:cover;display:block;">`
         : `<div style="height:96px;background:linear-gradient(135deg,#1F3A5F 0%,#2E5481 55%,#C9A24B 100%);"></div>`;
+      const credit = g.image && g.imageCredit
+        ? `<span style="display:block;font-family:Arial,Helvetica,sans-serif;font-size:8px;color:#b3ab97;margin:6px 0 0;line-height:1.35;">Photo: ${esc(g.imageCredit)}</span>`
+        : "";
       return `<a href="${esc(g.href)}" style="display:inline-block;vertical-align:top;width:31%;margin:0 1% 10px;border:1px solid #E4DAC4;border-radius:10px;overflow:hidden;background:#ffffff;text-decoration:none;color:inherit;">${tile}<div style="padding:10px 11px 11px;">${
         g.category
           ? `<span style="font-family:Arial,Helvetica,sans-serif;font-size:8.5px;letter-spacing:1px;text-transform:uppercase;color:#B8902E;border:1px solid #E3C786;padding:2px 7px;border-radius:20px;font-weight:700;">${esc(g.category)}</span>`
           : ""
-      }<div style="font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#1F3A5F;font-weight:700;line-height:1.28;margin:8px 0 6px;">${esc(g.headline)}</div><span style="display:block;font-family:Arial,Helvetica,sans-serif;font-size:9.5px;color:#8a8270;">${esc(g.source)}</span><span style="display:inline-block;margin-top:3px;font-family:Arial,Helvetica,sans-serif;font-size:9.5px;letter-spacing:.5px;text-transform:uppercase;color:#B8902E;font-weight:700;">Read more →</span></div></a>`;
+      }<div style="font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#1F3A5F;font-weight:700;line-height:1.28;margin:8px 0 6px;">${esc(g.headline)}</div><span style="display:block;font-family:Arial,Helvetica,sans-serif;font-size:9.5px;color:#8a8270;">${esc(g.source)}</span><span style="display:inline-block;margin-top:3px;font-family:Arial,Helvetica,sans-serif;font-size:9.5px;letter-spacing:.5px;text-transform:uppercase;color:#B8902E;font-weight:700;">Read more →</span>${credit}</div></a>`;
     })
     .join("");
   return `<div style="${S.pad}">${rule}

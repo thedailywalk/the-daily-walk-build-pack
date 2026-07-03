@@ -5,6 +5,7 @@ import {
   type GoodNewsItem,
 } from "@/lib/content";
 import { getFeaturedGoodNews } from "@/lib/featuredGoodNews";
+import { findCommonsImage } from "@/lib/commonsImage";
 
 /**
  * Homepage "Good News" set. Priority:
@@ -110,10 +111,15 @@ export async function getDailyGoodNews(count = 3): Promise<GoodNewsItem[]> {
       }
     }
 
-    // No third-party images — we link out and show branded tiles instead.
-    const items: GoodNewsItem[] = [...featured, ...pinned, ...chosen]
-      .slice(0, count)
-      .map((it) => ({ ...it, image: "" }));
+    // Attach a FREE, license-cleared photo from Wikimedia Commons per story
+    // (topic-relevant, properly credited). Falls back to a branded tile if none.
+    const base = [...featured, ...pinned, ...chosen].slice(0, count);
+    const items: GoodNewsItem[] = await Promise.all(
+      base.map(async (it) => {
+        const found = await findCommonsImage(it.headline).catch(() => null);
+        return { ...it, image: found?.url ?? "", imageCredit: found?.credit ?? "" };
+      })
+    );
     if (items.length < count) throw new Error("too few stories");
     return items;
   } catch (err) {

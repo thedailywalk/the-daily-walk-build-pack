@@ -3,6 +3,7 @@ import { createClient, supabaseConfigured } from "@/lib/supabase/server";
 import { createServiceClient, adminDbConfigured } from "@/lib/supabase/admin";
 import { todayPT } from "@/lib/progress";
 import { getStudyDay } from "@/lib/studyGuide";
+import { draftStepExample } from "@/lib/devotionalExample";
 
 /** The editable sections of one daily devotional (matches the issue template). */
 export type DevotionalData = {
@@ -235,6 +236,14 @@ export async function adminEnsureWeek(count = 7): Promise<void> {
   for (const date of dates) {
     if (have.has(date)) continue;
     const data = fullDevotionalFor(date);
+    // Always give the "Try this today" step a concrete example (AI, best-effort).
+    try {
+      const s = getStudyDay(dayIndexForDate(date));
+      const ex = await draftStepExample(s.step, s.reading);
+      if (ex) data.makeItRealBody = `${data.makeItRealBody} ${ex}`;
+    } catch {
+      /* ignore — the step still stands on its own */
+    }
     await adminUpsert(date, "draft", data.readingHeading ?? "", data);
   }
 }
@@ -336,13 +345,13 @@ export function fullDevotionalFor(date: string): DevotionalData {
     verseRef,
     readingAfter: s.plainEnglish,
     makeItRealHeading: weekday === "Sunday" ? "Be still for a moment" : "So what, for today?",
-    makeItRealBody: `${s.realLife} ${s.aboutPeople} A small step today: ${s.step}`,
+    makeItRealBody: `${s.realLife} ${s.aboutPeople} Try this today: ${s.step}`,
     question: s.reflection.startsWith("👉") ? s.reflection : `👉 ${s.reflection}`,
     prayer: s.prayer,
-    communityText:
-      "You weren't meant to do this alone. We're talking through today's question in the community — come share, or just read along.",
-    ctaLabel: "Join the conversation →",
-    ctaUrl: process.env.NEXT_PUBLIC_COMMUNITY_URL ?? "",
+    // Community CTA intentionally left blank until the community is live.
+    communityText: "",
+    ctaLabel: "",
+    ctaUrl: "",
     closingLine: CLOSINGS[wIdx],
   };
 

@@ -64,6 +64,7 @@ export type GoodNewsItem = {
   image: string;
   href: string;
   source: string;
+  imageCredit?: string; // attribution when the photo is a free Wikimedia Commons image
 };
 
 /**
