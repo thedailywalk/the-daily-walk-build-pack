@@ -56,8 +56,8 @@ const comparison: Array<
   { row: "Keeps a licensed Christian counselor free for everyone", tiers: [0, 0, 1] },
   { row: "Sponsors free access for readers who can't pay", tiers: [0, 0, 1] },
   { row: "Pastors & perspectives from hard-to-reach places", tiers: [0, 0, 1] },
-  { row: "Live GoFundMe updates as we hit each goal", tiers: [0, 0, 1] },
-  { row: "Helps reach the next generation where they are", tiers: [0, 0, 1] },
+  { row: "Live updates on every project — see the change you're making", tiers: [0, 0, 1] },
+  { row: "Meets kids where they are, then points them back to the real world", tiers: [0, 0, 1] },
 ];
 
 const faqs = [
@@ -193,6 +193,43 @@ export default function PricingPage() {
           <p style={{ marginBottom: 0, color: "var(--grey)", fontSize: 13.5 }}>
             Community access stays free for every reader — because no one should
             have to pay to belong.
+          </p>
+        </div>
+
+        {/* FOUNDING PARTNER */}
+        <h2 className="section">About Founding Partner</h2>
+        <div className="explain partner-explain">
+          <div className="partner-eyebrow">Founding Partner · pay it forward</div>
+          <h3>Give a little more, and it goes a long way</h3>
+          <p>
+            Everything in Founding Member is already yours. This tier is for
+            anyone in a season to give a bit extra — not for more features, but to
+            keep The Daily Walk <strong>free and open for the people who
+            can&apos;t pay at all</strong>, to keep a licensed Christian counselor
+            within reach of everyone, and to bring you pastors and perspectives
+            from cultures and places most of us will never reach.
+          </p>
+          <p>
+            <strong>It reaches the next generation right where they are.</strong>{" "}
+            We know most kids live on their screens — so that&apos;s where we meet
+            them first, with the hope of Jesus. But we don&apos;t want to leave
+            them there. The goal is to point them back to the real world: to get
+            outside, to do good, to love the people in front of them — and to show
+            them there&apos;s a fuller, better way to live than the one a screen
+            keeps selling them.
+          </p>
+          <p>
+            <strong>And you&apos;ll see exactly where your giving goes — and the
+            good it does.</strong> You&apos;ll get live updates on every single
+            project, so you don&apos;t just see where your money went, you see the
+            change it&apos;s making. Come visit some of these places one day if you
+            ever can, or simply rest in knowing you helped change a life — all of
+            it in God&apos;s name. Your gift could be the very one that gives
+            someone hope, helps them meet God, and leads them home.
+          </p>
+          <p className="punch">
+            We&apos;re building this right now, in real time. Every partner moves
+            it forward faster — and further out into the world.
           </p>
         </div>
 

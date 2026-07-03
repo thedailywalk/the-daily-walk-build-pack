@@ -127,8 +127,8 @@ export default function PricingCards() {
               <li>Keeps a licensed <b>Christian counselor</b> within reach of everyone</li>
               <li>Keeps The Daily Walk <b>free</b> for readers who can&apos;t pay</li>
               <li>Brings you <b>pastors &amp; perspectives</b> from across the world</li>
-              <li>Full transparency — <b>live GoFundMe updates</b> as we hit each goal</li>
-              <li>Helps <b>reach the next generation</b> where they already are</li>
+              <li><b>Live updates on every project</b> — see the lives your giving changes</li>
+              <li><b>Meets kids where they are</b>, then points them back to the real world</li>
             </ul>
           </div>
           <a className="btn btn-ghost" href={site.beehiiv.upgradePatronUrl}>

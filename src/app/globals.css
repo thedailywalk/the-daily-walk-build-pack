@@ -2306,6 +2306,21 @@ td.c {
   font-size: 15px;
   font-family: var(--serif);
 }
+/* Founding Partner callout — navy accent to set it apart, warm + hopeful. */
+.partner-explain {
+  border-color: #c9d3df;
+  border-left: 4px solid var(--navy);
+  background: #f6f8fb;
+}
+.partner-eyebrow {
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--navy);
+  font-weight: 700;
+  margin: 0 0 8px;
+}
 
 .faq {
   margin-top: 14px;
