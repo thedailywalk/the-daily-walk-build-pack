@@ -105,10 +105,10 @@ export function renderDevotionalHtml(dev: Devotional, goodNews: GoodNewsItem[] =
     [
       `<div style="${S.kicker}">Today's Reading</div>`,
       d.readingHeading?.trim() ? `<h2 style="${S.sec}">${esc(d.readingHeading)}</h2>` : "",
-      d.readingRef?.trim() ? `<p style="${S.ref}">${esc(d.readingRef)}</p>` : "",
       d.readingRef?.trim()
         ? `<p style="${S.readInvite}">Open your Bible if you can — or let today's devotional walk you through it.</p>`
         : "",
+      d.readingRef?.trim() ? `<p style="${S.ref}">${esc(d.readingRef)}</p>` : "",
       paras(d.readingIntro),
       d.verseText?.trim()
         ? `<div style="${S.verse}">${esc(d.verseText)}${d.verseRef?.trim() ? ` — ${esc(d.verseRef)}` : ""}</div>`

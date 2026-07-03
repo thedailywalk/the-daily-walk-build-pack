@@ -87,10 +87,10 @@ export function renderPremiumHtml(issue: PremiumIssue): string {
       [
         `<div style="${S.kicker}">Today's Deeper Walk</div>`,
         d.devHeading?.trim() ? `<h2 style="${S.sec}">${esc(d.devHeading)}</h2>` : "",
-        d.devRef?.trim() ? `<p style="${S.ref}">${esc(d.devRef)}</p>` : "",
         d.devRef?.trim()
           ? `<p style="${S.readInvite}">Open your Bible if you can — or let today's reflection walk you through it.</p>`
           : "",
+        d.devRef?.trim() ? `<p style="${S.ref}">${esc(d.devRef)}</p>` : "",
         paras(d.devIntro),
         d.devVerseText?.trim()
           ? `<div style="${S.verse}">${esc(d.devVerseText)}${d.devVerseRef?.trim() ? ` — ${esc(d.devVerseRef)}` : ""}</div>`
