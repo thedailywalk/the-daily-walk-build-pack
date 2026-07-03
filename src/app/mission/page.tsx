@@ -3,102 +3,110 @@ import Link from "next/link";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Our Mission",
+  title: "Vision & Mission",
   description:
-    "Why The Daily Walk exists: to help anyone find and follow Jesus, feel loved, and grow — and to turn what we build into learning centers and hope for kids around the world.",
+    "The Daily Walk's vision and mission: help people meet Jesus and walk with Him, keep it welcoming and affordable for everyone, and turn what we build into learning centers and hope for kids around the world.",
 };
 
-/** The Mission page — the heart behind The Daily Walk, in Lulu's voice. */
+/** Vision & Mission — full-width, broken into Vision vs Mission + how we do it. */
 export default function MissionPage() {
   return (
     <section className="section">
-      <div className="wrap" style={{ maxWidth: 760 }}>
-        <div className="sec-tag" style={{ textAlign: "center" }}>Our Mission</div>
+      <div className="wrap">
+        <div className="sec-tag" style={{ textAlign: "center" }}>Vision &amp; Mission</div>
         <h1 className="h" style={{ textAlign: "center" }}>
           Find Jesus. Feel loved. Grow.
         </h1>
-        <p className="sub" style={{ textAlign: "center", maxWidth: 620, margin: "0 auto 8px" }}>
-          And help us build hope for the next kid, in the next town, anywhere in the world.
+        <p className="sub" style={{ textAlign: "center", maxWidth: 640, margin: "0 auto 10px" }}>
+          And help us build hope for the next kid, in the next town, anywhere in
+          the world.
         </p>
 
-        <div className="mission-body">
-          <MissionBlock kicker="Why we're here" title="Everyone deserves the chance">
-            We believe everyone deserves the chance to find Jesus — and to feel
-            welcome the moment they do, whether they&apos;ve followed Him for forty
-            years or have never opened a Bible in their life.
-          </MissionBlock>
-
-          <MissionBlock kicker="The newsletter" title="A place to start, every morning">
-            Every morning, The Daily Walk is a place to start: real Scripture in
-            plain words, an honest prayer, and good news to remind you God is still
-            moving. It&apos;s simple on purpose — a few honest minutes that meet you
-            right where you are, no matter how long it&apos;s been or how far away
-            God can feel.
-          </MissionBlock>
-
-          <MissionBlock kicker="Made for everyone" title="Kept low, on purpose">
-            Because this is meant for <em>anyone</em>, we keep it as affordable as we
-            possibly can. The devotional is free, and our membership is priced low on
-            purpose — so money is never the reason someone can&apos;t walk with God.
-          </MissionBlock>
-
-          <MissionBlock kicker="The platform" title="How we go further, together">
-            It&apos;s how we go further together — a way to connect, to teach clearly,
-            and to put real tools and resources within reach of anyone who wants to
-            grow.
-          </MissionBlock>
-
-          <MissionBlock kicker="Where it's all going" title="Bigger than an inbox">
-            Our mission is bigger than an inbox. As The Daily Walk grows, we&apos;ll
-            turn what it earns into learning centers in communities that lack
-            computers, teachers, and schools — giving kids around the world a chance,
-            an education, and hope for what&apos;s ahead.
-          </MissionBlock>
-
-          <div className="mission-subhead">
-            <div className="sec-tag" style={{ textAlign: "left" }}>
-              How your support goes further
-            </div>
-            <p>
-              Founding Partners give a little more — not for extra features, but to
-              open all of this up for the people who can&apos;t pay at all. Here&apos;s
-              what that makes possible.
+        {/* Vision vs Mission */}
+        <div className="vm-grid">
+          <div className="vm-card vm-vision">
+            <span className="vm-ic" aria-hidden="true">👁️</span>
+            <div className="vm-eyebrow">The &ldquo;why&rdquo; · where we&apos;re headed</div>
+            <h2 className="vm-title">Our Vision</h2>
+            <p className="vm-lead">
+              A world where anyone, anywhere — in every town and every corner of
+              the earth — can come to know Jesus, feel truly loved, and never walk
+              alone. Where technology carries real hope to the next generation, and
+              every kid has a classroom, a chance, and a future.
             </p>
           </div>
-
-          <MissionBlock kicker="A counselor for everyone" title="Care that's never locked behind a price">
-            Your support keeps a licensed Christian counselor within reach of
-            everyone — a resource we never want to put out of anyone&apos;s reach.
-          </MissionBlock>
-
-          <MissionBlock kicker="Faith from every corner" title="Voices you'd never otherwise hear">
-            It connects us with pastors across the world, so you hear how faith
-            actually lives and moves in cultures and places most of us will never
-            reach — often where people have barely a fraction of what we do, and more
-            faith than all of it.
-          </MissionBlock>
-
-          <MissionBlock kicker="The next generation" title="Meeting kids right where they are">
-            We know most kids live on their screens — so that&apos;s where we meet
-            them first, with the hope of Jesus. But we don&apos;t want to leave them
-            there. The goal is to point them back to the real world: to get outside,
-            to do good, to love the people in front of them — and to show them
-            there&apos;s a fuller, better way to live than the one a screen keeps
-            selling them.
-          </MissionBlock>
-
-          <MissionBlock kicker="You'll see every bit of it" title="Where your giving goes — and the good it does">
-            You&apos;ll get live updates on every single project, so you don&apos;t
-            just see where your money went — you see the change it&apos;s making. Come
-            visit some of these places one day if you ever can, or simply rest in
-            knowing you helped change a life — all of it in God&apos;s name. Your gift
-            could be the very one that gives someone hope, helps them meet God, and
-            leads them home.
-          </MissionBlock>
+          <div className="vm-card vm-mission">
+            <span className="vm-ic" aria-hidden="true">🎯</span>
+            <div className="vm-eyebrow">The &ldquo;how&rdquo; · what we do now</div>
+            <h2 className="vm-title">Our Mission</h2>
+            <p className="vm-lead">
+              To help people meet Jesus and keep walking with Him — in a way that
+              feels real and welcoming, one honest morning at a time — and to turn
+              what we build into learning centers and hope for kids around the
+              world.
+            </p>
+          </div>
         </div>
 
-        <div className="mission-verse">
-          “Your word is a lamp to my feet and a light to my path.” — Psalm 119:105
+        {/* How we do it */}
+        <h2 className="mission-sec-h">How we do it</h2>
+        <div className="mission-cards">
+          <MissionCard kicker="Why we're here" title="Everyone deserves the chance">
+            We believe everyone deserves the chance to find their way to Jesus —
+            and to feel welcome the moment they do, whether they&apos;ve followed
+            Him for forty years or have never opened a Bible in their life.
+          </MissionCard>
+          <MissionCard kicker="The newsletter" title="A place to start, every morning">
+            Every morning, The Daily Walk is a place to start: real Scripture in
+            plain words, an honest prayer, and good news to remind you God is still
+            moving. A few honest minutes that meet you right where you are.
+          </MissionCard>
+          <MissionCard kicker="Made for everyone" title="Kept low, on purpose">
+            Because this is meant for <em>anyone</em>, we keep it as affordable as
+            we possibly can. The devotional is free, and our membership is priced
+            low on purpose — so money is never the reason someone can&apos;t walk
+            with God.
+          </MissionCard>
+          <MissionCard kicker="Where it's all going" title="Bigger than an inbox">
+            As The Daily Walk grows, we turn what it earns into learning centers in
+            communities that lack computers, teachers, and schools — giving kids
+            around the world a chance, an education, and hope for what&apos;s ahead.
+          </MissionCard>
+        </div>
+
+        {/* How your support goes further */}
+        <h2 className="mission-sec-h">How your support goes further</h2>
+        <p className="mission-sec-sub">
+          Founding Partners give a little more — not for extra features, but to
+          open all of this up for the people who can&apos;t pay at all.
+        </p>
+        <div className="mission-cards">
+          <MissionCard kicker="A counselor for everyone" title="Never locked behind a price">
+            Your support keeps a licensed Christian counselor within reach of
+            everyone — a resource we never want to put out of anyone&apos;s reach.
+          </MissionCard>
+          <MissionCard kicker="Faith from every corner" title="Voices you'd never otherwise hear">
+            It connects us with pastors across the world, so you hear how faith
+            actually lives and moves in cultures and places most of us will never
+            reach — where people have barely a fraction of what we do, and more
+            faith than all of it.
+          </MissionCard>
+          <MissionCard kicker="The next generation" title="Meeting kids where they are">
+            We meet kids where they already are — on their screens — with the hope
+            of Jesus. But we don&apos;t leave them there: the goal is to point them
+            back to the real world, to get outside, do good, and love the people in
+            front of them.
+          </MissionCard>
+          <MissionCard kicker="You'll see every bit of it" title="Where your giving goes">
+            Live updates on every single project, so you don&apos;t just see where
+            your money went — you see the change it&apos;s making. Your gift could
+            be the very one that gives someone hope, helps them meet God, and leads
+            them home.
+          </MissionCard>
+        </div>
+
+        <div className="mission-verse" style={{ maxWidth: 720, margin: "40px auto 0" }}>
+          &ldquo;Your word is a lamp to my feet and a light to my path.&rdquo; — Psalm 119:105
         </div>
 
         <div className="mission-cta">
@@ -119,7 +127,7 @@ export default function MissionPage() {
   );
 }
 
-function MissionBlock({
+function MissionCard({
   kicker,
   title,
   children,
@@ -129,9 +137,9 @@ function MissionBlock({
   children: React.ReactNode;
 }) {
   return (
-    <div className="mission-block">
+    <div className="mission-card">
       <div className="mission-kicker">{kicker}</div>
-      <h2 className="mission-h2">{title}</h2>
+      <h3 className="mission-h2">{title}</h3>
       <p className="mission-p">{children}</p>
     </div>
   );
