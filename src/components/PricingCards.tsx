@@ -38,7 +38,7 @@ export default function PricingCards() {
         </button>
       </div>
 
-      <div className="cards cards-two">
+      <div className="cards cards-three">
         {/* FREE */}
         <div className="card free">
           <div className="cap" />
@@ -99,6 +99,40 @@ export default function PricingCards() {
           </div>
           <a className="btn btn-gold" href={site.beehiiv.upgradePremiumUrl}>
             Become a Founding Member
+          </a>
+        </div>
+
+        {/* FOUNDING PARTNER — pay-it-forward supporter tier */}
+        <div className="card patron">
+          <div className="cap" />
+          <span className="badge badge-partner">FOUNDING PARTNER</span>
+          <div className="body">
+            <div className="tier">Founding Partner</div>
+            <div className="price">
+              {annual ? "$199" : "$19.99"}
+              <small>{annual ? "/yr" : "/mo"}</small>
+            </div>
+            <div className="permo">
+              {annual ? "$199/year — about $16.58/mo" : "Billed monthly · or $199/yr"}
+            </div>
+            <div className="perday">
+              For those who can <b>give a little more</b>
+            </div>
+            <div className="pitch" style={{ marginTop: 14 }}>
+              Everything in Founding Member — plus you help keep it free and open
+              for the people who can&apos;t pay at all.
+            </div>
+            <ul className="feat">
+              <li>Everything in <b>Founding Member</b></li>
+              <li>Keeps a licensed <b>Christian counselor</b> within reach of everyone</li>
+              <li>Keeps The Daily Walk <b>free</b> for readers who can&apos;t pay</li>
+              <li>Brings you <b>pastors &amp; perspectives</b> from across the world</li>
+              <li>Full transparency — <b>live GoFundMe updates</b> as we hit each goal</li>
+              <li>Helps <b>reach the next generation</b> where they already are</li>
+            </ul>
+          </div>
+          <a className="btn btn-ghost" href={site.beehiiv.upgradePatronUrl}>
+            Become a Founding Partner
           </a>
         </div>
       </div>

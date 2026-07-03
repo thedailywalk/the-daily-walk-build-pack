@@ -1645,6 +1645,78 @@ a.gncard:focus-visible {
 .gncover-tile {
   background: linear-gradient(135deg, var(--navy) 0%, #2e5481 55%, var(--gold) 100%);
 }
+
+/* ---- Mission page ---- */
+.mission-body {
+  max-width: 640px;
+  margin: 30px auto 0;
+}
+.mission-block {
+  padding: 22px 0;
+  border-top: 1px solid var(--line);
+}
+.mission-block:first-child {
+  border-top: none;
+}
+.mission-kicker {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  font-weight: 700;
+  margin: 0 0 6px;
+}
+.mission-h2 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 23px;
+  color: var(--navy);
+  margin: 0 0 10px;
+  line-height: 1.2;
+}
+.mission-p {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--ink);
+  margin: 0;
+}
+.mission-verse {
+  max-width: 640px;
+  margin: 28px auto 0;
+  padding: 18px 22px;
+  border-left: 4px solid var(--gold);
+  background: var(--cream);
+  border-radius: 8px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  color: var(--navy);
+  font-size: 17px;
+  line-height: 1.55;
+}
+.mission-cta {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 30px 0 0;
+}
+.mission-reach {
+  max-width: 620px;
+  margin: 26px auto 0;
+  text-align: center;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--grey);
+}
+.mission-reach a {
+  color: var(--gold-deep);
+  font-weight: 700;
+  text-decoration: none;
+}
+.mission-sign {
+  font-style: italic;
+  color: var(--grey);
+}
 .gntile-mark {
   font-size: 40px;
   filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));
@@ -1973,6 +2045,13 @@ footer.site .legal {
   margin-left: auto;
   margin-right: auto;
 }
+/* Three-tier pricing (Free + Founding Member + Founding Partner). */
+.cards-three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 1060px;
+  margin-left: auto;
+  margin-right: auto;
+}
 .card {
   border: 1px solid var(--line);
   border-radius: 14px;
@@ -1994,6 +2073,12 @@ footer.site .legal {
   background: var(--gold);
 }
 .card.patron .cap {
+  background: var(--navy);
+}
+.card.patron {
+  border-color: #c9d3df;
+}
+.card .badge.badge-partner {
   background: var(--navy);
 }
 .card.premium {

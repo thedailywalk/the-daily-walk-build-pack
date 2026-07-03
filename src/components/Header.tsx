@@ -6,6 +6,7 @@ import { isAdminEmail } from "@/lib/admin";
 /** "About" groups the marketing pages under one tidy menu. */
 const aboutItems: { href: string; label: string }[] = [
   { href: "/#how", label: "How it works" },
+  { href: "/mission", label: "Our Mission" },
   { href: "/about", label: "Why read the Bible" },
   { href: "/prayer-wall", label: "Prayer Wall" },
   { href: "/pricing", label: "Pricing" },
@@ -56,9 +57,6 @@ export default async function Header() {
                   {i.label}
                 </Link>
               ))}
-              <span className="navdrop-soon">
-                Mission statement <em>Coming soon</em>
-              </span>
             </div>
           </div>
 
@@ -125,7 +123,6 @@ export default async function Header() {
                 {i.label}
               </Link>
             ))}
-            <span className="mobilesoon">Mission statement · Coming soon</span>
 
             {user && (
               <>

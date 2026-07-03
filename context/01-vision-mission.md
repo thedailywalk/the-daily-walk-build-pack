@@ -25,8 +25,16 @@ at any stage of their faith journey. The north star: **help people find and foll
 - **Owner / sender:** Lulu Jimenez · reply-to thedailywalknewsletter@gmail.com
 - **Default timezone:** Pacific (PT)
 
+## The greater mission
+Bigger than an inbox: as The Daily Walk grows, we turn what it earns into **learning centers in
+communities that lack computers, teachers, and schools** — giving kids around the world a chance, an
+education, and hope. *Find Jesus. Feel loved. Grow. And help build hope for the next kid, anywhere.*
+(Full mission copy lives on the site at `/mission`.)
+
 ## Goals
 - Grow a free subscriber base with a genuinely helpful daily email.
-- Convert engaged readers to **Premium** (the guided Bible-in-a-Year) and **Patron** (mission/community).
+- Convert engaged readers to **Founding Member** ($5.99 — everything, one membership) and, for those
+  who can give more, **Founding Partner** ($19.99 — a pay-it-forward tier that keeps it free/accessible
+  for others and funds counselors, global pastors, and the learning-center mission).
 - Build a welcoming community where people can ask questions, share, and grow together.
 - Keep the core experience free and accessible for anyone who can't pay.

@@ -161,10 +161,26 @@ export const tiers: Tier[] = [
     href: "/pricing",
     highlighted: true,
   },
+  {
+    name: "Founding Partner",
+    price: "$19.99",
+    per: "/mo",
+    note: "For those who can give a little more",
+    features: [
+      "Everything in Founding Member",
+      "Keeps a licensed Christian counselor within reach of everyone",
+      "Keeps The Daily Walk free for readers who can't pay",
+      "Brings you pastors & perspectives from across the world",
+      "Full transparency — live GoFundMe updates as we hit each goal",
+      "Helps reach the next generation where they already are",
+    ],
+    cta: "Become a Founding Partner",
+    href: "/pricing",
+  },
 ];
 
 export const mission = {
   heading: "A daily guide for walking with God in real life.",
-  body: "The Daily Walk exists to make faith feel clear, honest, and close — whether you've followed Jesus for decades or you're just curious. No jargon. No guilt. Just Scripture, prayer, and hope, one day at a time.",
+  body: "The Daily Walk exists to help anyone find and follow Jesus — and to feel welcome the moment they do, whether they've followed Him for forty years or have never opened a Bible in their life. Every morning: real Scripture in plain words, an honest prayer, and good news to remind you God is still moving — a few honest minutes that meet you right where you are.",
   verse: "“Your word is a lamp to my feet and a light to my path.” — Psalm 119:105",
 };

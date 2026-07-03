@@ -11,48 +11,53 @@ export const metadata: Metadata = {
 };
 
 const schedule = [
-  ["Devotional (prayer + Good News)", "Mon · Wed · Fri", "6:30 AM", [1, 1]],
-  ["The devotional every day", "Daily", "6:30 AM", [0, 1]],
-  ["Wednesday Pastor's Take", "Wednesday", "in the issue", [1, 1]],
-  ["Bible-in-a-Year guided reading", "Daily · your Day 1", "6:30 AM", [0, 1]],
-  ["Audio devotional", "Daily", "6:30 AM", [0, 1]],
-  ["The Deeper Walk (premium newsletter)", "Daily", "6:30 AM", [0, 1]],
-  ["The World Through God's Lens", "Thursday", "in Deeper Walk", [0, 1]],
-  ["Weekend Study deep-dive", "Saturday", "8:00 AM", [0, 1]],
-  ["The Spiritual Wellness Guide", "Mon · Wed · Fri", "—", [0, 1]],
-  ["Monthly study workbook", "Monthly", "—", [0, 1]],
+  ["Devotional (prayer + Good News)", "Mon · Wed · Fri", "6:30 AM", [1, 1, 1]],
+  ["The devotional every day", "Daily", "6:30 AM", [0, 1, 1]],
+  ["Wednesday Pastor's Take", "Wednesday", "in the issue", [1, 1, 1]],
+  ["Bible-in-a-Year guided reading", "Daily · your Day 1", "6:30 AM", [0, 1, 1]],
+  ["Audio devotional", "Daily", "6:30 AM", [0, 1, 1]],
+  ["The Deeper Walk (premium newsletter)", "Daily", "6:30 AM", [0, 1, 1]],
+  ["Reflective “pause & reflect” moments", "Daily", "in Deeper Walk", [0, 1, 1]],
+  ["Weekend Study deep-dive", "Saturday", "8:00 AM", [0, 1, 1]],
+  ["The Spiritual Wellness Guide", "Mon · Wed · Fri", "—", [0, 1, 1]],
+  ["Monthly study workbook", "Monthly", "—", [0, 1, 1]],
 ] as const;
 
 const comparison: Array<
-  { group: string } | { row: string; tiers: [number, number] }
+  { group: string } | { row: string; tiers: [number, number, number] }
 > = [
   { group: "The free devotional · 3× a week" },
-  { row: "The devotional (Mon · Wed · Fri)", tiers: [1, 1] },
-  { row: "One honest prayer with each issue", tiers: [1, 1] },
-  { row: "“Good News” — 3 uplifting stories", tiers: [1, 1] },
-  { row: "Wednesday Pastor's Take", tiers: [1, 1] },
-  { row: "Free community access", tiers: [1, 1] },
+  { row: "The devotional (Mon · Wed · Fri)", tiers: [1, 1, 1] },
+  { row: "One honest prayer with each issue", tiers: [1, 1, 1] },
+  { row: "“Good News” — 3 uplifting stories", tiers: [1, 1, 1] },
+  { row: "Wednesday Pastor's Take", tiers: [1, 1, 1] },
+  { row: "Free community access", tiers: [1, 1, 1] },
   { group: "Founding Member · everything, one membership" },
-  { row: "The devotional every day (not just 3× a week)", tiers: [0, 1] },
-  { row: "Full Bible-in-a-Year journey, from your Day 1", tiers: [0, 1] },
-  { row: "Daily guided Scripture reading", tiers: [0, 1] },
-  { row: "Plain-English breakdown of each passage", tiers: [0, 1] },
-  { row: "“What this shows us about God” reflection", tiers: [0, 1] },
-  { row: "Real-life application for modern life", tiers: [0, 1] },
-  { row: "Daily reflection question + prayer prompt", tiers: [0, 1] },
-  { row: "Audio devotional for each day", tiers: [0, 1] },
-  { row: "The Deeper Walk discipleship newsletter", tiers: [0, 1] },
-  { row: "The World Through God's Lens (Thursdays)", tiers: [0, 1] },
-  { row: "Saturday Weekend Study", tiers: [0, 1] },
-  { row: "The Spiritual Wellness Guide (Mon · Wed · Fri)", tiers: [0, 1] },
-  { row: "Peace Practice · Pattern Breaker · Prayer Lab tools", tiers: [0, 1] },
-  { row: "Live sessions with a Christian therapist + pastors", tiers: [0, 1] },
-  { row: "Monthly downloadable workbook + full archive", tiers: [0, 1] },
-  { row: "Restart or catch up your plan anytime", tiers: [0, 1] },
+  { row: "The devotional every day (not just 3× a week)", tiers: [0, 1, 1] },
+  { row: "Full Bible-in-a-Year journey, from your Day 1", tiers: [0, 1, 1] },
+  { row: "Daily guided Scripture reading", tiers: [0, 1, 1] },
+  { row: "Plain-English breakdown of each passage", tiers: [0, 1, 1] },
+  { row: "“What this shows us about God” reflection", tiers: [0, 1, 1] },
+  { row: "Real-life application for modern life", tiers: [0, 1, 1] },
+  { row: "Daily reflection question + prayer prompt", tiers: [0, 1, 1] },
+  { row: "Audio devotional for each day", tiers: [0, 1, 1] },
+  { row: "The Deeper Walk discipleship newsletter", tiers: [0, 1, 1] },
+  { row: "Reflective “pause & reflect” moments in the Deeper Walk", tiers: [0, 1, 1] },
+  { row: "Saturday Weekend Study", tiers: [0, 1, 1] },
+  { row: "The Spiritual Wellness Guide (Mon · Wed · Fri)", tiers: [0, 1, 1] },
+  { row: "Peace Practice · Pattern Breaker · Prayer Lab tools", tiers: [0, 1, 1] },
+  { row: "Live sessions with a Christian therapist + pastors", tiers: [0, 1, 1] },
+  { row: "Monthly downloadable workbook + full archive", tiers: [0, 1, 1] },
+  { row: "Restart or catch up your plan anytime", tiers: [0, 1, 1] },
   { group: "Support the mission" },
-  { row: "Helps fund The Daily Walk", tiers: [0, 1] },
-  { row: "Sponsors free access for readers who can't pay", tiers: [0, 1] },
-  { row: "Founding Member price locked in for life", tiers: [0, 1] },
+  { row: "Helps fund The Daily Walk", tiers: [0, 1, 1] },
+  { row: "Founding Member price locked in for life", tiers: [0, 1, 1] },
+  { group: "Founding Partner · pay it forward" },
+  { row: "Keeps a licensed Christian counselor free for everyone", tiers: [0, 0, 1] },
+  { row: "Sponsors free access for readers who can't pay", tiers: [0, 0, 1] },
+  { row: "Pastors & perspectives from hard-to-reach places", tiers: [0, 0, 1] },
+  { row: "Live GoFundMe updates as we hit each goal", tiers: [0, 0, 1] },
+  { row: "Helps reach the next generation where they are", tiers: [0, 0, 1] },
 ];
 
 const faqs = [
@@ -123,7 +128,8 @@ export default function PricingPage() {
         <h2 className="section">Pick your plan</h2>
         <p className="section-sub">
           The devotional is free three mornings a week. Founding Members get
-          everything — every day — for $5.99/mo (or $59/yr).
+          everything — every day — for $5.99/mo (or $59/yr). Founding Partners
+          give a little more to keep it free for those who can&apos;t.
         </p>
 
         <PricingCards />
@@ -140,6 +146,7 @@ export default function PricingPage() {
                 <th>Time PT</th>
                 <th className="c">Free</th>
                 <th className="c">Founding</th>
+                <th className="c">Partner</th>
               </tr>
             </thead>
             <tbody>
@@ -198,13 +205,14 @@ export default function PricingPage() {
                 <th>What you get</th>
                 <th className="c">Free</th>
                 <th className="c">Founding</th>
+                <th className="c">Partner</th>
               </tr>
             </thead>
             <tbody>
               {comparison.map((item, idx) =>
                 "group" in item ? (
                   <tr className="grp" key={`g-${idx}`}>
-                    <td colSpan={3}>{item.group}</td>
+                    <td colSpan={4}>{item.group}</td>
                   </tr>
                 ) : (
                   <tr key={item.row}>
