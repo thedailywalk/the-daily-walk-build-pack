@@ -13,7 +13,7 @@
   --gold-deep: #b8902e; /* gold text/links on white (better contrast) */
   --cream: #faf6ee; /* soft section backgrounds */
   --ink: #22262b; /* body text */
-  --grey: #3f4653; /* secondary text — kept dark enough to read easily */
+  --grey: #363c48; /* secondary text — kept dark enough to read easily */
   --white: #ffffff;
   --green: #1f9d55; /* yes/checkmarks */
   --red: #bf4a4a;
@@ -2856,6 +2856,41 @@ td.c {
 }
 .cmp-collapse > .tbl-card {
   margin: 0 16px 18px !important;
+}
+/* Pricing: limited-launch teaser banner (replaces the big page header) */
+.launch-banner {
+  max-width: 720px;
+  margin: 40px auto 30px;
+  text-align: center;
+  background: #fbf3df;
+  border: 1px solid #edd9a6;
+  border-radius: 14px;
+  padding: 16px 22px;
+}
+.launch-k {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.launch-banner p {
+  margin: 0;
+  font-size: 15.5px;
+  line-height: 1.55;
+  color: var(--ink);
+}
+/* Playful one-liner under the Founding Member price */
+.card-quip {
+  margin-top: 12px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--navy);
 }
 /* Pricing: "the big things you're getting" explainer */
 .price-note {

@@ -81,6 +81,10 @@ export default function PricingCards() {
             <div className="perday">
               Just <b>{annual ? "16¢ a day" : "20¢ a day"}</b> — everything, one membership
             </div>
+            <div className="card-quip">
+              ☕ For less than one Starbucks, a whole month of wisdom — delivered
+              straight to your inbox.
+            </div>
             <div className="pitch" style={{ marginTop: 14 }}>
               The whole platform, for readers who want to walk with God every day.
             </div>

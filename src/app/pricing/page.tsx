@@ -110,17 +110,12 @@ export default function PricingPage() {
     <>
       <div className="topbar" />
       <div className="wrap">
-        <div className="page-head">
-          <h1>
-            Walk with God in real life — every morning before the world gets
-            loud.
-          </h1>
-          <p className="sub">
-            The Daily Walk makes Scripture clear, honest, and easy to live out.
-            Get the devotional, a real prayer, and good news from around the
-            world three mornings a week — free. And when you&apos;re ready, become
-            a Founding Member and be guided through the whole Bible in a year,
-            starting on your Day 1.
+        <div className="launch-banner">
+          <span className="launch-k">✨ Limited launch special</span>
+          <p>
+            Psst — don&apos;t miss out. Founding prices are locked in{" "}
+            <strong>for life</strong>{" "}while we&apos;re building. They go up at
+            launch.
           </p>
         </div>
 
