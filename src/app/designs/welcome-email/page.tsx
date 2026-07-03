@@ -30,12 +30,7 @@ export default function WelcomeEmailPreview() {
 
     <!-- Letterhead — reads like a personal email, not a newsletter masthead -->
     <div style="padding:26px 34px 0;">
-      <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
-        <tr>
-          <td style="font-family:${sans};letter-spacing:3px;font-size:11px;font-weight:bold;color:#B8902E;text-transform:uppercase;">The Daily Walk</td>
-          <td align="right" style="font-family:${serif};font-style:italic;font-size:12.5px;color:#9a927f;">a note from Lulu</td>
-        </tr>
-      </table>
+      <div style="text-align:center;font-family:${sans};letter-spacing:3px;font-size:11.5px;font-weight:bold;color:#B8902E;text-transform:uppercase;">The Daily Walk Newsletter</div>
       <div style="height:1px;line-height:1px;background:#ece4d3;margin:16px 0 22px;">&nbsp;</div>
 
       <h1 style="font-family:${serif};font-weight:bold;color:#1F3A5F;font-size:29px;line-height:1.2;margin:0 0 18px;">Welcome in — you just made a move that matters.</h1>
@@ -80,7 +75,7 @@ export default function WelcomeEmailPreview() {
     <div style="padding:0 34px 28px;">
       <p style="font-family:${sans};font-size:15.5px;line-height:1.7;color:#2b2b2b;margin:0 0 20px;">If you ever have a question, some feedback, or a prayer request, don't hesitate to reach out. We're here to help pull each other out of the dark and into the light — and our hope is that this newsletter helps you walk the brightest of paths.</p>
 
-      <p style="font-family:${sans};font-size:15.5px;line-height:1.5;color:#2b2b2b;margin:0;">Much love and blessings,<br><span style="font-family:${serif};font-size:24px;color:#1F3A5F;font-weight:bold;">Lulu</span><br><span style="font-family:${sans};font-size:12px;color:#9a927f;letter-spacing:.4px;">The Daily Walk Newsletter</span></p>
+      <p style="font-family:${sans};font-size:15.5px;line-height:1.5;color:#2b2b2b;margin:0;">Much love and blessings,<br><span style="font-family:${serif};font-size:22px;color:#1F3A5F;font-weight:bold;">The Daily Walk Newsletter</span></p>
     </div>
 
     <!-- Light footer (not a newsletter block) -->
