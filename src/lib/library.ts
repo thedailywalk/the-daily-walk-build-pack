@@ -424,13 +424,47 @@ const TOPIC_KEYWORDS: [string, RegExp][] = [
   ["Faith", /\bfaith|believe|trust\b/i],
 ];
 
-function deriveTopics(text: string): string[] {
+export function deriveTopics(text: string): string[] {
   const t = text.toLowerCase();
   const found: string[] = [];
   for (const [topic, re] of TOPIC_KEYWORDS) {
     if (re.test(t) && !found.includes(topic)) found.push(topic);
   }
   return found.length ? found.slice(0, 4) : ["Faith"];
+}
+
+/**
+ * Your own, non-verbatim material — the "Personal Take · In My Own Words · The
+ * Science Behind It" you wrote, plus your notes — from saved items whose topics
+ * fit the ones given. NEVER includes the verbatim transcript or caption. Returns
+ * a compact block the generator may draw on directly (reworded to fit), or ""
+ * when nothing on-topic exists. Skips items saved as "Voices" (pure style refs).
+ */
+export async function libraryMaterialForTopics(
+  topics: string[],
+  limit = 4
+): Promise<string> {
+  if (!adminDbConfigured || !topics.length) return "";
+  const items = await listLibrary({ topics });
+  const blocks: string[] = [];
+  const clip = (s: string, n: number) =>
+    s.trim().length > n ? `${s.trim().slice(0, n).trim()}…` : s.trim();
+  for (const it of items) {
+    if (it.isVoice) continue; // style-only samples, not source material
+    const take = (it.personalTake ?? "").trim();
+    const note = (it.body ?? "").trim();
+    const why = (it.why ?? "").trim();
+    if (!take && !note && !why) continue; // nothing usable (or only verbatim)
+    const parts: string[] = [];
+    const label = it.title?.trim() || it.topics[0] || "Saved note";
+    parts.push(`• ${label}${it.topics.length ? ` [${it.topics.join(", ")}]` : ""}`);
+    if (take) parts.push(`  Your take / the science: ${clip(take, 700)}`);
+    if (!take && note) parts.push(`  Your note: ${clip(note, 500)}`);
+    if (why) parts.push(`  Why it matters to you: ${clip(why, 260)}`);
+    blocks.push(parts.join("\n"));
+    if (blocks.length >= limit) break;
+  }
+  return blocks.join("\n\n");
 }
 
 function verseRefOf(v: string): string {

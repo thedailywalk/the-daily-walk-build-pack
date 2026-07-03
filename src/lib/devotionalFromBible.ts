@@ -64,6 +64,7 @@ export type BibleDevotionalInput = {
   theme?: string; // weekly focus
   weekday: string; // e.g. "Monday"
   isWednesday: boolean;
+  libraryMaterial?: string; // your own on-topic notes/take to optionally draw on
 };
 
 type Draft = {
@@ -90,6 +91,15 @@ export async function draftDevotionalFromBible(
     ? `\n- "pastorTake": a short midweek encouragement (2–3 sentences) from this passage, warm and practical.`
     : "";
 
+  const material = input.libraryMaterial?.trim()
+    ? `
+
+YOUR OWN MATERIAL (the author personally wrote this — her "Personal Take · In My Own Words · The Science Behind It," plus notes):
+${input.libraryMaterial.trim()}
+
+HOW TO USE IT: You MAY draw directly on this material — its insight, angle, or the science/psychology in it — BUT ONLY where it genuinely fits ${input.reading} and this week's focus. When you use it, reword and polish it into your own smooth flow so it reads as one seamless piece; never paste it in verbatim, and always tweak it a little. If a note doesn't fit today's passage, ignore it completely — never force it in.`
+    : "";
+
   const user = `Write today's short devotional for The Daily Walk, grounded ENTIRELY in this Bible passage:
 
   PASSAGE: ${input.reading}${input.arc ? ` (part of ${input.arc})` : ""}
@@ -102,7 +112,7 @@ RULES:
 - Keep it short and readable — a 2–3 minute read total.
 - Follow the voice below closely (match the feel; never reuse its example words).
 
-${voiceGuide()}
+${voiceGuide()}${material}
 
 Return ONLY a JSON object (no markdown, no commentary) with these exact keys:
 {

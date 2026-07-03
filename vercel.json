@@ -15,10 +15,6 @@
     {
       "path": "/api/cron/recheck-weekly-video",
       "schedule": "0 9 * * *"
-    },
-    {
-      "path": "/api/cron/refresh-world-news",
-      "schedule": "0 8 * * 4"
     }
   ]
 }

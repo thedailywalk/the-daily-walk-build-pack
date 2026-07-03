@@ -52,32 +52,6 @@ export type PremiumData = {
   /* The World Through God's Lens — Thursdays. 2–3 events seen through faith, each
      with What Happened / How We See It Through Faith / How We Can Pray, then a
      smaller uplifting section. Aware without anxious. */
-  worldHeading?: string; // e.g. "The World Through God's Lens"
-  worldIntro?: string; // gentle framing line
-  world1What?: string;
-  world1Faith?: string;
-  world1Pray?: string;
-  world1Url?: string; // link to the real article this summarizes
-  world1Source?: string; // e.g. "BBC News"
-  world1Img?: string; // OPTIONAL reshare-cleared photo URL (see world1Credit)
-  world1Credit?: string; // required attribution when an image is used
-  world2What?: string;
-  world2Faith?: string;
-  world2Pray?: string;
-  world2Url?: string;
-  world2Source?: string;
-  world2Img?: string;
-  world2Credit?: string;
-  world3What?: string;
-  world3Faith?: string;
-  world3Pray?: string;
-  world3Url?: string;
-  world3Source?: string;
-  world3Img?: string;
-  world3Credit?: string;
-  brightHeading?: string; // uplifting section name, e.g. "Light Still Breaking Through"
-  brightBody?: string; // 2–3 positive items, blank-line separated
-
   /* The Weekend Study — Saturdays */
   studyHeading?: string;
   studyRef?: string;
@@ -312,39 +286,6 @@ export function fullPremiumFor(date: string): PremiumData {
     "Founding Members get a seat in the live room. This season:\n\n• A monthly live conversation with a guest pastor — bring your real questions.\n\n• A live session with a licensed Christian therapist on faith and mental health — practical, gentle, no judgment.\n\nWatch your inbox for the link and the date — your spot is already saved.";
   data.circleCtaLabel = "See what's coming →";
   data.circleCtaUrl = process.env.NEXT_PUBLIC_COMMUNITY_URL ?? "";
-
-  // The World Through God's Lens — Thursdays only. 2–3 events through faith +
-  // an uplifting close. Generated as a calm template; real headlines swap in.
-  if (weekday === "Thursday") {
-    data.worldHeading = "The World Through God's Lens";
-    data.worldIntro =
-      "A few of this week's headlines, held up to God's light instead of handed to our fear. Stay informed without becoming overwhelmed — aware, but not afraid. God is still sovereign, still near, still moving.";
-
-    data.world1What =
-      "Communities in a region hit by disaster are recovering, with many displaced and aid workers pressing in to reach those who are cut off.";
-    data.world1Faith =
-      "Suffering this size can make us feel small and helpless. But God never asks us to carry what only He can carry — He asks us to trust the One who is “close to the brokenhearted” (Psalm 34:18). He is already in that place, in the hands of every rescuer and neighbor showing up.";
-    data.world1Pray =
-      "Lord, be near to everyone who lost so much. Move through every helping hand, and make us people who pray before we scroll past.";
-
-    data.world2What =
-      "Leaders met to work through a decision that touches millions of ordinary lives — the kind of headline that can quietly stir worry.";
-    data.world2Faith =
-      "When outcomes feel far outside our control, Proverbs 21:1 steadies us: even a ruler's heart is “in the hand of the Lord.” We can stay informed without letting the result become our peace. Our security was never in the news cycle.";
-    data.world2Pray =
-      "Father, grant wisdom and humility to those deciding things that affect so many. Guard our hearts from anxiety and keep our hope anchored in You.";
-
-    data.world3What =
-      "A new development in science or health is drawing attention for its potential to help people who have waited a long time for answers.";
-    data.world3Faith =
-      "Every bit of healing and discovery reflects the God who made a world we are still learning to understand. We can hold even uncertain news with curiosity instead of dread, trusting the Giver behind every good gift (James 1:17).";
-    data.world3Pray =
-      "God, thank You for the gift of discovery. Guide it toward what truly heals, and toward the people who need it most.";
-
-    data.brightHeading = "Light Still Breaking Through";
-    data.brightBody =
-      "Even on a heavy news week, grace keeps showing up. A few signs of it:\n\n• Somewhere this week, a community quietly rallied around a family in crisis — strangers becoming neighbors.\n\n• A long-awaited reunion, recovery, or answered prayer that never made the front page but changed someone's whole world.\n\n• Ordinary people choosing kindness in a moment that could have gone the other way.\n\n(Swap in the week's real good-news stories before you send — this is the breath of fresh air at the end.)";
-  }
 
   // The Weekend Study — Saturdays only
   if (weekday === "Saturday") {

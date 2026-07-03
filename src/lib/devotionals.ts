@@ -5,6 +5,7 @@ import { todayPT } from "@/lib/progress";
 import { getStudyDay } from "@/lib/studyGuide";
 import { draftStepExample } from "@/lib/devotionalExample";
 import { draftDevotionalFromBible } from "@/lib/devotionalFromBible";
+import { deriveTopics, libraryMaterialForTopics } from "@/lib/library";
 
 /** The editable sections of one daily devotional (matches the issue template). */
 export type DevotionalData = {
@@ -243,12 +244,19 @@ export async function adminEnsureWeek(count = 7): Promise<void> {
     // Preferred: write the devotional FROM the day's actual Bible passage,
     // in our voice. Best-effort; on any miss we keep the library base below.
     try {
+      // Pull your own on-topic material (Personal Take / notes) to optionally
+      // draw on — the generator only uses what genuinely fits the passage.
+      const topics = deriveTopics(
+        [s.context, s.plainEnglish, s.aboutGod, s.aboutPeople, s.realLife, s.reflection].join(" ")
+      );
+      const libraryMaterial = await libraryMaterialForTopics(topics).catch(() => "");
       const fresh = await draftDevotionalFromBible({
         reading: s.reading,
         arc: s.arc,
         theme: ARC_FOCUS[s.arc],
         weekday: weekdayLabel(date),
         isWednesday: weekdayLabel(date) === "Wednesday",
+        libraryMaterial,
       });
       if (fresh) {
         Object.assign(data, fresh);

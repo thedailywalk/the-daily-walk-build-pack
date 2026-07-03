@@ -21,8 +21,6 @@ import {
   savePremiumAction,
   preparePremiumWeekAction,
   deletePremiumAction,
-  draftWorldNewsAction,
-  findWorldImagesAction,
 } from "./actions";
 
 export const metadata: Metadata = {
@@ -54,8 +52,7 @@ export default async function PremiumAdminPage({
               offer. Same rhythm as the free daily; every date opens fully
               written. Read it, edit in your voice, mark it <strong>Ready</strong>,
               and it publishes on its date. Includes the{" "}
-              <strong>Main Premium Devotional</strong> (daily, deeper),{" "}
-              <strong>The World Through God&apos;s Lens</strong> (Thursdays), and{" "}
+              <strong>Main Premium Devotional</strong> (daily, deeper) and{" "}
               <strong>The Weekend Study</strong> (Saturdays). The wellness tools
               live in the{" "}
               <Link href="/admin/wellness" className="adm-inline-link">
@@ -125,7 +122,6 @@ async function WeekView() {
       </div>
       <p className="adm-hintline">
         Every day generates a complete <strong>Main Premium Devotional</strong>.
-        Thursdays add <strong>The World Through God&apos;s Lens</strong>;
         Saturdays add <strong>The Weekend Study</strong>. Click any date to open
         the full issue, edit it, then mark it <strong>Ready</strong>.
       </p>
@@ -137,11 +133,9 @@ async function WeekView() {
           const heading = (d?.data.devHeading || gen.devHeading)?.trim();
           const wd = weekdayLabel(date);
           const extra =
-            wd === "Thursday"
-              ? "Devotional · + The World Through God's Lens"
-              : wd === "Saturday"
-                ? "Devotional · + The Weekend Study"
-                : "The Main Premium Devotional";
+            wd === "Saturday"
+              ? "Devotional · + The Weekend Study"
+              : "The Main Premium Devotional";
           return (
             <Link key={date} href={`/admin/premium?date=${date}`} className="adm-day">
               <div className="adm-day-top">
@@ -292,58 +286,6 @@ async function EditorView(date: string, saved: boolean) {
           </Field>
           <Field label="A prayer for today">
             <textarea name="devPrayer" defaultValue={data.devPrayer} className="adm-textarea" rows={3} />
-          </Field>
-
-          <h3 className="adm-group">
-            🌍 The World Through God&apos;s Lens · Thursdays
-            {weekday !== "Thursday" && (
-              <span className="adm-hint"> · not a Thursday — leave blank to hide</span>
-            )}
-          </h3>
-          <p className="adm-grouphint">
-            2–3 world events seen through faith — informed without overwhelmed,
-            never fear-based or partisan. Use the button below to pull{" "}
-            <strong>real current headlines</strong> (paraphrased, with a source
-            link on each), then edit to taste. Photos stay manual — add a
-            reshare-cleared image + credit only.
-          </p>
-          <div className="adm-worldnews-bar">
-            <button
-              type="submit"
-              formAction={draftWorldNewsAction}
-              className="btn btn-ghost"
-              title="Save your other edits first — this fills the World section from today's real headlines"
-            >
-              🌍 Draft from real headlines
-            </button>
-            <button
-              type="submit"
-              formAction={findWorldImagesAction}
-              className="btn btn-ghost"
-              title="Search Wikimedia Commons for a reshare-cleared photo for each story that has text but no image"
-            >
-              🖼 Find free photos
-            </button>
-            <span className="adm-hint">Live world news + Wikimedia Commons · save other edits first</span>
-          </div>
-          <div className="adm-row">
-            <Field label="Section heading">
-              <input name="worldHeading" defaultValue={data.worldHeading} className="adm-input" placeholder="The World Through God's Lens" />
-            </Field>
-            <Field label="Uplifting section name">
-              <input name="brightHeading" defaultValue={data.brightHeading} className="adm-input" placeholder="Light Still Breaking Through" />
-            </Field>
-          </div>
-          <Field label="Gentle intro line">
-            <textarea name="worldIntro" defaultValue={data.worldIntro} className="adm-textarea" rows={2} />
-          </Field>
-
-          <WorldStory n={1} data={data} />
-          <WorldStory n={2} data={data} />
-          <WorldStory n={3} data={data} />
-
-          <Field label="✦ Light Still Breaking Through" hint="2–3 uplifting items — kindness, healing, answered prayers, restoration">
-            <textarea name="brightBody" defaultValue={data.brightBody} className="adm-textarea" rows={6} />
           </Field>
 
           <h3 className="adm-group">
@@ -498,40 +440,6 @@ async function ArchiveDetail(date: string) {
           className="adm-preview-frame adm-preview-frame-tall"
           dangerouslySetInnerHTML={{ __html: renderPremiumHtml(issue) }}
         />
-      </div>
-    </div>
-  );
-}
-
-function WorldStory({ n, data }: { n: 1 | 2 | 3; data: PremiumData }) {
-  const g = (k: string) => data[`world${n}${k}` as keyof PremiumData] as string | undefined;
-  return (
-    <div className="adm-worldstory">
-      <div className="adm-worldstory-num">Story {n}</div>
-      <Field label="What happened">
-        <textarea name={`world${n}What`} defaultValue={g("What")} className="adm-textarea" rows={2} />
-      </Field>
-      <Field label="How to see it through faith">
-        <textarea name={`world${n}Faith`} defaultValue={g("Faith")} className="adm-textarea" rows={3} />
-      </Field>
-      <Field label="How we can pray">
-        <textarea name={`world${n}Pray`} defaultValue={g("Pray")} className="adm-textarea" rows={2} />
-      </Field>
-      <div className="adm-row">
-        <Field label="Source link (the real article)">
-          <input name={`world${n}Url`} defaultValue={g("Url")} className="adm-input" placeholder="https://…" />
-        </Field>
-        <Field label="Source name">
-          <input name={`world${n}Source`} defaultValue={g("Source")} className="adm-input" placeholder="BBC News" />
-        </Field>
-      </div>
-      <div className="adm-row">
-        <Field label="Photo URL (reshare-cleared only)" hint="Wikimedia Commons, USGS, NASA, etc. — leave blank if none">
-          <input name={`world${n}Img`} defaultValue={g("Img")} className="adm-input" placeholder="https://…" />
-        </Field>
-        <Field label="Photo credit (required if photo used)">
-          <input name={`world${n}Credit`} defaultValue={g("Credit")} className="adm-input" placeholder="e.g. USGS / Wikimedia Commons (CC BY 2.0)" />
-        </Field>
       </div>
     </div>
   );

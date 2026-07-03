@@ -119,55 +119,6 @@ export function renderPremiumHtml(issue: PremiumIssue): string {
     );
   }
 
-  // The World Through God's Lens — Thursdays
-  const stories = [
-    { what: d.world1What, faith: d.world1Faith, pray: d.world1Pray, url: d.world1Url, source: d.world1Source, img: d.world1Img, credit: d.world1Credit },
-    { what: d.world2What, faith: d.world2Faith, pray: d.world2Pray, url: d.world2Url, source: d.world2Source, img: d.world2Img, credit: d.world2Credit },
-    { what: d.world3What, faith: d.world3Faith, pray: d.world3Pray, url: d.world3Url, source: d.world3Source, img: d.world3Img, credit: d.world3Credit },
-  ].filter((s) => s.what?.trim() || s.faith?.trim() || s.pray?.trim());
-
-  if (stories.length || d.brightBody?.trim()) {
-    const storyHtml = stories
-      .map((s) => {
-        const img = s.img?.trim()
-          ? `<img src="${esc(s.img)}" alt="" style="width:100%;height:auto;display:block;border-radius:8px;margin:0 0 4px;">${
-              s.credit?.trim()
-                ? `<div style="font-family:Arial,Helvetica,sans-serif;font-size:10.5px;color:#8a8270;margin:0 0 10px;">Photo: ${esc(s.credit)}</div>`
-                : `<div style="height:8px;line-height:8px;">&nbsp;</div>`
-            }`
-          : "";
-        const src =
-          s.url?.trim()
-            ? `<div style="margin-top:8px;"><a href="${esc(s.url)}" style="font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:700;color:#B8902E;text-decoration:none;">Read the full story${s.source?.trim() ? ` · ${esc(s.source)}` : ""} →</a></div>`
-            : "";
-        return `
-        <div style="${S.story}">
-          ${img}
-          ${s.what?.trim() ? `<div style="${S.storyLabel}">What happened</div><p style="${S.storyP}">${esc(s.what)}</p>` : ""}
-          ${s.faith?.trim() ? `<div style="${S.storyLabel}">How we see it through faith</div><p style="${S.storyP}">${esc(s.faith)}</p>` : ""}
-          ${s.pray?.trim() ? `<div style="${S.storyPray}"><strong style="color:#E3C074;">How we can pray · </strong>${esc(s.pray)}</div>` : ""}
-          ${src}
-        </div>`;
-      })
-      .join("");
-
-    const brightHtml = d.brightBody?.trim()
-      ? `<div style="${S.bright}">
-          <div style="${S.brightK}">✦ ${esc(d.brightHeading || "Light Still Breaking Through")}</div>
-          ${paras(d.brightBody, S.brightP)}
-        </div>`
-      : "";
-
-    blocks.push(
-      [
-        `<div style="${S.kicker}">🌍 ${esc(d.worldHeading || "The World Through God's Lens")}</div>`,
-        d.worldIntro?.trim() ? `<p style="${S.worldIntro}">${esc(d.worldIntro)}</p>` : "",
-        storyHtml,
-        brightHtml,
-      ].join("")
-    );
-  }
-
   // The Weekend Study — Saturdays
   if (d.studyBody?.trim()) {
     blocks.push(
