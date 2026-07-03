@@ -339,7 +339,7 @@ export function fullDevotionalFor(date: string): DevotionalData {
         ? "Rest & Reflect"
         : ARC_FOCUS[s.arc] ?? "Walking with God in real life",
     readingHeading: s.aboutGod,
-    readingRef: `📖 Main: ${s.reading}  ·  Be real with God: ${BE_REAL[wIdx]}`,
+    readingRef: `📖 ${s.reading}  ·  Be real with God: ${BE_REAL[wIdx]}`,
     readingIntro: firstPara(s.context),
     verseText,
     verseRef,
