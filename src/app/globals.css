@@ -1816,6 +1816,136 @@ a.gncard:focus-visible {
     grid-template-columns: 1fr;
   }
 }
+/* The full circle — a vertical journey, not a grid of boxes */
+.circle-flow {
+  max-width: 720px;
+  margin: 26px auto 0;
+}
+.circle-step {
+  position: relative;
+  display: flex;
+  gap: 18px;
+  padding-bottom: 26px;
+}
+.circle-step::before {
+  content: "";
+  position: absolute;
+  left: 24px;
+  top: 54px;
+  bottom: -4px;
+  width: 2px;
+  background: var(--line);
+}
+.circle-dot {
+  flex: 0 0 auto;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--sage-soft);
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+  position: relative;
+  z-index: 1;
+}
+.circle-num {
+  font-family: var(--sans);
+  font-size: 10.5px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  font-weight: 700;
+  margin: 4px 0 3px;
+}
+.circle-tx h4 {
+  margin: 0 0 5px;
+  font-size: 18px;
+  color: var(--navy);
+}
+.circle-tx p {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--ink);
+}
+.circle-loop {
+  margin: 4px 0 0 68px;
+  padding: 14px 20px;
+  background: var(--cream);
+  border: 1px dashed var(--gold);
+  border-radius: 12px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 15px;
+  color: var(--navy);
+  line-height: 1.55;
+}
+/* Where your giving goes — navy editorial band */
+.give-band {
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  gap: 32px;
+  background: var(--navy);
+  border-radius: 20px;
+  padding: 36px 38px;
+  margin-top: 46px;
+}
+.give-k {
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.give-head h2 {
+  font-family: var(--serif);
+  font-size: 27px;
+  color: #fff;
+  margin: 0 0 12px;
+  line-height: 1.15;
+}
+.give-head p {
+  font-size: 15px;
+  line-height: 1.65;
+  color: #c9d3df;
+  margin: 0 0 18px;
+}
+.give-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.give-item {
+  padding: 14px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+.give-item:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+.give-item strong {
+  display: block;
+  font-family: var(--sans);
+  font-size: 15px;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+.give-item span {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #d3dae4;
+}
+@media (max-width: 820px) {
+  .give-band {
+    grid-template-columns: 1fr;
+    padding: 26px 24px;
+  }
+  .circle-loop {
+    margin-left: 0;
+  }
+}
 
 /* ---- Homepage mission + GoFundMe ---- */
 .mhsec {
