@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import PricingCards from "@/components/PricingCards";
+import MorningFlow from "@/components/MorningFlow";
 import { PRICING_ENABLED } from "@/lib/flags";
 import { site } from "@/lib/site";
 
@@ -124,6 +125,14 @@ export default function PricingPage() {
             a Founding Member and be guided through the whole Bible in a year,
             starting on your Day 1.
           </p>
+        </div>
+
+        <h2 className="section">How a morning works</h2>
+        <p className="section-sub">
+          Small enough to actually do — before the world gets loud.
+        </p>
+        <div className="hiw hiw-flowonly">
+          <MorningFlow />
         </div>
 
         <h2 className="section">Pick your plan</h2>

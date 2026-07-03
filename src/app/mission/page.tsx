@@ -54,6 +54,47 @@ export default function MissionPage() {
             computers, teachers, and schools — giving kids around the world a chance,
             an education, and hope for what&apos;s ahead.
           </MissionBlock>
+
+          <div className="mission-subhead">
+            <div className="sec-tag" style={{ textAlign: "left" }}>
+              How your support goes further
+            </div>
+            <p>
+              Founding Partners give a little more — not for extra features, but to
+              open all of this up for the people who can&apos;t pay at all. Here&apos;s
+              what that makes possible.
+            </p>
+          </div>
+
+          <MissionBlock kicker="A counselor for everyone" title="Care that's never locked behind a price">
+            Your support keeps a licensed Christian counselor within reach of
+            everyone — a resource we never want to put out of anyone&apos;s reach.
+          </MissionBlock>
+
+          <MissionBlock kicker="Faith from every corner" title="Voices you'd never otherwise hear">
+            It connects us with pastors across the world, so you hear how faith
+            actually lives and moves in cultures and places most of us will never
+            reach — often where people have barely a fraction of what we do, and more
+            faith than all of it.
+          </MissionBlock>
+
+          <MissionBlock kicker="The next generation" title="Meeting kids right where they are">
+            We know most kids live on their screens — so that&apos;s where we meet
+            them first, with the hope of Jesus. But we don&apos;t want to leave them
+            there. The goal is to point them back to the real world: to get outside,
+            to do good, to love the people in front of them — and to show them
+            there&apos;s a fuller, better way to live than the one a screen keeps
+            selling them.
+          </MissionBlock>
+
+          <MissionBlock kicker="You'll see every bit of it" title="Where your giving goes — and the good it does">
+            You&apos;ll get live updates on every single project, so you don&apos;t
+            just see where your money went — you see the change it&apos;s making. Come
+            visit some of these places one day if you ever can, or simply rest in
+            knowing you helped change a life — all of it in God&apos;s name. Your gift
+            could be the very one that gives someone hope, helps them meet God, and
+            leads them home.
+          </MissionBlock>
         </div>
 
         <div className="mission-verse">

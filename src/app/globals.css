@@ -1717,6 +1717,17 @@ a.gncard:focus-visible {
   font-style: italic;
   color: var(--grey);
 }
+.mission-subhead {
+  border-top: 2px solid var(--gold);
+  padding-top: 22px;
+  margin-top: 8px;
+}
+.mission-subhead p {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--grey);
+  margin: 8px 0 0;
+}
 
 /* ---- Homepage mission + GoFundMe ---- */
 .mhsec {
@@ -1982,7 +1993,133 @@ a.gncard:focus-visible {
   line-height: 1.5;
   color: var(--grey);
 }
+.hiw-flowonly {
+  margin-top: 10px;
+}
+.hiw-flowonly .hiw-flow {
+  margin-bottom: 10px;
+}
+/* 3-tier explainer */
+.hiw-tabs-3 .hiw-tab {
+  padding: 12px 16px;
+}
+.hiw-tab-price {
+  font-family: var(--sans);
+  font-size: 12px;
+  color: var(--grey);
+  font-weight: 600;
+}
+.hiw-tab.on .hiw-tab-price {
+  color: #cdd7e6;
+}
+.hiw-box {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 16px 18px;
+  transition: transform 0.16s, box-shadow 0.16s;
+}
+.hiw-box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px -18px rgba(31, 58, 95, 0.4);
+}
+.hiw-box-soft {
+  background: var(--cream);
+}
+.hiw-box-coming {
+  background: #f6f8fb;
+  border-color: #d3ddea;
+  border-left: 4px solid var(--navy);
+}
+.hiw-box-k {
+  font-family: var(--sans);
+  font-size: 10.5px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+.hiw-box h4 {
+  margin: 0 0 6px;
+  font-size: 16px;
+  color: var(--navy);
+}
+.hiw-box p {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--grey);
+}
+.hiw-note {
+  background: #fbf3df;
+  border: 1px solid #edd9a6;
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: #5b5340;
+  margin-bottom: 18px;
+}
+.hiw-xlink {
+  display: block;
+  margin-top: 14px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--gold-deep);
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 14px;
+  padding: 0;
+  text-align: left;
+  text-decoration: none;
+}
+.hiw-xlink:hover {
+  text-decoration: underline;
+}
+.hiw-more {
+  align-self: flex-start;
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--navy);
+}
+.hiw-more:hover {
+  border-color: var(--gold);
+  background: var(--cream);
+}
+.hiw-included {
+  margin: 4px 0 0;
+  padding: 14px 18px 14px 34px;
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  list-style: none;
+}
+.hiw-included li {
+  position: relative;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--ink);
+  margin: 8px 0;
+}
+.hiw-included li::before {
+  content: "✓";
+  position: absolute;
+  left: -20px;
+  color: var(--gold-deep);
+  font-weight: 700;
+}
 @media (max-width: 820px) {
+  .hiw-tabs-3 {
+    flex-direction: column;
+  }
   .hiw-flow {
     grid-template-columns: 1fr;
     gap: 22px;
