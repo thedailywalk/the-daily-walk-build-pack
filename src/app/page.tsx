@@ -7,44 +7,7 @@ import { getDailyGoodNews } from "@/lib/goodNews";
 import { GOOD_NEWS_PUBLIC, PRICING_ENABLED } from "@/lib/flags";
 import { site } from "@/lib/site";
 import { studyTips as tips } from "@/lib/studyTips";
-
-// Free features — what comes with the daily newsletter (free for everyone).
-const freeFeatures = [
-  {
-    icon: "🙏",
-    title: "A prayer with each issue",
-    body: "Short, honest, ready to pray. No performance, no pretending — just real words for a real day.",
-  },
-  {
-    icon: "🌍",
-    title: "Good News briefing",
-    body: "Three uplifting, real stories every issue — proof that even when the world feels heavy, good is still happening.",
-  },
-  {
-    icon: "🤝",
-    title: "Walk together",
-    body: "A free, welcoming community to share, ask questions, and encourage each other along the way.",
-  },
-];
-
-// Premium features — the guided Bible-in-a-Year journey.
-const premiumFeatures = [
-  {
-    icon: "📖",
-    title: "Start with Jesus",
-    body: "The plan opens with John, Romans, and Acts — so Scripture clicks before you ever hit the hard parts.",
-  },
-  {
-    icon: "🗓️",
-    title: "Never feel behind",
-    body: "Your plan starts on your Day 1. Miss a day? Just pick up where you left off — nothing resets on you.",
-  },
-  {
-    icon: "🎧",
-    title: "Listen or read",
-    body: "Premium includes an audio devotional each day — perfect for the commute or the morning coffee.",
-  },
-];
+import HowItWorks from "@/components/HowItWorks";
 
 export default async function HomePage() {
   const previewPrayers = (await listApprovedPrayers(12)).map((p) => ({
@@ -111,65 +74,11 @@ export default async function HomePage() {
           <div className="sec-tag">How it works</div>
           <h2 className="h">Two rhythms, one walk</h2>
           <p className="sub">
-            A daily dose of encouragement for everyone — and a personal, guided
-            journey through Scripture for those who want to go deeper.
+            Small enough to actually do, every morning — encouragement for
+            everyone, and a personal, guided journey for those who want to go
+            deeper.
           </p>
-          <div className="rhythms tiers">
-            {/* FREE — newsletter + its features */}
-            <div className="tiercol">
-              <div className="rcard">
-                <div className="rk">Mon · Wed · Fri · Free</div>
-                <h3>The Daily Walk newsletter</h3>
-                <p>
-                  A 2-minute devotional, one honest prayer, three uplifting Good
-                  News stories, and the Wednesday Pastor&apos;s Take — three
-                  mornings a week. Encouragement that meets you in real life.
-                </p>
-                <div className="who">
-                  For anyone who wants encouragement, prayer, and hope.
-                </div>
-              </div>
-              <div className="tierfeats">
-                {freeFeatures.map((f) => (
-                  <div className="feat" key={f.title}>
-                    <div className="ic" aria-hidden="true">
-                      {f.icon}
-                    </div>
-                    <h4>{f.title}</h4>
-                    <p>{f.body}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* PREMIUM — journey + its features */}
-            <div className="tiercol">
-              <div className="rcard">
-                <div className="rk">Your Day 1 · Premium</div>
-                <h3>The Bible-in-a-Year journey</h3>
-                <p>
-                  Read the whole Bible in a year — starting with Jesus, not
-                  Genesis. Each day: the reading, a plain-English breakdown, what
-                  it shows us about God, real-life application, a question, and
-                  audio. Begins the day <em>you</em> join.
-                </p>
-                <div className="who">
-                  For readers who want to be personally guided through the Bible.
-                </div>
-              </div>
-              <div className="tierfeats">
-                {premiumFeatures.map((f) => (
-                  <div className="feat" key={f.title}>
-                    <div className="ic" aria-hidden="true">
-                      {f.icon}
-                    </div>
-                    <h4>{f.title}</h4>
-                    <p>{f.body}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+          <HowItWorks />
         </div>
       </section>
 

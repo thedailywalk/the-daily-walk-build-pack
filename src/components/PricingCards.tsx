@@ -68,7 +68,7 @@ export default function PricingCards() {
         {/* FOUNDING MEMBER — the one paid tier: everything */}
         <div className="card premium">
           <div className="cap" />
-          <span className="badge">FOUNDING MEMBER</span>
+          <span className="badge">MOST POPULAR</span>
           <div className="body">
             <div className="tier">Founding Member</div>
             <div className="price">
@@ -105,7 +105,7 @@ export default function PricingCards() {
         {/* FOUNDING PARTNER — pay-it-forward supporter tier */}
         <div className="card patron">
           <div className="cap" />
-          <span className="badge badge-partner">FOUNDING PARTNER</span>
+          <span className="badge badge-partner">PAY IT FORWARD</span>
           <div className="body">
             <div className="tier">Founding Partner</div>
             <div className="price">
@@ -128,6 +128,7 @@ export default function PricingCards() {
               <li>Keeps The Daily Walk <b>free</b> for readers who can&apos;t pay</li>
               <li>Brings you <b>pastors &amp; perspectives</b> from across the world</li>
               <li><b>Live updates on every project</b> — see the lives your giving changes</li>
+              <li><b>Monthly founder notes</b> on everything we&apos;re building — you&apos;re always in the loop</li>
               <li><b>Meets kids where they are</b>, then points them back to the real world</li>
             </ul>
           </div>

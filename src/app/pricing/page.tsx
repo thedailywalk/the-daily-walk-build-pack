@@ -57,6 +57,7 @@ const comparison: Array<
   { row: "Sponsors free access for readers who can't pay", tiers: [0, 0, 1] },
   { row: "Pastors & perspectives from hard-to-reach places", tiers: [0, 0, 1] },
   { row: "Live updates on every project — see the change you're making", tiers: [0, 0, 1] },
+  { row: "Monthly founder notes — always in the loop on what we build", tiers: [0, 0, 1] },
   { row: "Meets kids where they are, then points them back to the real world", tiers: [0, 0, 1] },
 ];
 

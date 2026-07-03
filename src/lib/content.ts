@@ -172,6 +172,7 @@ export const tiers: Tier[] = [
       "Keeps The Daily Walk free for readers who can't pay",
       "Brings you pastors & perspectives from across the world",
       "Live updates on every project — see the lives your giving changes",
+      "Monthly founder notes — always in the loop on what we're building",
       "Meets kids where they are, then points them back to the real world",
     ],
     cta: "Become a Founding Partner",
