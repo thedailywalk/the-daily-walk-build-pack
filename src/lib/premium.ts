@@ -49,17 +49,16 @@ export type PremiumData = {
   devKeyWord?: string; // "Word — meaning"
   devReflection?: string; // a deeper question
   devApply?: string; // "Today's walk" — one faithful step
+  devPause?: string; // a short reflective "pause & reflect" line, mid-read
   devPrayer?: string;
 
-  /* The World Through God's Lens — Thursdays. 2–3 events seen through faith, each
-     with What Happened / How We See It Through Faith / How We Can Pray, then a
-     smaller uplifting section. Aware without anxious. */
   /* The Weekend Study — Saturdays */
   studyHeading?: string;
   studyRef?: string;
   studyBody?: string;
   studyKeyWord?: string; // "Word — meaning"
   studyVerse?: string; // "Ref — text"
+  studyPause?: string; // a short reflective "pause & reflect" line, mid-read
   studyQuestion?: string;
 
   /* Inside the Circle — live sessions (recurring) */

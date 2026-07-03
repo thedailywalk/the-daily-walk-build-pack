@@ -14,6 +14,7 @@ import {
   type PremiumData,
 } from "@/lib/premium";
 import { renderPremiumHtml } from "@/lib/premiumHtml";
+import { getDailyGoodNews } from "@/lib/goodNews";
 import { pendingForIssue } from "@/lib/newsletterEvolution";
 import NewsletterIssueReview from "@/components/NewsletterIssueReview";
 import CopyButton from "../devotionals/CopyButton";
@@ -168,12 +169,14 @@ async function EditorView(date: string, saved: boolean) {
   const status = existing?.status ?? "draft";
   const weekday = weekdayLabel(date);
   const pending = await pendingForIssue("premium", date);
+  const goodNews = await getDailyGoodNews(3);
   const previewIssue: PremiumIssue = {
     date,
     status,
     title: existing?.title ?? "",
     data,
   };
+  const previewHtml = renderPremiumHtml(previewIssue, goodNews);
 
   return (
     <div className="adm-editor">
@@ -219,7 +222,7 @@ async function EditorView(date: string, saved: boolean) {
           </div>
           <div
             className="adm-preview-frame"
-            dangerouslySetInnerHTML={{ __html: renderPremiumHtml(previewIssue) }}
+            dangerouslySetInnerHTML={{ __html: previewHtml }}
           />
         </div>
       </div>
@@ -281,6 +284,9 @@ async function EditorView(date: string, saved: boolean) {
           <Field label="Today's walk (one faithful step)">
             <textarea name="devApply" defaultValue={data.devApply} className="adm-textarea" rows={2} />
           </Field>
+          <Field label="Pause & reflect (a quiet line mid-read)" hint="Premium touch — shows as an italic pause between the reflection and the key word">
+            <textarea name="devPause" defaultValue={data.devPause} className="adm-textarea" rows={2} />
+          </Field>
           <Field label="Deeper reflection question">
             <textarea name="devReflection" defaultValue={data.devReflection} className="adm-textarea" rows={2} />
           </Field>
@@ -309,6 +315,9 @@ async function EditorView(date: string, saved: boolean) {
           <Field label="Study verse (Ref — text)">
             <textarea name="studyVerse" defaultValue={data.studyVerse} className="adm-textarea" rows={2} />
           </Field>
+          <Field label="Pause & reflect (a quiet line mid-read)" hint="Premium touch — an italic pause inside the weekend study">
+            <textarea name="studyPause" defaultValue={data.studyPause} className="adm-textarea" rows={2} />
+          </Field>
           <Field label="Reflection question">
             <textarea name="studyQuestion" defaultValue={data.studyQuestion} className="adm-textarea" rows={2} />
           </Field>
@@ -335,7 +344,7 @@ async function EditorView(date: string, saved: boolean) {
             <button type="submit" className="btn btn-gold">
               Save
             </button>
-            <CopyButton text={renderPremiumHtml(previewIssue)} />
+            <CopyButton text={previewHtml} />
           </div>
         </form>
       </div>
@@ -395,6 +404,7 @@ async function ArchiveList() {
 
 async function ArchiveDetail(date: string) {
   const issue = await premiumGetByDate(date);
+  const goodNews = await getDailyGoodNews(3);
 
   if (!issue) {
     return (
@@ -434,11 +444,11 @@ async function ArchiveDetail(date: string) {
       <div className="adm-archview">
         <div className="adm-preview-tag">Full issue · {prettyDate(date)}</div>
         <div className="adm-archview-actions">
-          <CopyButton text={renderPremiumHtml(issue)} label="Copy email HTML" />
+          <CopyButton text={renderPremiumHtml(issue, goodNews)} label="Copy email HTML" />
         </div>
         <div
           className="adm-preview-frame adm-preview-frame-tall"
-          dangerouslySetInnerHTML={{ __html: renderPremiumHtml(issue) }}
+          dangerouslySetInnerHTML={{ __html: renderPremiumHtml(issue, goodNews) }}
         />
       </div>
     </div>

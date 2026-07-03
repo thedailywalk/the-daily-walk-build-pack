@@ -30,12 +30,14 @@ type Draft = {
   devBody: string;
   devKeyWord: string; // "Word — meaning"
   devApply: string;
+  devPause: string; // reflective pause line
   devReflection: string;
   devPrayer: string;
   studyHeading?: string;
   studyBody?: string;
   studyKeyWord?: string; // "Word — meaning"
   studyVerse?: string; // "Ref — text"
+  studyPause?: string;
   studyQuestion?: string;
 };
 
@@ -51,6 +53,7 @@ export async function draftPremiumFromBible(
   "studyBody": "a richer 5–7 sentence weekend study of ${input.reading} — go deeper than the daily reflection",
   "studyKeyWord": "one key word from ${input.reading} as 'Word — plain-English meaning'",
   "studyVerse": "one verse from ${input.reading} as 'Reference — NIV text'",
+  "studyPause": "one short reflective line (about 12–20 words) inviting the reader to pause and sit with what they just read",
   "studyQuestion": "one deeper study question, beginning with 👉"`
     : "";
 
@@ -88,6 +91,7 @@ Return ONLY a JSON object (no markdown, no commentary) with these exact keys:
   "devBody": "the deeper reflection — 5–7 sentences walking through ${input.reading}, what it means, and why it matters today",
   "devKeyWord": "one key word from ${input.reading} as 'Word — plain-English meaning'",
   "devApply": "one concrete faithful step to live this out today",
+  "devPause": "one short reflective line (about 12–20 words) inviting the reader to pause and sit with what they just read — quiet, personal, not a question",
   "devReflection": "one honest, deeper reflection question, beginning with 👉",
   "devPrayer": "a short first-person prayer (2–3 sentences) flowing from this passage"${sat}
 }`;
@@ -132,6 +136,7 @@ Return ONLY a JSON object (no markdown, no commentary) with these exact keys:
       devBody: draft.devBody.trim(),
       devKeyWord: draft.devKeyWord.trim(),
       devApply: draft.devApply.trim(),
+      devPause: draft.devPause.trim(),
       devReflection: refl.startsWith("👉") ? refl : `👉 ${refl}`,
       devPrayer: draft.devPrayer.trim(),
     };
@@ -141,6 +146,7 @@ Return ONLY a JSON object (no markdown, no commentary) with these exact keys:
       out.studyBody = draft.studyBody.trim();
       out.studyKeyWord = (draft.studyKeyWord ?? "").trim();
       out.studyVerse = (draft.studyVerse ?? "").trim();
+      out.studyPause = (draft.studyPause ?? "").trim();
       out.studyQuestion = q ? (q.startsWith("👉") ? q : `👉 ${q}`) : "";
     }
     // Drop any blank field so the library base fills it in.
@@ -172,12 +178,14 @@ function parseDraft(raw: string): Draft | null {
       devBody: obj.devBody ?? "",
       devKeyWord: obj.devKeyWord ?? "",
       devApply: obj.devApply ?? "",
+      devPause: obj.devPause ?? "",
       devReflection: obj.devReflection ?? "",
       devPrayer: obj.devPrayer ?? "",
       studyHeading: obj.studyHeading,
       studyBody: obj.studyBody,
       studyKeyWord: obj.studyKeyWord,
       studyVerse: obj.studyVerse,
+      studyPause: obj.studyPause,
       studyQuestion: obj.studyQuestion,
     };
   } catch {

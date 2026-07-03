@@ -12,6 +12,7 @@ export const site = {
   domain: "thedailywalknewsletter.com",
   url: process.env.APP_URL ?? "https://thedailywalknewsletter.com",
   replyTo: "thedailywalknewsletter@gmail.com",
+  founderPhone: "310-303-4580",
   owner: "Lulu Jimenez",
   // Physical mailing address — legally REQUIRED in every marketing email (CAN-SPAM).
   // A USPS P.O. Box is fine. Shown in every newsletter footer; hidden if blank.

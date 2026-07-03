@@ -1,6 +1,7 @@
 import "server-only";
 import type { PremiumIssue } from "@/lib/premium";
 import { weekdayLabel, prettyDate } from "@/lib/premium";
+import type { GoodNewsItem } from "@/lib/content";
 import { site } from "@/lib/site";
 
 function esc(s: string | undefined): string {
@@ -37,6 +38,12 @@ const S = {
   apply: "background:#EDF2F8;border:1px solid #DCE6F0;border-radius:8px;padding:14px 18px;margin:0 0 12px;font-size:15px;line-height:1.55;color:#2B2B2B;",
   applyK: "font-family:Arial,Helvetica,sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#B8902E;font-weight:bold;margin:0 0 6px;",
   question: "background:#F3ECDA;border-radius:8px;padding:16px 20px;font-family:Arial,Helvetica,sans-serif;color:#1F3A5F;font-size:15px;font-weight:bold;",
+  reflect: "text-align:center;font-style:italic;color:#5b5340;font-size:15.5px;line-height:1.62;border-top:1px solid #E4DAC4;border-bottom:1px solid #E4DAC4;padding:15px 14px;margin:18px 0;",
+  reflectK: "font-family:Arial,Helvetica,sans-serif;font-size:9.5px;letter-spacing:2px;text-transform:uppercase;color:#B8902E;font-weight:bold;display:block;margin:0 0 6px;",
+  share: "background:#F3ECDA;border-radius:10px;padding:20px 24px;text-align:center;",
+  shareP: "font-size:15px;line-height:1.6;color:#4a4636;margin:0 0 14px;",
+  founder: "background:#ffffff;border:1px solid #E0D6BF;border-radius:10px;padding:18px 22px;",
+  founderP: "font-size:14.5px;line-height:1.6;color:#3c3830;margin:0;",
   prayerBox: "background:#1F3A5F;border-radius:8px;padding:20px 22px;margin:6px 0;",
   prayerP: "color:#EDE6D4;font-style:italic;font-size:16px;line-height:1.6;margin:0;",
   worldIntro: "font-size:15px;line-height:1.6;color:#5b5340;font-style:italic;margin:0 0 16px;",
@@ -67,8 +74,50 @@ function paras(s: string | undefined, style = S.p): string {
 
 const rule = `<div style="${S.rule}"></div>`;
 
-/** Render a premium (discipleship) issue as branded email HTML (inline styles). */
-export function renderPremiumHtml(issue: PremiumIssue): string {
+/** The 3 Good News cards — free, license-cleared photos, summaries, and links. */
+function goodNewsBlock(items: GoodNewsItem[]): string {
+  const list = (items ?? []).slice(0, 3);
+  if (!list.length) return "";
+  const cards = list
+    .map((g) => {
+      const tile = g.image
+        ? `<img src="${esc(g.image)}" alt="" style="width:100%;height:96px;object-fit:cover;display:block;">`
+        : `<div style="height:96px;background:linear-gradient(135deg,#1F3A5F 0%,#2E5481 55%,#C9A24B 100%);"></div>`;
+      const credit = g.image && g.imageCredit
+        ? `<span style="display:block;font-family:Arial,Helvetica,sans-serif;font-size:8px;color:#b3ab97;margin:6px 0 0;line-height:1.35;">Photo: ${esc(g.imageCredit)}</span>`
+        : "";
+      return `<a href="${esc(g.href)}" style="display:inline-block;vertical-align:top;width:31%;margin:0 1% 10px;border:1px solid #E4DAC4;border-radius:10px;overflow:hidden;background:#ffffff;text-decoration:none;color:inherit;">${tile}<div style="padding:10px 11px 11px;">${
+        g.category
+          ? `<span style="font-family:Arial,Helvetica,sans-serif;font-size:8.5px;letter-spacing:1px;text-transform:uppercase;color:#B8902E;border:1px solid #E3C786;padding:2px 7px;border-radius:20px;font-weight:700;">${esc(g.category)}</span>`
+          : ""
+      }<div style="font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#1F3A5F;font-weight:700;line-height:1.28;margin:8px 0 6px;">${esc(g.headline)}</div>${
+        g.summary
+          ? `<p style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#5b5340;line-height:1.5;margin:0 0 7px;">${esc(g.summary)}</p>`
+          : ""
+      }<span style="display:block;font-family:Arial,Helvetica,sans-serif;font-size:9.5px;color:#8a8270;">${esc(g.source)}</span><span style="display:inline-block;margin-top:3px;font-family:Arial,Helvetica,sans-serif;font-size:9.5px;letter-spacing:.5px;text-transform:uppercase;color:#B8902E;font-weight:700;">Read more →</span>${credit}</div></a>`;
+    })
+    .join("");
+  return [
+    `<div style="${S.kicker}">Good News</div>`,
+    `<h2 style="${S.sec}">3 reasons for hope from around the world</h2>`,
+    `<p style="${S.ref}">Real stories · real sources · tap any headline for the full article.</p>`,
+    `<div style="text-align:center;font-size:0;">${cards}</div>`,
+    `<div style="${S.closing}">Even when the world feels heavy, God is still moving. Keep your eyes open today.</div>`,
+  ].join("");
+}
+
+/** A reflective "pause & reflect" pull-line to sit with mid-read (premium only). */
+function pauseLine(text?: string): string {
+  if (!text?.trim()) return "";
+  return `<div style="${S.reflect}"><span style="${S.reflectK}">Pause &amp; reflect</span>${esc(text)}</div>`;
+}
+
+/**
+ * Render a premium (discipleship) issue as branded email HTML (inline styles).
+ * Pass the day's Good News so the premium issue carries the same 3-story
+ * briefing (with free photos + links) as the free daily.
+ */
+export function renderPremiumHtml(issue: PremiumIssue, goodNews: GoodNewsItem[] = []): string {
   const d = issue.data;
   const metaBits = [weekdayLabel(issue.date), d.dayLabel?.trim()]
     .filter(Boolean)
@@ -96,6 +145,7 @@ export function renderPremiumHtml(issue: PremiumIssue): string {
           ? `<div style="${S.verse}">${esc(d.devVerseText)}${d.devVerseRef?.trim() ? ` — ${esc(d.devVerseRef)}` : ""}</div>`
           : "",
         paras(d.devBody),
+        pauseLine(d.devPause),
         d.devKeyWord?.trim()
           ? `<div style="${S.keyword}"><strong>Key word — </strong>${esc(d.devKeyWord)}</div>`
           : "",
@@ -127,6 +177,7 @@ export function renderPremiumHtml(issue: PremiumIssue): string {
         d.studyHeading?.trim() ? `<h2 style="${S.sec}">${esc(d.studyHeading)}</h2>` : "",
         d.studyRef?.trim() ? `<p style="${S.ref}">${esc(d.studyRef)}</p>` : "",
         paras(d.studyBody),
+        pauseLine(d.studyPause),
         d.studyKeyWord?.trim()
           ? `<div style="${S.keyword}"><strong>Key word — </strong>${esc(d.studyKeyWord)}</div>`
           : "",
@@ -135,6 +186,33 @@ export function renderPremiumHtml(issue: PremiumIssue): string {
       ].join("")
     );
   }
+
+  // Good News — the same 3-story briefing (photos + links) as the free daily.
+  const gn = goodNewsBlock(goodNews);
+  if (gn) blocks.push(gn);
+
+  // Walk together — the community platform isn't live yet, so the best way to
+  // walk together right now is to bring someone with you: share it, free.
+  const shareUrl = site.beehiiv?.subscribeUrl?.trim() || `${site.url}/subscribe`;
+  blocks.push(
+    [
+      `<div style="${S.kicker}" >Walk together</div>`,
+      `<div style="${S.share}">`,
+      `<p style="${S.shareP}">You weren't meant to do this alone. The community space is still being built — so for now, the best way to walk together is to bring someone with you. Know someone who could use a little hope each morning? Send them today's issue — it's completely free to start.</p>`,
+      `<div style="${S.cta}"><a href="${esc(shareUrl)}" style="${S.btn}">Share it free with a friend →</a></div>`,
+      `</div>`,
+    ].join("")
+  );
+
+  // From the founders — a real, personal way to reach the family behind this.
+  blocks.push(
+    [
+      `<div style="${S.kicker}">From the founders</div>`,
+      `<div style="${S.founder}">`,
+      `<p style="${S.founderP}">The Daily Walk is built by a small family who love Jesus and want to help others find Him. If this is walking with you — or you'd like to partner, give toward the mission, or just say hello — we'd genuinely love to hear from you. Call or text <a href="tel:+1${site.founderPhone.replace(/[^0-9]/g, "")}" style="color:#B8902E;font-weight:bold;text-decoration:none;">${esc(site.founderPhone)}</a>, or email <a href="mailto:${esc(site.replyTo)}" style="color:#B8902E;font-weight:bold;text-decoration:none;">${esc(site.replyTo)}</a>.<br><span style="font-style:italic;color:#6a6452;">— Lulu &amp; the founding family</span></p>`,
+      `</div>`,
+    ].join("")
+  );
 
   // Inside the Circle — live sessions
   let circleBlock = "";
