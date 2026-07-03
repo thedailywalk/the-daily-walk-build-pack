@@ -121,7 +121,15 @@ export async function getDailyGoodNews(count = 3): Promise<GoodNewsItem[]> {
       })
     );
     if (items.length < count) throw new Error("too few stories");
-    return items;
+    // Add a short "in our own words" summary per story (newsletter only) —
+    // paraphrased from the real headline/excerpt, never the publisher's wording.
+    const summaries = await draftGoodNewsSummaries(
+      base.map((it) => ({
+        headline: it.headline,
+        excerpt: (it as Candidate).excerpt ?? "",
+      }))
+    );
+    return items.map((it, i) => (summaries[i] ? { ...it, summary: summaries[i] } : it));
   } catch (err) {
     console.error("getDailyGoodNews:", (err as Error).message);
     if (featured.length) {
@@ -131,6 +139,46 @@ export async function getDailyGoodNews(count = 3): Promise<GoodNewsItem[]> {
       return [...featured, ...extra].slice(0, count);
     }
     return FALLBACK;
+  }
+}
+
+/**
+ * Rewrite each real story into a short, warm 1–2 sentence summary in OUR OWN
+ * words — so it reads like a described news piece, not just a headline. Uses
+ * Claude when ANTHROPIC_API_KEY is set; returns "" per item otherwise (the
+ * newsletter then just shows the headline). Never copies the source wording.
+ */
+async function draftGoodNewsSummaries(
+  stories: { headline: string; excerpt: string }[]
+): Promise<string[]> {
+  const key = process.env.ANTHROPIC_API_KEY;
+  if (!key || !stories.length) return stories.map(() => "");
+  const user = `Here are ${stories.length} real good-news stories (headline + excerpt). For EACH, write ONE warm, factual 1–2 sentence summary IN YOUR OWN WORDS — never copy the excerpt's wording. Plain, hopeful, no hype, no invented details.
+
+${stories.map((s, i) => `[${i + 1}] ${s.headline}\n${s.excerpt}`).join("\n\n")}
+
+Respond with JSON only: { "summaries": ["…", "…"] } in the same order.`;
+  try {
+    const res = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "x-api-key": key, "anthropic-version": "2023-06-01", "content-type": "application/json" },
+      body: JSON.stringify({
+        model:
+          process.env.NEWSLETTER_MODEL ?? process.env.GUIDE_MODEL ?? "claude-haiku-4-5-20251001",
+        max_tokens: 900,
+        messages: [{ role: "user", content: user }],
+      }),
+      cache: "no-store",
+    });
+    if (!res.ok) return stories.map(() => "");
+    const data = (await res.json()) as { content?: Array<{ type: string; text?: string }> };
+    const raw = (data.content ?? []).filter((c) => c.type === "text").map((c) => c.text).join("").trim();
+    const json = raw.slice(raw.indexOf("{"), raw.lastIndexOf("}") + 1);
+    const parsed = JSON.parse(json) as { summaries?: string[] };
+    const out = parsed.summaries ?? [];
+    return stories.map((_, i) => (out[i] ?? "").trim());
+  } catch {
+    return stories.map(() => "");
   }
 }
 

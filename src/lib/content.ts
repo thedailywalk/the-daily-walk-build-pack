@@ -65,6 +65,7 @@ export type GoodNewsItem = {
   href: string;
   source: string;
   imageCredit?: string; // attribution when the photo is a free Wikimedia Commons image
+  summary?: string; // short "in our own words" blurb (newsletter only), paraphrased not copied
 };
 
 /**
