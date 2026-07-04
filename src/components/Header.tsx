@@ -12,6 +12,12 @@ const aboutItems: { href: string; label: string }[] = [
   { href: "/pricing", label: "Pricing" },
 ];
 
+/** "Founding Membership" — where visitors learn about premium AND the founders. */
+const foundingItems: { href: string; label: string; sub?: string }[] = [
+  { href: "/pricing", label: "Plans & Pricing", sub: "Founding Member & Partner" },
+  { href: "/mission", label: "Our Mission & Founders", sub: "The story & where it goes" },
+];
+
 /** "Profile" groups a member's personal spaces (shown when signed in). */
 const profileItems: { href: string; label: string; sub?: string }[] = [
   { href: "/journey", label: "My Journey", sub: "Bible in a year" },
@@ -77,9 +83,27 @@ export default async function Header() {
             </div>
           )}
 
-          <Link href="/pricing" className="navpremium">
-            Premium
-          </Link>
+          {/* Founding Membership ▾ — premium plans + the founders' mission */}
+          <div className="navdrop">
+            <button
+              type="button"
+              className="navdrop-t navpremium-t"
+              aria-haspopup="true"
+            >
+              Founding Membership{" "}
+              <span className="navdrop-caret" aria-hidden="true">
+                ▾
+              </span>
+            </button>
+            <div className="navdrop-menu" role="menu">
+              {foundingItems.map((i) => (
+                <Link key={i.href} href={i.href} role="menuitem">
+                  {i.label}
+                  {i.sub && <small className="navdrop-sub">{i.sub}</small>}
+                </Link>
+              ))}
+            </div>
+          </div>
           {accountLink && <Link href={accountLink.href}>{accountLink.label}</Link>}
 
           {/* Admin ▾ (admins only) */}
@@ -135,8 +159,14 @@ export default async function Header() {
               </>
             )}
 
+            <div className="mobilegroup">Founding Membership</div>
+            {foundingItems.map((i) => (
+              <Link key={i.href} href={i.href}>
+                {i.label}
+              </Link>
+            ))}
+
             <div className="mobilegroup">More</div>
-            <Link href="/pricing">Premium</Link>
             {accountLink && <Link href={accountLink.href}>{accountLink.label}</Link>}
 
             {showAdmin && (

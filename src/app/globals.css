@@ -10357,6 +10357,8 @@ hr.div {
 /* Header "Premium" link — gold accent so the upgrade is discoverable */
 .nav .navlinks a.navpremium { color: var(--gold, #B8902E); font-weight: 700; }
 .nav .navlinks a.navpremium:hover { color: var(--gold-deep, #9a7722); }
+/* Founding Membership dropdown trigger — keep the old gold "Premium" accent */
+.nav .navlinks .navdrop-t.navpremium-t { color: var(--gold, #B8902E); font-weight: 700; }
 
 /* ============================================================
    Join modal — welcome popup inviting visitors to the newsletter
