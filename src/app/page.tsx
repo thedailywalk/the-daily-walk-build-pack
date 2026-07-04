@@ -138,26 +138,37 @@ export default async function HomePage() {
             <h2 className="h">Bigger than an inbox</h2>
           </div>
           <p className="mh-lead">
-            We&apos;re here to help people find Jesus — and learn how to build and
-            grow that relationship into a peace that passes all understanding.
+            The Daily Walk exists to help people find Jesus, feel loved, and
+            learn how to build a real relationship with God — one day at a time.
             You&apos;re welcome the moment you come, whether you&apos;ve followed
             Him for forty years or have never opened a Bible in your life.
           </p>
           <p className="mh-body">
             Every morning, The Daily Walk is a place to start: real Scripture in
-            plain words, an honest prayer, and good news to remind you God is
-            still moving. And because it&apos;s meant for <em>anyone</em>, we keep
-            it as affordable as we possibly can — so money is never the reason
-            someone can&apos;t walk with God.
+            plain words, an honest prayer, and encouragement that meets you right
+            where you are. And because this is meant for anyone, we keep it as
+            accessible and affordable as we can — so money is never the reason
+            someone feels too far from walking with God.
           </p>
           <p className="mh-body">
-            The platform is how we go further together — a way to connect, to
-            teach clearly, and to put real tools within reach of anyone who wants
-            to grow. And the mission doesn&apos;t stop at your inbox: as The Daily
-            Walk grows, we turn what it earns into{" "}
-            <strong>learning centers in communities that lack computers,
-            teachers, and schools</strong> — giving kids around the world a
-            chance, an education, and hope for what&apos;s ahead.{" "}
+            But the mission does not stop at your inbox. As The Daily Walk grows,
+            what comes in gets poured back out — into{" "}
+            <strong>learning centers, school buses, worship spaces, and resources
+            for the places hardest to reach</strong>, so everyone, everywhere gets
+            the opportunity to know God.
+          </p>
+          <p className="mh-body">
+            And because this is a community, we&apos;ll share live project
+            updates, testimonies, and real progress along the way — with Founding
+            Partners receiving personal monthly updates on how their giving is
+            helping turn a daily word into hope on the ground.
+          </p>
+          <p className="mh-close">
+            <strong>This is bigger than an inbox.</strong> It is a daily word
+            becoming a deeper walk — and a deeper walk becoming hope for someone
+            else.
+          </p>
+          <p className="mh-readmore">
             <Link href="/mission" className="mh-inline">
               Read our full mission →
             </Link>
@@ -182,7 +193,7 @@ export default async function HomePage() {
               On weekends, the goal is a bus route that <strong>picks up and drops
               off kids from the surrounding villages</strong> — so all our youth
               get the chance to attend <strong>free English classes and
-              after-school worship</strong> at the center, with the tools and
+              after-school worship</strong>{" "}at the center, with the tools and
               materials to help them in school. Most of all, it&apos;s a place to
               know and learn about God. It comes from all of us, but it&apos;s
               because of Him — and every bit of the glory is His.

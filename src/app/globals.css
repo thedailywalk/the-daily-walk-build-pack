@@ -2039,6 +2039,19 @@ a.gncard:focus-visible {
   text-decoration: none;
   white-space: nowrap;
 }
+.mh-close {
+  max-width: 680px;
+  margin: 4px auto 0;
+  text-align: center;
+  font-family: var(--serif);
+  font-size: 19px;
+  line-height: 1.6;
+  color: var(--navy);
+}
+.mh-readmore {
+  text-align: center;
+  margin: 18px 0 0;
+}
 .gfm-card {
   max-width: 720px;
   margin: 0 auto;
