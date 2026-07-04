@@ -52,11 +52,11 @@ export default async function Header() {
 
         {/* Desktop nav */}
         <nav className="navlinks" aria-label="Primary">
-          {/* About ▾ */}
+          {/* About ▾ — label links to the homepage "How it works" */}
           <div className="navdrop">
-            <button type="button" className="navdrop-t" aria-haspopup="true">
+            <Link href="/#how" className="navdrop-t" aria-haspopup="true">
               About <span className="navdrop-caret" aria-hidden="true">▾</span>
-            </button>
+            </Link>
             <div className="navdrop-menu" role="menu">
               {aboutItems.map((i) => (
                 <Link key={i.href} href={i.href} role="menuitem">
@@ -69,9 +69,9 @@ export default async function Header() {
           {/* Profile ▾ (members) */}
           {user && (
             <div className="navdrop">
-              <button type="button" className="navdrop-t" aria-haspopup="true">
+              <Link href="/portal" className="navdrop-t" aria-haspopup="true">
                 Profile <span className="navdrop-caret" aria-hidden="true">▾</span>
-              </button>
+              </Link>
               <div className="navdrop-menu" role="menu">
                 {profileItems.map((i) => (
                   <Link key={i.href} href={i.href} role="menuitem">
@@ -83,10 +83,10 @@ export default async function Header() {
             </div>
           )}
 
-          {/* Founding Membership ▾ — premium plans + the founders' mission */}
+          {/* Founding Membership ▾ — label links to the pricing page */}
           <div className="navdrop">
-            <button
-              type="button"
+            <Link
+              href="/pricing"
               className="navdrop-t navpremium-t"
               aria-haspopup="true"
             >
@@ -94,7 +94,7 @@ export default async function Header() {
               <span className="navdrop-caret" aria-hidden="true">
                 ▾
               </span>
-            </button>
+            </Link>
             <div className="navdrop-menu" role="menu">
               {foundingItems.map((i) => (
                 <Link key={i.href} href={i.href} role="menuitem">

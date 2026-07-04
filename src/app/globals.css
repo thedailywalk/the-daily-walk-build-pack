@@ -3198,9 +3198,9 @@ td.c {
 }
 .faq .q {
   font-family: var(--serif);
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 700;
-  margin: 26px 0 7px;
+  margin: 0;
   color: var(--navy);
 }
 .faq .a {
@@ -3220,7 +3220,7 @@ td.c {
   justify-content: space-between;
   gap: 14px;
   margin: 0;
-  padding: 16px 2px;
+  padding: 13px 2px;
 }
 .faq-item > summary::-webkit-details-marker {
   display: none;
