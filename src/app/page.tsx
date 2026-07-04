@@ -133,7 +133,9 @@ export default async function HomePage() {
       {/* OUR MISSION + GOFUNDME */}
       <section id="mission-home" className="mhsec">
         <div className="wrap">
-          <div className="why-head">
+          <div className="mh-grid">
+            <div className="mh-text">
+          <div className="why-head mh-head">
             <div className="sec-tag">Our mission</div>
             <h2 className="h">Bigger than an inbox</h2>
           </div>
@@ -173,6 +175,7 @@ export default async function HomePage() {
               Read our full mission →
             </Link>
           </p>
+            </div>
 
           {/* GoFundMe — the first build */}
           <div className="gfm-card">
@@ -212,6 +215,7 @@ export default async function HomePage() {
                 Our GoFundMe is launching soon — watch this space.
               </span>
             )}
+          </div>
           </div>
         </div>
       </section>

@@ -2080,6 +2080,51 @@ a.gncard:focus-visible {
 .mhsec {
   padding: 20px 0 8px;
 }
+/* Two-column: mission copy (left) sits beside the GoFundMe card (right) */
+.mh-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 46px;
+  align-items: start;
+  margin-top: 6px;
+}
+.mh-grid .mh-head {
+  text-align: left;
+  max-width: none;
+  margin: 0 0 10px;
+}
+.mh-grid .mh-head .sec-tag,
+.mh-grid .mh-head .h {
+  text-align: left;
+}
+.mh-grid .mh-lead,
+.mh-grid .mh-body,
+.mh-grid .mh-close,
+.mh-grid .mh-readmore {
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+  text-align: left;
+}
+.mh-grid .mh-body {
+  margin-bottom: 18px;
+}
+.mh-grid .gfm-card {
+  max-width: none;
+  margin: 0;
+  text-align: left;
+}
+.mh-grid .gfm-p {
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+}
+@media (max-width: 880px) {
+  .mh-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
 .mh-lead {
   max-width: 680px;
   margin: 6px auto 16px;
