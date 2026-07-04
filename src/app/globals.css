@@ -479,7 +479,7 @@ h2.h {
 .hero {
   background: linear-gradient(160deg, #1f3a5f 0%, #244a76 65%, #2d5a86 100%);
   color: #fff;
-  padding: 78px 0 84px;
+  padding: 60px 0 64px;
   position: relative;
   overflow: hidden;
 }

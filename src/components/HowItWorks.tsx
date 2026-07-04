@@ -30,7 +30,7 @@ const INCLUDED = [
 ];
 
 export default function HowItWorks() {
-  const [tab, setTab] = useState<TierKey>("free");
+  const [tab, setTab] = useState<TierKey>("member");
   const [openList, setOpenList] = useState(false);
 
   return (
