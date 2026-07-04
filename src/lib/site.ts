@@ -13,9 +13,6 @@ export const site = {
   url: process.env.APP_URL ?? "https://thedailywalknewsletter.com",
   replyTo: "thedailywalknewsletter@gmail.com",
   founderPhone: "310-303-4580",
-  // GoFundMe for the learning-center mission. Set NEXT_PUBLIC_GOFUNDME_URL when
-  // the campaign is live; until then the button shows a "launching soon" note.
-  gofundmeUrl: process.env.NEXT_PUBLIC_GOFUNDME_URL ?? "",
   // Givebutter donations. Fill these in after you create your Givebutter
   // campaign (see docs/GIVEBUTTER-SETUP.md). Until `url` is set, the Give
   // button shows a friendly "giving opens soon" state so nothing looks broken.

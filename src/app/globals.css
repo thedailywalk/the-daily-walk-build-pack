@@ -2201,11 +2201,6 @@ a.gncard:focus-visible {
   font-size: 14.5px;
 }
 
-/* Homepage "Give to the mission" button (left column, beside the GoFundMe card) */
-.mh-give {
-  margin-top: 18px;
-}
-
 /* ---------- Give page (Givebutter donations) ---------- */
 .give-page {
   padding: 40px 0 64px;

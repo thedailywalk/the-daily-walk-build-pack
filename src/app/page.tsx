@@ -131,7 +131,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* OUR MISSION + GOFUNDME */}
+      {/* OUR MISSION + THE FIRST BUILD (give via Givebutter) */}
       <section id="mission-home" className="mhsec">
         <div className="wrap">
           <div className="mh-grid">
@@ -176,14 +176,11 @@ export default async function HomePage() {
               Read our full mission →
             </Link>
           </p>
-          <div className="mh-give">
-            <GiveButton label="Give to the mission" />
-          </div>
             </div>
 
-          {/* GoFundMe — the first build */}
+          {/* The first build — give via Givebutter */}
           <div className="gfm-card">
-            <div className="gfm-k">The first build · GoFundMe</div>
+            <div className="gfm-k">The first build</div>
             <h3 className="gfm-h">
               An after-school learning center in Mexico — and a bus to reach the
               towns around it
@@ -205,18 +202,14 @@ export default async function HomePage() {
               know and learn about God. It comes from all of us, but it&apos;s
               because of Him — and every bit of the glory is His.
             </p>
-            {site.gofundmeUrl ? (
-              <a
-                href={site.gofundmeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
+            {site.givebutter.url || site.givebutter.widgetId ? (
+              <GiveButton
+                label="Give to this →"
                 className="btn btn-gold gfm-cta"
-              >
-                Give on GoFundMe →
-              </a>
+              />
             ) : (
               <span className="gfm-soon">
-                Our GoFundMe is launching soon — watch this space.
+                Giving opens soon — watch this space.
               </span>
             )}
           </div>
