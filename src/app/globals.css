@@ -115,16 +115,81 @@ h3 {
   border-radius: 9px;
   cursor: pointer;
   text-align: center;
-  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  transition: background 0.15s, border-color 0.15s, color 0.15s,
+    transform 0.08s ease;
   border: 1.5px solid transparent;
   line-height: 1.2;
 }
 .btn:hover {
   text-decoration: none;
 }
+.btn:active {
+  transform: scale(0.96);
+}
 .btn:focus-visible {
   outline: 3px solid var(--gold);
   outline-offset: 2px;
+}
+
+/* ---- Navigation feedback ---- */
+/* Slim top progress bar shown while a page is loading/redirecting. */
+.navprog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0;
+  background: linear-gradient(90deg, var(--gold), var(--gold-deep));
+  box-shadow: 0 0 10px rgba(201, 162, 75, 0.75);
+  z-index: 10000;
+  opacity: 0;
+  pointer-events: none;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+.navprog-loading {
+  opacity: 1;
+  width: 90%;
+  transition: width 9s cubic-bezier(0.06, 0.7, 0.1, 1), opacity 0.15s ease;
+}
+.navprog-done {
+  opacity: 1;
+  width: 100%;
+  transition: width 0.2s ease;
+}
+.navprog-idle {
+  opacity: 0;
+  width: 0;
+  transition: opacity 0.35s ease;
+}
+/* Press feedback so clicks visibly react. */
+.hiw-tab:active,
+.hiw-more:active,
+.faq-item > summary:active,
+.cmp-collapse > summary:active,
+.navlinks a:active,
+.navdrop-t:active {
+  transform: scale(0.985);
+}
+.hiw-tab,
+.hiw-more,
+.faq-item > summary,
+.cmp-collapse > summary {
+  transition: background 0.18s, border-color 0.18s, transform 0.08s ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn:active,
+  .hiw-tab:active,
+  .hiw-more:active,
+  .faq-item > summary:active,
+  .cmp-collapse > summary:active,
+  .navlinks a:active,
+  .navdrop-t:active {
+    transform: none;
+  }
+  .navprog-loading {
+    transition: opacity 0.15s ease;
+  }
 }
 .btn-gold {
   background: var(--gold);

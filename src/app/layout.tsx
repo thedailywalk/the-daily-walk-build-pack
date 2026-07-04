@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HideOnAdmin from "@/components/HideOnAdmin";
 import JoinModal from "@/components/JoinModal";
+import NavProgress from "@/components/NavProgress";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -47,6 +48,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
       <body>
+        <NavProgress />
         <a className="skip" href="#main">
           Skip to content
         </a>
