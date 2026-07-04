@@ -11,9 +11,21 @@ export type PreviewPrayer = {
   prayCount: number;
 };
 
-type Hand = { key: number; x: number; y: number; dx: number; ty: number; dur: number };
+type Hand = {
+  key: number;
+  x: number;
+  y: number;
+  dx: number;
+  ty: number;
+  dur: number;
+  emo: string;
+};
 
 const STORE_KEY = "tdw_prayed";
+
+// The ways you can react over a prayer — all count as one "pray"; you just pick
+// which one floats up. 🙏 pray · ❤️ love · 🕊️ peace.
+const PRAY_EMOJIS = ["🙏", "❤️", "🕊️"] as const;
 
 // Warm, on-brand avatar tints — adds a little color without going loud.
 const AVATAR_COLORS = [
@@ -92,7 +104,7 @@ export default function PrayerWallPreview({
     return () => cancelAnimationFrame(raf);
   }, []);
 
-  function pray(e: MouseEvent<HTMLButtonElement>, id: string) {
+  function pray(e: MouseEvent<HTMLButtonElement>, id: string, emo: string) {
     const rect = e.currentTarget.getBoundingClientRect();
     const baseX = rect.left + rect.width / 2;
     const baseY = rect.top;
@@ -104,6 +116,7 @@ export default function PrayerWallPreview({
       dx: (i - 2.5) * 22 + (i % 2 === 0 ? 12 : -12),
       ty: -(baseY - 24) - 20 - i * 6,
       dur: 1.3 + (i % 3) * 0.25,
+      emo,
     }));
     setHands((h) => [...h, ...fresh]);
     fresh.forEach((hand) =>
@@ -167,18 +180,23 @@ export default function PrayerWallPreview({
               </span>
             </div>
             <p className="pw-body">{p.body}</p>
-            <button
-              type="button"
-              className={`pray-btn${prayed[p.id] ? " is-prayed" : ""}`}
-              onClick={(e) => pray(e, p.id)}
-              aria-label="Pray for this request"
-            >
-              <span className="pray-emoji" aria-hidden="true">
-                🙏
-              </span>
-              <span>{prayed[p.id] ? "Prayed" : "Pray"}</span>
+            <div className={`pray-react${prayed[p.id] ? " is-prayed" : ""}`}>
+              {PRAY_EMOJIS.map((emo) => (
+                <button
+                  key={emo}
+                  type="button"
+                  className="pray-emoji-btn"
+                  onClick={(e) => pray(e, p.id, emo)}
+                  aria-label={`Pray for this request with ${emo}`}
+                >
+                  {emo}
+                </button>
+              ))}
               <span className="pray-count">{counts[p.id] ?? 0}</span>
-            </button>
+              <span className="pray-react-lbl">
+                {prayed[p.id] ? "prayed" : "praying"}
+              </span>
+            </div>
           </article>
         ))}
       </div>
@@ -199,7 +217,7 @@ export default function PrayerWallPreview({
             } as React.CSSProperties
           }
         >
-          🙏
+          {h.emo}
         </span>
       ))}
     </div>

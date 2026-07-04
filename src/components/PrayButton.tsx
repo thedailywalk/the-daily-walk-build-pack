@@ -5,6 +5,9 @@ import { prayAction } from "@/app/prayer-wall/actions";
 
 const STORE_KEY = "tdw_prayed";
 
+// 🙏 pray · ❤️ love · 🕊️ peace — all count as one prayer; pick whichever fits.
+const PRAY_EMOJIS = ["🙏", "❤️", "🕊️"] as const;
+
 function readPrayed(): string[] {
   try {
     const raw = JSON.parse(localStorage.getItem(STORE_KEY) || "[]");
@@ -55,18 +58,22 @@ export default function PrayButton({
   }
 
   return (
-    <button
-      type="button"
-      onClick={pray}
-      disabled={prayed}
-      className={`pray-btn${prayed ? " is-prayed" : ""}`}
-      aria-label={prayed ? "You prayed for this" : "I prayed for this"}
-    >
-      <span className="pray-emoji" aria-hidden="true">
-        🙏
-      </span>
-      <span>{prayed ? "Prayed" : "Pray"}</span>
+    <div className={`pray-react${prayed ? " is-prayed" : ""}`}>
+      {PRAY_EMOJIS.map((emo) => (
+        <button
+          key={emo}
+          type="button"
+          onClick={pray}
+          className="pray-emoji-btn"
+          aria-label={
+            prayed ? "You prayed for this" : `Pray for this with ${emo}`
+          }
+        >
+          {emo}
+        </button>
+      ))}
       <span className="pray-count">{n}</span>
-    </button>
+      <span className="pray-react-lbl">{prayed ? "prayed" : "praying"}</span>
+    </div>
   );
 }

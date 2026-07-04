@@ -921,6 +921,70 @@ h2.h {
   margin-left: auto;
   margin-right: auto;
 }
+/* Click-to-expand: keep the intro visible, reveal the 6 cards on demand */
+.arm-drop {
+  margin-top: 26px;
+}
+.arm-toggle {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: fit-content;
+  margin: 0 auto;
+  padding: 12px 26px;
+  border-radius: 999px;
+  border: 1.5px solid var(--gold);
+  background: #fff;
+  color: var(--gold-deep);
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  list-style: none;
+  box-shadow: 0 6px 18px -12px rgba(184, 144, 46, 0.55);
+  transition: background 0.18s ease, transform 0.12s ease, box-shadow 0.18s ease;
+}
+.arm-toggle::-webkit-details-marker {
+  display: none;
+}
+.arm-toggle::marker {
+  content: "";
+}
+.arm-toggle:hover {
+  background: var(--cream);
+  box-shadow: 0 10px 24px -12px rgba(184, 144, 46, 0.65);
+}
+.arm-toggle:active {
+  transform: translateY(1px);
+}
+.arm-toggle-ic {
+  font-size: 12px;
+  transition: transform 0.22s ease;
+}
+.arm-drop[open] .arm-toggle-ic {
+  transform: rotate(180deg);
+}
+.arm-drop[open] .tips {
+  animation: arm-reveal 0.32s ease;
+}
+@keyframes arm-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .arm-drop[open] .tips {
+    animation: none;
+  }
+  .arm-toggle-ic {
+    transition: none;
+  }
+}
 .tips {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -2624,6 +2688,13 @@ a.gncard:hover .gnh {
   left: 0;
   color: var(--green);
   font-weight: 800;
+}
+/* Pay-it-forward tier — navy badge; needs its own positioning context */
+.pt.tier-partner {
+  position: relative;
+}
+.pt .pop.pop-alt {
+  background: var(--navy);
 }
 
 /* ---------- Mission ---------- */
@@ -4769,6 +4840,62 @@ hr.div {
   background: rgba(31, 58, 95, 0.18);
 }
 
+/* Emoji reaction cluster — 🙏 ❤️ 🕊️, all sharing one prayer count */
+.pray-react {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.pray-emoji-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  font-size: 17px;
+  line-height: 1;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--cream);
+  cursor: pointer;
+  transition: transform 0.12s ease, background 0.16s ease,
+    border-color 0.16s ease;
+}
+.pray-emoji-btn:hover {
+  background: #fff;
+  border-color: var(--gold);
+  transform: translateY(-2px);
+}
+.pray-emoji-btn:active {
+  transform: scale(0.88);
+}
+.pray-react.is-prayed .pray-emoji-btn {
+  background: rgba(201, 162, 75, 0.16);
+  border-color: var(--gold);
+}
+.pray-react .pray-count {
+  background: rgba(31, 58, 95, 0.08);
+  color: var(--navy);
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-size: 12.5px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  margin-left: 2px;
+}
+.pray-react-lbl {
+  font-size: 12px;
+  color: var(--grey);
+  font-family: var(--sans);
+}
+@media (prefers-reduced-motion: reduce) {
+  .pray-emoji-btn {
+    transition: none;
+  }
+}
+
 /* ---------- Homepage prayer-wall preview ---------- */
 /* Same sunrise hue as the hero, so the white panel floats above it */
 /* Same sunrise ground as the Prayer Wall & hero, so it all unifies */
@@ -4955,7 +5082,8 @@ hr.div {
   overflow: hidden;
   word-break: break-word;
 }
-.pw-tile .pray-btn {
+.pw-tile .pray-btn,
+.pw-tile .pray-react {
   align-self: flex-start;
   margin-top: auto;
 }

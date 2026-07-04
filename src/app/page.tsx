@@ -216,6 +216,21 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* PRAYER WALL PREVIEW */}
+      {previewPrayers.length > 0 && (
+        <section id="pray" className="pwsec">
+          <div className="wrap">
+            <div className="sec-tag">Pray with us</div>
+            <h2 className="h">The community is praying</h2>
+            <p className="sub" style={{ marginBottom: 4 }}>
+              Real requests from real people. Tap a 🙏 ❤️ 🕊️ to pray over one —
+              and watch the prayers rise.
+            </p>
+            <PrayerWallPreview prayers={previewPrayers} />
+          </div>
+        </section>
+      )}
+
       {/* ARM YOURSELF — practical how-to-start */}
       <section id="arm" className="armsec">
         <div className="wrap">
@@ -229,49 +244,42 @@ export default async function HomePage() {
               honestly doesn&apos;t have to be complicated.
             </p>
           </div>
-          <div className="tips">
-            {tips.map((t) => (
-              <div className="feat" key={t.title}>
-                <div className="ic" aria-hidden="true">
-                  {t.icon}
+          <details className="arm-drop">
+            <summary className="arm-toggle">
+              <span className="arm-toggle-txt">Show me the 6 steps</span>
+              <span className="arm-toggle-ic" aria-hidden="true">
+                ▾
+              </span>
+            </summary>
+            <div className="tips">
+              {tips.map((t) => (
+                <div className="feat" key={t.title}>
+                  <div className="ic" aria-hidden="true">
+                    {t.icon}
+                  </div>
+                  <h4>{t.title}</h4>
+                  <p>
+                    {t.body}
+                    {t.link && (
+                      <>
+                        {" "}
+                        <a
+                          href={t.link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {t.link.label}
+                        </a>
+                        .
+                      </>
+                    )}
+                  </p>
                 </div>
-                <h4>{t.title}</h4>
-                <p>
-                  {t.body}
-                  {t.link && (
-                    <>
-                      {" "}
-                      <a
-                        href={t.link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {t.link.label}
-                      </a>
-                      .
-                    </>
-                  )}
-                </p>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          </details>
         </div>
       </section>
-
-      {/* PRAYER WALL PREVIEW */}
-      {previewPrayers.length > 0 && (
-        <section id="pray" className="pwsec">
-          <div className="wrap">
-            <div className="sec-tag">Pray with us</div>
-            <h2 className="h">The community is praying</h2>
-            <p className="sub" style={{ marginBottom: 4 }}>
-              Real requests from real people. Tap 🙏 to pray over one — and watch
-              the prayers rise.
-            </p>
-            <PrayerWallPreview prayers={previewPrayers} />
-          </div>
-        </section>
-      )}
 
       {/* GOOD NEWS PREVIEW */}
       {GOOD_NEWS_PUBLIC && (
@@ -299,11 +307,11 @@ export default async function HomePage() {
           <div className="sec-tag">Simple pricing</div>
           <h2 className="h">Start free. Go all-in when you&apos;re ready.</h2>
           <p className="sub">
-            The devotional is free three mornings a week. Founding Members get
-            everything — every day — for $5.99/mo, and help keep it free for
-            others.
+            Start free three mornings a week. Founding Members get everything —
+            every day — for $5.99/mo, and Founding Partners give a little more to
+            keep it free for people who can&apos;t pay.
           </p>
-          <div className="ptiers ptiers-two">
+          <div className="ptiers">
             <div className="pt">
               <div className="tname" style={{ color: "#7a828c" }}>
                 Free
@@ -321,7 +329,7 @@ export default async function HomePage() {
               </Link>
             </div>
             <div className="pt feat-tier">
-              <span className="pop">FOUNDING MEMBER</span>
+              <span className="pop">MOST POPULAR</span>
               <div className="tname" style={{ color: "var(--gold-deep)" }}>
                 Founding Member
               </div>
@@ -330,15 +338,35 @@ export default async function HomePage() {
               </div>
               <div className="pd">Just 20¢ a day · or $59/yr · everything</div>
               <ul>
-                <li>Everything in Free — plus every day</li>
+                <li>Everything in Free — plus the devotional every day</li>
                 <li>Guided Bible-in-a-Year from your Day 1</li>
                 <li>The Deeper Walk discipleship newsletter</li>
                 <li>The Spiritual Wellness Guide</li>
-                <li>Audio, Weekend Study + monthly workbook</li>
+                <li>Monthly workbook + the full archive</li>
                 <li>Founding price locked in for life</li>
               </ul>
               <Link href="/pricing" className="btn btn-gold btn-block">
                 Become a Founding Member
+              </Link>
+            </div>
+            <div className="pt tier-partner">
+              <span className="pop pop-alt">PAY IT FORWARD</span>
+              <div className="tname" style={{ color: "var(--navy)" }}>
+                Founding Partner
+              </div>
+              <div className="pr">
+                $19.99<small>/mo</small>
+              </div>
+              <div className="pd">For those who can give a little more</div>
+              <ul>
+                <li>Everything in Founding Member</li>
+                <li>Keeps a Christian counselor free for everyone</li>
+                <li>Keeps it free for readers who can&apos;t pay</li>
+                <li>Pastors &amp; perspectives from around the world</li>
+                <li>Monthly founder updates — always in the loop</li>
+              </ul>
+              <Link href="/pricing" className="btn btn-ghost btn-block">
+                Become a Founding Partner
               </Link>
             </div>
           </div>
