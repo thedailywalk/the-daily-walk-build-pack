@@ -8,6 +8,7 @@ import { GOOD_NEWS_PUBLIC, PRICING_ENABLED } from "@/lib/flags";
 import { site } from "@/lib/site";
 import { studyTips as tips } from "@/lib/studyTips";
 import HowItWorks from "@/components/HowItWorks";
+import GiveButton from "@/components/GiveButton";
 
 export default async function HomePage() {
   const previewPrayers = (await listApprovedPrayers(12)).map((p) => ({
@@ -175,6 +176,9 @@ export default async function HomePage() {
               Read our full mission →
             </Link>
           </p>
+          <div className="mh-give">
+            <GiveButton label="Give to the mission" />
+          </div>
             </div>
 
           {/* GoFundMe — the first build */}
