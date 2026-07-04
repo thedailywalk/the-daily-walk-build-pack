@@ -166,13 +166,26 @@ export default async function HomePage() {
           {/* GoFundMe — the first build */}
           <div className="gfm-card">
             <div className="gfm-k">The first build · GoFundMe</div>
-            <h3 className="gfm-h">A learning center — and a bus to reach it</h3>
+            <h3 className="gfm-h">
+              An after-school learning center in Mexico — and a bus to reach the
+              towns around it
+            </h3>
             <p className="gfm-p">
-              Our first project: build a learning center for kids who&apos;ve
-              never had one — and provide a <strong>bus</strong>, so children in
-              towns with no transportation can finally get to school. Every gift
-              goes toward giving a child a real classroom, a real chance, and
-              real hope — all in God&apos;s name.
+              Our first project is a community after-school learning center in a
+              small town in Mexico — one of the few places nearby with running
+              water and electricity in most homes. The villages around it barely
+              have that, so we&apos;re not stopping at one town.
+            </p>
+            <p className="gfm-p">
+              Inside, kids will have access to <strong>computers, school
+              supplies, first-aid kits, and even clean clothes and shoes</strong>.
+              On weekends, the goal is a bus route that <strong>picks up and drops
+              off kids from the surrounding villages</strong> — so all our youth
+              get the chance to attend <strong>free English classes and
+              after-school worship</strong> at the center, with the tools and
+              materials to help them in school. Most of all, it&apos;s a place to
+              know and learn about God. It comes from all of us, but it&apos;s
+              because of Him — and every bit of the glory is His.
             </p>
             {site.gofundmeUrl ? (
               <a
