@@ -8,7 +8,6 @@ import { GOOD_NEWS_PUBLIC, PRICING_ENABLED } from "@/lib/flags";
 import { site } from "@/lib/site";
 import { studyTips as tips } from "@/lib/studyTips";
 import HowItWorks from "@/components/HowItWorks";
-import GiveButton from "@/components/GiveButton";
 
 export default async function HomePage() {
   const previewPrayers = (await listApprovedPrayers(12)).map((p) => ({
@@ -131,7 +130,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* OUR MISSION + THE FIRST BUILD (give via Givebutter) */}
+      {/* OUR MISSION + THE FIRST BUILD */}
       <section id="mission-home" className="mhsec">
         <div className="wrap">
           <div className="mh-grid">
@@ -178,7 +177,7 @@ export default async function HomePage() {
           </p>
             </div>
 
-          {/* The first build — give via Givebutter */}
+          {/* The first build — giving opens soon */}
           <div className="gfm-card">
             <div className="gfm-k">The first build</div>
             <h3 className="gfm-h">
@@ -202,16 +201,9 @@ export default async function HomePage() {
               know and learn about God. It comes from all of us, but it&apos;s
               because of Him — and every bit of the glory is His.
             </p>
-            {site.givebutter.url || site.givebutter.widgetId ? (
-              <GiveButton
-                label="Give to this →"
-                className="btn btn-gold gfm-cta"
-              />
-            ) : (
-              <span className="gfm-soon">
-                Giving opens soon — watch this space.
-              </span>
-            )}
+            <span className="gfm-soon">
+              Giving opens soon — watch this space.
+            </span>
           </div>
           </div>
         </div>

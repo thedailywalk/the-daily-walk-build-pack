@@ -13,17 +13,6 @@ export const site = {
   url: process.env.APP_URL ?? "https://thedailywalknewsletter.com",
   replyTo: "thedailywalknewsletter@gmail.com",
   founderPhone: "310-303-4580",
-  // Givebutter donations. Fill these in after you create your Givebutter
-  // campaign (see docs/GIVEBUTTER-SETUP.md). Until `url` is set, the Give
-  // button shows a friendly "giving opens soon" state so nothing looks broken.
-  //  - url:      your campaign's public link, e.g. https://givebutter.com/your-slug
-  //  - widgetId: the embed widget ID (lets the donation form show on /give)
-  //  - accountId: your Givebutter account ID (used by the embed script)
-  givebutter: {
-    url: process.env.NEXT_PUBLIC_GIVEBUTTER_URL ?? "",
-    widgetId: process.env.NEXT_PUBLIC_GIVEBUTTER_WIDGET_ID ?? "",
-    accountId: process.env.NEXT_PUBLIC_GIVEBUTTER_ACCOUNT_ID ?? "",
-  },
   owner: "Lulu Jimenez",
   // Physical mailing address — legally REQUIRED in every marketing email (CAN-SPAM).
   // A USPS P.O. Box is fine. Shown in every newsletter footer; hidden if blank.

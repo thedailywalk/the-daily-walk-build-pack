@@ -42,7 +42,7 @@
 ## Pricing (three tiers — updated model)
 - **Free $0** — the devotional **3× a week (Mon·Wed·Fri)**: devotional, prayer, 3 Good News stories, Wed Pastor's Take, community.
 - **Founding Member $5.99/mo ($59/yr)** — **everything, one membership**: the devotional every day + guided Bible-in-a-Year (from your Day 1) + **The Deeper Walk** (premium) + **The Spiritual Wellness Guide** + audio + Weekend Study + monthly workbook + full archive + all perks. Founding price locked in for life.
-- **Founding Partner $19.99/mo ($199/yr)** — a **pay-it-forward supporter tier**: everything in Founding Member, plus it keeps a licensed Christian counselor free for everyone, sponsors free access for readers who can't pay, funds pastors/perspectives from hard-to-reach places, and comes with live Givebutter transparency. (The old $9.99 Premium tier stays retired; Founding Partner reuses the Beehiiv "patron" upgrade mapping.)
+- **Founding Partner $19.99/mo ($199/yr)** — a **pay-it-forward supporter tier**: everything in Founding Member, plus it keeps a licensed Christian counselor free for everyone, sponsors free access for readers who can't pay, funds pastors/perspectives from hard-to-reach places, and comes with live transparency. (The old $9.99 Premium tier stays retired; Founding Partner reuses the Beehiiv "patron" upgrade mapping.)
 - Community access is free for every tier.
 - Free newsletter cadence is Mon/Wed/Fri (`isFreeDay` in `newsletterSchedule.ts`).
 
