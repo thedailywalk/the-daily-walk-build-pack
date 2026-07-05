@@ -6340,6 +6340,55 @@ hr.div {
   margin-bottom: 16px;
 }
 
+/* Quick paste → create devotionals */
+.adm-paste {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 4px 16px;
+  margin: 0 0 22px;
+  background: #fff;
+}
+.adm-paste-sum {
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--navy);
+  padding: 12px 0;
+  list-style: none;
+}
+.adm-paste-sum::-webkit-details-marker {
+  display: none;
+}
+.adm-paste[open] .adm-paste-sum {
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 14px;
+}
+.adm-paste-form {
+  padding: 0 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.adm-paste-help {
+  font-size: 13px;
+  color: var(--grey);
+  margin: 0;
+  line-height: 1.55;
+}
+.adm-paste-help code {
+  font-size: 12px;
+}
+.adm-paste-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--ink);
+}
+.adm-paste-check input {
+  margin-top: 2px;
+}
+
 /* Archive list */
 .adm-archlist {
   display: flex;

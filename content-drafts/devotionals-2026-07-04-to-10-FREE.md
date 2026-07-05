@@ -12,6 +12,7 @@ Grounded in each day's reading (Numbers 14–36 + Mark 7–12). Verses are **NIV
 ## Saturday · July 4 — study day 185 · Numbers 14–16 · Mark 7
 
 - **weekFocus:** This week: following the God who leads — even through the wilderness.
+- **date:** 2026-07-04
 - **dayLabel:** Saturday · July 4
 - **readingHeading:** The report you believe decides the life you get
 - **readingRef:** Numbers 14–16 · Mark 7
@@ -34,6 +35,7 @@ Grounded in each day's reading (Numbers 14–36 + Mark 7–12). Verses are **NIV
 ## Sunday · July 5 — study day 186 · Numbers 17–20 · Mark 8
 
 - **weekFocus:** This week: following the God who leads — even through the wilderness.
+- **date:** 2026-07-05
 - **dayLabel:** Sunday · July 5
 - **readingHeading:** Who you decide Jesus is changes everything else
 - **readingRef:** Numbers 17–20 · Mark 8
@@ -56,6 +58,7 @@ Grounded in each day's reading (Numbers 14–36 + Mark 7–12). Verses are **NIV
 ## Monday · July 6 — study day 187 · Numbers 21–23 · Mark 9
 
 - **weekFocus:** This week: following the God who leads — even through the wilderness.
+- **date:** 2026-07-06
 - **dayLabel:** Monday · July 6
 - **readingHeading:** You don't need perfect faith — just look up
 - **readingRef:** Numbers 21–23 · Mark 9
@@ -78,6 +81,7 @@ Grounded in each day's reading (Numbers 14–36 + Mark 7–12). Verses are **NIV
 ## Tuesday · July 7 — study day 188 · Numbers 24–26
 
 - **weekFocus:** This week: following the God who leads — even through the wilderness.
+- **date:** 2026-07-07
 - **dayLabel:** Tuesday · July 7
 - **readingHeading:** Hired to curse you — and he couldn't
 - **readingRef:** Numbers 24–26
@@ -100,6 +104,7 @@ Grounded in each day's reading (Numbers 14–36 + Mark 7–12). Verses are **NIV
 ## Wednesday · July 8 — study day 189 · Numbers 27–30 · Mark 10  *(Pastor's Take day)*
 
 - **weekFocus:** This week: following the God who leads — even through the wilderness.
+- **date:** 2026-07-08
 - **dayLabel:** Wednesday · July 8
 - **readingHeading:** The one thing you can't hold and follow at the same time
 - **readingRef:** Numbers 27–30 · Mark 10
@@ -124,6 +129,7 @@ Grounded in each day's reading (Numbers 14–36 + Mark 7–12). Verses are **NIV
 ## Thursday · July 9 — study day 190 · Numbers 31–33 · Mark 11
 
 - **weekFocus:** This week: following the God who leads — even through the wilderness.
+- **date:** 2026-07-09
 - **dayLabel:** Thursday · July 9
 - **readingHeading:** Clear the temple, then trust the mountain to move
 - **readingRef:** Numbers 31–33 · Mark 11
@@ -146,6 +152,7 @@ Grounded in each day's reading (Numbers 14–36 + Mark 7–12). Verses are **NIV
 ## Friday · July 10 — study day 191 · Numbers 34–36, Deut 1 · Mark 12
 
 - **weekFocus:** This week: following the God who leads — even through the wilderness.
+- **date:** 2026-07-10
 - **dayLabel:** Friday · July 10
 - **readingHeading:** The whole thing, boiled down to love
 - **readingRef:** Numbers 34–36, Deuteronomy 1 · Mark 12

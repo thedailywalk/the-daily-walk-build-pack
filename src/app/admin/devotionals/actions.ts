@@ -69,3 +69,136 @@ export async function deleteDevotionalAction(formData: FormData) {
   revalidatePath("/devotional");
   redirect("/admin/devotionals");
 }
+
+/* ---------------------------------------------------------------------------
+ * Quick paste → create devotionals
+ * Paste one or more days in the labeled format (the same one in the content
+ * drafts) and this parses each day into a devotional and upserts it. Days are
+ * separated by a line of dashes (---) and each needs a `date: YYYY-MM-DD` line.
+ * ------------------------------------------------------------------------- */
+
+const CANON_KEYS: (keyof DevotionalData)[] = [
+  "weekFocus",
+  "dayLabel",
+  "readingHeading",
+  "readingRef",
+  "readingIntro",
+  "verseText",
+  "verseRef",
+  "readingAfter",
+  "keyWord",
+  "makeItRealHeading",
+  "makeItRealBody",
+  "question",
+  "prayer",
+  "healingScience",
+  "pastorTake",
+  "pastorByline",
+  "communityText",
+  "ctaLabel",
+  "ctaUrl",
+  "closingLine",
+];
+
+/** Normalize a field label so "readingHeading", "Reading Heading" all match. */
+function normKey(s: string): string {
+  return s.toLowerCase().replace(/[^a-z0-9]/g, "");
+}
+
+const CANON_BY_NORM: Record<string, keyof DevotionalData> = Object.fromEntries(
+  CANON_KEYS.map((k) => [normKey(k), k])
+);
+
+/** Remove markdown emphasis so no stray *asterisks* end up in the newsletter. */
+function stripEmphasis(v: string): string {
+  return v
+    .replace(/\*\*(.+?)\*\*/g, "$1")
+    .replace(/\*(.+?)\*/g, "$1")
+    .trim();
+}
+
+// Matches "- **readingHeading:** value", "readingHeading: value", etc.
+const KEY_LINE =
+  /^\s*(?:[-*]\s*)?\*{0,2}\s*([A-Za-z][A-Za-z0-9 _-]*?)\s*\*{0,2}\s*:\s*\*{0,2}\s*(.*)$/;
+
+type ParsedDay = {
+  date: string;
+  status: string;
+  data: DevotionalData;
+  hadFields: boolean;
+};
+
+function parseDayBlock(block: string): ParsedDay {
+  const fields: Partial<Record<keyof DevotionalData, string>> = {};
+  let date = "";
+  let status = "";
+  let cur: keyof DevotionalData | null = null;
+
+  for (const raw of block.split(/\r?\n/)) {
+    const line = raw.replace(/\s+$/, "");
+    const m = line.match(KEY_LINE);
+    if (m) {
+      const nk = normKey(m[1]);
+      if (nk === "date") {
+        date = m[2].trim();
+        cur = null;
+        continue;
+      }
+      if (nk === "status") {
+        status = m[2].trim().toLowerCase();
+        cur = null;
+        continue;
+      }
+      const canon = CANON_BY_NORM[nk];
+      if (canon) {
+        fields[canon] = m[2];
+        cur = canon;
+        continue;
+      }
+    }
+    // Continuation line for a multi-line field (e.g. a wrapped paragraph).
+    if (cur) {
+      const t = line.trim();
+      if (t) fields[cur] = (fields[cur] ? fields[cur] + " " : "") + t;
+    }
+  }
+
+  const data: DevotionalData = {};
+  for (const k of CANON_KEYS) {
+    const v = fields[k];
+    if (v != null && v.trim()) data[k] = stripEmphasis(v);
+  }
+  const hadFields = Object.keys(fields).length > 0 || !!date || !!status;
+  return { date, status, data, hadFields };
+}
+
+export async function importDevotionalsAction(formData: FormData) {
+  await requireAdmin();
+  const raw = String(formData.get("paste") ?? "");
+  const publishAll = String(formData.get("publish") ?? "") === "1";
+
+  const blocks = raw.split(/\r?\n\s*-{3,}\s*\r?\n/);
+  let created = 0;
+  let skipped = 0;
+
+  for (const block of blocks) {
+    if (!block.trim()) continue;
+    const parsed = parseDayBlock(block);
+    const validDate = /^\d{4}-\d{2}-\d{2}$/.test(parsed.date);
+    if (!validDate || Object.keys(parsed.data).length === 0) {
+      // Only flag blocks that looked like content but couldn't be used;
+      // ignore preamble / notes silently.
+      if (parsed.hadFields) skipped++;
+      continue;
+    }
+    const status: DevotionalStatus =
+      parsed.status === "ready" ? "ready" : publishAll ? "ready" : "draft";
+    const title = parsed.data.readingHeading || `Devotional · ${parsed.date}`;
+    await adminUpsert(parsed.date, status, title, parsed.data);
+    created++;
+  }
+
+  revalidatePath("/admin/devotionals");
+  revalidatePath("/devotional");
+  redirect(`/admin/devotionals?imported=${created}&skipped=${skipped}`);
+}

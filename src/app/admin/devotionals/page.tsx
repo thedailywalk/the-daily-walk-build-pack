@@ -23,6 +23,7 @@ import {
   saveDevotionalAction,
   prepareWeekAction,
   deleteDevotionalAction,
+  importDevotionalsAction,
 } from "./actions";
 import CopyButton from "./CopyButton";
 
@@ -34,12 +35,22 @@ export const metadata: Metadata = {
 export default async function DevotionalAdminPage({
   searchParams,
 }: {
-  searchParams: Promise<{ date?: string; saved?: string; view?: string }>;
+  searchParams: Promise<{
+    date?: string;
+    saved?: string;
+    view?: string;
+    imported?: string;
+    skipped?: string;
+  }>;
 }) {
   await requireAdmin();
   const sp = await searchParams;
   const view = sp.view === "archive" ? "archive" : "prep";
   const valid = sp.date && /^\d{4}-\d{2}-\d{2}$/.test(sp.date) ? sp.date : null;
+  const importResult =
+    sp.imported != null
+      ? { created: Number(sp.imported) || 0, skipped: Number(sp.skipped) || 0 }
+      : null;
 
   return (
     <section className="section">
@@ -82,20 +93,34 @@ export default async function DevotionalAdminPage({
             : await ArchiveList()
           : valid
             ? await EditorView(valid, sp.saved === "1")
-            : await WeekView()}
+            : await WeekView(importResult)}
       </div>
     </section>
   );
 }
 
 /* ----------------------------- weekly preview ---------------------------- */
-async function WeekView() {
+async function WeekView(
+  importResult: { created: number; skipped: number } | null
+) {
   const dates = upcomingDates(7);
   const rows = await adminListRange(dates[0], dates[dates.length - 1]);
   const byDate = new Map(rows.map((r) => [r.date, r]));
 
   return (
     <div>
+      {importResult && (
+        <div className="adm-saved" style={{ marginBottom: 14 }}>
+          Imported {importResult.created} devotional
+          {importResult.created === 1 ? "" : "s"} as draft
+          {importResult.created === 1 ? "" : "s"}.
+          {importResult.skipped > 0 && (
+            <> {importResult.skipped} block(s) skipped (missing a valid date).</>
+          )}{" "}
+          Click a day below to review, then mark it <strong>Ready</strong>.
+        </div>
+      )}
+
       <div className="adm-bar">
         <h2 className="adm-h2">The week ahead</h2>
         <form action={prepareWeekAction}>
@@ -108,6 +133,50 @@ async function WeekView() {
         Every day is generated complete and ready to read. Click any date to open
         the full issue, edit it, then mark it <strong>Ready</strong>.
       </p>
+
+      {/* Quick paste → create devotionals from labeled text */}
+      <details className="adm-paste">
+        <summary className="adm-paste-sum">
+          📋 Quick paste — create devotionals from text
+        </summary>
+        <form action={importDevotionalsAction} className="adm-paste-form">
+          <p className="adm-paste-help">
+            Paste one or more days in the labeled format. Separate each day with a
+            line of three dashes (<code>---</code>), and give each day a{" "}
+            <code>date: YYYY-MM-DD</code> line. Recognized fields:{" "}
+            <code>
+              readingHeading, readingRef, readingIntro, verseText, verseRef,
+              readingAfter, keyWord, makeItRealHeading, makeItRealBody, question,
+              prayer, pastorTake, closingLine
+            </code>{" "}
+            (and more). Anything it doesn&apos;t recognize is ignored, so you can
+            paste a whole draft file as-is.
+          </p>
+          <textarea
+            name="paste"
+            className="adm-textarea"
+            rows={12}
+            placeholder={
+              "date: 2026-07-06\n" +
+              "readingHeading: You don't need perfect faith — just look up\n" +
+              "readingRef: Numbers 21–23 · Mark 9\n" +
+              "verseText: I do believe; help me overcome my unbelief!\n" +
+              "verseRef: Mark 9:24\n" +
+              "prayer: Jesus, I believe; help my unbelief...\n" +
+              "---\n" +
+              "date: 2026-07-08\n" +
+              "readingHeading: ...\n"
+            }
+          />
+          <label className="adm-paste-check">
+            <input type="checkbox" name="publish" value="1" /> Publish immediately
+            (mark Ready). Leave unchecked to create drafts you preview first.
+          </label>
+          <button type="submit" className="btn btn-gold">
+            Create devotionals
+          </button>
+        </form>
+      </details>
 
       <div className="adm-week">
         {dates.map((date) => {
