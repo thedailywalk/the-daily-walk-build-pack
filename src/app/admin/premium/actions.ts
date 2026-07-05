@@ -71,3 +71,134 @@ export async function deletePremiumAction(formData: FormData) {
   revalidatePath("/admin/premium");
   redirect("/admin/premium");
 }
+
+/* ---------------------------------------------------------------------------
+ * Quick paste → create premium issues
+ * Same idea as the free daily importer: paste one or more days in the labeled
+ * format (days separated by ---, each with a `date: YYYY-MM-DD` line) and this
+ * parses each into a premium issue and upserts it.
+ * ------------------------------------------------------------------------- */
+
+const CANON_KEYS: (keyof PremiumData)[] = [
+  "weekFocus",
+  "dayLabel",
+  "editorNote",
+  "devHeading",
+  "devRef",
+  "devIntro",
+  "devVerseText",
+  "devVerseRef",
+  "devBody",
+  "devKeyWord",
+  "devReflection",
+  "devApply",
+  "devPause",
+  "devPrayer",
+  "studyHeading",
+  "studyRef",
+  "studyBody",
+  "studyKeyWord",
+  "studyVerse",
+  "studyPause",
+  "studyQuestion",
+  "circleBody",
+  "circleCtaLabel",
+  "circleCtaUrl",
+  "closingLine",
+];
+
+function normKey(s: string): string {
+  return s.toLowerCase().replace(/[^a-z0-9]/g, "");
+}
+
+const CANON_BY_NORM: Record<string, keyof PremiumData> = Object.fromEntries(
+  CANON_KEYS.map((k) => [normKey(k), k])
+);
+
+function stripEmphasis(v: string): string {
+  return v
+    .replace(/\*\*(.+?)\*\*/g, "$1")
+    .replace(/\*(.+?)\*/g, "$1")
+    .trim();
+}
+
+const KEY_LINE =
+  /^\s*(?:[-*]\s*)?\*{0,2}\s*([A-Za-z][A-Za-z0-9 _-]*?)\s*\*{0,2}\s*:\s*\*{0,2}\s*(.*)$/;
+
+type ParsedDay = {
+  date: string;
+  status: string;
+  data: PremiumData;
+  hadFields: boolean;
+};
+
+function parseDayBlock(block: string): ParsedDay {
+  const fields: Partial<Record<keyof PremiumData, string>> = {};
+  let date = "";
+  let status = "";
+  let cur: keyof PremiumData | null = null;
+
+  for (const raw of block.split(/\r?\n/)) {
+    const line = raw.replace(/\s+$/, "");
+    const m = line.match(KEY_LINE);
+    if (m) {
+      const nk = normKey(m[1]);
+      if (nk === "date") {
+        date = m[2].trim();
+        cur = null;
+        continue;
+      }
+      if (nk === "status") {
+        status = m[2].trim().toLowerCase();
+        cur = null;
+        continue;
+      }
+      const canon = CANON_BY_NORM[nk];
+      if (canon) {
+        fields[canon] = m[2];
+        cur = canon;
+        continue;
+      }
+    }
+    if (cur) {
+      const t = line.trim();
+      if (t) fields[cur] = (fields[cur] ? fields[cur] + " " : "") + t;
+    }
+  }
+
+  const data: PremiumData = {};
+  for (const k of CANON_KEYS) {
+    const v = fields[k];
+    if (v != null && v.trim()) data[k] = stripEmphasis(v);
+  }
+  const hadFields = Object.keys(fields).length > 0 || !!date || !!status;
+  return { date, status, data, hadFields };
+}
+
+export async function importPremiumAction(formData: FormData) {
+  await requireAdmin();
+  const raw = String(formData.get("paste") ?? "");
+  const publishAll = String(formData.get("publish") ?? "") === "1";
+
+  const blocks = raw.split(/\r?\n\s*-{3,}\s*\r?\n/);
+  let created = 0;
+  let skipped = 0;
+
+  for (const block of blocks) {
+    if (!block.trim()) continue;
+    const parsed = parseDayBlock(block);
+    const validDate = /^\d{4}-\d{2}-\d{2}$/.test(parsed.date);
+    if (!validDate || Object.keys(parsed.data).length === 0) {
+      if (parsed.hadFields) skipped++;
+      continue;
+    }
+    const status: PremiumStatus =
+      parsed.status === "ready" ? "ready" : publishAll ? "ready" : "draft";
+    const title = parsed.data.devHeading || `Premium · ${parsed.date}`;
+    await premiumUpsert(parsed.date, status, title, parsed.data);
+    created++;
+  }
+
+  revalidatePath("/admin/premium");
+  redirect(`/admin/premium?imported=${created}&skipped=${skipped}`);
+}

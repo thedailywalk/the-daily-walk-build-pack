@@ -22,6 +22,7 @@ import {
   savePremiumAction,
   preparePremiumWeekAction,
   deletePremiumAction,
+  importPremiumAction,
 } from "./actions";
 
 export const metadata: Metadata = {
@@ -32,12 +33,22 @@ export const metadata: Metadata = {
 export default async function PremiumAdminPage({
   searchParams,
 }: {
-  searchParams: Promise<{ date?: string; saved?: string; view?: string }>;
+  searchParams: Promise<{
+    date?: string;
+    saved?: string;
+    view?: string;
+    imported?: string;
+    skipped?: string;
+  }>;
 }) {
   await requireAdmin();
   const sp = await searchParams;
   const view = sp.view === "archive" ? "archive" : "prep";
   const valid = sp.date && /^\d{4}-\d{2}-\d{2}$/.test(sp.date) ? sp.date : null;
+  const importResult =
+    sp.imported != null
+      ? { created: Number(sp.imported) || 0, skipped: Number(sp.skipped) || 0 }
+      : null;
 
   return (
     <section className="section">
@@ -99,20 +110,34 @@ export default async function PremiumAdminPage({
             : await ArchiveList()
           : valid
             ? await EditorView(valid, sp.saved === "1")
-            : await WeekView()}
+            : await WeekView(importResult)}
       </div>
     </section>
   );
 }
 
 /* ----------------------------- weekly preview ---------------------------- */
-async function WeekView() {
+async function WeekView(
+  importResult: { created: number; skipped: number } | null
+) {
   const dates = upcomingDates(7);
   const rows = await premiumListRange(dates[0], dates[dates.length - 1]);
   const byDate = new Map(rows.map((r) => [r.date, r]));
 
   return (
     <div>
+      {importResult && (
+        <div className="adm-saved" style={{ marginBottom: 14 }}>
+          Imported {importResult.created} premium issue
+          {importResult.created === 1 ? "" : "s"} as draft
+          {importResult.created === 1 ? "" : "s"}.
+          {importResult.skipped > 0 && (
+            <> {importResult.skipped} block(s) skipped (missing a valid date).</>
+          )}{" "}
+          Click a day below to review, then mark it <strong>Ready</strong>.
+        </div>
+      )}
+
       <div className="adm-bar">
         <h2 className="adm-h2">The week ahead · Premium</h2>
         <form action={preparePremiumWeekAction}>
@@ -126,6 +151,50 @@ async function WeekView() {
         Saturdays add <strong>The Weekend Study</strong>. Click any date to open
         the full issue, edit it, then mark it <strong>Ready</strong>.
       </p>
+
+      {/* Quick paste → create premium issues from labeled text */}
+      <details className="adm-paste">
+        <summary className="adm-paste-sum">
+          📋 Quick paste — create premium issues from text
+        </summary>
+        <form action={importPremiumAction} className="adm-paste-form">
+          <p className="adm-paste-help">
+            Paste one or more days in the labeled format. Separate each day with a
+            line of three dashes (<code>---</code>), and give each day a{" "}
+            <code>date: YYYY-MM-DD</code> line. Recognized fields:{" "}
+            <code>
+              editorNote, devHeading, devRef, devIntro, devVerseText, devVerseRef,
+              devBody, devKeyWord, devReflection, devApply, devPause, devPrayer,
+              studyHeading, studyRef, studyBody, studyVerse, studyQuestion,
+              closingLine
+            </code>{" "}
+            (and more). Anything it doesn&apos;t recognize is ignored.
+          </p>
+          <textarea
+            name="paste"
+            className="adm-textarea"
+            rows={12}
+            placeholder={
+              "date: 2026-07-06\n" +
+              "devHeading: You don't need perfect faith — just look up\n" +
+              "devRef: Numbers 21–23 · Mark 9\n" +
+              "devVerseText: I do believe; help me overcome my unbelief!\n" +
+              "devVerseRef: Mark 9:24\n" +
+              "devPrayer: Jesus, I believe; help my unbelief...\n" +
+              "---\n" +
+              "date: 2026-07-08\n" +
+              "devHeading: ...\n"
+            }
+          />
+          <label className="adm-paste-check">
+            <input type="checkbox" name="publish" value="1" /> Publish immediately
+            (mark Ready). Leave unchecked to create drafts you preview first.
+          </label>
+          <button type="submit" className="btn btn-gold">
+            Create premium issues
+          </button>
+        </form>
+      </details>
 
       <div className="adm-week">
         {dates.map((date) => {
