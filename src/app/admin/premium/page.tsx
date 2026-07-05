@@ -39,6 +39,7 @@ export default async function PremiumAdminPage({
     view?: string;
     imported?: string;
     skipped?: string;
+    source?: string;
   }>;
 }) {
   await requireAdmin();
@@ -109,7 +110,7 @@ export default async function PremiumAdminPage({
             ? await ArchiveDetail(valid)
             : await ArchiveList()
           : valid
-            ? await EditorView(valid, sp.saved === "1")
+            ? await EditorView(valid, sp.saved === "1", sp.source === "platform")
             : await WeekView(importResult)}
       </div>
     </section>
@@ -196,30 +197,69 @@ async function WeekView(
         </form>
       </details>
 
+      {/* The platform's own auto-written premium version for each day */}
+      <h3 className="adm-group">🤖 The platform&apos;s auto-written version</h3>
+      <p className="adm-hintline">
+        What the app writes on its own for each day. Tap any day to preview it —
+        and <strong>Save</strong> to use it instead of your pasted draft.
+      </p>
       <div className="adm-week">
         {dates.map((date) => {
-          const d = byDate.get(date);
           const gen = fullPremiumFor(date);
-          const heading = (d?.data.devHeading || gen.devHeading)?.trim();
           const wd = weekdayLabel(date);
           const extra =
             wd === "Saturday"
               ? "Devotional · + The Weekend Study"
               : "The Main Premium Devotional";
           return (
-            <Link key={date} href={`/admin/premium?date=${date}`} className="adm-day">
+            <Link
+              key={`platform-${date}`}
+              href={`/admin/premium?date=${date}&source=platform`}
+              className="adm-day"
+            >
               <div className="adm-day-top">
                 <span className="adm-day-dow">{wd}</span>
-                <StatusBadge status={d?.status} saved={!!d} />
+                <span className="adm-badge adm-badge-none">Auto</span>
               </div>
               <div className="adm-day-date">{prettyDate(date)}</div>
-              <div className="adm-day-title">{heading}</div>
+              <div className="adm-day-title">{gen.devHeading?.trim()}</div>
               <div className="adm-day-tagline">{extra}</div>
-              <div className="adm-day-edit">Open & edit →</div>
+              <div className="adm-day-edit">Preview &amp; use →</div>
             </Link>
           );
         })}
       </div>
+
+      {/* The versions you pasted / saved — these are what will publish */}
+      {rows.length > 0 && (
+        <>
+          <h3 className="adm-group" style={{ marginTop: 28 }}>
+            ✍️ Your pasted drafts
+          </h3>
+          <p className="adm-hintline">
+            The versions you pasted in. <strong>These are what will publish</strong>{" "}
+            once you mark them Ready. Open one to edit — or compare it with the
+            platform&apos;s version above.
+          </p>
+          <div className="adm-week">
+            {rows.map((d) => (
+              <Link
+                key={`saved-${d.date}`}
+                href={`/admin/premium?date=${d.date}`}
+                className="adm-day"
+              >
+                <div className="adm-day-top">
+                  <span className="adm-day-dow">{weekdayLabel(d.date)}</span>
+                  <StatusBadge status={d.status} saved />
+                </div>
+                <div className="adm-day-date">{prettyDate(d.date)}</div>
+                <div className="adm-day-title">{d.data.devHeading?.trim()}</div>
+                <div className="adm-day-edit">Open &amp; edit →</div>
+              </Link>
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 }
@@ -232,10 +272,13 @@ function StatusBadge({ status, saved }: { status?: string; saved?: boolean }) {
 }
 
 /* -------------------------------- editor -------------------------------- */
-async function EditorView(date: string, saved: boolean) {
+async function EditorView(date: string, saved: boolean, usePlatform = false) {
   const existing = await premiumGetByDate(date);
-  const data: PremiumData = existing?.data ?? fullPremiumFor(date);
-  const status = existing?.status ?? "draft";
+  const platformData = fullPremiumFor(date);
+  const data: PremiumData = usePlatform
+    ? platformData
+    : (existing?.data ?? platformData);
+  const status = usePlatform ? "draft" : (existing?.status ?? "draft");
   const weekday = weekdayLabel(date);
   const pending = await pendingForIssue("premium", date);
   const goodNews = await getDailyGoodNews(3);
@@ -268,7 +311,32 @@ async function EditorView(date: string, saved: boolean) {
       </div>
 
       {saved && <div className="adm-saved">Saved ✓</div>}
-      {!existing && (
+
+      {/* Version switcher — your pasted draft vs the platform's auto-written one */}
+      {usePlatform ? (
+        <div className="adm-gennote">
+          🤖 You&apos;re viewing{" "}
+          <strong>the platform&apos;s auto-written version</strong>. Edit anything,
+          then <strong>Save</strong> to use it for this day
+          {existing ? " (this replaces your pasted draft)" : ""}.{" "}
+          {existing && (
+            <Link href={`/admin/premium?date=${date}`}>
+              ← Back to your pasted draft
+            </Link>
+          )}
+        </div>
+      ) : (
+        existing && (
+          <div className="adm-gennote">
+            ✍️ This is <strong>your pasted draft</strong> (what will publish).{" "}
+            <Link href={`/admin/premium?date=${date}&source=platform`}>
+              Compare with the platform&apos;s auto-written version →
+            </Link>
+          </div>
+        )
+      )}
+
+      {!usePlatform && !existing && (
         <div className="adm-gennote">
           ✨ This is a complete, auto-generated premium draft. Edit anything
           below, then <strong>Save</strong> to keep your version.
