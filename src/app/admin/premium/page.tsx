@@ -390,10 +390,10 @@ async function EditorView(date: string, saved: boolean, usePlatform = false) {
             <textarea name="editorNote" defaultValue={data.editorNote} className="adm-textarea" rows={3} />
           </Field>
 
-          <h3 className="adm-group">The Main Premium Devotional · daily</h3>
+          <h3 className="adm-group">The Word for Today · daily</h3>
           <p className="adm-grouphint">
-            A deeper reflection than the free daily — fuller context, a key word,
-            an application step, and a deeper question.
+            The approachable main devotional — context, the key verse, an
+            encouraging reflection, and a key word. The deeper sections come next.
           </p>
           <Field label="Heading">
             <input name="devHeading" defaultValue={data.devHeading} className="adm-input" />
@@ -418,17 +418,41 @@ async function EditorView(date: string, saved: boolean, usePlatform = false) {
           <Field label="Key word (Word — meaning)">
             <textarea name="devKeyWord" defaultValue={data.devKeyWord} className="adm-textarea" rows={2} />
           </Field>
-          <Field label="So what, for today? (application + Try this today + example)">
-            <textarea name="devApply" defaultValue={data.devApply} className="adm-textarea" rows={4} />
-          </Field>
-          <Field label="Pause & reflect (a quiet line mid-read)" hint="Premium touch — shows as an italic pause between the reflection and the key word">
+          <Field label="Pause & reflect (a quiet line mid-read)" hint="Premium touch — an italic pause inside the main devotional">
             <textarea name="devPause" defaultValue={data.devPause} className="adm-textarea" rows={2} />
           </Field>
-          <Field label="Deeper reflection question">
-            <textarea name="devReflection" defaultValue={data.devReflection} className="adm-textarea" rows={2} />
+
+          <h3 className="adm-group">✨ The Daily Discipleship Rhythm</h3>
+          <p className="adm-grouphint">
+            The sections that make premium worth paying for — deeper Bible
+            teaching, personal formation, prayer, and a real next step.
+          </p>
+          <Field label="Deeper Walk (fuller Bible teaching & context)">
+            <textarea name="deeperWalk" defaultValue={data.deeperWalk} className="adm-textarea" rows={5} />
           </Field>
-          <Field label="A prayer for today">
+          <Field label="The Bible Thread (how today's passage points to Jesus)">
+            <textarea name="bibleThread" defaultValue={data.bibleThread} className="adm-textarea" rows={4} />
+          </Field>
+          <Field label="Heart Check (2–3 questions — one per line)" hint="Each line becomes its own question">
+            <textarea name="heartCheck" defaultValue={data.heartCheck} className="adm-textarea" rows={4} />
+          </Field>
+          <Field label="Journal With God (one deeper journaling prompt)">
+            <textarea name="journalPrompt" defaultValue={data.journalPrompt} className="adm-textarea" rows={3} />
+          </Field>
+          <Field label="Spiritual Wellness Guide (one grounding practice)" hint="Keep it practical — a slow prayer + a breath, not medical advice">
+            <textarea name="wellnessPractice" defaultValue={data.wellnessPractice} className="adm-textarea" rows={4} />
+          </Field>
+          <Field label="Pray the Word (a Scripture-shaped prayer)">
             <textarea name="devPrayer" defaultValue={data.devPrayer} className="adm-textarea" rows={3} />
+          </Field>
+          <Field label="Walk It Out (one real act of obedience today)">
+            <textarea name="walkItOut" defaultValue={data.walkItOut} className="adm-textarea" rows={3} />
+          </Field>
+          <Field label="Save This Line (a short, shareable pull-quote)" hint="Falls back to the Closing line if left blank">
+            <input name="saveLine" defaultValue={data.saveLine} className="adm-input" />
+          </Field>
+          <Field label="Tomorrow's Thread (a one-line teaser for tomorrow)">
+            <textarea name="tomorrowThread" defaultValue={data.tomorrowThread} className="adm-textarea" rows={2} />
           </Field>
 
           <h3 className="adm-group">

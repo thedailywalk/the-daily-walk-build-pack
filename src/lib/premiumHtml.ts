@@ -61,6 +61,25 @@ const S = {
   btn: "font-family:Arial,Helvetica,sans-serif;display:inline-block;background:#C9A24B;color:#1F3A5F;font-weight:bold;text-decoration:none;padding:13px 30px;border-radius:30px;font-size:15px;",
   closing: "font-style:italic;color:#1F3A5F;font-size:14px;text-align:center;padding:6px 6px 2px;line-height:1.6;",
   footer: "background:#1F3A5F;color:#9fb0c6;font-family:Arial,Helvetica,sans-serif;text-align:center;font-size:12px;line-height:1.7;padding:26px 30px;",
+
+  // --- Deeper-Walk premium modules (the daily discipleship rhythm) ---
+  teachP: "font-size:15.5px;line-height:1.64;margin:0 0 12px;color:#2B2B2B;",
+  thread: "background:#F3ECDA;border-left:4px solid #C9A24B;border-radius:8px;padding:4px 20px;margin:0 0 6px;color:#3f3a2c;",
+  threadP: "font-size:15.5px;line-height:1.62;margin:14px 0;color:#3f3a2c;",
+  heartBox: "background:#ffffff;border:1px solid #E0D6BF;border-radius:8px;padding:4px 20px 6px;margin:0 0 6px;",
+  heartQ: "font-family:Arial,Helvetica,sans-serif;font-size:14.5px;line-height:1.5;color:#1F3A5F;font-weight:bold;padding:12px 0;border-bottom:1px solid #EFE7D4;",
+  heartQlast: "font-family:Arial,Helvetica,sans-serif;font-size:14.5px;line-height:1.5;color:#1F3A5F;font-weight:bold;padding:12px 0;",
+  journal: "background:#ffffff;border:1px dashed #C9A24B;border-radius:8px;padding:6px 22px;margin:0 0 6px;",
+  journalP: "font-family:Georgia,'Times New Roman',serif;font-style:italic;color:#3f3a2c;font-size:15.5px;line-height:1.62;margin:14px 0;",
+  wellness: "background:#EAF1F0;border:1px solid #D2E2DF;border-radius:8px;padding:6px 20px;margin:0 0 6px;",
+  wellnessP: "font-size:15px;line-height:1.62;color:#294b46;margin:14px 0;",
+  walk: "background:#F0F5EC;border:1px solid #D6E4CC;border-radius:8px;padding:6px 20px;margin:0 0 6px;",
+  walkP: "font-size:15px;line-height:1.62;color:#2f3d29;margin:14px 0;",
+  saveCard: "background:#1F3A5F;border:1px solid #C9A24B;border-radius:12px;padding:26px 28px;text-align:center;margin:6px 0;",
+  saveK: "font-family:Arial,Helvetica,sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#E3C074;font-weight:bold;margin:0 0 10px;",
+  saveQuote: "font-family:Georgia,'Times New Roman',serif;color:#F3E7C6;font-size:21px;line-height:1.42;font-style:italic;margin:0;",
+  tomorrow: "background:#F7F1E2;border:1px solid #E4DAC4;border-radius:8px;padding:6px 20px;margin:0 0 6px;",
+  tomorrowP: "font-family:Arial,Helvetica,sans-serif;font-size:14.5px;line-height:1.6;color:#5b5340;margin:14px 0;",
 };
 
 function paras(s: string | undefined, style = S.p): string {
@@ -74,35 +93,50 @@ function paras(s: string | undefined, style = S.p): string {
 
 const rule = `<div style="${S.rule}"></div>`;
 
-/** The 3 Good News cards — free, license-cleared photos, summaries, and links. */
-function goodNewsBlock(items: GoodNewsItem[]): string {
-  const list = (items ?? []).slice(0, 3);
-  if (!list.length) return "";
-  const cards = list
-    .map((g) => {
-      const tile = g.image
-        ? `<img src="${esc(g.image)}" alt="" style="width:100%;height:96px;object-fit:cover;display:block;">`
-        : `<div style="height:96px;background:linear-gradient(135deg,#1F3A5F 0%,#2E5481 55%,#C9A24B 100%);"></div>`;
-      const credit = g.image && g.imageCredit
-        ? `<span style="display:block;font-family:Arial,Helvetica,sans-serif;font-size:8px;color:#b3ab97;margin:6px 0 0;line-height:1.35;">Photo: ${esc(g.imageCredit)}</span>`
-        : "";
-      return `<a href="${esc(g.href)}" style="display:inline-block;vertical-align:top;width:31%;margin:0 1% 10px;border:1px solid #E4DAC4;border-radius:10px;overflow:hidden;background:#ffffff;text-decoration:none;color:inherit;">${tile}<div style="padding:10px 11px 11px;">${
-        g.category
-          ? `<span style="font-family:Arial,Helvetica,sans-serif;font-size:8.5px;letter-spacing:1px;text-transform:uppercase;color:#B8902E;border:1px solid #E3C786;padding:2px 7px;border-radius:20px;font-weight:700;">${esc(g.category)}</span>`
-          : ""
-      }<div style="font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#1F3A5F;font-weight:700;line-height:1.28;margin:8px 0 6px;">${esc(g.headline)}</div>${
-        g.summary
-          ? `<p style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#5b5340;line-height:1.5;margin:0 0 7px;">${esc(g.summary)}</p>`
-          : ""
-      }<span style="display:block;font-family:Arial,Helvetica,sans-serif;font-size:9.5px;color:#8a8270;">${esc(g.source)}</span><span style="display:inline-block;margin-top:3px;font-family:Arial,Helvetica,sans-serif;font-size:9.5px;letter-spacing:.5px;text-transform:uppercase;color:#B8902E;font-weight:700;">Read more →</span>${credit}</div></a>`;
-    })
+/** A Glimpse of Goodness — ONE real story of hope (premium stays deep, not busy). */
+function glimpseBlock(items: GoodNewsItem[]): string {
+  const g = (items ?? [])[0];
+  if (!g) return "";
+  const tile = g.image
+    ? `<img src="${esc(g.image)}" alt="" style="width:100%;height:150px;object-fit:cover;display:block;">`
+    : `<div style="height:120px;background:linear-gradient(135deg,#1F3A5F 0%,#2E5481 55%,#C9A24B 100%);"></div>`;
+  const credit = g.image && g.imageCredit
+    ? `<span style="display:block;font-family:Arial,Helvetica,sans-serif;font-size:8.5px;color:#b3ab97;margin:8px 0 0;line-height:1.35;">Photo: ${esc(g.imageCredit)}</span>`
+    : "";
+  const card = `<a href="${esc(g.href)}" style="display:block;border:1px solid #E4DAC4;border-radius:10px;overflow:hidden;background:#ffffff;text-decoration:none;color:inherit;">${tile}<div style="padding:14px 18px 16px;">${
+    g.category
+      ? `<span style="font-family:Arial,Helvetica,sans-serif;font-size:9px;letter-spacing:1px;text-transform:uppercase;color:#B8902E;border:1px solid #E3C786;padding:2px 8px;border-radius:20px;font-weight:700;">${esc(g.category)}</span>`
+      : ""
+  }<div style="font-family:Arial,Helvetica,sans-serif;font-size:15px;color:#1F3A5F;font-weight:700;line-height:1.32;margin:9px 0 6px;">${esc(g.headline)}</div>${
+    g.summary
+      ? `<p style="font-family:Arial,Helvetica,sans-serif;font-size:12.5px;color:#5b5340;line-height:1.55;margin:0 0 8px;">${esc(g.summary)}</p>`
+      : ""
+  }<span style="display:block;font-family:Arial,Helvetica,sans-serif;font-size:10px;color:#8a8270;">${esc(g.source)}</span><span style="display:inline-block;margin-top:4px;font-family:Arial,Helvetica,sans-serif;font-size:10px;letter-spacing:.5px;text-transform:uppercase;color:#B8902E;font-weight:700;">Read more →</span>${credit}</div></a>`;
+  return [
+    `<div style="${S.kicker}">A Glimpse of Goodness</div>`,
+    `<h2 style="${S.sec}">One reason for hope today</h2>`,
+    card,
+    `<div style="${S.closing}">One real story — a small reminder God is still moving in ordinary people.</div>`,
+  ].join("");
+}
+
+/** Heart Check — 2–3 conviction questions, one per line, rendered as a list. */
+function heartCheckBlock(text?: string): string {
+  const qs = (text ?? "")
+    .split(/\n+/)
+    .map((q) => q.replace(/^[-•\d.\s]+/, "").trim())
+    .filter(Boolean);
+  if (!qs.length) return "";
+  const rows = qs
+    .map(
+      (q, i) =>
+        `<div style="${i === qs.length - 1 ? S.heartQlast : S.heartQ}">${esc(q)}</div>`
+    )
     .join("");
   return [
-    `<div style="${S.kicker}">Good News</div>`,
-    `<h2 style="${S.sec}">3 reasons for hope from around the world</h2>`,
-    `<p style="${S.ref}">Real stories · real sources · tap any headline for the full article.</p>`,
-    `<div style="text-align:center;font-size:0;">${cards}</div>`,
-    `<div style="${S.closing}">Even when the world feels heavy, God is still moving. Keep your eyes open today.</div>`,
+    `<div style="${S.kicker}">Heart Check</div>`,
+    `<h2 style="${S.sec}">Sit with this honestly</h2>`,
+    `<div style="${S.heartBox}">${rows}</div>`,
   ].join("");
 }
 
@@ -130,11 +164,11 @@ export function renderPremiumHtml(issue: PremiumIssue, goodNews: GoodNewsItem[] 
     blocks.push(`<div style="${S.note}">${esc(d.editorNote)}</div>`);
   }
 
-  // The Main Premium Devotional — daily, deeper
+  // 1) The Word for Today — the main devotional (approachable encouragement)
   if (d.devBody?.trim() || d.devIntro?.trim() || d.devHeading?.trim()) {
     blocks.push(
       [
-        `<div style="${S.kicker}">Today's Deeper Walk</div>`,
+        `<div style="${S.kicker}">The Word for Today</div>`,
         d.devHeading?.trim() ? `<h2 style="${S.sec}">${esc(d.devHeading)}</h2>` : "",
         d.devRef?.trim()
           ? `<p style="${S.readInvite}">Open your Bible if you can — or let today's reflection walk you through it.</p>`
@@ -149,34 +183,78 @@ export function renderPremiumHtml(issue: PremiumIssue, goodNews: GoodNewsItem[] 
         d.devKeyWord?.trim()
           ? `<div style="${S.keyword}"><strong>Key word — </strong>${esc(d.devKeyWord)}</div>`
           : "",
-        // "Make It Real" — presented the same way as the free daily devotional:
-        // gold kicker, big navy "So what, for today?" heading, plain body.
-        d.devApply?.trim()
-          ? [
-              rule,
-              `<div style="${S.kicker}">Make It Real</div>`,
-              `<h2 style="${S.sec}">So what, for today?</h2>`,
-              paras(d.devApply),
-            ].join("")
-          : "",
-        d.devReflection?.trim()
-          ? `<div style="${S.question}">${esc(d.devReflection.startsWith("👉") ? d.devReflection : `👉 ${d.devReflection}`)}</div>`
-          : "",
       ].join("")
     );
   }
 
-  // Prayer
+  // 2) Deeper Walk — Bible teaching & context (the biggest free→premium upgrade)
+  if (d.deeperWalk?.trim()) {
+    blocks.push(
+      [
+        `<div style="${S.kicker}">Deeper Walk</div>`,
+        `<h2 style="${S.sec}">Go a layer deeper</h2>`,
+        paras(d.deeperWalk, S.teachP),
+      ].join("")
+    );
+  }
+
+  // 3) The Bible Thread — how today's passage points to Jesus
+  if (d.bibleThread?.trim()) {
+    blocks.push(
+      [
+        `<div style="${S.kicker}">The Bible Thread</div>`,
+        `<h2 style="${S.sec}">Where this points to Jesus</h2>`,
+        `<div style="${S.thread}">${paras(d.bibleThread, S.threadP)}</div>`,
+      ].join("")
+    );
+  }
+
+  // 4) Heart Check — 2–3 conviction questions
+  const heart = heartCheckBlock(d.heartCheck);
+  if (heart) blocks.push(heart);
+
+  // 5) Journal With God — one deeper journaling prompt
+  if (d.journalPrompt?.trim()) {
+    blocks.push(
+      [
+        `<div style="${S.kicker}">Journal With God</div>`,
+        `<div style="${S.journal}">${paras(d.journalPrompt, S.journalP)}</div>`,
+      ].join("")
+    );
+  }
+
+  // 6) Spiritual Wellness Guide — one faith-based grounding practice
+  if (d.wellnessPractice?.trim()) {
+    blocks.push(
+      [
+        `<div style="${S.kicker}">Spiritual Wellness Guide</div>`,
+        `<div style="${S.wellness}">${paras(d.wellnessPractice, S.wellnessP)}</div>`,
+      ].join("")
+    );
+  }
+
+  // 7) Pray the Word — a Scripture-shaped prayer
   if (d.devPrayer?.trim()) {
     blocks.push(
       [
-        `<div style="${S.kicker}">A Prayer for Today</div>`,
+        `<div style="${S.kicker}">Pray the Word</div>`,
         `<div style="${S.prayerBox}">${paras(d.devPrayer, S.prayerP)}</div>`,
       ].join("")
     );
   }
 
-  // The Weekend Study — Saturdays
+  // 8) Walk It Out — one real act of obedience today
+  if (d.walkItOut?.trim()) {
+    blocks.push(
+      [
+        `<div style="${S.kicker}">Walk It Out</div>`,
+        `<h2 style="${S.sec}">One step today</h2>`,
+        `<div style="${S.walk}">${paras(d.walkItOut, S.walkP)}</div>`,
+      ].join("")
+    );
+  }
+
+  // The Weekend Study — Saturdays (a deeper guided study)
   if (d.studyBody?.trim()) {
     blocks.push(
       [
@@ -194,9 +272,27 @@ export function renderPremiumHtml(issue: PremiumIssue, goodNews: GoodNewsItem[] 
     );
   }
 
-  // Good News — the same 3-story briefing (photos + links) as the free daily.
-  const gn = goodNewsBlock(goodNews);
+  // 9) Save This Line — a branded, shareable pull-quote (falls back to closing)
+  const save = (d.saveLine || d.closingLine || "").trim();
+  if (save) {
+    blocks.push(
+      `<div style="${S.saveCard}"><div style="${S.saveK}">Save this line</div><p style="${S.saveQuote}">&ldquo;${esc(save)}&rdquo;</p></div>`
+    );
+  }
+
+  // 10) A Glimpse of Goodness — ONE hope story (premium stays deep, not busy)
+  const gn = glimpseBlock(goodNews);
   if (gn) blocks.push(gn);
+
+  // 11) Tomorrow's Thread — a teaser that builds the daily habit
+  if (d.tomorrowThread?.trim()) {
+    blocks.push(
+      [
+        `<div style="${S.kicker}">Tomorrow's Thread</div>`,
+        `<div style="${S.tomorrow}">${paras(d.tomorrowThread, S.tomorrowP)}</div>`,
+      ].join("")
+    );
+  }
 
   // Walk together — an invite to the live Prayer Wall.
   const prayerUrl = `${site.url}/prayer-wall#share`;
@@ -227,9 +323,13 @@ export function renderPremiumHtml(issue: PremiumIssue, goodNews: GoodNewsItem[] 
         <div style="height:14px;line-height:14px;">&nbsp;</div>
       </div>`;
 
-  const closingBlock = d.closingLine?.trim()
-    ? `<div style="${S.pad}">${rule}<div style="${S.closing}">${esc(d.closingLine)}</div><div style="height:8px;line-height:8px;">&nbsp;</div></div>`
-    : "";
+  // The closing line only shows here when a distinct "Save this line" quote
+  // already ran above — otherwise the closing line WAS the Save card, so we
+  // don't repeat it.
+  const closingBlock =
+    d.saveLine?.trim() && d.closingLine?.trim()
+      ? `<div style="${S.pad}">${rule}<div style="${S.closing}">${esc(d.closingLine)}</div><div style="height:8px;line-height:8px;">&nbsp;</div></div>`
+      : "";
 
   return `<div style="${S.outer}">
   <div style="${S.wrap}">

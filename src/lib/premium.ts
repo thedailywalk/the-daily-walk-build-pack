@@ -48,10 +48,20 @@ export type PremiumData = {
   devVerseRef?: string;
   devBody?: string; // the deeper reflection
   devKeyWord?: string; // "Word — meaning"
-  devReflection?: string; // a deeper question
-  devApply?: string; // "Today's walk" — one faithful step
+  devReflection?: string; // legacy — folded into heartCheck (kept for back-compat)
+  devApply?: string; // legacy — replaced by walkItOut (kept for back-compat)
   devPause?: string; // a short reflective "pause & reflect" line, mid-read
-  devPrayer?: string;
+  devPrayer?: string; // rendered as "Pray the Word" — a Scripture-shaped prayer
+
+  /* The daily discipleship rhythm — what makes premium premium */
+  deeperWalk?: string; // Deeper Walk: fuller Bible teaching & context
+  bibleThread?: string; // The Bible Thread: how the passage points to Jesus
+  heartCheck?: string; // Heart Check: 2–3 conviction questions (one per line)
+  journalPrompt?: string; // Journal With God: one deeper journaling prompt
+  wellnessPractice?: string; // Spiritual Wellness Guide: one grounding practice
+  walkItOut?: string; // Walk It Out: one real act of obedience today
+  saveLine?: string; // Save This Line: a branded, shareable pull-quote
+  tomorrowThread?: string; // Tomorrow's Thread: a teaser for the next day
 
   /* The Weekend Study — Saturdays */
   studyHeading?: string;
@@ -310,6 +320,22 @@ export function fullPremiumFor(date: string): PremiumData {
     // "So what, for today?" — same shape as the free issue's Make It Real.
     devApply: `${s.realLife} ${s.aboutPeople} Try this today: ${s.step}`,
     devPrayer: s.prayer,
+
+    // --- The daily discipleship rhythm (seeded from the study library) ---
+    deeperWalk: `Look a little closer. ${s.aboutPeople} ${s.context}`.trim(),
+    bibleThread: s.arc
+      ? `Zoom out: today's reading is one thread in the story that runs straight to Jesus. ${s.aboutGod}`
+      : `Today's reading is one thread in the bigger story that leads to Jesus. ${s.aboutGod}`,
+    heartCheck: [s.sideReflection, s.reflection].filter(Boolean).join("\n"),
+    journalPrompt:
+      "God, as I sit with today's reading, show me where this meets my real life — and what You want to say to me right here.",
+    wellnessPractice:
+      'Before you move on, take three slow breaths. On each exhale, hand God one thing you’ve been gripping. Then pray slowly: "You are with me; I don’t have to carry this alone."',
+    walkItOut: s.step,
+    saveLine: s.realLife,
+    tomorrowThread: s.arc
+      ? `Tomorrow we keep walking through ${s.arc} — bring your honest heart.`
+      : "Tomorrow we keep walking — bring your honest heart.",
 
     closingLine:
       "You're not just reading more — you're being discipled, and you're helping someone else find Jesus by making this possible. Thank you for being a Founding Member.",
