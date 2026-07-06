@@ -48,14 +48,15 @@ export async function GET(req: Request) {
         <div
           style={{
             display: "flex",
-            letterSpacing: 9,
+            letterSpacing: 6,
             color: "#E3C074",
-            fontSize: 26,
+            fontSize: 24,
             fontWeight: 700,
             marginBottom: 34,
+            textAlign: "center",
           }}
         >
-          THE DAILY WALK
+          THE DAILY WALK NEWSLETTER
         </div>
         <div style={{ display: "flex", color: "#C9A24B", fontSize: 96, lineHeight: 1 }}>
           &ldquo;
