@@ -26,6 +26,8 @@ import {
   importDevotionalsAction,
 } from "./actions";
 import CopyButton from "./CopyButton";
+import EditorialCheck from "@/components/EditorialCheck";
+import { checkFree } from "@/lib/editorialCheck";
 
 export const metadata: Metadata = {
   title: "Devotional Prep",
@@ -321,6 +323,9 @@ async function EditorView(date: string, saved: boolean, usePlatform = false) {
           <strong>Save</strong> to keep your version.
         </div>
       )}
+
+      {/* Editorial safety net — quick checks + optional AI deep check */}
+      <EditorialCheck findings={checkFree(data)} pub="free" date={date} />
 
       {/* Suggested edits (inline diffs) + live preview, side by side */}
       <div className="adm-review-cols">

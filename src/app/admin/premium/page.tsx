@@ -18,6 +18,8 @@ import { getDailyGoodNews } from "@/lib/goodNews";
 import { pendingForIssue } from "@/lib/newsletterEvolution";
 import NewsletterIssueReview from "@/components/NewsletterIssueReview";
 import CopyButton from "../devotionals/CopyButton";
+import EditorialCheck from "@/components/EditorialCheck";
+import { checkPremium } from "@/lib/editorialCheck";
 import {
   savePremiumAction,
   preparePremiumWeekAction,
@@ -342,6 +344,9 @@ async function EditorView(date: string, saved: boolean, usePlatform = false) {
           below, then <strong>Save</strong> to keep your version.
         </div>
       )}
+
+      {/* Editorial safety net — quick checks + optional AI deep check */}
+      <EditorialCheck findings={checkPremium(data)} pub="premium" date={date} />
 
       {/* Suggested edits (inline diffs) + live preview, side by side */}
       <div className="adm-review-cols">
