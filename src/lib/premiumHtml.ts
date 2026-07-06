@@ -123,10 +123,14 @@ function glimpseBlock(items: GoodNewsItem[]): string {
   ].join("");
 }
 
-/** Heart Check — 2–3 conviction questions, one per line, rendered as a list. */
+/**
+ * Heart Check — 2–3 conviction questions rendered as a list. Questions may be
+ * separated by new lines OR by " | " (the paste importer collapses new lines, so
+ * authored pastes use the pipe separator).
+ */
 function heartCheckBlock(text?: string): string {
   const qs = (text ?? "")
-    .split(/\n+/)
+    .split(/\n+|\s*\|\s*/)
     .map((q) => q.replace(/^[-•\d.\s]+/, "").trim())
     .filter(Boolean);
   if (!qs.length) return "";
@@ -156,9 +160,15 @@ function pauseLine(text?: string): string {
  */
 export function renderPremiumHtml(issue: PremiumIssue, goodNews: GoodNewsItem[] = []): string {
   const d = issue.data;
-  const metaBits = [weekdayLabel(issue.date), d.dayLabel?.trim()]
-    .filter(Boolean)
-    .join(" · ");
+  // Weekday + optional day label — but if the label already starts with the
+  // weekday (e.g. "Tuesday · July 7"), don't repeat it.
+  const wd = weekdayLabel(issue.date);
+  const dl = d.dayLabel?.trim() || "";
+  const metaBits = dl
+    ? dl.toLowerCase().startsWith(wd.toLowerCase())
+      ? dl
+      : `${wd} · ${dl}`
+    : wd;
 
   const blocks: string[] = [];
 

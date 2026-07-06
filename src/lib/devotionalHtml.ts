@@ -101,7 +101,15 @@ function goodNewsBlock(items: GoodNewsItem[]): string {
  */
 export function renderDevotionalHtml(dev: Devotional, goodNews: GoodNewsItem[] = []): string {
   const d = dev.data;
-  const metaBits = [weekdayLabel(dev.date), d.dayLabel?.trim()].filter(Boolean).join(" · ");
+  // Weekday + optional day label — but if the label already starts with the
+  // weekday (e.g. "Saturday · July 4"), don't repeat it.
+  const wd = weekdayLabel(dev.date);
+  const dl = d.dayLabel?.trim() || "";
+  const metaBits = dl
+    ? dl.toLowerCase().startsWith(wd.toLowerCase())
+      ? dl
+      : `${wd} · ${dl}`
+    : wd;
 
   const blocks: string[] = [];
 
