@@ -2080,49 +2080,87 @@ a.gncard:focus-visible {
 .mhsec {
   padding: 20px 0 8px;
 }
-/* Two-column: mission copy (left) sits beside the GoFundMe card (right) */
-.mh-grid {
-  display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  gap: 46px;
-  align-items: start;
-  margin-top: 6px;
+/* First build — a collapsible card that sits below the mission statement */
+.gfm-drop {
+  max-width: 720px;
+  margin: 30px auto 0;
+  background: var(--cream);
+  border: 1px solid #ecdcaf;
+  border-top: 4px solid var(--gold);
+  border-radius: 16px;
+  overflow: hidden;
 }
-.mh-grid .mh-head {
-  text-align: left;
-  max-width: none;
-  margin: 0 0 10px;
+.gfm-summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 22px 26px;
 }
-.mh-grid .mh-head .sec-tag,
-.mh-grid .mh-head .h {
-  text-align: left;
+.gfm-summary::-webkit-details-marker {
+  display: none;
 }
-.mh-grid .mh-lead,
-.mh-grid .mh-body,
-.mh-grid .mh-close,
-.mh-grid .mh-readmore {
-  max-width: none;
-  margin-left: 0;
-  margin-right: 0;
-  text-align: left;
-}
-.mh-grid .mh-body {
-  margin-bottom: 18px;
-}
-.mh-grid .gfm-card {
-  max-width: none;
-  margin: 0;
+.gfm-summary-txt {
+  display: block;
   text-align: left;
 }
-.mh-grid .gfm-p {
-  max-width: none;
-  margin-left: 0;
-  margin-right: 0;
+.gfm-summary .gfm-k {
+  margin-bottom: 6px;
 }
-@media (max-width: 880px) {
-  .mh-grid {
-    grid-template-columns: 1fr;
-    gap: 30px;
+.gfm-summary-h {
+  display: block;
+  font-family: var(--serif);
+  font-size: 21px;
+  color: var(--navy);
+  line-height: 1.22;
+}
+.gfm-summary-ic {
+  flex: 0 0 auto;
+  color: var(--gold-deep);
+  font-size: 15px;
+  transition: transform 0.2s ease;
+}
+.gfm-drop[open] .gfm-summary-ic {
+  transform: rotate(180deg);
+}
+.gfm-body {
+  padding: 0 26px 26px;
+  text-align: left;
+  animation: gfm-reveal 0.3s ease;
+}
+.gfm-body .gfm-p {
+  max-width: none;
+  margin: 0 0 16px;
+}
+.gfm-contact {
+  font-size: 15px;
+  line-height: 1.62;
+  color: var(--ink);
+  margin: 6px 0 0;
+}
+.gfm-contact a {
+  color: var(--gold-deep);
+  font-weight: 700;
+  text-decoration: none;
+}
+@keyframes gfm-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gfm-body {
+    animation: none;
+  }
+  .gfm-summary-ic {
+    transition: none;
   }
 }
 .mh-lead {

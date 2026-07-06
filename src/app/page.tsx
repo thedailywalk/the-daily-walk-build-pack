@@ -133,9 +133,7 @@ export default async function HomePage() {
       {/* OUR MISSION + THE FIRST BUILD */}
       <section id="mission-home" className="mhsec">
         <div className="wrap">
-          <div className="mh-grid">
-            <div className="mh-text">
-          <div className="why-head mh-head">
+          <div className="why-head">
             <div className="sec-tag">Our mission</div>
             <h2 className="h">Bigger than an inbox</h2>
           </div>
@@ -175,37 +173,51 @@ export default async function HomePage() {
               Read our full mission →
             </Link>
           </p>
-            </div>
 
-          {/* The first build — giving opens soon */}
-          <div className="gfm-card">
-            <div className="gfm-k">The first build</div>
-            <h3 className="gfm-h">
-              An after-school learning center in Mexico — and a bus to reach the
-              towns around it
-            </h3>
-            <p className="gfm-p">
-              Our first project is a community after-school learning center in a
-              small town in Mexico — one of the few places nearby with running
-              water and electricity in most homes. The villages around it barely
-              have that, so we&apos;re not stopping at one town.
-            </p>
-            <p className="gfm-p">
-              Inside, kids will have access to <strong>computers, school
-              supplies, first-aid kits, and even clean clothes and shoes</strong>.
-              On weekends, the goal is a bus route that <strong>picks up and drops
-              off kids from the surrounding villages</strong> — so all our youth
-              get the chance to attend <strong>free English classes and
-              after-school worship</strong>{" "}at the center, with the tools and
-              materials to help them in school. Most of all, it&apos;s a place to
-              know and learn about God. It comes from all of us, but it&apos;s
-              because of Him — and every bit of the glory is His.
-            </p>
-            <span className="gfm-soon">
-              Giving opens soon — watch this space.
-            </span>
-          </div>
-          </div>
+          {/* The first build — collapsible, sits below the mission */}
+          <details className="gfm-drop">
+            <summary className="gfm-summary">
+              <span className="gfm-summary-txt">
+                <span className="gfm-k">The first build</span>
+                <span className="gfm-summary-h">
+                  An after-school learning center in Mexico — and a bus to reach
+                  the towns around it
+                </span>
+              </span>
+              <span className="gfm-summary-ic" aria-hidden="true">
+                ▾
+              </span>
+            </summary>
+            <div className="gfm-body">
+              <p className="gfm-p">
+                Our first project is a community after-school learning center in a
+                small town in Mexico — one of the few places nearby with running
+                water and electricity in most homes. The villages around it barely
+                have that, so we&apos;re not stopping at one town.
+              </p>
+              <p className="gfm-p">
+                Inside, kids will have access to <strong>computers, school
+                supplies, first-aid kits, and even clean clothes and shoes</strong>.
+                On weekends, the goal is a bus route that <strong>picks up and
+                drops off kids from the surrounding villages</strong> — so all our
+                youth get the chance to attend <strong>free English classes and
+                after-school worship</strong>{" "}at the center, with the tools and
+                materials to help them in school. Most of all, it&apos;s a place to
+                know and learn about God. It comes from all of us, but it&apos;s
+                because of Him — and every bit of the glory is His.
+              </p>
+              <p className="gfm-contact">
+                If you&apos;re interested in learning more about how to help —
+                giving, partnering, or anything else — email us at{" "}
+                <a href={`mailto:${site.replyTo}`}>{site.replyTo}</a> or give us a
+                call at{" "}
+                <a href={`tel:+1${site.founderPhone.replace(/[^0-9]/g, "")}`}>
+                  {site.founderPhone}
+                </a>
+                .
+              </p>
+            </div>
+          </details>
         </div>
       </section>
 
