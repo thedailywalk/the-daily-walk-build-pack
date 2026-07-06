@@ -1,18 +1,31 @@
 <!doctype html><html><head><meta charset="utf-8"/>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
 <style>
  html,body{margin:0}
  .card{width:1080px;height:1080px;position:relative;overflow:hidden;font-family:'Inter',Arial,sans-serif;
-   background:radial-gradient(70% 62% at 50% 66%, #f6cf86 0%, #d99a4f 12%, #9a6a44 26%, #3f4a63 48%, #24406a 68%, #17304f 100%);}
- .rays{position:absolute;inset:0;background:repeating-conic-gradient(from 0deg at 50% 66%,
-   rgba(249,207,134,0) 0deg, rgba(249,207,134,0.18) 2.2deg, rgba(249,207,134,0) 4.6deg, rgba(249,207,134,0) 8deg);
-   -webkit-mask-image:radial-gradient(60% 60% at 50% 66%, #000 0%, rgba(0,0,0,.5) 45%, transparent 72%);
-   mask-image:radial-gradient(60% 60% at 50% 66%, #000 0%, rgba(0,0,0,.5) 45%, transparent 72%);}
- .ring{position:absolute;inset:66px;border:3px solid rgba(201,162,75,0.55);border-radius:50%;}
- .c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 150px;}
- .wm1{font-family:'Playfair Display',Georgia,serif;font-weight:800;font-size:112px;line-height:0.96;color:#FAF6EE;letter-spacing:1px;margin-top:-30px;}
- .wm2{font-weight:700;font-size:40px;letter-spacing:19px;color:#E3C074;margin:18px 0 0;padding-left:19px;}
- .sun{width:120px;height:60px;border-radius:120px 120px 0 0;background:linear-gradient(#ffe9b8,#e7b45f);margin-bottom:26px;box-shadow:0 0 60px 20px rgba(255,220,150,.45);}
-</style></head><body><div class="card"><div class="rays"></div><div class="ring"></div>
- <div class="c"><div class="sun"></div><div class="wm1">The Daily Walk</div><div class="wm2">NEWSLETTER</div></div>
+   background:linear-gradient(180deg, rgba(15,26,46,.86) 0%, rgba(17,32,56,.46) 50%, rgba(31,58,95,.55) 100%),
+     radial-gradient(120% 78% at 50% 112%, #f6cf86 0%, #e3a85a 15%, #b9763f 30%, #5b4f63 52%, #243a5d 74%, #17304f 100%);}
+ .rays{position:absolute;inset:0;background:repeating-conic-gradient(from 0deg at 50% 112%,
+   rgba(249,207,134,0) 0deg, rgba(249,207,134,0.22) 2.2deg, rgba(249,207,134,0) 4.6deg, rgba(249,207,134,0) 8deg);
+   -webkit-mask-image:radial-gradient(70% 78% at 50% 112%, #000 0%, rgba(0,0,0,.55) 42%, transparent 72%);
+   mask-image:radial-gradient(70% 78% at 50% 112%, #000 0%, rgba(0,0,0,.55) 42%, transparent 72%);}
+ .glow{position:absolute;left:50%;bottom:-4%;transform:translateX(-50%);width:900px;height:520px;
+   background:radial-gradient(50% 60% at 50% 100%, rgba(255,223,160,.5), transparent 70%);}
+ .ring{position:absolute;inset:58px;border:3px solid rgba(201,162,75,.55);border-radius:50%;}
+ .c{position:absolute;left:0;right:0;top:50%;transform:translateY(-56%);display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 150px;}
+ .eyebrow{letter-spacing:6px;font-size:20px;font-weight:700;color:#E3C074;text-transform:uppercase;margin-bottom:22px;}
+ .rule{width:64px;height:3px;background:#C9A24B;margin:0 auto 30px;border-radius:2px;}
+ .wm1{font-family:'Playfair Display',Georgia,serif;font-weight:800;font-size:104px;line-height:.98;color:#FAF6EE;letter-spacing:1px;}
+ .wm2{font-weight:700;font-size:40px;letter-spacing:19px;color:#C9A24B;margin:14px 0 0;padding-left:19px;}
+ .tag{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:37px;color:#E9DCB8;margin-top:34px;}
+ .dom{position:absolute;left:0;right:0;bottom:150px;text-align:center;letter-spacing:2px;font-size:21px;color:#AFC0D6;}
+</style></head><body><div class="card"><div class="rays"></div><div class="glow"></div><div class="ring"></div>
+ <div class="c">
+   <div class="eyebrow">A Daily Christian Devotional</div>
+   <div class="rule"></div>
+   <div class="wm1">The Daily Walk</div>
+   <div class="wm2">NEWSLETTER</div>
+   <div class="tag">Walking with God in real life</div>
+ </div>
+ <div class="dom">thedailywalknewsletter.com</div>
 </div></body></html>
