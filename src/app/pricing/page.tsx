@@ -39,11 +39,12 @@ const comparison: Array<
   { row: "Real-life application for modern life", tiers: [0, 1, 1] },
   { row: "Daily reflection question + prayer prompt", tiers: [0, 1, 1] },
   { row: "Audio devotional for each day", tiers: [0, 1, 1] },
-  { row: "The Deeper Walk discipleship newsletter", tiers: [0, 1, 1] },
-  { row: "Reflective “pause & reflect” moments in the Deeper Walk", tiers: [0, 1, 1] },
-  { row: "Saturday Weekend Study", tiers: [0, 1, 1] },
-  { row: "The Spiritual Wellness Guide (Mon · Wed · Fri)", tiers: [0, 1, 1] },
-  { row: "Peace Practice · Pattern Breaker · Prayer Lab tools", tiers: [0, 1, 1] },
+  { row: "The Deeper Walk discipleship newsletter, every day", tiers: [0, 1, 1] },
+  { row: "Deeper Bible teaching + The Bible Thread (points to Jesus)", tiers: [0, 1, 1] },
+  { row: "Heart Check + Journal With God (daily formation)", tiers: [0, 1, 1] },
+  { row: "Pray the Word + a Walk It Out step to live it", tiers: [0, 1, 1] },
+  { row: "A daily Spiritual Wellness Guide grounding practice", tiers: [0, 1, 1] },
+  { row: "The full Spiritual Wellness Guide (Mon · Wed · Fri)", tiers: [0, 1, 1] },
   { row: "Live sessions with a Christian therapist + pastors", tiers: [0, 1, 1] },
   { row: "Monthly downloadable workbook + full archive", tiers: [0, 1, 1] },
   { row: "Restart or catch up your plan anytime", tiers: [0, 1, 1] },
@@ -136,18 +137,19 @@ export default function PricingPage() {
             <div className="hiw-box-k">The daily upgrade</div>
             <h4>The Deeper Walk newsletter</h4>
             <p>
-              A daily 5-minute devotional that goes further than the free one:
-              fuller context, a key word unpacked, a reflective pause as you read,
-              and a real next step to live it out.
+              A guided daily walk that goes further than the free one: deeper
+              Bible teaching, The Bible Thread to Jesus, a Heart Check, Journal
+              With God, Pray the Word, and a Walk It Out step — real formation,
+              every morning.
             </p>
           </div>
           <div className="hiw-box hiw-box-soft">
-            <div className="hiw-box-k">3× a week</div>
+            <div className="hiw-box-k">Every day</div>
             <h4>The Spiritual Wellness Guide</h4>
             <p>
-              Practical, real-life tools for the relationships that matter most —
-              as a parent, a child, a spouse, or a friend — plus the Saturday
-              Weekend Study deep-dive.
+              A faith-based grounding practice inside the Deeper Walk to steady
+              your heart — plus the fuller Spiritual Wellness Guide with practical
+              tools for the relationships that matter most.
             </p>
           </div>
           <div className="hiw-box hiw-box-coming">
@@ -373,12 +375,13 @@ function FoundingOffer() {
               <div style={{ color: "#8a8270", fontSize: 14, marginBottom: 14 }}>or $59/year (2 months free)</div>
               <ul style={{ listStyle: "none", padding: 0, margin: "0 0 18px" }}>
                 {check("Everything in Free, plus —", true)}
-                {check("A deeper daily devotional — fuller study, a key word, and a step to live it")}
-                {check("The World Through God's Lens — the headlines without the fear (Thursdays)")}
-                {check("The Weekend Study — a deeper guided Bible study (Saturdays)")}
+                {check("The Deeper Walk — deeper Bible teaching, every day")}
+                {check("The Bible Thread — how each reading points to Jesus")}
+                {check("Heart Check + Journal With God — real daily formation")}
+                {check("Pray the Word + a Walk It Out step to live it")}
+                {check("A daily Spiritual Wellness Guide grounding practice")}
                 {check("Inside the Circle — live sessions with a licensed Christian therapist & guest pastors")}
-                {check("BONUS: The Spiritual Wellness Guide, 3×/week — free for a full year", true)}
-                {check("Peace Practice · Pattern Breaker · Prayer Lab · faith + neuroscience tools")}
+                {check("BONUS: The full Spiritual Wellness Guide, 3×/week — free for a full year", true)}
                 {check("Founding rate locked at $5.99 for life", true)}
                 {check("Grandfathered into the full platform when it launches", true)}
                 {check("Your support helps someone find Jesus — it funds free access for those who can't pay", true)}

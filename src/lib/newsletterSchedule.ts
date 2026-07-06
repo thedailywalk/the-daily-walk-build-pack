@@ -91,12 +91,7 @@ function editionsForDate(
     publication: "premium",
     type: "The Deeper Walk",
     headline: premHeadline,
-    extra:
-      wd === "Thursday"
-        ? "+ The World Through God's Lens"
-        : wd === "Saturday"
-          ? "+ The Weekend Study"
-          : undefined,
+    extra: wd === "Saturday" ? "+ The Weekend Study" : undefined,
     tier: "Premium",
     status: statusOf(prem),
     editHref: `/admin/premium?date=${date}`,

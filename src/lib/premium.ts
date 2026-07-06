@@ -18,19 +18,17 @@ export { addDays, weekdayLabel, prettyDate, upcomingDates };
 
 /**
  * The PREMIUM (Founding Member) newsletter — "The Deeper Walk", the Discipleship
- * Newsletter. The main paid offer: deeper Bible study + discipleship. Same prep
- * rhythm as the free daily (week-ahead → open & edit → mark Ready → publishes on
- * its date). Segments:
- *   • The Main Premium Devotional — daily (a deeper reflection than the free one)
- *   • The World Through God's Lens — Thursdays (2–3 events seen through faith, each
- *                                    with What Happened / How We See It Through Faith
- *                                    / How We Can Pray) + an uplifting close.
- *   • The Weekend Study            — Saturdays (a deeper guided Bible study)
- *   • Inside the Circle            — recurring live-session invites (therapist + pastors)
+ * Newsletter. The main paid offer: not just a longer devotional but a daily
+ * discipleship rhythm. Same prep flow as the free daily (week-ahead → open & edit
+ * → mark Ready → publishes on its date). Each daily issue's rhythm:
+ *   The Word for Today → Deeper Walk (Bible teaching) → The Bible Thread (points
+ *   to Jesus) → Heart Check → Journal With God → Spiritual Wellness Guide practice
+ *   → Pray the Word → Walk It Out → Save This Line → A Glimpse of Goodness (one
+ *   story) → Tomorrow's Thread.
+ * Saturdays can add an authored Weekend Study (a deeper guided study).
  *
- * The neuroscience/emotional-wellness tools (Science Behind It, Peace Practice,
- * Pattern Breaker, Prayer Lab, A Question Worth Sitting With) now live in the
- * separate Spiritual Wellness Guide — see `src/lib/wellness.ts`.
+ * The fuller neuroscience/emotional-wellness tools live in the separate Spiritual
+ * Wellness Guide — see `src/lib/wellness.ts`.
  */
 export type PremiumData = {
   weekFocus?: string;

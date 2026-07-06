@@ -20,13 +20,13 @@ const TABS: { key: TierKey; name: string; price: string }[] = [
 
 const INCLUDED = [
   "The daily devotional — every day, not just 3× a week",
-  "The Deeper Walk — a daily 5-minute premium devotional",
-  "The Spiritual Wellness Guide — 3× a week (Mon · Wed · Fri)",
-  "The Saturday Weekend Study — a deeper weekend deep-dive",
+  "The Deeper Walk — deeper Bible teaching every morning",
+  "The Bible Thread — how each reading points to Jesus",
+  "Heart Check + Journal With God — real daily formation",
+  "A daily Spiritual Wellness Guide grounding practice",
+  "Pray the Word + a Walk It Out step to live it out",
   "The guided Bible-in-a-Year journey, from your own Day 1",
-  "Daily guided Scripture — plain-English breakdown + audio",
-  "Monthly downloadable workbook + the full archive",
-  "Progress, streaks, notes & favorite verses",
+  "Guided Scripture + audio · monthly workbook · full archive",
 ];
 
 export default function HowItWorks() {
@@ -124,18 +124,20 @@ export default function HowItWorks() {
               <div className="hiw-box-k">The daily upgrade</div>
               <h4>The Deeper Walk newsletter</h4>
               <p>
-                A daily 5-minute devotional that goes further than the free one:
-                fuller context, a key word unpacked, a reflective pause as you
-                read, and a real next step to live it out.
+                A daily guided walk that goes further than the free one: deeper
+                Bible teaching, a Heart Check, Journal With God, a Spiritual
+                Wellness practice, Pray the Word, and a Walk It Out step — real
+                formation, every morning.
               </p>
             </div>
             <div className="hiw-box hiw-box-soft">
               <div className="hiw-box-k">3× a week</div>
               <h4>The Spiritual Wellness Guide</h4>
               <p>
-                Practical, real-life tools for the relationships that matter
-                most — as a parent, a child, a spouse, or a friend — plus the
-                Saturday Weekend Study deep-dive.
+                Practical, faith-based tools to steady your heart and the
+                relationships that matter most — as a parent, a child, a spouse,
+                or a friend — plus a daily grounding practice inside the Deeper
+                Walk.
               </p>
             </div>
             <div className="hiw-box hiw-box-coming">

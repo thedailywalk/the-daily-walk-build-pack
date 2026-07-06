@@ -332,10 +332,10 @@ export default async function HomePage() {
               <div className="pd">Just 20¢ a day · or $59/yr · everything</div>
               <ul>
                 <li>Everything in Free — plus the devotional every day</li>
+                <li>The Deeper Walk: deeper Bible teaching daily</li>
+                <li>Heart Check + Journal With God</li>
+                <li>Spiritual Wellness Guide + Pray the Word</li>
                 <li>Guided Bible-in-a-Year from your Day 1</li>
-                <li>The Deeper Walk discipleship newsletter</li>
-                <li>The Spiritual Wellness Guide</li>
-                <li>Monthly workbook + the full archive</li>
                 <li>Founding price locked in for life</li>
               </ul>
               <Link href="/pricing" className="btn btn-gold btn-block">

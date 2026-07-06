@@ -4,6 +4,14 @@ Goal: the **free daily devotional** goes to **everyone**, while **The Deeper Wal
 (premium) and the **Spiritual Wellness Guide** go **only to paying members** — and
 new paying members start receiving them automatically the moment they subscribe.
 
+> **What premium is now:** The Deeper Walk isn't just a longer devotional — it's a
+> daily discipleship rhythm. Each issue includes the main devotional plus **Deeper
+> Walk** (Bible teaching), **The Bible Thread** (how the reading points to Jesus),
+> **Heart Check**, **Journal With God**, a **Spiritual Wellness Guide** practice,
+> **Pray the Word**, **Walk It Out**, a **Save This Line** quote, one **Glimpse of
+> Goodness** story, and **Tomorrow's Thread**. That's the value paying members get
+> every day — keep the upgrade copy in Beehiiv aligned to it.
+
 Beehiiv is the **source of truth for who paid**. This app reads each subscriber's
 Beehiiv tier and unlocks member features when the tier name contains
 **"founding"**, **"premium"**, or **"patron"** — so as long as your paid tiers are
