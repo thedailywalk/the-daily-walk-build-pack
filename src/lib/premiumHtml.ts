@@ -149,8 +149,15 @@ export function renderPremiumHtml(issue: PremiumIssue, goodNews: GoodNewsItem[] 
         d.devKeyWord?.trim()
           ? `<div style="${S.keyword}"><strong>Key word — </strong>${esc(d.devKeyWord)}</div>`
           : "",
+        // "Make It Real" — presented the same way as the free daily devotional:
+        // gold kicker, big navy "So what, for today?" heading, plain body.
         d.devApply?.trim()
-          ? `<div style="${S.apply}"><div style="${S.applyK}">So what, for today?</div>${esc(d.devApply)}</div>`
+          ? [
+              rule,
+              `<div style="${S.kicker}">Make It Real</div>`,
+              `<h2 style="${S.sec}">So what, for today?</h2>`,
+              paras(d.devApply),
+            ].join("")
           : "",
         d.devReflection?.trim()
           ? `<div style="${S.question}">${esc(d.devReflection.startsWith("👉") ? d.devReflection : `👉 ${d.devReflection}`)}</div>`
