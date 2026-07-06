@@ -95,7 +95,10 @@ const rule = `<div style="${S.rule}"></div>`;
 
 /** A Glimpse of Goodness — ONE real story of hope (premium stays deep, not busy). */
 function glimpseBlock(items: GoodNewsItem[]): string {
-  const g = (items ?? [])[0];
+  const list = items ?? [];
+  // Prefer a story that has a verified free (Wikimedia Commons) photo so the
+  // Glimpse always leads with a real, license-cleared picture.
+  const g = list.find((i) => i.image?.trim()) ?? list[0];
   if (!g) return "";
   const tile = g.image
     ? `<img src="${esc(g.image)}" alt="" style="width:100%;height:150px;object-fit:cover;display:block;">`
@@ -311,7 +314,7 @@ export function renderPremiumHtml(issue: PremiumIssue, goodNews: GoodNewsItem[] 
     [
       `<div style="${S.kicker}">From the founders</div>`,
       `<div style="${S.founder}">`,
-      `<p style="${S.founderP}">The Daily Walk is built by a small family who love Jesus and want to help others find Him. If this is walking with you — or you'd like to partner, give toward the mission, or just say hello — we'd genuinely love to hear from you. Call or text <a href="tel:+1${site.founderPhone.replace(/[^0-9]/g, "")}" style="color:#B8902E;font-weight:bold;text-decoration:none;">${esc(site.founderPhone)}</a>, or email <a href="mailto:${esc(site.replyTo)}" style="color:#B8902E;font-weight:bold;text-decoration:none;">${esc(site.replyTo)}</a>.<br><span style="font-style:italic;color:#6a6452;">— the founding family</span></p>`,
+      `<p style="${S.founderP}">The Daily Walk is built by a small family who love Jesus and want to help others find Him. If you feel like you're being called to walk with us — or you'd like to partner, give toward the mission, or just say hello — we'd genuinely love to hear from you. Call or text <a href="tel:+1${site.founderPhone.replace(/[^0-9]/g, "")}" style="color:#B8902E;font-weight:bold;text-decoration:none;">${esc(site.founderPhone)}</a>, or email <a href="mailto:${esc(site.replyTo)}" style="color:#B8902E;font-weight:bold;text-decoration:none;">${esc(site.replyTo)}</a>.<br><span style="font-style:italic;color:#6a6452;">— the founding family</span></p>`,
       `</div>`,
     ].join("")
   );

@@ -65,6 +65,20 @@ const PREFERRED_CATEGORIES = [
   "Love", "Charity",
 ];
 
+/**
+ * Broad, hopeful search terms that reliably have permissively-licensed photos on
+ * Wikimedia Commons — used only as a last resort so every Good News story still
+ * shows a real, credited, free-to-reuse picture instead of a blank tile.
+ */
+const GOOD_NEWS_IMAGE_FALLBACKS = [
+  "sunrise sky",
+  "volunteers community",
+  "helping hands",
+  "mountain dawn landscape",
+  "open field sunlight",
+  "people gardening together",
+];
+
 export async function getDailyGoodNews(count = 3): Promise<GoodNewsItem[]> {
   const featured = await getFeaturedGoodNews();
   try {
@@ -103,7 +117,19 @@ export async function getDailyGoodNews(count = 3): Promise<GoodNewsItem[]> {
     const base = [...featured, ...pinned, ...chosen].slice(0, count);
     const items: GoodNewsItem[] = await Promise.all(
       base.map(async (it) => {
-        const found = await findCommonsImage(it.headline).catch(() => null);
+        // Try the headline first; if Commons has no match, fall back to the
+        // category and then to broad, hopeful terms — so every story still
+        // gets a FREE, license-cleared (credited) photo rather than a blank tile.
+        let found = await findCommonsImage(it.headline).catch(() => null);
+        if (!found && it.category) {
+          found = await findCommonsImage(it.category).catch(() => null);
+        }
+        if (!found) {
+          for (const term of GOOD_NEWS_IMAGE_FALLBACKS) {
+            found = await findCommonsImage(term).catch(() => null);
+            if (found) break;
+          }
+        }
         return { ...it, image: found?.url ?? "", imageCredit: found?.credit ?? "" };
       })
     );

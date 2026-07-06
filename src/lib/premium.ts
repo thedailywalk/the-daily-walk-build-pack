@@ -294,7 +294,6 @@ export function fullPremiumFor(date: string): PremiumData {
   const weekday = weekdayLabel(date);
   const dayIdx = dayIndexForDate(date);
   const s = getStudyDay(dayIdx);
-  const v = s.verses?.[0];
   const k = s.keyWords?.[0];
   const sv = splitVerse(s.verse);
 
@@ -322,10 +321,10 @@ export function fullPremiumFor(date: string): PremiumData {
     devPrayer: s.prayer,
 
     // --- The daily discipleship rhythm (seeded from the study library) ---
-    deeperWalk: `Look a little closer. ${s.aboutPeople} ${s.context}`.trim(),
-    bibleThread: s.arc
-      ? `Zoom out: today's reading is one thread in the story that runs straight to Jesus. ${s.aboutGod}`
-      : `Today's reading is one thread in the bigger story that leads to Jesus. ${s.aboutGod}`,
+    // Kept intentionally DISTINCT from "The Word for Today" above so nothing repeats.
+    deeperWalk: `Look a little closer at what today's passage reveals about the human heart: ${s.aboutPeople}`,
+    bibleThread:
+      "Zoom out: today's reading is one thread in the single story Scripture is telling — the story that runs straight to Jesus. Even here, God is moving His rescue forward, one page at a time.",
     heartCheck: [s.sideReflection, s.reflection].filter(Boolean).join("\n"),
     journalPrompt:
       "God, as I sit with today's reading, show me where this meets my real life — and what You want to say to me right here.",
@@ -347,21 +346,11 @@ export function fullPremiumFor(date: string): PremiumData {
   data.circleCtaLabel = "See what's coming →";
   data.circleCtaUrl = process.env.NEXT_PUBLIC_COMMUNITY_URL ?? "";
 
-  // The Weekend Study — Saturdays only
-  if (weekday === "Saturday") {
-    data.studyHeading = s.aboutGod || "A deeper look this weekend";
-    data.studyRef = `📖 ${s.reading}`;
-    data.studyBody = `${s.context}\n\n${s.plainEnglish}`;
-    data.studyKeyWord = k ? `${k.word} — ${k.meaning}` : "";
-    data.studyVerse = v
-      ? `${v.ref} — ${v.text}`
-      : sv.ref
-        ? `${sv.ref} — ${sv.text}`
-        : "";
-    data.studyQuestion = s.reflection?.startsWith("👉")
-      ? s.reflection
-      : `👉 ${s.reflection}`;
-  }
+  // The Weekend Study (Saturdays) is intentionally NOT auto-seeded here: the new
+  // daily rhythm (Deeper Walk + Bible Thread + Heart Check …) already delivers
+  // deep study every day, and re-seeding it from the same study day just repeated
+  // the main devotional. When you want a distinct weekend deep-dive, write it in
+  // the editor's Weekend Study fields and it renders on Saturdays.
 
   return data;
 }
