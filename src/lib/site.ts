@@ -28,8 +28,12 @@ export const site = {
   // Falls back to the on-site subscribe form / pricing page when unset.
   beehiiv: {
     subscribeUrl: process.env.NEXT_PUBLIC_BEEHIIV_SUBSCRIBE_URL ?? "",
-    upgradePremiumUrl: process.env.NEXT_PUBLIC_BEEHIIV_PREMIUM_URL ?? "/pricing",
-    upgradePatronUrl: process.env.NEXT_PUBLIC_BEEHIIV_PATRON_URL ?? "/pricing",
+    // beehiiv upgrade page — shows both paid tiers (Founding Member / Partner)
+    // with the monthly/annual toggle; the reader picks their tier and pays there.
+    upgradePremiumUrl:
+      process.env.NEXT_PUBLIC_BEEHIIV_PREMIUM_URL ?? "https://thedailywalk.beehiiv.com/upgrade",
+    upgradePatronUrl:
+      process.env.NEXT_PUBLIC_BEEHIIV_PATRON_URL ?? "https://thedailywalk.beehiiv.com/upgrade",
     archiveUrl: process.env.NEXT_PUBLIC_BEEHIIV_ARCHIVE_URL ?? "",
     manageUrl: process.env.NEXT_PUBLIC_BEEHIIV_MANAGE_URL ?? "",
   },
