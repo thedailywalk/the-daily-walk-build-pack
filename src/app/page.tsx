@@ -8,6 +8,7 @@ import { GOOD_NEWS_PUBLIC, PRICING_ENABLED } from "@/lib/flags";
 import { site } from "@/lib/site";
 import { studyTips as tips } from "@/lib/studyTips";
 import HowItWorks from "@/components/HowItWorks";
+import MembershipCard from "@/components/MembershipCard";
 
 export default async function HomePage() {
   const previewPrayers = (await listApprovedPrayers(12)).map((p) => ({
@@ -316,65 +317,7 @@ export default async function HomePage() {
             every day — for $5.99/mo, and Founding Partners give a little more to
             keep it free for people who can&apos;t pay.
           </p>
-          <div className="ptiers">
-            <div className="pt">
-              <div className="tname" style={{ color: "#7a828c" }}>
-                Free
-              </div>
-              <div className="pr">$0</div>
-              <div className="pd">Always free · Mon · Wed · Fri</div>
-              <ul>
-                <li>The devotional 3× a week + prayer</li>
-                <li>3 Good News stories</li>
-                <li>Wednesday Pastor&apos;s Take</li>
-                <li>Free community access</li>
-              </ul>
-              <Link href="/subscribe" className="btn btn-ghost btn-block">
-                Start free
-              </Link>
-            </div>
-            <div className="pt feat-tier">
-              <span className="pop">MOST POPULAR</span>
-              <div className="tname" style={{ color: "var(--gold-deep)" }}>
-                Founding Member
-              </div>
-              <div className="pr">
-                $5.99<small>/mo</small>
-              </div>
-              <div className="pd">Just 20¢ a day · or $59/yr · everything</div>
-              <ul>
-                <li>Everything in Free — plus the devotional every day</li>
-                <li>The Deeper Walk: deeper Bible teaching daily</li>
-                <li>Heart Check + Journal With God</li>
-                <li>Spiritual Wellness Guide + Pray the Word</li>
-                <li>Guided Bible-in-a-Year from your Day 1</li>
-                <li>Founding price locked in for life</li>
-              </ul>
-              <Link href="/pricing" className="btn btn-gold btn-block">
-                Become a Founding Member
-              </Link>
-            </div>
-            <div className="pt tier-partner">
-              <span className="pop pop-alt">PAY IT FORWARD</span>
-              <div className="tname" style={{ color: "var(--navy)" }}>
-                Founding Partner
-              </div>
-              <div className="pr">
-                $19.99<small>/mo</small>
-              </div>
-              <div className="pd">For those who can give a little more</div>
-              <ul>
-                <li>Everything in Founding Member</li>
-                <li>Keeps a Christian counselor free for everyone</li>
-                <li>Keeps it free for readers who can&apos;t pay</li>
-                <li>Pastors &amp; perspectives from around the world</li>
-                <li>Monthly founder updates — always in the loop</li>
-              </ul>
-              <Link href="/pricing" className="btn btn-ghost btn-block">
-                Become a Founding Partner
-              </Link>
-            </div>
-          </div>
+          <MembershipCard />
           <p style={{ textAlign: "center", marginTop: 22 }}>
             <Link href="/pricing">See the full plan comparison →</Link>
           </p>
