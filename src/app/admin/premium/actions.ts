@@ -7,6 +7,8 @@ import {
   premiumUpsert,
   premiumDelete,
   premiumEnsureWeek,
+  premiumGetByDate,
+  fullPremiumFor,
   type PremiumData,
   type PremiumStatus,
 } from "@/lib/premium";
@@ -63,6 +65,39 @@ export async function savePremiumAction(formData: FormData) {
 
   revalidatePath("/admin/premium");
   redirect(`/admin/premium?date=${date}&saved=1`);
+}
+
+/**
+ * "Select this one" from the side-by-side comparison. Saves the chosen version
+ * (the platform's auto-written one, or the existing pasted draft) as the issue
+ * that publishes for this date, and marks it Ready.
+ */
+export async function selectPremiumVersionAction(formData: FormData) {
+  await requireAdmin();
+  const date = str(formData, "date");
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return;
+  const source = str(formData, "source") === "platform" ? "platform" : "draft";
+
+  let data: PremiumData | null = null;
+  let title = "";
+  if (source === "platform") {
+    data = fullPremiumFor(date);
+    title = data.devHeading || `Premium · ${date}`;
+  } else {
+    const existing = await premiumGetByDate(date);
+    if (existing) {
+      data = existing.data;
+      title = existing.title || existing.data.devHeading || `Premium · ${date}`;
+    }
+  }
+  if (!data) {
+    // Nothing to select (e.g. no pasted draft yet) — just return to the day.
+    redirect(`/admin/premium?day=${date}`);
+  }
+
+  await premiumUpsert(date, "ready", title, data);
+  revalidatePath("/admin/premium");
+  redirect(`/admin/premium?day=${date}&selected=${source}`);
 }
 
 export async function preparePremiumWeekAction() {
