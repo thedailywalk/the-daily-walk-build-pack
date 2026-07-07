@@ -38,7 +38,6 @@ const comparison: Array<
   { row: "“What this shows us about God” reflection", tiers: [0, 1, 1] },
   { row: "Real-life application for modern life", tiers: [0, 1, 1] },
   { row: "Daily reflection question + prayer prompt", tiers: [0, 1, 1] },
-  { row: "Audio devotional for each day", tiers: [0, 1, 1] },
   { row: "The Deeper Walk discipleship newsletter, every day", tiers: [0, 1, 1] },
   { row: "Deeper Bible teaching + The Bible Thread (points to Jesus)", tiers: [0, 1, 1] },
   { row: "Heart Check + Journal With God (daily formation)", tiers: [0, 1, 1] },
@@ -57,7 +56,6 @@ const comparison: Array<
   { row: "Pastors & perspectives from hard-to-reach places", tiers: [0, 0, 1] },
   { row: "Live updates on every project — see the change you're making", tiers: [0, 0, 1] },
   { row: "Monthly founder notes — always in the loop on what we build", tiers: [0, 0, 1] },
-  { row: "Meets kids where they are, then points them back to the real world", tiers: [0, 0, 1] },
 ];
 
 const faqs = [
@@ -333,7 +331,7 @@ function FoundingOffer() {
               not just read a devotional, but learn how to live it: Scripture, prayer, real discipleship, and
               real-world reflection that keep you close to God and steady in your mind. Founding Members lock in{" "}
               <strong>$5.99/mo for life</strong>, get <strong>one full year of The Spiritual Wellness Guide free</strong>,
-              and are grandfathered into the whole platform we&apos;re building (guided Bible-in-a-Year, audio,
+              and are grandfathered into the whole platform we&apos;re building (guided Bible-in-a-Year,
               dashboard &amp; community) the day it opens. 🙏
             </p>
           </div>
@@ -419,7 +417,6 @@ function FoundingOffer() {
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 10 }}>
               {[
                 "Your guided Bible-in-a-Year journey, from your Day 1",
-                "Daily audio devotionals",
                 "Live sessions with a Christian therapist + pastors you can join",
                 "A personal dashboard — streaks, milestones, your Walk Score",
                 "A real community: prayer wall + encouragement wall",

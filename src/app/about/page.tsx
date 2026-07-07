@@ -69,7 +69,7 @@ export default function AboutPage() {
           <strong>Bible-in-a-Year journey</strong> (for Founding Members) is
           personal and guided: it starts on your Day 1 and walks you through
           Scripture beginning with Jesus, with a plain-English breakdown,
-          real-life application, a reflection question, and audio for every day.
+          real-life application, and a reflection question for every day.
         </p>
 
         <h2>Who&apos;s behind it</h2>

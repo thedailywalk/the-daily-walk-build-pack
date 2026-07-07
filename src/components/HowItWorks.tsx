@@ -26,7 +26,7 @@ const INCLUDED = [
   "A daily Spiritual Wellness Guide grounding practice",
   "Pray the Word + a Walk It Out step to live it out",
   "The guided Bible-in-a-Year journey, from your own Day 1",
-  "Guided Scripture + audio · monthly workbook · full archive",
+  "Guided Scripture · monthly workbook · full archive",
 ];
 
 export default function HowItWorks() {

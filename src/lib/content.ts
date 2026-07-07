@@ -20,7 +20,7 @@ export const rhythms = [
   {
     tag: "Your Day 1 · Premium",
     title: "The Bible-in-a-Year journey",
-    body: "Read the whole Bible in a year — starting with Jesus, not Genesis. Each day: the reading, a plain-English breakdown, what it shows us about God, real-life application, a question, and audio. Begins the day you join.",
+    body: "Read the whole Bible in a year — starting with Jesus, not Genesis. Each day: the reading, a plain-English breakdown, what it shows us about God, real-life application, and a question. Begins the day you join.",
     who: "For readers who want to be personally guided through the Bible.",
   },
 ];
@@ -40,11 +40,6 @@ export const features = [
     icon: "🌍",
     title: "Good News briefing",
     body: "Three uplifting, real stories each day — proof that even when the world feels heavy, good is still happening.",
-  },
-  {
-    icon: "🎧",
-    title: "Listen or read",
-    body: "Premium includes an audio devotional each day — perfect for the commute or the morning coffee.",
   },
   {
     icon: "🗓️",
@@ -153,7 +148,7 @@ export const tiers: Tier[] = [
       "The Bible Thread — how each reading points to Jesus",
       "Heart Check + Journal With God for real formation",
       "A daily Spiritual Wellness Guide practice + Pray the Word",
-      "A Walk It Out step, guided Scripture & audio",
+      "A Walk It Out step + guided Scripture to live it",
       "The guided Bible-in-a-Year journey, from your own Day 1",
       "Monthly workbook, full archive & price locked in for life",
     ],
@@ -173,7 +168,6 @@ export const tiers: Tier[] = [
       "Brings you pastors & perspectives from across the world",
       "Live updates on every project — see the lives your giving changes",
       "Monthly founder notes — always in the loop on what we're building",
-      "Meets kids where they are, then points them back to the real world",
     ],
     cta: "Become a Founding Partner",
     href: "/pricing",

@@ -106,7 +106,7 @@ export default function PricingCards() {
                 A daily <b>Spiritual Wellness Guide</b> practice + a{" "}
                 <b>Walk It Out</b> step to live it
               </li>
-              <li>Guided Scripture + audio · monthly workbook · full archive</li>
+              <li>Guided Scripture · monthly workbook · full archive</li>
               <li>
                 <b>Lifetime access to the whole platform as it launches</b>
                 <span className="feat-sub">
@@ -150,7 +150,6 @@ export default function PricingCards() {
               <li>Brings you <b>pastors &amp; perspectives</b> from across the world</li>
               <li><b>Live updates on every project</b> — see the lives your giving changes</li>
               <li><b>Monthly founder notes</b> on everything we&apos;re building — you&apos;re always in the loop</li>
-              <li><b>Meets kids where they are</b>, then points them back to the real world</li>
             </ul>
           </div>
           <a className="btn btn-ghost" href={site.beehiiv.upgradePatronUrl}>

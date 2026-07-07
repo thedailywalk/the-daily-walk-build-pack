@@ -106,7 +106,7 @@ export default async function AccountPage() {
               You&apos;re on the <strong>Free</strong> plan — the daily
               newsletter, prayer, and Good News. Upgrade to{" "}
               <strong>Premium</strong> for the guided Bible-in-a-Year journey
-              from your Day 1, daily audio, the weekend deep-dive, and the full
+              from your Day 1, the weekend deep-dive, and the full
               archive.
             </p>
             <Link href="/pricing" className="btn btn-gold">

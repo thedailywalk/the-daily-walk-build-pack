@@ -31,15 +31,15 @@ const WELLNESS = {
 const JOURNEY = {
   kicker: "Your Day 1 · Premium",
   title: "The Bible-in-a-Year journey",
-  body: "Read the whole Bible in a year — starting with Jesus, not Genesis. Each day: the reading, a plain-English breakdown, what it shows about God, real-life application, a question, and audio. Begins the day you join.",
+  body: "Read the whole Bible in a year — starting with Jesus, not Genesis. Each day: the reading, a plain-English breakdown, what it shows about God, real-life application, and a question. Begins the day you join.",
   foot: "For readers who want to be personally guided through the Bible.",
-  bullets: ["Start with Jesus", "Never feel behind — your Day 1", "Plain-English breakdowns", "Listen or read (audio)"],
+  bullets: ["Start with Jesus", "Never feel behind — your Day 1", "Plain-English breakdowns", "A question worth sitting with"],
 };
 
 const FAQ = [
   { q: "Is it really free?", a: "Yes — completely. The daily devotional, the prayer, the three Good News stories, the Wednesday Pastor's Take, and the Sunday Rest & Reflect are free forever, with no card required. Premium is an option, never a wall." },
-  { q: "What do I get with Premium?", a: "The Deeper Walk — a richer daily devotional plus The World Through God's Lens (Thursdays), The Weekend Study (Saturdays), and Inside the Circle live sessions with a licensed Christian therapist and guest pastors. You also get the guided Bible-in-a-Year journey, daily audio, and your member dashboard. $5.99/mo or $59/yr." },
-  { q: "What's a Founding Member?", a: "Early supporters who help build this. You lock in $5.99/mo for life, get a full year of The Spiritual Wellness Guide free, and are grandfathered into the whole platform as it grows — guided journey, audio, dashboard, and community." },
+  { q: "What do I get with Premium?", a: "The Deeper Walk — a richer daily devotional plus The World Through God's Lens (Thursdays), The Weekend Study (Saturdays), and Inside the Circle live sessions with a licensed Christian therapist and guest pastors. You also get the guided Bible-in-a-Year journey and your member dashboard. $5.99/mo or $59/yr." },
+  { q: "What's a Founding Member?", a: "Early supporters who help build this. You lock in $5.99/mo for life, get a full year of The Spiritual Wellness Guide free, and are grandfathered into the whole platform as it grows — guided journey, dashboard, and community." },
   { q: "What is the Spiritual Wellness Guide?", a: "A Founding-Member bonus sent three times a week (Mon · Wed · Fri). It pairs faith with grounded neuroscience: a 60-second Peace Practice, the Pattern Breaker, the Prayer Lab, and a question worth sitting with — practical calm, not just inspiration." },
   { q: "Do I have to start on January 1? What if I miss a day?", a: "No. The Bible-in-a-Year begins on your Day 1, whenever that is. Miss a day? You simply pick up where you left off — nothing resets, and there's no guilt here." },
   { q: "I'm new to faith — or not sure I believe. Is this for me?", a: "Absolutely. It's written in plain English with no church jargon and no guilt — welcoming to believers and seekers alike. It starts with Jesus: who He is and how He treats people." },
@@ -222,7 +222,7 @@ function Sample3() {
 function Sample4() {
   const tiers = [
     { emoji: "🌅", label: "Free", price: "$0", tagline: "Daily encouragement for everyone", points: FREE.bullets, cta: "Start free" },
-    { emoji: "📖", label: "Premium", price: "$5.99/mo", tagline: "The Deeper Walk + Bible-in-a-Year", points: [...PREMIUM.bullets, "Guided Bible-in-a-Year + audio"], cta: "Become a Founding Member", feat: true },
+    { emoji: "📖", label: "Premium", price: "$5.99/mo", tagline: "The Deeper Walk + Bible-in-a-Year", points: [...PREMIUM.bullets, "Guided Bible-in-a-Year, from your Day 1"], cta: "Become a Founding Member", feat: true },
     { emoji: "🕊️", label: "Founding bonus", price: "Included", tagline: "The Spiritual Wellness Guide, 3×/week", points: WELLNESS.bullets, cta: "Free for a year" },
   ];
   return (
