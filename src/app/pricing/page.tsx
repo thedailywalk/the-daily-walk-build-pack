@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import PricingCards from "@/components/PricingCards";
+import MembershipCard from "@/components/MembershipCard";
 import { PRICING_ENABLED } from "@/lib/flags";
 import { site } from "@/lib/site";
 
@@ -118,7 +118,7 @@ export default function PricingPage() {
           give a little more to keep it free for those who can&apos;t.
         </p>
 
-        <PricingCards />
+        <MembershipCard />
 
         {/* WHAT FOUNDING MEMBER REALLY GIVES YOU */}
         <h2 className="section">The big things you&apos;re getting</h2>
