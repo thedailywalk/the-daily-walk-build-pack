@@ -66,7 +66,7 @@ function comingSoonHtml(path: string): string {
 <body><div class="w">
   <div class="k">The Daily Walk</div>
   <h1>This part is still being built.</h1>
-  <p class="lead">Your member space &mdash; sign&#8209;in, your dashboard, and the guided Bible&#8209;in&#8209;a&#8209;Year journey &mdash; is coming soon. In the meantime, the daily devotional is free three mornings a week.</p>
+  <p class="lead">Your member space &mdash; sign&#8209;in, your dashboard, and the guided Bible&#8209;in&#8209;a&#8209;Year journey &mdash; is coming soon.</p>
   <div class="rule"></div>
   <p class="verse">${v.t}</p>
   <p class="cite">${v.r}</p>
