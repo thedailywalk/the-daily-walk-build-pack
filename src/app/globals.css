@@ -2125,6 +2125,61 @@ a.gncard:focus-visible {
 .gfm-drop[open] .gfm-summary-ic {
   transform: rotate(180deg);
 }
+/* Clickable "Read the story" pill — makes the dropdown obviously interactive */
+.gfm-summary:hover {
+  background: rgba(201, 162, 75, 0.07);
+}
+.gfm-summary-cta {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border: 1.5px solid var(--gold);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--gold-deep);
+  font-family: var(--sans);
+  font-size: 13.5px;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: background 0.16s ease, box-shadow 0.16s ease;
+}
+.gfm-summary:hover .gfm-summary-cta {
+  background: var(--gold);
+  color: #fff;
+  box-shadow: 0 6px 16px -8px rgba(184, 144, 46, 0.7);
+}
+.gfm-cta-b {
+  display: none;
+}
+.gfm-drop[open] .gfm-cta-a {
+  display: none;
+}
+.gfm-drop[open] .gfm-cta-b {
+  display: inline;
+}
+.gfm-cta-ic {
+  font-size: 12px;
+  transition: transform 0.2s ease;
+}
+.gfm-drop[open] .gfm-cta-ic {
+  transform: rotate(180deg);
+}
+/* "Keep checking in" note — soft highlighted callout at the end of the story */
+.gfm-note {
+  margin: 4px 0 18px;
+  padding: 14px 16px;
+  background: rgba(201, 162, 75, 0.1);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 10px 10px 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink);
+}
+.gfm-note strong {
+  color: var(--navy);
+}
 .gfm-body {
   padding: 0 26px 26px;
   text-align: left;

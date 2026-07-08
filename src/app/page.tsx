@@ -181,12 +181,14 @@ export default async function HomePage() {
               <span className="gfm-summary-txt">
                 <span className="gfm-k">The first build</span>
                 <span className="gfm-summary-h">
-                  An after-school learning center in Mexico — and a bus to reach
-                  the towns around it
+                  An after-school learning center in rural Mexico — and a bus to
+                  the still-developing towns around it
                 </span>
               </span>
-              <span className="gfm-summary-ic" aria-hidden="true">
-                ▾
+              <span className="gfm-summary-cta" aria-hidden="true">
+                <span className="gfm-cta-a">Read the story</span>
+                <span className="gfm-cta-b">Hide</span>
+                <span className="gfm-cta-ic">▾</span>
               </span>
             </summary>
             <div className="gfm-body">
@@ -206,6 +208,12 @@ export default async function HomePage() {
                 materials to help them in school. Most of all, it&apos;s a place to
                 know and learn about God. It comes from all of us, but it&apos;s
                 because of Him — and every bit of the glory is His.
+              </p>
+              <p className="gfm-note">
+                <strong>More coming — keep checking in.</strong>{" "}
+                We&apos;re in the early days of this build. As each stage comes together — the space,
+                the bus route, the first classes — we&apos;ll post photos, updates,
+                and the real story right here. Keep checking back to watch it rise.
               </p>
               <p className="gfm-contact">
                 If you&apos;re interested in learning more about how to help —
