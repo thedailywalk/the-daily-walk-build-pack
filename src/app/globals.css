@@ -3271,11 +3271,81 @@ td.c {
   font-size: 15px;
   font-family: var(--serif);
 }
-/* Founding Partner callout — navy accent to set it apart, warm + hopeful. */
+/* Founding Partner callout — a deep "sunrise" card (echoes the About hero) to
+   give this section real depth and set it apart, warm + hopeful. */
 .partner-explain {
-  border-color: #c9d3df;
-  border-left: 4px solid var(--navy);
-  background: #f6f8fb;
+  border: 1px solid rgba(201, 162, 75, 0.35);
+  border-radius: 22px;
+  padding: 42px 44px 40px;
+  position: relative;
+  overflow: hidden;
+  color: #e5ebf3;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(15, 26, 46, 0.88) 0%,
+      rgba(17, 32, 56, 0.58) 55%,
+      rgba(31, 58, 95, 0.62) 100%
+    ),
+    radial-gradient(
+      125% 92% at 50% 120%,
+      #f6cf86 0%,
+      #e3a85a 14%,
+      #b9763f 30%,
+      #5b4f63 54%,
+      #243a5d 78%,
+      #16263f 100%
+    );
+  box-shadow: 0 34px 74px -32px rgba(16, 26, 46, 0.6);
+}
+/* warm horizon glow rising from the bottom edge */
+.partner-explain::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -32%;
+  transform: translateX(-50%);
+  width: 150%;
+  height: 62%;
+  background: radial-gradient(
+    50% 60% at 50% 50%,
+    rgba(255, 223, 160, 0.4),
+    transparent 70%
+  );
+  pointer-events: none;
+}
+.partner-explain > * {
+  position: relative;
+  z-index: 1;
+}
+.partner-explain h3 {
+  font-family: var(--serif);
+  color: #fff;
+  font-size: clamp(23px, 3vw, 30px);
+  line-height: 1.15;
+  margin: 0 0 14px;
+}
+.partner-explain p {
+  color: #dbe3ef;
+  font-size: 15.5px;
+  line-height: 1.72;
+  margin: 0 0 14px;
+}
+.partner-explain p strong {
+  color: #fdf4de;
+}
+.partner-explain .punch {
+  color: #f3d9a6;
+  font-size: 17px;
+}
+.partner-explain .partner-eyebrow {
+  color: #f3d9a6;
+}
+@media (max-width: 600px) {
+  .partner-explain {
+    padding: 30px 24px 28px;
+    border-radius: 18px;
+  }
 }
 .partner-eyebrow {
   font-family: var(--sans);
