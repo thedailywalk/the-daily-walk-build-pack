@@ -66,6 +66,9 @@ export default async function Header() {
             </div>
           </div>
 
+          {/* Samples — preview each newsletter before signing up */}
+          <Link href="/samples">Samples</Link>
+
           {/* Profile ▾ (members) */}
           {user && (
             <div className="navdrop">
@@ -147,6 +150,7 @@ export default async function Header() {
                 {i.label}
               </Link>
             ))}
+            <Link href="/samples">Samples — see what you get</Link>
 
             {user && (
               <>
