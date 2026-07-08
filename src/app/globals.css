@@ -4959,6 +4959,16 @@ hr.div {
   background: rgba(201, 162, 75, 0.16);
   border-color: var(--gold);
 }
+.pray-emoji-btn.is-chosen {
+  background: rgba(201, 162, 75, 0.22);
+  border-color: var(--gold);
+  cursor: default;
+  opacity: 1;
+}
+.pray-emoji-btn.is-chosen:hover {
+  transform: none;
+  background: rgba(201, 162, 75, 0.22);
+}
 .pray-react .pray-count {
   background: rgba(31, 58, 95, 0.08);
   color: var(--navy);
