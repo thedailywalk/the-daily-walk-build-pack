@@ -67,13 +67,11 @@ function layout(){try{
    var gapY=pt-14;                                  // in the leading above the phrase
    var edge=side==="left"?286:794;                  // channel just outside the verse column
    var nx=side==="left"?(36+it.nw+6):(1080-36-it.nw-6), ny=it.ny+it.nh/2;
-   var d="M "+nx+" "+ny
-        +" C "+(nx+dir*16)+" "+ny+", "+edge+" "+(gapY+26)+", "+edge+" "+gapY
-        +" L "+targetX+" "+gapY
-        +" L "+targetX+" "+(pt-2);
+   var c1x=nx+dir*46, c2x=targetX-dir*22;
+   var d="M "+nx+" "+ny+" C "+c1x+" "+gapY+", "+c2x+" "+gapY+", "+targetX+" "+(pt-2);
    addPath(svg,d,it.c.ink);
    var ty=pt-2;
-   addPath(svg,"M "+targetX+" "+ty+" l -8 -12 M "+targetX+" "+ty+" l 8 -12",it.c.ink);
+   addPath(svg,"M "+targetX+" "+ty+" q -8 -6 -10 -13 M "+targetX+" "+ty+" q 8 -6 10 -13",it.c.ink);
  });
  window.__done=true;
 }catch(e){window.__err=String(e);}}
