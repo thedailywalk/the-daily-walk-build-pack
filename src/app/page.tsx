@@ -170,8 +170,8 @@ export default async function HomePage() {
             else.
           </p>
           <p className="mh-readmore">
-            <Link href="/mission" className="mh-inline">
-              Read our full mission →
+            <Link href="/mission" className="mh-readmore-btn">
+              Read more about our mission →
             </Link>
           </p>
 

@@ -3,13 +3,13 @@ import { site } from "@/lib/site";
 import { getUser, supabaseConfigured } from "@/lib/supabase/server";
 import { isAdminEmail } from "@/lib/admin";
 
-/** "About" groups the marketing pages under one tidy menu. */
+/** "About" jumps to the matching section on the homepage (smooth in-page scroll). */
 const aboutItems: { href: string; label: string }[] = [
   { href: "/#how", label: "How it works" },
-  { href: "/mission", label: "Our Mission" },
-  { href: "/about", label: "Why read the Bible" },
-  { href: "/prayer-wall", label: "Prayer Wall" },
-  { href: "/pricing", label: "Pricing" },
+  { href: "/#mission-home", label: "Our Mission" },
+  { href: "/#why", label: "Why read the Bible" },
+  { href: "/#pray", label: "Prayer Wall" },
+  { href: "/#pricing", label: "Pricing" },
 ];
 
 /** "Founding Membership" — where visitors learn about premium AND the founders. */

@@ -11327,3 +11327,26 @@ hr.div {
   .sm-body { grid-template-columns: 1fr; gap: 22px; }
   .sm-frame { height: 560px; }
 }
+
+/* --- Homepage in-page nav polish ------------------------------------------ */
+/* Offset anchored sections so the sticky header doesn't cover their tops when
+   the "About" menu scrolls to them. */
+section[id] { scroll-margin-top: 88px; }
+
+/* "Read more about our mission" — a clear button/tab in the mission section. */
+.mh-readmore-btn {
+  display: inline-block;
+  font-family: var(--sans, "Inter", Arial, sans-serif);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.2px;
+  color: var(--gold-deep);
+  background: #fff;
+  border: 1.5px solid var(--gold);
+  border-radius: 30px;
+  padding: 11px 26px;
+  text-decoration: none;
+  box-shadow: 0 10px 26px -18px rgba(31, 58, 95, 0.5);
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.mh-readmore-btn:hover { background: var(--gold); color: #fff; }
