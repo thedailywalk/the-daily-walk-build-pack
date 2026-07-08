@@ -11133,3 +11133,26 @@ hr.div {
   .adm-compare { grid-template-columns: 1fr; }
   .adm-compare-frame { height: 60vh; }
 }
+
+/* "Push to beehiiv (draft)" button + inline result */
+.bh-push {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.bh-push-res {
+  font-size: 13.5px;
+  line-height: 1.4;
+  font-weight: 600;
+}
+.bh-push-res.is-ok {
+  color: #2f7a4d;
+}
+.bh-push-res.is-err {
+  color: #b3452e;
+}
+.bh-push-res a {
+  color: var(--gold-deep);
+  font-weight: 700;
+}
