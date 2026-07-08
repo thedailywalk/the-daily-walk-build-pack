@@ -8,6 +8,7 @@ import {
   premiumListBefore,
   upcomingDates,
   fullPremiumFor,
+  withPremiumDefaults,
   weekdayLabel,
   prettyDate,
   type PremiumIssue,
@@ -153,7 +154,12 @@ async function WeekView(
   const platformIssue: PremiumIssue = { date: day, status: "draft", title: "", data: platformData };
   const platformHtml = renderPremiumHtml(platformIssue, goodNews);
   const draftIssue = byDate.get(day) ?? null;
-  const draftHtml = draftIssue ? renderPremiumHtml(draftIssue, goodNews) : null;
+  const draftHtml = draftIssue
+    ? renderPremiumHtml(
+        { ...draftIssue, data: withPremiumDefaults(day, draftIssue.data) },
+        goodNews
+      )
+    : null;
 
   return (
     <div>
@@ -369,7 +375,7 @@ async function EditorView(date: string, saved: boolean, usePlatform = false) {
   const platformData = fullPremiumFor(date);
   const data: PremiumData = usePlatform
     ? platformData
-    : (existing?.data ?? platformData);
+    : withPremiumDefaults(date, existing?.data ?? platformData);
   const status = usePlatform ? "draft" : (existing?.status ?? "draft");
   const weekday = weekdayLabel(date);
   const pending = await pendingForIssue("premium", date);
@@ -700,11 +706,22 @@ async function ArchiveDetail(date: string) {
       <div className="adm-archview">
         <div className="adm-preview-tag">Full issue · {prettyDate(date)}</div>
         <div className="adm-archview-actions">
-          <CopyButton text={renderPremiumHtml(issue, goodNews)} label="Copy email HTML" />
+          <CopyButton
+            text={renderPremiumHtml(
+              { ...issue, data: withPremiumDefaults(date, issue.data) },
+              goodNews
+            )}
+            label="Copy email HTML"
+          />
         </div>
         <div
           className="adm-preview-frame adm-preview-frame-tall"
-          dangerouslySetInnerHTML={{ __html: renderPremiumHtml(issue, goodNews) }}
+          dangerouslySetInnerHTML={{
+            __html: renderPremiumHtml(
+              { ...issue, data: withPremiumDefaults(date, issue.data) },
+              goodNews
+            ),
+          }}
         />
       </div>
     </div>

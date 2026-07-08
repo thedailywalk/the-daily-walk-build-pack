@@ -16,7 +16,7 @@ import {
   upcomingDates,
   type Devotional,
 } from "@/lib/devotionals";
-import { premiumGetByDate, fullPremiumFor, type PremiumIssue } from "@/lib/premium";
+import { premiumGetByDate, fullPremiumFor, withPremiumDefaults, type PremiumIssue } from "@/lib/premium";
 import { wellnessGetByDate, fullWellnessFor, type WellnessIssue } from "@/lib/wellness";
 import { renderDevotionalHtml } from "@/lib/devotionalHtml";
 import { renderPremiumHtml } from "@/lib/premiumHtml";
@@ -480,7 +480,9 @@ async function PreviewView({ pub, date }: { pub: Publication; date: string }) {
   let label = "";
   if (pub === "premium") {
     const saved = await premiumGetByDate(date);
-    html = renderPremiumHtml(wrapPrem(date, saved?.data ?? fullPremiumFor(date), saved?.status));
+    html = renderPremiumHtml(
+      wrapPrem(date, saved?.data ? withPremiumDefaults(date, saved.data) : fullPremiumFor(date), saved?.status)
+    );
     label = "The Deeper Walk · Premium";
   } else if (pub === "wellness") {
     const saved = await wellnessGetByDate(date);

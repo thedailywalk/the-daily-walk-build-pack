@@ -9,6 +9,7 @@ import {
   premiumEnsureWeek,
   premiumGetByDate,
   fullPremiumFor,
+  withPremiumDefaults,
   type PremiumData,
   type PremiumStatus,
 } from "@/lib/premium";
@@ -86,7 +87,9 @@ export async function selectPremiumVersionAction(formData: FormData) {
   } else {
     const existing = await premiumGetByDate(date);
     if (existing) {
-      data = existing.data;
+      // Bake in the platform's sections for anything the draft left blank, so
+      // the published issue carries the full discipleship rhythm.
+      data = withPremiumDefaults(date, existing.data);
       title = existing.title || existing.data.devHeading || `Premium · ${date}`;
     }
   }

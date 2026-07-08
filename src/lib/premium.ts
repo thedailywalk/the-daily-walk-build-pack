@@ -352,3 +352,20 @@ export function fullPremiumFor(date: string): PremiumData {
 
   return data;
 }
+
+/**
+ * Fill any blank section of a premium issue from the platform's auto-written
+ * version for that date. The issue's own content always wins where present —
+ * only empty fields are completed — so a partial pasted draft still renders
+ * with the full daily discipleship rhythm.
+ */
+export function withPremiumDefaults(date: string, data: PremiumData): PremiumData {
+  const merged: PremiumData = { ...fullPremiumFor(date) };
+  for (const key of Object.keys(data) as (keyof PremiumData)[]) {
+    const v = data[key];
+    if (v != null && String(v).trim() !== "") {
+      merged[key] = v;
+    }
+  }
+  return merged;
+}
