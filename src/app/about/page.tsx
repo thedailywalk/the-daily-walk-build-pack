@@ -74,10 +74,11 @@ export default function AboutPage() {
 
         <h2>Who&apos;s behind it</h2>
         <p>
-          The Daily Walk is created by Lulu Jimenez, with a simple goal: to make
-          faith feel clear, honest, and close — and to keep the core experience
-          free and accessible for anyone who can&apos;t pay. Community access is
-          free for everyone, because no one should have to pay to belong.
+          The Daily Walk is created by a small family who love Jesus, with a
+          simple goal: to make faith feel clear, honest, and close — and to keep
+          the core experience free and accessible for anyone who can&apos;t pay.
+          Community access is free for everyone, because no one should have to pay
+          to belong.
         </p>
 
         <h2>Start this week</h2>
