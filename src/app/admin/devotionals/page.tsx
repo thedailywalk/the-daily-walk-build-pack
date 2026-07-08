@@ -24,7 +24,14 @@ import {
   prepareWeekAction,
   deleteDevotionalAction,
   importDevotionalsAction,
+  selectDevotionalVersionAction,
 } from "./actions";
+
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+function shortDate(iso: string): string {
+  const [, m, d] = iso.split("-").map(Number);
+  return `${MONTHS[(m || 1) - 1]} ${d}`;
+}
 import CopyButton from "./CopyButton";
 import EditorialCheck from "@/components/EditorialCheck";
 import { checkFree } from "@/lib/editorialCheck";
@@ -44,12 +51,17 @@ export default async function DevotionalAdminPage({
     imported?: string;
     skipped?: string;
     source?: string;
+    day?: string;
+    selected?: string;
   }>;
 }) {
   await requireAdmin();
   const sp = await searchParams;
   const view = sp.view === "archive" ? "archive" : "prep";
   const valid = sp.date && /^\d{4}-\d{2}-\d{2}$/.test(sp.date) ? sp.date : null;
+  const validDay = sp.day && /^\d{4}-\d{2}-\d{2}$/.test(sp.day) ? sp.day : null;
+  const selectedFlag =
+    sp.selected === "platform" ? "platform" : sp.selected === "draft" ? "draft" : null;
   const importResult =
     sp.imported != null
       ? { created: Number(sp.imported) || 0, skipped: Number(sp.skipped) || 0 }
@@ -96,19 +108,35 @@ export default async function DevotionalAdminPage({
             : await ArchiveList()
           : valid
             ? await EditorView(valid, sp.saved === "1", sp.source === "platform")
-            : await WeekView(importResult)}
+            : await WeekView(importResult, validDay, selectedFlag)}
       </div>
     </section>
   );
 }
 
-/* ----------------------------- weekly preview ---------------------------- */
+/* --------------------- weekly side-by-side comparison -------------------- */
 async function WeekView(
-  importResult: { created: number; skipped: number } | null
+  importResult: { created: number; skipped: number } | null,
+  dayParam: string | null,
+  selected: "platform" | "draft" | null
 ) {
   const dates = upcomingDates(7);
   const rows = await adminListRange(dates[0], dates[dates.length - 1]);
   const byDate = new Map(rows.map((r) => [r.date, r]));
+
+  // The day currently being compared (defaults to today).
+  const day = dayParam && dates.includes(dayParam) ? dayParam : dates[0];
+  const idx = dates.indexOf(day);
+  const prevDay = idx > 0 ? dates[idx - 1] : null;
+  const nextDay = idx < dates.length - 1 ? dates[idx + 1] : null;
+
+  // Both full versions for that day, rendered as complete issues.
+  const goodNews = await getDailyGoodNews(3);
+  const platformData = fullDevotionalFor(day);
+  const platformDev: Devotional = { date: day, status: "draft", title: "", data: platformData };
+  const platformHtml = renderDevotionalHtml(platformDev, goodNews);
+  const draftDev = byDate.get(day) ?? null;
+  const draftHtml = draftDev ? renderDevotionalHtml(draftDev, goodNews) : null;
 
   return (
     <div>
@@ -120,7 +148,17 @@ async function WeekView(
           {importResult.skipped > 0 && (
             <> {importResult.skipped} block(s) skipped (missing a valid date).</>
           )}{" "}
-          Click a day below to review, then mark it <strong>Ready</strong>.
+          Use the day tabs below to review each, then <strong>Select</strong> the
+          one to publish.
+        </div>
+      )}
+
+      {selected && (
+        <div className="adm-saved" style={{ marginBottom: 14 }}>
+          ✓ Selected {selected === "platform" ? "the platform's" : "your pasted"}{" "}
+          version for <strong>{prettyDate(day)}</strong> — it&apos;s marked{" "}
+          <strong>Ready</strong> and will publish on its date. You can re-select
+          the other version anytime; nothing sends until then.
         </div>
       )}
 
@@ -133,8 +171,9 @@ async function WeekView(
         </form>
       </div>
       <p className="adm-hintline">
-        Every day is generated complete and ready to read. Click any date to open
-        the full issue, edit it, then mark it <strong>Ready</strong>.
+        Read both versions side by side, then <strong>Select this one</strong> on
+        the one you want — it&apos;s marked Ready and publishes on its date. Use
+        the day tabs to move through the week.
       </p>
 
       {/* Quick paste → create devotionals from labeled text */}
@@ -181,65 +220,118 @@ async function WeekView(
         </form>
       </details>
 
-      {/* The platform's own auto-written version for each day (always available) */}
-      <h3 className="adm-group">🤖 The platform&apos;s auto-written version</h3>
-      <p className="adm-hintline">
-        What the app writes on its own for each day. Tap any day to preview it —
-        and <strong>Save</strong> to use it instead of your pasted draft.
-      </p>
-      <div className="adm-week">
-        {dates.map((date) => {
-          const heading = fullDevotionalFor(date).readingHeading?.trim();
-          return (
-            <Link
-              key={`platform-${date}`}
-              href={`/admin/devotionals?date=${date}&source=platform`}
-              className="adm-day"
-            >
-              <div className="adm-day-top">
-                <span className="adm-day-dow">{weekdayLabel(date)}</span>
-                <span className="adm-badge adm-badge-none">Auto</span>
-              </div>
-              <div className="adm-day-date">{prettyDate(date)}</div>
-              <div className="adm-day-title">{heading}</div>
-              <div className="adm-day-edit">Preview &amp; use →</div>
-            </Link>
-          );
-        })}
+      {/* Day pager — jump across the 7 days */}
+      <div className="adm-daypager" role="tablist" aria-label="Choose a day">
+        {prevDay ? (
+          <Link href={`/admin/devotionals?day=${prevDay}`} className="adm-daypager-arrow" aria-label="Previous day">
+            ←
+          </Link>
+        ) : (
+          <span className="adm-daypager-arrow is-disabled" aria-hidden="true">←</span>
+        )}
+        <div className="adm-daypager-tabs">
+          {dates.map((d) => {
+            const st = byDate.get(d)?.status;
+            return (
+              <Link
+                key={d}
+                href={`/admin/devotionals?day=${d}`}
+                className={`adm-daytab${d === day ? " is-on" : ""}`}
+                aria-current={d === day ? "true" : undefined}
+              >
+                <span className="adm-daytab-dow">{weekdayLabel(d).slice(0, 3)}</span>
+                <span className="adm-daytab-dt">{shortDate(d)}</span>
+                {st === "ready" ? (
+                  <span className="adm-daytab-dot is-ready" title="Ready to publish" />
+                ) : st ? (
+                  <span className="adm-daytab-dot is-draft" title="Draft" />
+                ) : (
+                  <span className="adm-daytab-dot" />
+                )}
+              </Link>
+            );
+          })}
+        </div>
+        {nextDay ? (
+          <Link href={`/admin/devotionals?day=${nextDay}`} className="adm-daypager-arrow" aria-label="Next day">
+            →
+          </Link>
+        ) : (
+          <span className="adm-daypager-arrow is-disabled" aria-hidden="true">→</span>
+        )}
       </div>
 
-      {/* The versions you pasted / saved — these are what will publish */}
-      {rows.length > 0 && (
-        <>
-          <h3 className="adm-group" style={{ marginTop: 28 }}>
-            ✍️ Your pasted drafts
-          </h3>
-          <p className="adm-hintline">
-            The versions you pasted in. <strong>These are what will publish</strong>{" "}
-            once you mark them Ready. Open one to edit — or compare it with the
-            platform&apos;s version above.
-          </p>
-          <div className="adm-week">
-            {rows.map((d) => (
-              <Link
-                key={`saved-${d.date}`}
-                href={`/admin/devotionals?date=${d.date}`}
-                className="adm-day"
-              >
-                <div className="adm-day-top">
-                  <span className="adm-day-dow">{weekdayLabel(d.date)}</span>
-                  <StatusBadge status={d.status} saved />
-                </div>
-                <div className="adm-day-date">{prettyDate(d.date)}</div>
-                <div className="adm-day-title">
-                  {d.data.readingHeading?.trim()}
-                </div>
-                <div className="adm-day-edit">Open &amp; edit →</div>
-              </Link>
-            ))}
+      <div className="adm-compare-daylabel">
+        {weekdayLabel(day)}, {prettyDate(day)}
+      </div>
+
+      {/* The two full versions, side by side */}
+      <div className="adm-compare">
+        {/* Platform's auto-written version */}
+        <div className="adm-compare-col">
+          <div className="adm-compare-head">
+            <div className="adm-compare-labelwrap">
+              <span className="adm-compare-tag">🤖 Platform&apos;s auto-written</span>
+              <div className="adm-compare-title">{platformData.readingHeading?.trim()}</div>
+            </div>
+            <form action={selectDevotionalVersionAction}>
+              <input type="hidden" name="date" value={day} />
+              <input type="hidden" name="source" value="platform" />
+              <button type="submit" className="btn btn-gold adm-compare-select">
+                Select this one →
+              </button>
+            </form>
           </div>
-        </>
-      )}
+          <iframe title="Platform version" className="adm-compare-frame" srcDoc={platformHtml} />
+          <div className="adm-compare-foot">
+            <Link href={`/admin/devotionals?date=${day}&source=platform`} className="adm-compare-editlink">
+              Edit this version →
+            </Link>
+          </div>
+        </div>
+
+        {/* Your pasted draft */}
+        <div className="adm-compare-col">
+          <div className="adm-compare-head">
+            <div className="adm-compare-labelwrap">
+              <span className="adm-compare-tag">
+                ✍️ Your pasted draft{" "}
+                {draftDev && <StatusBadge status={draftDev.status} saved />}
+              </span>
+              <div className="adm-compare-title">
+                {draftDev?.data.readingHeading?.trim() || "—"}
+              </div>
+            </div>
+            {draftDev && (
+              <form action={selectDevotionalVersionAction}>
+                <input type="hidden" name="date" value={day} />
+                <input type="hidden" name="source" value="draft" />
+                <button type="submit" className="btn btn-gold adm-compare-select">
+                  Select this one →
+                </button>
+              </form>
+            )}
+          </div>
+          {draftHtml ? (
+            <iframe title="Your pasted draft" className="adm-compare-frame" srcDoc={draftHtml} />
+          ) : (
+            <div className="adm-compare-empty">
+              <p>
+                No pasted draft for <strong>{prettyDate(day)}</strong> yet.
+              </p>
+              <p className="muted">
+                Paste one in the box above — or just <strong>Select</strong> the
+                platform&apos;s version to use it for this day.
+              </p>
+            </div>
+          )}
+          <div className="adm-compare-foot">
+            <Link href={`/admin/devotionals?date=${day}`} className="adm-compare-editlink">
+              {draftDev ? "Edit this version →" : "Open editor →"}
+            </Link>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

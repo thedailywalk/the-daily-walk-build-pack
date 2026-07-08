@@ -7,12 +7,46 @@ import {
   adminUpsert,
   adminDelete,
   adminEnsureWeek,
+  adminGetByDate,
+  fullDevotionalFor,
   type DevotionalData,
   type DevotionalStatus,
 } from "@/lib/devotionals";
 
 function str(fd: FormData, key: string): string {
   return String(fd.get(key) ?? "").trim();
+}
+
+/**
+ * "Select this one" from the side-by-side comparison. Saves the chosen version
+ * (the platform's auto-written one, or the existing pasted draft) as the issue
+ * that publishes for this date, and marks it Ready.
+ */
+export async function selectDevotionalVersionAction(formData: FormData) {
+  await requireAdmin();
+  const date = str(formData, "date");
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return;
+  const source = str(formData, "source") === "platform" ? "platform" : "draft";
+
+  let data: DevotionalData | null = null;
+  let title = "";
+  if (source === "platform") {
+    data = fullDevotionalFor(date);
+    title = data.readingHeading || `The Daily Walk · ${date}`;
+  } else {
+    const existing = await adminGetByDate(date);
+    if (existing) {
+      data = existing.data;
+      title = existing.title || existing.data.readingHeading || `The Daily Walk · ${date}`;
+    }
+  }
+  if (!data) {
+    redirect(`/admin/devotionals?day=${date}`);
+  }
+
+  await adminUpsert(date, "ready", title, data);
+  revalidatePath("/admin/devotionals");
+  redirect(`/admin/devotionals?day=${date}&selected=${source}`);
 }
 
 export async function saveDevotionalAction(formData: FormData) {
