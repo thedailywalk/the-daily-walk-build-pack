@@ -21,10 +21,10 @@ function xmlEscape(s: string): string {
     .replace(/"/g, "&quot;");
 }
 
-/** RFC-822 date for a YYYY-MM-DD at ~6:30 AM Pacific (13:30 UTC). */
+/** RFC-822 date for a YYYY-MM-DD at ~5 AM Eastern (10:00 UTC). */
 function pubDate(date: string): string {
   const [y, m, d] = date.split("-").map(Number);
-  return new Date(Date.UTC(y, (m ?? 1) - 1, d ?? 1, 13, 30, 0)).toUTCString();
+  return new Date(Date.UTC(y, (m ?? 1) - 1, d ?? 1, 10, 0, 0)).toUTCString();
 }
 
 export async function GET() {

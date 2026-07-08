@@ -211,7 +211,7 @@ export default function Page() {
           </div>
 
           <p className="pv-benefits">
-            Devotional · Prayer · Encouragement — 2 minutes, 6:30 AM PT
+            Devotional · Prayer · Encouragement — 2 minutes, 5 AM ET
           </p>
 
           <p className="pv-foot">Free forever · No spam · Unsubscribe anytime</p>

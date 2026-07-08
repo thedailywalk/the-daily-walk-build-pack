@@ -65,7 +65,7 @@ export async function createBeehiivSubscription(
       return {
         ok: true,
         message:
-          "🎉 You're in! Your first devotional lands tomorrow at 6:30 AM PT.",
+          "🎉 You're in! Your first devotional lands tomorrow at 5 AM ET.",
       };
     }
     return {

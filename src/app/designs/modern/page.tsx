@@ -31,7 +31,7 @@ export default function ModernDesign() {
             <div className={s.preview} aria-hidden="true">
               <div className={s.pvBar}>
                 <span className={s.pvBrand}>THE DAILY WALK</span>
-                <span className={s.pvDate}>Today · 6:30 AM</span>
+                <span className={s.pvDate}>Today · 5 AM ET</span>
               </div>
               <div className={s.pvBody}>
                 <div className={s.pvLabel}>Today&apos;s Reading</div>
@@ -152,7 +152,7 @@ export default function ModernDesign() {
       <section className={s.cta}>
         <div className="wrap">
           <h2>Tomorrow morning could start a little differently.</h2>
-          <p>Join free — your first devotional lands tomorrow at 6:30 AM PT.</p>
+          <p>Join free — your first devotional lands tomorrow at 5 AM ET.</p>
           <div className={s.ctaForm}>
             <SignupForm />
           </div>

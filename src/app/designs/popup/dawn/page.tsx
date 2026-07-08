@@ -67,7 +67,7 @@ function DawnCard({ t }: { t: Theme }) {
           <p className="dw-eyebrow"><span className="dw-dot" /> Free every morning — before the world gets loud</p>
           <h2 className="dw-headline">A few quiet minutes <span className="g">with God.</span> Every morning.</h2>
           <p className="dw-sub">Five honest minutes in His Word each morning quietly change the other twenty-three hours. Ephesians calls it putting on your armor — and the Word is the one weapon you fight with. Start your day already armed. Free, forever.</p>
-          <div className="dw-verse"><p>&ldquo;This is the day that the Lord has made; let us rejoice and be glad in it.&rdquo;<cite>— Psalm 118:24 · lands at 6:30 AM PT</cite></p></div>
+          <div className="dw-verse"><p>&ldquo;This is the day that the Lord has made; let us rejoice and be glad in it.&rdquo;<cite>— Psalm 118:24 · lands at 5 AM ET</cite></p></div>
           <div className="dw-form"><span className="dw-input">Your email address</span><span className="dw-btn">Join free →</span></div>
           <ul className="dw-list">
             {BULLETS.map(([e, lead, rest]) => (

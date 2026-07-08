@@ -362,7 +362,7 @@ export default async function HomePage() {
           </h2>
           <p className="sub">
             Join free and get your first devotional in your inbox tomorrow at
-            6:30 AM PT.
+            5 AM ET.
           </p>
           <div style={{ display: "flex", justifyContent: "center" }}>
             <SignupForm />

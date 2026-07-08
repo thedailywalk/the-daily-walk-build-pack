@@ -83,7 +83,7 @@ export default function AboutPage() {
         <h2>Start this week</h2>
         <p>
           Join free and get your first devotional on the next send morning — Mon,
-          Wed, or Fri — at 6:30 AM PT.
+          Wed, or Fri — at 5 AM ET.
         </p>
         <SignupForm />
         </div>

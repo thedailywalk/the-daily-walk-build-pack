@@ -45,7 +45,7 @@ function CardBody() {
       <p className="pc-sub">A short devotional, one honest prayer, and a little encouragement to start your day — no noise, no guilt, just the walk. Free, forever.</p>
       <div className="pc-verse">
         <p>&ldquo;This is the day that the Lord has made; let us rejoice and be glad in it.&rdquo;</p>
-        <cite>— Psalm 118:24 · lands at 6:30 AM PT</cite>
+        <cite>— Psalm 118:24 · lands at 5 AM ET</cite>
       </div>
       <div className="pc-form"><span className="pc-input">Your email address</span><span className="pc-btn">Join free →</span></div>
       <ul className="pc-list">

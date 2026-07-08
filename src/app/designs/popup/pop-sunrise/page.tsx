@@ -296,7 +296,7 @@ export default function PopSunrisePage() {
               free, forever.
             </p>
             <p className="pv-verse">
-              “This is the day that the Lord has made…” — Psalm 118:24 · 6:30 AM PT
+              “This is the day that the Lord has made…” — Psalm 118:24 · 5 AM ET
             </p>
 
             <div className="pv-form">

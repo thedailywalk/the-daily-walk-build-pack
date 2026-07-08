@@ -61,7 +61,7 @@ function Card({ o }: { o: { label: string; note: string; text: string } }) {
           <p className="st-eyebrow"><span className="st-dot" /> Free every morning — before the world gets loud</p>
           <h2 className="st-headline">A few quiet minutes <span className="g">with God.</span> Every morning.</h2>
           <p className="st-sub">{o.text}</p>
-          <div className="st-verse"><p>&ldquo;This is the day that the Lord has made; let us rejoice and be glad in it.&rdquo;<cite>— Psalm 118:24 · lands at 6:30 AM PT</cite></p></div>
+          <div className="st-verse"><p>&ldquo;This is the day that the Lord has made; let us rejoice and be glad in it.&rdquo;<cite>— Psalm 118:24 · lands at 5 AM ET</cite></p></div>
           <div className="st-form"><span className="st-input">Your email address</span><span className="st-btn">Join free →</span></div>
           <ul className="st-list">
             {BULLETS.map(([e, lead, rest]) => (

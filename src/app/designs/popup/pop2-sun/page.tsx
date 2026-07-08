@@ -373,7 +373,7 @@ export default function Page() {
             <div className="pv-verse">
               <p>
                 &ldquo;This is the day that the Lord has made&hellip;&rdquo;
-                <span className="pv-cite">&mdash; Psalm 118:24 &middot; 6:30 AM PT</span>
+                <span className="pv-cite">&mdash; Psalm 118:24 &middot; 5 AM ET</span>
               </p>
             </div>
 

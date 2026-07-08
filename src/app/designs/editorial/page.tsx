@@ -115,7 +115,7 @@ export default function EditorialDesign() {
       <section className={s.cta}>
         <div className="wrap">
           <h2>Tomorrow morning could start a little differently.</h2>
-          <p>Join free — your first devotional lands tomorrow at 6:30 AM PT.</p>
+          <p>Join free — your first devotional lands tomorrow at 5 AM ET.</p>
           <div className={s.ctaForm}>
             <SignupForm />
           </div>

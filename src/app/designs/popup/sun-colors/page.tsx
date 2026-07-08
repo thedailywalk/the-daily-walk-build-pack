@@ -102,7 +102,7 @@ function SunCard({ t }: { t: Theme }) {
           <p className="sc-eyebrow"><span className="sc-dot" /> Free every morning — before the world gets loud.</p>
           <h2 className="sc-headline">A new morning <span className="g">with God.</span></h2>
           <p className="sc-sub">Ephesians says put on the armor every morning — and the one weapon you fight with is the Word. Start your day already armed. Free, forever.</p>
-          <div className="sc-verse"><p>&ldquo;This is the day that the Lord has made; let us rejoice and be glad in it.&rdquo;<cite>— Psalm 118:24 · lands at 6:30 AM PT</cite></p></div>
+          <div className="sc-verse"><p>&ldquo;This is the day that the Lord has made; let us rejoice and be glad in it.&rdquo;<cite>— Psalm 118:24 · lands at 5 AM ET</cite></p></div>
           <div className="sc-form"><span className="sc-input">your@email.com</span><span className="sc-btn">Join free →</span></div>
           <ul className="sc-list">
             {BULLETS.map(([e, lead, rest]) => (

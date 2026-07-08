@@ -333,7 +333,7 @@ export default function Page() {
 
             <div className="pv-verse">
               “This is the day that the Lord has made…”
-              <span className="pv-ref">— Psalm 118:24 · 6:30 AM PT</span>
+              <span className="pv-ref">— Psalm 118:24 · 5 AM ET</span>
             </div>
 
             <div className="pv-form">
