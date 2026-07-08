@@ -19,7 +19,6 @@ import { pendingForIssue } from "@/lib/newsletterEvolution";
 import NewsletterIssueReview from "@/components/NewsletterIssueReview";
 import CopyButton from "../devotionals/CopyButton";
 import EditorialCheck from "@/components/EditorialCheck";
-import BeehiivPushButton from "@/components/BeehiivPushButton";
 import { checkPremium } from "@/lib/editorialCheck";
 import {
   savePremiumAction,
@@ -602,7 +601,6 @@ async function EditorView(date: string, saved: boolean, usePlatform = false) {
               Save
             </button>
             <CopyButton text={previewHtml} />
-            <BeehiivPushButton pub="premium" date={date} />
           </div>
         </form>
       </div>

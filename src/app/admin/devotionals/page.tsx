@@ -27,7 +27,6 @@ import {
 } from "./actions";
 import CopyButton from "./CopyButton";
 import EditorialCheck from "@/components/EditorialCheck";
-import BeehiivPushButton from "@/components/BeehiivPushButton";
 import { checkFree } from "@/lib/editorialCheck";
 
 export const metadata: Metadata = {
@@ -449,7 +448,6 @@ async function EditorView(date: string, saved: boolean, usePlatform = false) {
               Save
             </button>
             <CopyButton text={renderDevotionalHtml(previewDev, goodNews)} />
-            <BeehiivPushButton pub="free" date={date} />
           </div>
         </form>
       </div>
