@@ -3,6 +3,7 @@ import type { Devotional } from "@/lib/devotionals";
 import type { GoodNewsItem } from "@/lib/content";
 import { weekdayLabel, prettyDate } from "@/lib/devotionals";
 import { site } from "@/lib/site";
+import { verseCardImage } from "@/lib/verseCards";
 
 function esc(s: string | undefined): string {
   return (s ?? "")
@@ -158,8 +159,11 @@ export function renderDevotionalHtml(dev: Devotional, goodNews: GoodNewsItem[] =
   }
 
   // Save & share — a branded verse image readers can post or text to a friend.
+  // Prefer the hand-made annotated card for the day; fall back to the dynamic one.
   if (d.verseText?.trim()) {
-    const cardUrl = `${site.url}/api/verse-card?t=${encodeURIComponent(d.verseText)}${d.verseRef?.trim() ? `&r=${encodeURIComponent(d.verseRef)}` : ""}`;
+    const cardUrl =
+      verseCardImage("free", dev.date, site.url) ??
+      `${site.url}/api/verse-card?t=${encodeURIComponent(d.verseText)}${d.verseRef?.trim() ? `&r=${encodeURIComponent(d.verseRef)}` : ""}`;
     blocks.push(
       [
         rule,
