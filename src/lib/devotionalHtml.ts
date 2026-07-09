@@ -28,7 +28,7 @@ const S = {
   meta: "font-family:Arial,Helvetica,sans-serif;text-align:center;font-size:12px;color:#8a8270;letter-spacing:1px;text-transform:uppercase;padding:16px 0 4px;",
   week: "font-family:Arial,Helvetica,sans-serif;text-align:center;font-size:13px;color:#1F3A5F;font-weight:bold;padding-bottom:18px;",
   kicker: "font-family:Arial,Helvetica,sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#B8902E;font-weight:bold;margin:0 0 6px;",
-  sec: "font-family:Arial,Helvetica,sans-serif;font-size:20px;color:#1F3A5F;margin:0 0 6px;",
+  sec: "font-family:Arial,Helvetica,sans-serif;font-size:20px;font-weight:bold;color:#1F3A5F;margin:0 0 6px;",
   p: "font-size:16px;line-height:1.62;margin:0 0 14px;",
   ref: "font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#6a6452;font-weight:bold;margin:0 0 12px;",
   readInvite: "font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:13.5px;color:#6a6452;line-height:1.5;margin:0 0 8px;",
@@ -86,7 +86,7 @@ function goodNewsBlock(items: GoodNewsItem[]): string {
   }<span style="display:block;font-family:Arial,Helvetica,sans-serif;font-size:10px;color:#8a8270;">${esc(g.source)}</span><span style="display:inline-block;margin-top:4px;font-family:Arial,Helvetica,sans-serif;font-size:10px;letter-spacing:.5px;text-transform:uppercase;color:#B8902E;font-weight:700;">Read the full story →</span>${credit}</div></a>`;
   return `<div style="${S.pad}">${rule}
       <div style="${S.kicker}">Good News</div>
-      <h2 style="${S.sec}">One reason for hope today</h2>
+      <div style="${S.sec}">One reason for hope today</div>
       ${card}
       <div style="${S.closing}">One real story — a small reminder God is still moving in ordinary people.</div>
       <div style="height:14px;line-height:14px;">&nbsp;</div>
@@ -116,11 +116,11 @@ export function renderDevotionalHtml(dev: Devotional, goodNews: GoodNewsItem[] =
   blocks.push(
     [
       `<div style="${S.kicker}">Today's Reading</div>`,
-      d.readingHeading?.trim() ? `<h2 style="${S.sec}">${esc(d.readingHeading)}</h2>` : "",
+      d.readingHeading?.trim() ? `<div style="${S.sec}">${esc(d.readingHeading)}</div>` : "",
       d.readingRef?.trim()
-        ? `<p style="${S.readInvite}">Open your Bible if you can — or let today's devotional walk you through it.</p>`
+        ? `<div style="${S.readInvite}">Open your Bible if you can — or let today's devotional walk you through it.</div>`
         : "",
-      d.readingRef?.trim() ? `<p style="${S.ref}">${esc(d.readingRef)}</p>` : "",
+      d.readingRef?.trim() ? `<div style="${S.ref}">${esc(d.readingRef)}</div>` : "",
       paras(d.readingIntro),
       d.verseText?.trim()
         ? `<div style="${S.verse}">${esc(d.verseText)}${d.verseRef?.trim() ? ` — ${esc(d.verseRef)}` : ""}</div>`
@@ -138,7 +138,7 @@ export function renderDevotionalHtml(dev: Devotional, goodNews: GoodNewsItem[] =
       [
         rule,
         `<div style="${S.kicker}">Make It Real</div>`,
-        d.makeItRealHeading?.trim() ? `<h2 style="${S.sec}">${esc(d.makeItRealHeading)}</h2>` : "",
+        d.makeItRealHeading?.trim() ? `<div style="${S.sec}">${esc(d.makeItRealHeading)}</div>` : "",
         paras(d.makeItRealBody),
         d.question?.trim() ? `<div style="${S.question}">${esc(d.question)}</div>` : "",
       ].join("")
