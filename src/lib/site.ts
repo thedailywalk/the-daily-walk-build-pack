@@ -24,6 +24,9 @@ export const site = {
   // Required attribution when quoting the NIV in emails (Biblica permission terms).
   scriptureNotice:
     "Scripture quotations taken from the Holy Bible, New International Version® NIV®. Copyright © 1973, 1978, 1984, 2011 by Biblica, Inc.® Used by permission. All rights reserved worldwide.",
+  // Social profiles
+  instagramUrl: "https://www.instagram.com/thedailywalknewsletter",
+  instagramHandle: "@thedailywalknewsletter",
   // Beehiiv-hosted destinations (filled in once the publication exists).
   // Falls back to the on-site subscribe form / pricing page when unset.
   beehiiv: {

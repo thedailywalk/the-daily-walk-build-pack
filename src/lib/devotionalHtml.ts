@@ -166,7 +166,7 @@ export function renderDevotionalHtml(dev: Devotional, goodNews: GoodNewsItem[] =
       [
         rule,
         `<div style="${S.kicker}">Save &amp; share</div>`,
-        `<div style="text-align:center;"><img src="${cardUrl}" alt="${esc(d.verseText)}" width="340" style="width:340px;max-width:88%;border-radius:14px;border:1px solid #E4DAC4;display:inline-block;"><div style="font-family:Arial,Helvetica,sans-serif;font-size:12.5px;color:#8a8270;margin-top:8px;">Tap and hold to save today&apos;s verse — and share it with someone who needs it.</div></div>`,
+        `<div style="text-align:center;"><a href="${cardUrl}" style="text-decoration:none;"><img src="${cardUrl}" alt="${esc(d.verseText)}" width="340" style="width:340px;max-width:88%;border-radius:14px;border:1px solid #E4DAC4;display:inline-block;"></a><div style="font-family:Arial,Helvetica,sans-serif;font-size:12.5px;color:#8a8270;margin-top:8px;">Tap the card to open it full-size — then save it and share it with someone who needs it.</div><div style="margin-top:12px;"><a href="${site.instagramUrl}" style="font-family:Arial,Helvetica,sans-serif;font-size:13px;font-weight:bold;color:#B8902E;text-decoration:none;">&#128247; Follow along on Instagram &middot; ${site.instagramHandle} &rarr;</a></div></div>`,
       ].join("")
     );
   }
