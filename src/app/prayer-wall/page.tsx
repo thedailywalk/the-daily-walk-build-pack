@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getUser, supabaseConfigured } from "@/lib/supabase/server";
-import { getEntitlement } from "@/lib/beehiiv";
 import { listApprovedPrayers } from "@/lib/prayers";
 import PrayerForm from "@/components/PrayerForm";
 import PrayButton from "@/components/PrayButton";
@@ -43,8 +42,6 @@ function timeAgo(iso: string): string {
 
 export default async function PrayerWallPage() {
   const user = supabaseConfigured ? await getUser() : null;
-  const ent = user?.email ? await getEntitlement(user.email) : null;
-  const canPost = !!ent && ent.tier !== "free";
   const prayers = await listApprovedPrayers();
 
   return (
@@ -67,24 +64,8 @@ export default async function PrayerWallPage() {
             <p className="muted" style={{ margin: 0 }}>
               The prayer wall is opening soon. 🙏
             </p>
-          ) : canPost ? (
-            <PrayerForm />
           ) : user ? (
-            <div className="prayer-signin">
-              <div className="prayer-thanks-emoji" aria-hidden="true">
-                🙏
-              </div>
-              <h3>Sharing is a Founding Member feature</h3>
-              <p>
-                Become a Founding Member to post your own prayer requests.
-                Praying over the wall below is always free.
-              </p>
-              <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-                <Link href="/pricing" className="btn btn-gold">
-                  See Founding Membership
-                </Link>
-              </div>
-            </div>
+            <PrayerForm />
           ) : (
             <div className="prayer-signin">
               <div className="prayer-thanks-emoji" aria-hidden="true">
@@ -92,8 +73,9 @@ export default async function PrayerWallPage() {
               </div>
               <h3>Have a prayer request?</h3>
               <p>
-                Founding Members can share requests with the
-                community. Anyone can pray over the wall below.
+                Every subscriber can share a request with the community —
+                free members too. Just sign in (it&apos;s free), and anyone
+                can pray over the wall below.
               </p>
               <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
                 <Link href="/login" className="btn btn-navy">

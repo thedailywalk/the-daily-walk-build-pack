@@ -2,7 +2,6 @@
 
 import { revalidatePath } from "next/cache";
 import { getUser, createClient, supabaseConfigured } from "@/lib/supabase/server";
-import { getEntitlement } from "@/lib/beehiiv";
 import { MAX_PRAYER_LEN, MAX_NAME_LEN } from "@/lib/prayer-limits";
 
 export type SubmitResult = { ok: true } | { error: string };
@@ -20,15 +19,8 @@ export async function submitPrayerAction(input: {
     return { error: "Please sign in to share a prayer request." };
   }
 
-  // Posting is a Premium/Patron feature; reading + praying stay free for all.
-  const ent = await getEntitlement(user.email);
-  if (ent.tier === "free") {
-    return {
-      error:
-        "Sharing a prayer request is a Founding Member feature. Upgrade to post — praying is always free.",
-    };
-  }
-
+  // Every signed-in subscriber can post — free tier included. Requests still
+  // hold as "pending" until approved, so the wall stays safe and kind.
   const body = (input.body ?? "").trim().slice(0, MAX_PRAYER_LEN);
   const name = (input.name ?? "").trim().slice(0, MAX_NAME_LEN) || null;
 
