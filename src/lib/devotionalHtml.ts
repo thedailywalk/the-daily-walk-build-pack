@@ -98,7 +98,13 @@ function goodNewsBlock(items: GoodNewsItem[]): string {
  * safe to inject on-page, copy into Beehiiv, and serve in the RSS feed. Pass the
  * day's Good News stories — the issue features ONE story of hope.
  */
-export function renderDevotionalHtml(dev: Devotional, goodNews: GoodNewsItem[] = []): string {
+export function renderDevotionalHtml(
+  dev: Devotional,
+  goodNews: GoodNewsItem[] = [],
+  // "email" keeps the list-management footer; "web" (the public /today share
+  // page) swaps it for a subscribe invite so a texted link opens to no dead links.
+  audience: "email" | "web" = "email"
+): string {
   const d = dev.data;
   // Weekday + optional day label — but if the label already starts with the
   // weekday (e.g. "Saturday · July 4"), don't repeat it.
@@ -246,9 +252,14 @@ export function renderDevotionalHtml(dev: Devotional, goodNews: GoodNewsItem[] =
       <strong style="color:#C9A24B;">The Daily Walk</strong><br>
       Encouragement three mornings a week — Monday, Wednesday &amp; Friday.<br><br>
       <a href="${site.url}" style="color:#C9A24B;text-decoration:none;">Today's full plan</a> · <a href="${site.url}/community" style="color:#C9A24B;text-decoration:none;">Community</a> · <a href="${site.url}/subscribe" style="color:#C9A24B;text-decoration:none;">Forward to a friend</a><br><br>
-      You're receiving this because you signed up at thedailywalknewsletter.com.<br>
+      ${
+        audience === "web"
+          ? `This is today's free issue — it lands in inboxes every morning.<br>
+      <a href="${site.url}/subscribe" style="color:#C9A24B;text-decoration:none;font-weight:bold;">Get The Daily Walk in your inbox — free →</a><br><br>`
+          : `You're receiving this because you signed up at thedailywalknewsletter.com.<br>
       ${site.mailingAddress ? `${esc(site.mailingAddress)}<br>` : ""}
-      <a href="#" style="color:#C9A24B;text-decoration:none;">Update preferences</a> · <a href="#" style="color:#C9A24B;text-decoration:none;">Unsubscribe</a><br><br>
+      <a href="#" style="color:#C9A24B;text-decoration:none;">Update preferences</a> · <a href="#" style="color:#C9A24B;text-decoration:none;">Unsubscribe</a><br><br>`
+      }
       <span style="color:#6f83a0;font-size:10.5px;line-height:1.6;">${esc(site.scriptureNotice)}</span>
     </div>
   </div>
