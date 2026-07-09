@@ -74,7 +74,7 @@ export default function AboutPage() {
 
         <h2>Who&apos;s behind it</h2>
         <p>
-          The Daily Walk is created by a small family who love Jesus, with a
+          The Daily Walk is created by a small family who loves Jesus, with a
           simple goal: to make faith feel clear, honest, and close — and to keep
           the core experience free and accessible for anyone who can&apos;t pay.
           Community access is free for everyone, because no one should have to pay
@@ -83,7 +83,7 @@ export default function AboutPage() {
 
         <h2>Start this week</h2>
         <p>
-          Join free and get your first devotional on the next send morning — Mon,
+          Join free and get your first devotional on our next send morning — Mon,
           Wed, or Fri — at 5 AM ET.
         </p>
         <SignupForm />

@@ -25,7 +25,7 @@ const INCLUDED = [
   "Heart Check + Journal With God — real daily formation",
   "A daily Spiritual Wellness Guide grounding practice",
   "Pray the Word + a Walk It Out step to live it out",
-  "The guided Bible-in-a-Year journey, from your own Day 1",
+  "The guided Bible-in-a-Year journey, from your own Day 1 (at launch)",
   "Guided Scripture · monthly workbook · full archive",
 ];
 
@@ -45,7 +45,9 @@ export default function HowItWorks() {
             className={`hiw-tab${tab === t.key ? " on" : ""}`}
             onClick={() => setTab(t.key)}
           >
-            <span className="hiw-tab-k">How the {t.name} works</span>
+            <span className="hiw-tab-k">
+              How the {t.key === "free" ? "free plan" : t.name} works
+            </span>
             <span className="hiw-tab-t">
               {t.name} <span className="hiw-tab-price">· {t.price}</span>
             </span>
@@ -57,7 +59,7 @@ export default function HowItWorks() {
         <div className="hiw-panel" key="free">
           <div className="hiw-panel-main">
             <div className="hiw-panel-tag">Mon · Wed · Fri · Free</div>
-            <h3>How the Free walk works</h3>
+            <h3>How the free plan works</h3>
             <p className="hiw-panel-pitch">
               The simplest way to start — no card, no pressure. Three mornings a
               week, a short devotional shows up. You read it, you carry it, and
@@ -131,7 +133,7 @@ export default function HowItWorks() {
               </p>
             </div>
             <div className="hiw-box hiw-box-soft">
-              <div className="hiw-box-k">3× a week</div>
+              <div className="hiw-box-k">Mon · Wed · Fri</div>
               <h4>The Spiritual Wellness Guide</h4>
               <p>
                 Practical, faith-based tools to steady your heart and the
@@ -141,7 +143,7 @@ export default function HowItWorks() {
               </p>
             </div>
             <div className="hiw-box hiw-box-coming">
-              <div className="hiw-box-k">Coming in the next couple months</div>
+              <div className="hiw-box-k">Coming in the next couple of months</div>
               <h4>The full platform — locked in for life</h4>
               <p>
                 Your guided Bible-in-a-Year journey and dashboard, plus{" "}

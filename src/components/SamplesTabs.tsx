@@ -34,16 +34,16 @@ const TABS: {
   },
   {
     key: "premium",
-    name: "Premium Daily Devotional",
+    name: "The Deeper Walk",
     cadence: "Every morning · 7 days a week · Founding Members",
     blurb:
-      "The Deeper Walk goes further — deeper Bible teaching, The Bible Thread to Jesus, a Heart Check, Journal With God, prayer, and one real step to live it. A daily discipleship rhythm, not just more emails.",
+      "The Deeper Walk goes further — deeper Bible teaching, The Bible Thread (how it points to Jesus), a Heart Check, Journal With God, prayer, and one real step to live it. A daily discipleship rhythm, not just more emails.",
     cta: { label: "Become a Founding Member →", href: upgradeHref },
   },
   {
     key: "wellness",
     name: "Spiritual Wellness Guide",
-    cadence: "3 mornings a week · Mon · Wed · Fri · Included with Premium",
+    cadence: "3 mornings a week · Mon · Wed · Fri · Included with Founding Membership",
     blurb:
       "Faith paired with grounded, practical tools — emotional steadiness, prayer, and a little calm for real life.",
     note: "Included with your Founding membership — not a separate signup.",

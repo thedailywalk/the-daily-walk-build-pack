@@ -25,7 +25,7 @@ export async function submitPrayerAction(input: {
   if (ent.tier === "free") {
     return {
       error:
-        "Sharing a prayer request is a Premium feature. Upgrade to post — praying is always free.",
+        "Sharing a prayer request is a Founding Member feature. Upgrade to post — praying is always free.",
     };
   }
 

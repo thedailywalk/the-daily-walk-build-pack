@@ -68,7 +68,7 @@ const TIERS: Record<
       {
         h: "Stay on the path",
         items: [
-          "Guided Bible-in-a-Year, from your Day 1",
+          "Guided Bible-in-a-Year, from your Day 1 (at launch)",
           "Restart or catch up anytime",
           "The full devotional archive",
         ],
@@ -99,7 +99,7 @@ const TIERS: Record<
         h: "Everything in Founding Member",
         items: [
           "Every devotional + the full Deeper Walk",
-          "Bible-in-a-Year from your Day 1",
+          "Bible-in-a-Year from your Day 1 (at launch)",
           "Wellness Guide, workbook & full archive",
           "Founding price locked in for life",
         ],

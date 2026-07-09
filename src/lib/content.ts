@@ -18,9 +18,9 @@ export const rhythms = [
     who: "For anyone who wants daily encouragement, prayer, and hope.",
   },
   {
-    tag: "Your Day 1 · Premium",
+    tag: "Your Day 1 · Founding Member",
     title: "The Bible-in-a-Year journey",
-    body: "Read the whole Bible in a year — starting with Jesus, not Genesis. Each day: the reading, a clear breakdown made simple, what it shows us about God, real-life application, and a question. Begins the day you join.",
+    body: "Read the whole Bible in a year — starting with Jesus, not Genesis. Each day: the reading, a clear breakdown made simple, what it shows us about God, real-life application, and a question. Begins the day you join — coming with the full platform at launch.",
     who: "For readers who want to be personally guided through the Bible.",
   },
 ];
@@ -154,7 +154,7 @@ export const tiers: Tier[] = [
       "Heart Check + Journal With God for real formation",
       "A daily Spiritual Wellness Guide practice + Pray the Word",
       "A Walk It Out step + guided Scripture to live it",
-      "The guided Bible-in-a-Year journey, from your own Day 1",
+      "The guided Bible-in-a-Year journey, from your own Day 1 (at launch)",
       "Monthly workbook, full archive & price locked in for life",
     ],
     cta: "Become a Founding Member",

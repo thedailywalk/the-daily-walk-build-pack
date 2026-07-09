@@ -33,7 +33,7 @@ export default async function HomePage() {
               even God. His Word is the one weapon He gave you: wisdom when
               you&apos;re lost, strength when you&apos;re empty, an anchor when
               you&apos;ve forgotten who you are. Ten honest minutes a morning,
-              and nothing meets you unarmed.
+              and you never face the day unarmed.
             </p>
             <SignupForm variant="hero" />
             <div className="reassure">
@@ -160,7 +160,7 @@ export default async function HomePage() {
           <p className="mh-body">
             But the mission does not stop at your inbox. As The Daily Walk grows,
             what comes in gets poured back out — into{" "}
-            <strong>learning centers, school buses, worship spaces, and resources
+            <strong>learning centers, school buses, worship centers, and resources
             for the places hardest to reach</strong>, so everyone, everywhere gets
             the opportunity to know God.
           </p>

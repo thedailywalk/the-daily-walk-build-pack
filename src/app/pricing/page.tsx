@@ -33,7 +33,7 @@ const comparison: Array<
   { row: "Free community access", tiers: [1, 1, 1] },
   { group: "Founding Member · everything, one membership" },
   { row: "The devotional every day (not just 3× a week)", tiers: [0, 1, 1] },
-  { row: "Full Bible-in-a-Year journey, from your Day 1", tiers: [0, 1, 1] },
+  { row: "Full Bible-in-a-Year journey, from your Day 1 (at launch)", tiers: [0, 1, 1] },
   { row: "Daily guided Scripture reading", tiers: [0, 1, 1] },
   { row: "Every passage broken down simply", tiers: [0, 1, 1] },
   { row: "“What this shows us about God” reflection", tiers: [0, 1, 1] },
@@ -45,7 +45,7 @@ const comparison: Array<
   { row: "Pray the Word + a Walk It Out step to live it", tiers: [0, 1, 1] },
   { row: "A daily Spiritual Wellness Guide grounding practice", tiers: [0, 1, 1] },
   { row: "The full Spiritual Wellness Guide (Mon · Wed · Fri)", tiers: [0, 1, 1] },
-  { row: "Live sessions with a Christian therapist + pastors", tiers: [0, 1, 1] },
+  { row: "Live sessions with a Christian therapist + pastors (at launch)", tiers: [0, 1, 1] },
   { row: "Monthly downloadable workbook + full archive", tiers: [0, 1, 1] },
   { row: "Restart or catch up your plan anytime", tiers: [0, 1, 1] },
   { group: "Support the mission" },
@@ -67,7 +67,7 @@ const faqs = [
   },
   {
     q: "When does my Bible-in-a-Year plan start?",
-    a: "On your Day 1 — the day you join Premium. You're never dropped into the middle of someone else's calendar. If you'd rather follow along with the group, you can choose to join the community's current pace instead. Either way, you read Day 1, Day 2, Day 3 in order.",
+    a: "On your Day 1 — the day you become a Founding Member. You're never dropped into the middle of someone else's calendar. If you'd rather follow along with the group, you can choose to join the community's current pace instead. Either way, you read Day 1, Day 2, Day 3 in order.",
   },
   {
     q: "What if I fall behind on the reading?",
@@ -117,7 +117,7 @@ export default function PricingPage() {
         <p className="section-sub" style={{ textAlign: "center", maxWidth: 660, margin: "0 auto 22px" }}>
           The devotional is free three mornings a week. Founding Members get
           everything — every day — for $5.99/mo (or $59/yr). Founding Partners
-          give a little more to keep it free for those who can&apos;t.
+          give a little more to keep it free for the people who can&apos;t pay.
         </p>
 
         <MembershipCard />
@@ -138,13 +138,13 @@ export default function PricingPage() {
             <h4>The Deeper Walk newsletter</h4>
             <p>
               A guided daily walk that goes further than the free one: deeper
-              Bible teaching, The Bible Thread to Jesus, a Heart Check, Journal
+              Bible teaching, The Bible Thread (how it points to Jesus), a Heart Check, Journal
               With God, Pray the Word, and a Walk It Out step — real formation,
               every morning.
             </p>
           </div>
           <div className="hiw-box hiw-box-soft">
-            <div className="hiw-box-k">Every day</div>
+            <div className="hiw-box-k">Mon · Wed · Fri</div>
             <h4>The Spiritual Wellness Guide</h4>
             <p>
               A faith-based grounding practice inside the Deeper Walk to steady
@@ -153,7 +153,7 @@ export default function PricingPage() {
             </p>
           </div>
           <div className="hiw-box hiw-box-coming">
-            <div className="hiw-box-k">Coming in the next couple months</div>
+            <div className="hiw-box-k">Coming in the next couple of months</div>
             <h4>The full platform — locked in for life</h4>
             <p>
               Your guided Bible-in-a-Year journey and dashboard, plus{" "}
@@ -209,6 +209,10 @@ export default function PricingPage() {
         <div className="explain partner-explain">
           <div className="partner-eyebrow">Founding Partner · pay it forward</div>
           <h3>Give a little more, and it goes a long way</h3>
+          <p>
+            <strong>$19.99/mo · or $199/yr</strong> — everything in Founding
+            Member, plus everything below.
+          </p>
           <p>
             Everything in Founding Member is already yours. This tier is for
             anyone in a season to give a bit extra — not for more features, but to
@@ -335,7 +339,7 @@ function FoundingOffer() {
             <div className="eyebrow">Become a Founding Member</div>
             <h1>Start free. Go deeper for $5.99.</h1>
             <p className="lead">
-              The daily walk is free, forever. <strong>Premium</strong> is for the reader who wants to go deeper —
+              The daily walk is free, forever. <strong>Founding Membership</strong> is for the reader who wants to go deeper —
               not just read a devotional, but learn how to live it: Scripture, prayer, real discipleship, and
               real-world reflection that keep you close to God and steady in your mind. Founding Members lock in{" "}
               <strong>$5.99/mo for life</strong>, get <strong>one full year of The Spiritual Wellness Guide free</strong>,
@@ -374,7 +378,7 @@ function FoundingOffer() {
                 Founding Member · locked for life
               </span>
               <div style={{ fontFamily: "var(--sans)", fontSize: 12, fontWeight: 800, letterSpacing: 1, textTransform: "uppercase", color: "#B8902E", marginTop: 6 }}>
-                Premium · Discipleship Newsletter
+                The Deeper Walk · Discipleship Newsletter
               </div>
               <div style={{ fontFamily: "var(--serif)", fontSize: 30, color: navy, margin: "4px 0 2px" }}>
                 $5.99<span style={{ fontSize: 16, color: "#8a8270" }}> /mo</span>

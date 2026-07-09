@@ -74,14 +74,14 @@ export default async function PrayerWallPage() {
               <div className="prayer-thanks-emoji" aria-hidden="true">
                 🙏
               </div>
-              <h3>Sharing is a Premium feature</h3>
+              <h3>Sharing is a Founding Member feature</h3>
               <p>
                 Become a Founding Member to post your own prayer requests.
                 Praying over the wall below is always free.
               </p>
               <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
                 <Link href="/pricing" className="btn btn-gold">
-                  See Premium
+                  See Founding Membership
                 </Link>
               </div>
             </div>
@@ -100,9 +100,16 @@ export default async function PrayerWallPage() {
                   Sign in
                 </Link>
                 <Link href="/pricing" className="btn btn-ghost">
-                  See Premium
+                  See Founding Membership
                 </Link>
               </div>
+              <p className="prayer-signin-alt">
+                Or just email your request to{" "}
+                <a href="mailto:thedailywalknewsletter@gmail.com?subject=Prayer%20request">
+                  thedailywalknewsletter@gmail.com
+                </a>{" "}
+                — we&apos;ll pray over it and can add it to the wall for you.
+              </p>
             </div>
           )}
           </div>

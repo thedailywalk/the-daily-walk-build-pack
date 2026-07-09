@@ -4926,6 +4926,17 @@ hr.div {
 .prayer-signin > div {
   justify-content: center;
 }
+/* Interim option until sign-in ships everywhere: email your request instead */
+.prayer-signin-alt {
+  margin-top: 14px !important;
+  font-size: 13px !important;
+  color: var(--grey);
+}
+.prayer-signin-alt a {
+  color: var(--gold-deep);
+  font-weight: 700;
+  text-decoration: none;
+}
 .prayer-thanks-emoji {
   font-size: 34px;
   line-height: 1;
