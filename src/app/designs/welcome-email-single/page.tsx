@@ -42,7 +42,7 @@ export default function WelcomeEmailSingle() {
       <p style="font-family:${sans};font-size:15.5px;line-height:1.7;color:#2b2b2b;margin:0 0 16px;">Three mornings a week — <strong>Monday, Wednesday &amp; Friday</strong>, around 5:00 AM ET — a short devotional lands in your inbox. It takes about two minutes, and you leave with something to carry into your day:</p>
 
       <table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;margin:0 0 20px;">
-        ${bullet("📖", "Scripture in plain English — clear enough to actually use")}
+        ${bullet("📖", "Scripture made simple — clear enough to actually use")}
         ${bullet("🙏", "one honest prayer to start from")}
         ${bullet("🧭", "real, practical tools and guidance — a next step you can take <em>with</em> you, not just read")}
         ${bullet("✦", "and on Wednesdays, a Pastor's Take")}

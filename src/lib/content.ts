@@ -20,7 +20,7 @@ export const rhythms = [
   {
     tag: "Your Day 1 · Premium",
     title: "The Bible-in-a-Year journey",
-    body: "Read the whole Bible in a year — starting with Jesus, not Genesis. Each day: the reading, a plain-English breakdown, what it shows us about God, real-life application, and a question. Begins the day you join.",
+    body: "Read the whole Bible in a year — starting with Jesus, not Genesis. Each day: the reading, a clear breakdown made simple, what it shows us about God, real-life application, and a question. Begins the day you join.",
     who: "For readers who want to be personally guided through the Bible.",
   },
 ];

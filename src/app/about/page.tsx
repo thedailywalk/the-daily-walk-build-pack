@@ -68,7 +68,7 @@ export default function AboutPage() {
           Wednesday Pastor&apos;s Take. The{" "}
           <strong>Bible-in-a-Year journey</strong> (for Founding Members) is
           personal and guided: it starts on your Day 1 and walks you through
-          Scripture beginning with Jesus, with a plain-English breakdown,
+          Scripture beginning with Jesus, with a simple, clear breakdown,
           real-life application, and a reflection question for every day.
         </p>
 

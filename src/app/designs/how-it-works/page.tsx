@@ -31,7 +31,7 @@ const WELLNESS = {
 const JOURNEY = {
   kicker: "Your Day 1 · Premium",
   title: "The Bible-in-a-Year journey",
-  body: "Read the whole Bible in a year — starting with Jesus, not Genesis. Each day: the reading, a plain-English breakdown, what it shows about God, real-life application, and a question. Begins the day you join.",
+  body: "Read the whole Bible in a year — starting with Jesus, not Genesis. Each day: the reading, a clear breakdown made simple, what it shows about God, real-life application, and a question. Begins the day you join.",
   foot: "For readers who want to be personally guided through the Bible.",
   bullets: ["Start with Jesus", "Never feel behind — your Day 1", "Plain-English breakdowns", "A question worth sitting with"],
 };
@@ -42,7 +42,7 @@ const FAQ = [
   { q: "What's a Founding Member?", a: "Early supporters who help build this. You lock in $5.99/mo for life, get a full year of The Spiritual Wellness Guide free, and are grandfathered into the whole platform as it grows — guided journey, dashboard, and community." },
   { q: "What is the Spiritual Wellness Guide?", a: "A Founding-Member bonus sent three times a week (Mon · Wed · Fri). It pairs faith with grounded neuroscience: a 60-second Peace Practice, the Pattern Breaker, the Prayer Lab, and a question worth sitting with — practical calm, not just inspiration." },
   { q: "Do I have to start on January 1? What if I miss a day?", a: "No. The Bible-in-a-Year begins on your Day 1, whenever that is. Miss a day? You simply pick up where you left off — nothing resets, and there's no guilt here." },
-  { q: "I'm new to faith — or not sure I believe. Is this for me?", a: "Absolutely. It's written in plain English with no church jargon and no guilt — welcoming to believers and seekers alike. It starts with Jesus: who He is and how He treats people." },
+  { q: "I'm new to faith — or not sure I believe. Is this for me?", a: "Absolutely. It's written simply and clearly, with no church jargon and no guilt — welcoming to believers and seekers alike. It starts with Jesus: who He is and how He treats people." },
   { q: "How do I receive it, and can I cancel anytime?", a: "It arrives by email every morning, and everything also lives in your member portal. You can cancel anytime in a click — no guilt there either." },
 ];
 
