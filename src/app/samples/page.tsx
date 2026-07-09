@@ -10,9 +10,8 @@ import {
   SAMPLE_PREMIUM_DATE,
   SAMPLE_PREMIUM_DATA,
   SAMPLE_GOOD_NEWS,
+  SAMPLE_WELLNESS_HTML,
 } from "@/lib/sampleIssue";
-import { wellnessGetByDate, fullWellnessFor, isWellnessDay } from "@/lib/wellness";
-import { renderWellnessHtml } from "@/lib/wellnessHtml";
 import { getDailyGoodNews } from "@/lib/goodNews";
 import SamplesTabs from "@/components/SamplesTabs";
 
@@ -28,7 +27,6 @@ export const dynamic = "force-dynamic";
 export default async function SamplesPage() {
   const dates = upcomingDates(10);
   const tomorrow = dates[1] ?? dates[0];
-  const wellnessDate = dates.find((d) => isWellnessDay(d)) ?? dates[0];
   const goodNews = await getDailyGoodNews(3);
 
   // Free — tomorrow's devotional (published issue if there is one, else the
@@ -53,15 +51,8 @@ export default async function SamplesPage() {
     SAMPLE_GOOD_NEWS
   );
 
-  // Wellness — the next Mon/Wed/Fri issue (included with Premium).
-  const savedWell = await wellnessGetByDate(wellnessDate);
-  const wellData = savedWell?.status === "ready" ? savedWell.data : fullWellnessFor(wellnessDate);
-  const wellnessHtml = renderWellnessHtml({
-    date: wellnessDate,
-    status: "ready",
-    title: savedWell?.title ?? "",
-    data: wellData,
-  });
+  // Wellness — a hand-crafted archived issue, pinned verbatim.
+  const wellnessHtml = SAMPLE_WELLNESS_HTML;
 
   return (
     <>
