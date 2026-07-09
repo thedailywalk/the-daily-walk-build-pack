@@ -1,5 +1,42 @@
 import type { PremiumData } from "@/lib/premium";
+import type { DevotionalData } from "@/lib/devotionals";
 import type { GoodNewsItem } from "@/lib/content";
+
+/**
+ * Curated "See Inside" FREE sample — the hand-written July 9 Daily Walk issue
+ * (the same one shared at /today), pinned so the preview NEVER changes.
+ * Date is pinned so the matching hand-annotated verse card renders with it.
+ */
+export const SAMPLE_FREE_DATE = "2026-07-09";
+export const SAMPLE_FREE_TITLE = "Clear the temple, then trust the mountain to move";
+
+export const SAMPLE_FREE_DATA: DevotionalData = {
+  weekFocus: "Following the God who leads — even through the wilderness.",
+  dayLabel: "Thursday · July 9",
+  readingHeading: "Clear the temple, then trust the mountain to move",
+  readingRef: "Numbers 31–33 · Mark 11",
+  readingIntro:
+    "Numbers pauses to list the whole journey — stage by stage, campsite by campsite, all the way from Egypt to the edge of home. God keeps a record of every mile you walked with Him. And in Mark 11, Jesus rides into Jerusalem to shouts of Hosanna, then does two startling things: He clears the temple of everything that had turned worship into a marketplace, and He tells His friends that real prayer, offered from a forgiving heart, can move mountains.",
+  verseText:
+    "Therefore I tell you, whatever you ask for in prayer, believe that you have received it, and it will be yours.",
+  verseRef: "Mark 11:24",
+  readingAfter:
+    "Don't rush past the order Jesus puts these in. First He cleared the temple — drove out what didn't belong in a house of prayer — and then He talked about mountain-moving faith. That's not an accident. A cluttered, unforgiving heart is a temple full of tables; you can't pray from it with any power. And notice what Jesus names as the clutter: not just the money-changers, but unforgiveness — \"when you stand praying, if you hold anything against anyone, forgive them.\" The mountains in your life may not move because the temple's too crowded. Clear the room. Then pray like it matters, because it does.",
+  keyWord:
+    "Hosanna — literally \"save us now!\" The crowd shouts it as praise, half-aware they're asking the King for the very rescue He's riding in to give.",
+  makeItRealHeading: "So what — for today?",
+  makeItRealBody:
+    "Powerful prayer usually starts with a cleared-out heart, not a longer list. Try this today: before you ask God for anything, let Him clear one table — name one person you're holding something against, and forgive them, out loud, on purpose. For example, that grudge you've quietly filed away — say, \"God, I let it go; I'm not carrying it into Your presence anymore\" — and then bring Him the mountain you've been asking Him to move. A clean temple prays with a different kind of confidence.",
+  question:
+    "👉 What table needs clearing out of your heart before you pray your biggest prayer today?",
+  prayer:
+    "Lord, You care enough to clear what doesn't belong in me. Turn over the tables of resentment and clutter, make me a house of prayer again — and give me the faith to trust You with the mountain I can't move myself. Amen.",
+  communityText:
+    "Forgiveness is heavy to lift alone. Ask the community to pray you through one.",
+  ctaLabel: "Add a prayer to the Wall",
+  ctaUrl: "https://thedailywalknewsletter.com/prayer-wall#share",
+  closingLine: "Clear the temple first. Then watch the mountain.",
+};
 
 /**
  * Curated "See Inside" sample — the hand-written Deeper Walk issue (not the

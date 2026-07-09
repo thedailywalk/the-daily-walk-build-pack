@@ -115,6 +115,10 @@ export function renderDevotionalHtml(
       ? dl
       : `${wd} · ${dl}`
     : wd;
+  // The focus is sometimes written as "This week: …" — strip it so the
+  // rendered "This Week's Focus:" prefix doesn't double up.
+  const wfRaw = (d.weekFocus ?? "").trim().replace(/^this week:\s*/i, "");
+  const weekFocus = wfRaw ? wfRaw.charAt(0).toUpperCase() + wfRaw.slice(1) : "";
 
   const blocks: string[] = [];
 
@@ -241,7 +245,7 @@ export function renderDevotionalHtml(
       <div style="${S.tag}">walking with God in real life</div>
     </div>
     ${metaBits ? `<div style="${S.meta}">${esc(metaBits)}</div>` : ""}
-    ${d.weekFocus?.trim() ? `<div style="${S.week}">This Week's Focus: ${esc(d.weekFocus)}</div>` : `<div style="height:8px;line-height:8px;">&nbsp;</div>`}
+    ${weekFocus ? `<div style="${S.week}">This Week's Focus: ${esc(weekFocus)}</div>` : `<div style="height:8px;line-height:8px;">&nbsp;</div>`}
     <div style="${S.pad}">${blocks.join("")}</div>
     ${pastorBlock}
     ${ctaBlock}

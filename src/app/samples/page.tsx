@@ -1,18 +1,15 @@
 import type { Metadata } from "next";
-import {
-  adminGetByDate,
-  fullDevotionalFor,
-  upcomingDates,
-} from "@/lib/devotionals";
 import { renderDevotionalHtml } from "@/lib/devotionalHtml";
 import { renderPremiumHtml } from "@/lib/premiumHtml";
 import {
+  SAMPLE_FREE_DATE,
+  SAMPLE_FREE_TITLE,
+  SAMPLE_FREE_DATA,
   SAMPLE_PREMIUM_DATE,
   SAMPLE_PREMIUM_DATA,
   SAMPLE_GOOD_NEWS,
   SAMPLE_WELLNESS_HTML,
 } from "@/lib/sampleIssue";
-import { getDailyGoodNews } from "@/lib/goodNews";
 import SamplesTabs from "@/components/SamplesTabs";
 
 export const metadata: Metadata = {
@@ -21,21 +18,19 @@ export const metadata: Metadata = {
     "See exactly what lands in your inbox — a sample of the free Daily Walk devotional, the premium Deeper Walk, and the Spiritual Wellness Guide.",
 };
 
-// Rolls forward each day so the samples always show a real upcoming issue.
-export const dynamic = "force-dynamic";
-
-export default async function SamplesPage() {
-  const dates = upcomingDates(10);
-  const tomorrow = dates[1] ?? dates[0];
-  const goodNews = await getDailyGoodNews(3);
-
-  // Free — tomorrow's devotional (published issue if there is one, else the
-  // platform's auto-written version, which is what tomorrow's issue would be).
-  const savedFree = await adminGetByDate(tomorrow);
-  const freeData = savedFree?.status === "ready" ? savedFree.data : fullDevotionalFor(tomorrow);
+// Every sample is PINNED — hand-picked issues that never roll forward or
+// change, so See Inside always shows exactly the previews we chose.
+export default function SamplesPage() {
+  // Free — the hand-written July 9 Daily Walk issue (the same one at /today),
+  // with its Good News story pinned too.
   const freeHtml = renderDevotionalHtml(
-    { date: tomorrow, status: "ready", title: savedFree?.title ?? "", data: freeData },
-    goodNews
+    {
+      date: SAMPLE_FREE_DATE,
+      status: "ready",
+      title: SAMPLE_FREE_TITLE,
+      data: SAMPLE_FREE_DATA,
+    },
+    SAMPLE_GOOD_NEWS
   );
 
   // Premium — a curated, hand-written Deeper Walk issue (our best work),
