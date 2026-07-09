@@ -146,6 +146,7 @@ export default function PricingCards() {
             </div>
             <ul className="feat">
               <li>Everything in <b>Founding Member</b></li>
+              <li><b>Gift the membership to 2 people</b> — a loved one, or someone who really needs it</li>
               <li>Keeps a licensed <b>Christian counselor</b> within reach of everyone</li>
               <li>Keeps The Daily Walk <b>free</b> for readers who can&apos;t pay</li>
               <li>Brings you <b>pastors &amp; perspectives</b> from across the world</li>

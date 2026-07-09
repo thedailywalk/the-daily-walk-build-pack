@@ -54,6 +54,7 @@ const comparison: Array<
   { group: "Founding Partner · pay it forward" },
   { row: "Keeps a licensed Christian counselor free for everyone", tiers: [0, 0, 1] },
   { row: "Sponsors free access for readers who can't pay", tiers: [0, 0, 1] },
+  { row: "Gift the full membership to 2 people you love", tiers: [0, 0, 1] },
   { row: "Pastors & perspectives from hard-to-reach places", tiers: [0, 0, 1] },
   { row: "Live updates on every project — see the change you're making", tiers: [0, 0, 1] },
   { row: "Monthly founder notes — always in the loop on what we build", tiers: [0, 0, 1] },
@@ -215,6 +216,12 @@ export default function PricingPage() {
             can&apos;t pay at all</strong>, to keep a licensed Christian counselor
             within reach of everyone, and to bring you pastors and perspectives
             from cultures and places most of us will never reach.
+          </p>
+          <p>
+            <strong>And you get two gift memberships to share.</strong> Give the
+            full Founding experience to two people — a loved one, or someone God
+            puts on your heart who could really use it. Just email us their
+            names and we&apos;ll set them up, on us.
           </p>
           <p>
             <strong>It reaches the next generation right where they are.</strong>{" "}

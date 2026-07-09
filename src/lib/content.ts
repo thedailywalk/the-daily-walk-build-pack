@@ -168,6 +168,7 @@ export const tiers: Tier[] = [
     note: "For those who can give a little more",
     features: [
       "Everything in Founding Member",
+      "Gift the full membership to 2 loved ones — or someone who really needs it",
       "Keeps a licensed Christian counselor within reach of everyone",
       "Keeps The Daily Walk free for readers who can't pay",
       "Brings you pastors & perspectives from across the world",

@@ -113,6 +113,13 @@ const TIERS: Record<
         ],
       },
       {
+        h: "Share the walk",
+        items: [
+          "Gift the full membership to 2 people",
+          "A loved one — or someone who really needs it",
+        ],
+      },
+      {
         h: "See your impact",
         items: [
           "Live updates on every project",
