@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import { site } from "@/lib/site";
 
@@ -63,6 +63,17 @@ export default function SamplesTabs({
   const [tab, setTab] = useState<Key>("free");
   const html = tab === "free" ? free : tab === "premium" ? premium : wellness;
   const meta = TABS.find((t) => t.key === tab)!;
+  const frameRef = useRef<HTMLIFrameElement>(null);
+
+  // Grow the preview to the full height of the email so readers scroll the
+  // PAGE (seeing much more of the issue at once) instead of a small inner bar.
+  function fitFrame() {
+    const f = frameRef.current;
+    const doc = f?.contentWindow?.document;
+    if (!f || !doc) return;
+    const h = Math.max(doc.body.scrollHeight, doc.documentElement.scrollHeight);
+    if (h) f.style.height = `${h + 8}px`;
+  }
 
   return (
     <div className="sm">
@@ -101,7 +112,15 @@ export default function SamplesTabs({
             </span>
             A sample issue — {meta.name}
           </div>
-          <iframe key={tab} className="sm-frame" srcDoc={html} title={`${meta.name} sample issue`} />
+          <iframe
+            ref={frameRef}
+            key={tab}
+            className="sm-frame"
+            srcDoc={html}
+            onLoad={fitFrame}
+            scrolling="no"
+            title={`${meta.name} sample issue`}
+          />
         </div>
       </div>
     </div>

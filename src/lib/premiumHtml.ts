@@ -3,6 +3,7 @@ import type { PremiumIssue } from "@/lib/premium";
 import { weekdayLabel, prettyDate } from "@/lib/premium";
 import type { GoodNewsItem } from "@/lib/content";
 import { site } from "@/lib/site";
+import { verseCardImage } from "@/lib/verseCards";
 
 function esc(s: string | undefined): string {
   return (s ?? "")
@@ -288,7 +289,9 @@ export function renderPremiumHtml(issue: PremiumIssue, goodNews: GoodNewsItem[] 
   // 9) Save This Line — a branded pull-quote + a real shareable image card.
   const save = (d.saveLine || d.closingLine || "").trim();
   if (save) {
-    const cardUrl = `${site.url}/api/verse-card?t=${encodeURIComponent(save)}`;
+    const cardUrl =
+      verseCardImage("premium", issue.date, site.url) ??
+      `${site.url}/api/verse-card?t=${encodeURIComponent(save)}`;
     blocks.push(
       [
         `<div style="${S.saveCard}"><div style="${S.saveK}">Save this line</div><p style="${S.saveQuote}">&ldquo;${esc(save)}&rdquo;</p></div>`,
