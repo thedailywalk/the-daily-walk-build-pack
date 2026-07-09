@@ -70,14 +70,18 @@ export type GoodNewsItem = {
  * href, source, a category label, and an image URL (or "" to auto-fetch one).
  */
 export const pinnedGoodNews: GoodNewsItem[] = [
-  // Example (remove the leading // to activate):
-  // {
-  //   category: "Christmas",
-  //   headline: "A whole town showed up to keep a struggling diner open",
-  //   image: "https://…/photo.jpg",
-  //   href: "https://…/full-article",
-  //   source: "Good News Network",
-  // },
+  {
+    category: "Inspiring",
+    headline:
+      "England Fan Who Spent Life Savings on World Cup Trip with Granddad Gets Money Gifted Back",
+    summary:
+      "He emptied his savings to take his granddad to the World Cup — then strangers heard the story and gifted every penny back.",
+    image: "", // filled from the article's own photo at send time
+    href: "https://www.goodnewsnetwork.org/england-fan-who-spent-life-savings-on-world-cup-trip-with-granddad-gets-money-gifted-back/",
+    source: "Good News Network",
+  },
+  // To pin a different story: swap the entry above (image "" auto-uses the
+  // article's own photo). Empty this list ([]) for fully automatic again.
 ];
 
 /** Curated fallback — shown only if the live feed can't be reached. */

@@ -82,13 +82,10 @@ const GOOD_NEWS_IMAGE_FALLBACKS = [
 export async function getDailyGoodNews(count = 3): Promise<GoodNewsItem[]> {
   const featured = await getFeaturedGoodNews();
   try {
-    if (featured.length >= count) return featured.slice(0, count);
-
-    const pinned = PINNED.slice(0, count - featured.length);
-    const used = new Set(
-      [...featured, ...pinned].map((i) => normHref(i.href))
-    );
-    const need = count - featured.length - pinned.length;
+    // Code-pinned stories always lead, then the owner's studio picks.
+    const curated = [...PINNED, ...featured].slice(0, count);
+    const used = new Set(curated.map((i) => normHref(i.href)));
+    const need = count - curated.length;
 
     const chosen: Candidate[] = [];
     if (need > 0) {
@@ -112,11 +109,18 @@ export async function getDailyGoodNews(count = 3): Promise<GoodNewsItem[]> {
       }
     }
 
-    // Attach a FREE, license-cleared photo from Wikimedia Commons per story
-    // (topic-relevant, properly credited). Falls back to a branded tile if none.
-    const base = [...featured, ...pinned, ...chosen].slice(0, count);
+    // Photos: a provided photo is KEPT as-is. Curated stories (pinned/studio)
+    // without one use the article's own cover photo; auto-pulled feed stories
+    // get a FREE, license-cleared Wikimedia Commons photo (credited).
+    const base = [...curated, ...chosen].slice(0, count);
+    const curatedCount = Math.min(curated.length, base.length);
     const items: GoodNewsItem[] = await Promise.all(
-      base.map(async (it) => {
+      base.map(async (it, idx) => {
+        if (it.image?.trim()) return it; // real photo already chosen — keep it
+        if (idx < curatedCount) {
+          const og = await fetchOgImage(it.href);
+          if (og) return { ...it, image: og, imageCredit: "" };
+        }
         // Try the headline first; if Commons has no match, fall back to the
         // category and then to broad, hopeful terms — so every story still
         // gets a FREE, license-cleared (credited) photo rather than a blank tile.
@@ -142,7 +146,9 @@ export async function getDailyGoodNews(count = 3): Promise<GoodNewsItem[]> {
         excerpt: (it as Candidate).excerpt ?? "",
       }))
     );
-    return items.map((it, i) => (summaries[i] ? { ...it, summary: summaries[i] } : it));
+    return items.map((it, i) =>
+      it.summary?.trim() ? it : summaries[i] ? { ...it, summary: summaries[i] } : it
+    );
   } catch (err) {
     console.error("getDailyGoodNews:", (err as Error).message);
     if (featured.length) {
