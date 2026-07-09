@@ -67,7 +67,7 @@ export default async function Header() {
           </div>
 
           {/* Samples — preview each newsletter before signing up */}
-          <Link href="/samples">Samples</Link>
+          <Link href="/samples">See Inside</Link>
 
           {/* Profile ▾ (members) */}
           {user && (
@@ -150,7 +150,7 @@ export default async function Header() {
                 {i.label}
               </Link>
             ))}
-            <Link href="/samples">Samples — see what you get</Link>
+            <Link href="/samples">See Inside — what you get</Link>
 
             {user && (
               <>

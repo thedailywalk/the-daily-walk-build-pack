@@ -175,7 +175,27 @@ export default async function HomePage() {
             </Link>
           </p>
 
-          {/* The first build — collapsible, sits below the mission */}
+        </div>
+      </section>
+
+      {/* PRAYER WALL PREVIEW */}
+      {previewPrayers.length > 0 && (
+        <section id="pray" className="pwsec">
+          <div className="wrap">
+            <div className="sec-tag">Pray with us</div>
+            <h2 className="h">The community is praying</h2>
+            <p className="sub" style={{ marginBottom: 4 }}>
+              Real requests from real people. Tap a 🙏 ❤️ 🕊️ to pray over one —
+              and watch the prayers rise.
+            </p>
+            <PrayerWallPreview prayers={previewPrayers} />
+          </div>
+        </section>
+      )}
+
+      {/* THE FIRST BUILD — sits under the prayer wall */}
+      <section className="fbsec">
+        <div className="wrap">
           <details className="gfm-drop">
             <summary className="gfm-summary">
               <span className="gfm-summary-txt">
@@ -230,21 +250,6 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* PRAYER WALL PREVIEW */}
-      {previewPrayers.length > 0 && (
-        <section id="pray" className="pwsec">
-          <div className="wrap">
-            <div className="sec-tag">Pray with us</div>
-            <h2 className="h">The community is praying</h2>
-            <p className="sub" style={{ marginBottom: 4 }}>
-              Real requests from real people. Tap a 🙏 ❤️ 🕊️ to pray over one —
-              and watch the prayers rise.
-            </p>
-            <PrayerWallPreview prayers={previewPrayers} />
-          </div>
-        </section>
-      )}
-
       {/* ARM YOURSELF — practical how-to-start */}
       <section id="arm" className="armsec">
         <div className="wrap">
@@ -295,25 +300,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* GOOD NEWS PREVIEW */}
-      {GOOD_NEWS_PUBLIC && (
-      <section id="good" className="gnsec">
-        <div className="wrap">
-          <div className="sec-tag">In every issue</div>
-          <h2 className="h">Good news from around the world</h2>
-          <p className="sub">
-            Real, current, sourced stories of kindness, restoration, and hope — a
-            small daily reminder that God is still moving.
-          </p>
-          <div className="gngrid">
-            {goodNews.map((g) => (
-              <GoodNewsCard item={g} key={g.headline} />
-            ))}
-          </div>
-        </div>
-      </section>
-      )}
-
+      
       {/* PRICING PREVIEW */}
       {PRICING_ENABLED && (
       <section id="pricing">
@@ -369,6 +356,25 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* GOOD NEWS PREVIEW */}
+      {GOOD_NEWS_PUBLIC && (
+      <section id="good" className="gnsec">
+        <div className="wrap">
+          <div className="sec-tag">In every issue</div>
+          <h2 className="h">Good news from around the world</h2>
+          <p className="sub">
+            Real, current, sourced stories of kindness, restoration, and hope — a
+            small daily reminder that God is still moving.
+          </p>
+          <div className="gngrid">
+            {goodNews.map((g) => (
+              <GoodNewsCard item={g} key={g.headline} />
+            ))}
+          </div>
+        </div>
+      </section>
+      )}
     </>
   );
 }
