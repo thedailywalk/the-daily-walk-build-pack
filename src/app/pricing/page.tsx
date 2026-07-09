@@ -26,6 +26,7 @@ const comparison: Array<
 > = [
   { group: "The free devotional · 3× a week" },
   { row: "The devotional (Mon · Wed · Fri)", tiers: [1, 1, 1] },
+  { row: "Scripture breakdown in plain English", tiers: [1, 1, 1] },
   { row: "One honest prayer with each issue", tiers: [1, 1, 1] },
   { row: "“Good News” — an uplifting story", tiers: [1, 1, 1] },
   { row: "Wednesday Pastor's Take", tiers: [1, 1, 1] },
@@ -350,6 +351,7 @@ function FoundingOffer() {
               <div style={{ color: "#8a8270", fontSize: 14, marginBottom: 14 }}>$0 — forever, no card</div>
               <ul style={{ listStyle: "none", padding: 0, margin: "0 0 18px" }}>
                 {check("The devotional 3× a week (Mon · Wed · Fri)")}
+                {check("A Scripture breakdown in plain English")}
                 {check("One honest prayer with each issue")}
                 {check("An uplifting Good News story")}
                 {check("Free community access")}
@@ -373,7 +375,7 @@ function FoundingOffer() {
               <div style={{ color: "#8a8270", fontSize: 14, marginBottom: 14 }}>or $59/year (2 months free)</div>
               <ul style={{ listStyle: "none", padding: 0, margin: "0 0 18px" }}>
                 {check("Everything in Free, plus —", true)}
-                {check("The Deeper Walk — deeper Bible teaching, every day")}
+                {check("The Deeper Walk — daily Scripture breakdown & deeper Bible teaching")}
                 {check("The Bible Thread — how each reading points to Jesus")}
                 {check("Heart Check + Journal With God — real daily formation")}
                 {check("Pray the Word + a Walk It Out step to live it")}

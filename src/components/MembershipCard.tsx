@@ -51,7 +51,7 @@ const TIERS: Record<
         h: "Walk with God daily",
         items: [
           "The daily devotional, every morning",
-          "The Deeper Walk Bible teaching",
+          "The Deeper Walk — daily Scripture breakdown & Bible teaching",
           "The Bible Thread — it points to Jesus",
           "Pray the Word each day",
         ],
@@ -137,6 +137,7 @@ const TIERS: Record<
         h: "Every Mon · Wed · Fri",
         items: [
           "The devotional 3× a week",
+          "A Scripture breakdown in plain English",
           "One honest prayer with each issue",
           "An uplifting Good News story",
         ],

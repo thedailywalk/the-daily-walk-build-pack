@@ -29,7 +29,7 @@ const TABS: {
     name: "Free Devotional",
     cadence: "3 mornings a week · Mon · Wed · Fri · Free forever",
     blurb:
-      "A short, honest devotional, a real prayer, and encouragement to start your day with God — simple and welcoming, wherever you are on the journey.",
+      "A short, honest devotional with a plain-English Scripture breakdown, a real prayer, and encouragement to start your day with God — simple and welcoming, wherever you are on the journey.",
     cta: { label: "Start free →", href: "/subscribe" },
   },
   {
