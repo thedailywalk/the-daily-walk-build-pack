@@ -1,6 +1,7 @@
 import "server-only";
 import fs from "node:fs";
 import path from "node:path";
+import { stateChapters } from "@/lib/fullBookRefs";
 
 /**
  * Original Daily Walk study-guide content (12 fields per day). Authored entries
@@ -7198,7 +7199,20 @@ export function getStudyDay(day: number): StudyDay {
   const row = plan().find((r) => r.day === day) ?? plan()[0];
   const a = AUTHORED[day];
   if (a) {
-    return { day: row.day, reading: row.reading, arc: row.arc, authored: true, ...a };
+    return {
+      day: row.day,
+      reading: row.reading,
+      arc: row.arc,
+      authored: true,
+      ...a,
+      // Prose always states the chapters with a book name ("Numbers 34–36",
+      // never a bare "Numbers") — matches how the devotionals render.
+      context: stateChapters(a.context, row.reading),
+      plainEnglish: stateChapters(a.plainEnglish, row.reading),
+      aboutGod: stateChapters(a.aboutGod, row.reading),
+      aboutPeople: stateChapters(a.aboutPeople, row.reading),
+      realLife: stateChapters(a.realLife, row.reading),
+    };
   }
   // Graceful, original fallback until this day is hand-written.
   return {

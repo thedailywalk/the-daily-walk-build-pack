@@ -4,6 +4,7 @@ import type { GoodNewsItem } from "@/lib/content";
 import { weekdayLabel } from "@/lib/devotionals";
 import { site } from "@/lib/site";
 import { verseCardImage } from "@/lib/verseCards";
+import { stateChapters } from "@/lib/fullBookRefs";
 
 function esc(s: string | undefined): string {
   return (s ?? "")
@@ -131,11 +132,11 @@ export function renderDevotionalHtml(
         ? `<div style="${S.readInvite}">Open your Bible if you can — or let today's devotional walk you through it.</div>`
         : "",
       d.readingRef?.trim() ? `<div style="${S.ref}">${esc(d.readingRef)}</div>` : "",
-      paras(d.readingIntro),
+      paras(stateChapters(d.readingIntro, d.readingRef)),
       d.verseText?.trim()
         ? `<div style="${S.verse}">${esc(d.verseText)}${d.verseRef?.trim() ? ` — ${esc(d.verseRef)}` : ""}</div>`
         : "",
-      paras(d.readingAfter),
+      paras(stateChapters(d.readingAfter, d.readingRef)),
       d.keyWord?.trim()
         ? `<div style="${S.kicker}margin-top:16px;">Key word</div><div style="${S.keyword}">${esc(d.keyWord)}</div>`
         : "",
@@ -149,7 +150,7 @@ export function renderDevotionalHtml(
         rule,
         `<div style="${S.kicker}">Make It Real</div>`,
         d.makeItRealHeading?.trim() ? `<div style="${S.sec}">${esc(d.makeItRealHeading)}</div>` : "",
-        paras(d.makeItRealBody),
+        paras(stateChapters(d.makeItRealBody, d.readingRef)),
         d.question?.trim() ? `<div style="${S.question}">${esc(d.question)}</div>` : "",
       ].join("")
     );

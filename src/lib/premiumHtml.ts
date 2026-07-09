@@ -4,6 +4,7 @@ import { weekdayLabel, prettyDate } from "@/lib/premium";
 import type { GoodNewsItem } from "@/lib/content";
 import { site } from "@/lib/site";
 import { verseCardImage } from "@/lib/verseCards";
+import { stateChapters } from "@/lib/fullBookRefs";
 
 function esc(s: string | undefined): string {
   return (s ?? "")
@@ -192,11 +193,11 @@ export function renderPremiumHtml(issue: PremiumIssue, goodNews: GoodNewsItem[] 
           ? `<p style="${S.readInvite}">Open your Bible if you can — or let today's reflection walk you through it.</p>`
           : "",
         d.devRef?.trim() ? `<p style="${S.ref}">${esc(d.devRef)}</p>` : "",
-        paras(d.devIntro),
+        paras(stateChapters(d.devIntro, d.devRef)),
         d.devVerseText?.trim()
           ? `<div style="${S.verse}">${esc(d.devVerseText)}${d.devVerseRef?.trim() ? ` — ${esc(d.devVerseRef)}` : ""}</div>`
           : "",
-        paras(d.devBody),
+        paras(stateChapters(d.devBody, d.devRef)),
         pauseLine(d.devPause),
         d.devKeyWord?.trim()
           ? `<div style="${S.keyword}"><strong>Key word — </strong>${esc(d.devKeyWord)}</div>`
@@ -211,7 +212,7 @@ export function renderPremiumHtml(issue: PremiumIssue, goodNews: GoodNewsItem[] 
       [
         `<div style="${S.kicker}">Deeper Walk</div>`,
         `<h2 style="${S.sec}">Go a layer deeper</h2>`,
-        paras(d.deeperWalk, S.teachP),
+        paras(stateChapters(d.deeperWalk, d.devRef), S.teachP),
       ].join("")
     );
   }
@@ -222,7 +223,7 @@ export function renderPremiumHtml(issue: PremiumIssue, goodNews: GoodNewsItem[] 
       [
         `<div style="${S.kicker}">The Bible Thread</div>`,
         `<h2 style="${S.sec}">Where this points to Jesus</h2>`,
-        `<div style="${S.thread}">${paras(d.bibleThread, S.threadP)}</div>`,
+        `<div style="${S.thread}">${paras(stateChapters(d.bibleThread, d.devRef), S.threadP)}</div>`,
       ].join("")
     );
   }
