@@ -137,7 +137,7 @@ const TIERS: Record<
         h: "Every Mon · Wed · Fri",
         items: [
           "The devotional 3× a week",
-          "A Scripture breakdown in plain English",
+          "A Scripture breakdown made simple",
           "One honest prayer with each issue",
           "An uplifting Good News story",
         ],

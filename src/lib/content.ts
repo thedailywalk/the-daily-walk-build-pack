@@ -14,7 +14,7 @@ export const rhythms = [
   {
     tag: "Every day · Free",
     title: "The Daily Walk newsletter",
-    body: "A 2-minute devotional with a plain-English Scripture breakdown, one honest prayer, an uplifting Good News story, the Wednesday Pastor's Take, and a Sunday Rest & Reflect. Encouragement that meets you in real life.",
+    body: "A 2-minute devotional with a simple Scripture breakdown, one honest prayer, an uplifting Good News story, the Wednesday Pastor's Take, and a Sunday Rest & Reflect. Encouragement that meets you in real life.",
     who: "For anyone who wants daily encouragement, prayer, and hope.",
   },
   {
@@ -134,7 +134,7 @@ export const tiers: Tier[] = [
     note: "Always free · Mon · Wed · Fri",
     features: [
       "The devotional 3× a week + prayer",
-      "A Scripture breakdown in plain English",
+      "A Scripture breakdown made simple",
       "A Good News story",
       "Wednesday Pastor's Take",
       "Free community access",

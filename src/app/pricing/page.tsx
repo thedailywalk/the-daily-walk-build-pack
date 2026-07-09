@@ -26,7 +26,7 @@ const comparison: Array<
 > = [
   { group: "The free devotional · 3× a week" },
   { row: "The devotional (Mon · Wed · Fri)", tiers: [1, 1, 1] },
-  { row: "Scripture breakdown in plain English", tiers: [1, 1, 1] },
+  { row: "A Scripture breakdown made simple", tiers: [1, 1, 1] },
   { row: "One honest prayer with each issue", tiers: [1, 1, 1] },
   { row: "“Good News” — an uplifting story", tiers: [1, 1, 1] },
   { row: "Wednesday Pastor's Take", tiers: [1, 1, 1] },
@@ -35,7 +35,7 @@ const comparison: Array<
   { row: "The devotional every day (not just 3× a week)", tiers: [0, 1, 1] },
   { row: "Full Bible-in-a-Year journey, from your Day 1", tiers: [0, 1, 1] },
   { row: "Daily guided Scripture reading", tiers: [0, 1, 1] },
-  { row: "Plain-English breakdown of each passage", tiers: [0, 1, 1] },
+  { row: "Every passage broken down simply", tiers: [0, 1, 1] },
   { row: "“What this shows us about God” reflection", tiers: [0, 1, 1] },
   { row: "Real-life application for modern life", tiers: [0, 1, 1] },
   { row: "Daily reflection question + prayer prompt", tiers: [0, 1, 1] },
@@ -351,7 +351,7 @@ function FoundingOffer() {
               <div style={{ color: "#8a8270", fontSize: 14, marginBottom: 14 }}>$0 — forever, no card</div>
               <ul style={{ listStyle: "none", padding: 0, margin: "0 0 18px" }}>
                 {check("The devotional 3× a week (Mon · Wed · Fri)")}
-                {check("A Scripture breakdown in plain English")}
+                {check("A Scripture breakdown made simple")}
                 {check("One honest prayer with each issue")}
                 {check("An uplifting Good News story")}
                 {check("Free community access")}
