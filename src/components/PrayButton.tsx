@@ -5,8 +5,8 @@ import { prayAction } from "@/app/prayer-wall/actions";
 
 const STORE_KEY = "tdw_prayed";
 
-// 🙏 pray · ❤️ love · 🕊️ peace — all count as one prayer; pick whichever fits.
-const PRAY_EMOJIS = ["🙏", "❤️", "🕊️"] as const;
+// One reaction: 🙏 — tap the praying hands to say "I prayed for this."
+const PRAY_EMOJIS = ["🙏"] as const;
 
 // Which prayers this person prayed for, and with which emoji, across reloads.
 // Stored as { [id]: emoji }. Migrates the old array-of-ids format on read.

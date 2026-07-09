@@ -108,6 +108,13 @@ export default async function HomePage() {
               He loves, how He keeps showing up for ordinary people who are sure
               they&apos;ve blown it.
             </p>
+            <details className="arm-drop why-drop">
+            <summary className="arm-toggle">
+              <span className="arm-toggle-txt">Keep reading</span>
+              <span className="arm-toggle-ic" aria-hidden="true">
+                ▾
+              </span>
+            </summary>
             <p>
               And here&apos;s the honest part: we make time for what we care
               about. There&apos;s always time for the phone, the feed, the next
@@ -132,6 +139,7 @@ export default async function HomePage() {
               everything. You don&apos;t have to have it figured out. You just
               have to open it.
             </p>
+            </details>
           </div>
           </div>
         </div>
@@ -271,7 +279,7 @@ export default async function HomePage() {
           </div>
           <details className="arm-drop">
             <summary className="arm-toggle">
-              <span className="arm-toggle-txt">Show me the 6 steps</span>
+              <span className="arm-toggle-txt">See all 6 steps</span>
               <span className="arm-toggle-ic" aria-hidden="true">
                 ▾
               </span>

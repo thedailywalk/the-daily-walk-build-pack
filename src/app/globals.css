@@ -925,6 +925,16 @@ h2.h {
 .arm-drop {
   margin-top: 26px;
 }
+/* "Why read the Bible" uses the same pattern — lead stays, the rest unfolds */
+.why-drop {
+  margin-top: 16px;
+}
+.why-drop .arm-toggle {
+  margin: 0; /* left-aligned with the copy, not centered like the steps */
+}
+.why-drop[open] .arm-toggle {
+  margin-bottom: 16px;
+}
 .arm-toggle {
   display: flex;
   align-items: center;
