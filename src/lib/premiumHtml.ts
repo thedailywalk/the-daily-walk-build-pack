@@ -295,7 +295,7 @@ export function renderPremiumHtml(issue: PremiumIssue, goodNews: GoodNewsItem[] 
     blocks.push(
       [
         `<div style="${S.saveCard}"><div style="${S.saveK}">Save this line</div><p style="${S.saveQuote}">&ldquo;${esc(save)}&rdquo;</p></div>`,
-        `<div style="text-align:center;margin-top:16px;"><img src="${cardUrl}" alt="${esc(save)}" width="300" style="width:300px;max-width:80%;border-radius:14px;border:1px solid #E4DAC4;display:inline-block;"><div style="font-family:Arial,Helvetica,sans-serif;font-size:12.5px;color:#8a8270;margin-top:8px;">Tap and hold to save &amp; share today&apos;s line with someone.</div></div>`,
+        `<div style="text-align:center;margin-top:16px;"><img src="${cardUrl}" alt="${esc(save)}" width="340" style="width:340px;max-width:88%;border-radius:14px;border:1px solid #E4DAC4;display:inline-block;"><div style="font-family:Arial,Helvetica,sans-serif;font-size:12.5px;color:#8a8270;margin-top:8px;">Tap and hold to save &amp; share today&apos;s line with someone.</div></div>`,
       ].join("")
     );
   }

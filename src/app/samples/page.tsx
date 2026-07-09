@@ -5,12 +5,12 @@ import {
   upcomingDates,
 } from "@/lib/devotionals";
 import { renderDevotionalHtml } from "@/lib/devotionalHtml";
-import {
-  premiumGetByDate,
-  fullPremiumFor,
-  withPremiumDefaults,
-} from "@/lib/premium";
 import { renderPremiumHtml } from "@/lib/premiumHtml";
+import {
+  SAMPLE_PREMIUM_DATE,
+  SAMPLE_PREMIUM_DATA,
+  SAMPLE_GOOD_NEWS,
+} from "@/lib/sampleIssue";
 import { wellnessGetByDate, fullWellnessFor, isWellnessDay } from "@/lib/wellness";
 import { renderWellnessHtml } from "@/lib/wellnessHtml";
 import { getDailyGoodNews } from "@/lib/goodNews";
@@ -40,15 +40,17 @@ export default async function SamplesPage() {
     goodNews
   );
 
-  // Premium — tomorrow's Deeper Walk, with the full discipleship rhythm.
-  const savedPrem = await premiumGetByDate(tomorrow);
-  const premData = withPremiumDefaults(
-    tomorrow,
-    savedPrem?.status === "ready" ? savedPrem.data : fullPremiumFor(tomorrow)
-  );
+  // Premium — a curated, hand-written Deeper Walk issue (our best work),
+  // pinned so the preview never shows auto-generated copy. Its Glimpse story
+  // is pinned too, so the sample always leads with a strong photo.
   const premiumHtml = renderPremiumHtml(
-    { date: tomorrow, status: "ready", title: savedPrem?.title ?? "", data: premData },
-    goodNews
+    {
+      date: SAMPLE_PREMIUM_DATE,
+      status: "ready",
+      title: SAMPLE_PREMIUM_DATA.devHeading ?? "",
+      data: SAMPLE_PREMIUM_DATA,
+    },
+    SAMPLE_GOOD_NEWS
   );
 
   // Wellness — the next Mon/Wed/Fri issue (included with Premium).
