@@ -56,15 +56,21 @@ export default async function HomePage() {
               It does — most of us just never opened it.
             </p>
             <p>
-              God didn&apos;t leave you to guess your way through. His Word is
-              where you learn how to live, how to heal, how to make the braver
-              call, how to fight the battles no one else can see — and how to
-              become the person He made you to be. It was never a religious box to
-              check. Pick it up, and you stop walking through life blind.
+              Most days, life does not announce what it is teaching you. It just
+              hands you decisions, disappointments, pressure, relationships,
+              grief, hope, and a million little moments that shape who you
+              become. God&apos;s Word helps you read your life with clearer
+              eyes. It shows you what matters, what to release, what to hold
+              onto, and how to keep walking with Him through all of it.
+            </p>
+            <p>
+              The Daily Walk gives you a simple way to start — ten honest
+              minutes, one passage, and a reminder that God is closer than you
+              think.
             </p>
           </div>
           <div className="manifesto-cta">
-            <Link href="/subscribe" className="btn btn-gold">Pick up your sword →</Link>
+            <Link href="/subscribe" className="btn btn-gold">Start your daily walk →</Link>
           </div>
         </div>
       </section>
