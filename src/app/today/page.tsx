@@ -20,22 +20,23 @@ export const dynamic = "force-dynamic";
 export async function generateMetadata(): Promise<Metadata> {
   const dev = await getLiveDevotional();
   const baseTitle = dev?.title?.trim() || "Today's Devotional";
-  const fullTitle = `${baseTitle} — ${site.name}`;
+  // The bold first line of a texted link preview — branded so people know to tap.
+  const ogTitle = `☀️ Today's Walk — ${baseTitle}`;
   const verse = dev?.data.verseText?.trim() ?? "";
   const ref = dev?.data.verseRef?.trim() ?? "";
   const description = verse
-    ? `“${verse.length > 120 ? `${verse.slice(0, 117).trimEnd()}…` : verse}”${ref ? ` — ${ref}` : ""} · Read today's short devotional, free.`
-    : "A short, honest morning devotional — read today's issue free.";
+    ? `Tap to read today's free 2-minute devotional · “${verse.length > 110 ? `${verse.slice(0, 107).trimEnd()}…` : verse}”${ref ? ` — ${ref}` : ""}`
+    : "Tap to read today's free 2-minute devotional from The Daily Walk.";
   const card = dev
     ? verseCardImage("free", dev.date, site.url) ??
       `${site.url}/api/verse-card?t=${encodeURIComponent(verse)}${ref ? `&r=${encodeURIComponent(ref)}` : ""}`
     : null;
   return {
-    title: baseTitle,
+    title: `Today's Walk — ${baseTitle}`,
     description,
     alternates: { canonical: `${site.url}/today` },
     openGraph: {
-      title: fullTitle,
+      title: ogTitle,
       description,
       url: `${site.url}/today`,
       siteName: site.name,
@@ -44,7 +45,7 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     twitter: {
       card: card ? "summary_large_image" : "summary",
-      title: fullTitle,
+      title: ogTitle,
       description,
     },
   };
@@ -76,7 +77,7 @@ export default async function TodaySharePage() {
   return (
     <section className="dev-reader share-reader">
       <div className="share-hello">
-        ☀️ Someone sent you today&apos;s <strong>Daily Walk</strong> ·{" "}
+        ☀️ Someone sent you <strong>Today&apos;s Walk</strong> ·{" "}
         {prettyDate(dev.date)}
       </div>
       <div
