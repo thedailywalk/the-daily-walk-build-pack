@@ -1,7 +1,7 @@
 import "server-only";
 import type { Devotional } from "@/lib/devotionals";
 import type { GoodNewsItem } from "@/lib/content";
-import { weekdayLabel, prettyDate } from "@/lib/devotionals";
+import { weekdayLabel } from "@/lib/devotionals";
 import { site } from "@/lib/site";
 import { verseCardImage } from "@/lib/verseCards";
 
@@ -220,7 +220,7 @@ export function renderDevotionalHtml(dev: Devotional, goodNews: GoodNewsItem[] =
       <div style="background:#10243f;border:1px solid #C9A24B;border-radius:10px;padding:22px 24px;text-align:center;">
         <div style="font-family:Arial,Helvetica,sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#E3C074;font-weight:bold;margin:0 0 8px;">Go deeper · Founding Member</div>
         <div style="font-family:Arial,Helvetica,sans-serif;color:#ffffff;font-size:19px;font-weight:bold;line-height:1.3;margin:0 0 10px;">Want the full daily Deeper Walk?</div>
-        <p style="font-family:Arial,Helvetica,sans-serif;color:#EDE6D4;font-size:15px;line-height:1.6;margin:0 0 10px;">Founding Members receive the devotional <strong style="color:#fff;">every day</strong>, plus the deeper <strong style="color:#fff;">Bible teaching</strong>, <strong style="color:#fff;">Heart Check</strong>, <strong style="color:#fff;">Journal With God</strong>, <strong style="color:#fff;">Spiritual Wellness Guide</strong>, and <strong style="color:#fff;">Pray the Word</strong> sections. Lock in <strong style="color:#fff;">$5.99/mo (or $59/yr)</strong> for life.</p>
+        <p style="font-family:Arial,Helvetica,sans-serif;color:#EDE6D4;font-size:15px;line-height:1.6;margin:0 0 10px;">Founding Members receive the devotional <strong style="color:#fff;">every day</strong>, plus the <strong style="color:#fff;">daily Scripture breakdown</strong>, deeper <strong style="color:#fff;">Bible teaching</strong>, <strong style="color:#fff;">Heart Check</strong>, <strong style="color:#fff;">Journal With God</strong>, <strong style="color:#fff;">Spiritual Wellness Guide</strong>, and <strong style="color:#fff;">Pray the Word</strong> sections. Lock in <strong style="color:#fff;">$5.99/mo (or $59/yr)</strong> for life.</p>
         <p style="font-family:Arial,Helvetica,sans-serif;color:#AFC0D6;font-size:13.5px;font-style:italic;line-height:1.55;margin:0 0 14px;">Free readers get The Daily Walk 3&times;/week. Founding Members walk deeper every day.</p>
         <a href="${site.url}/pricing" style="${S.btn}">Become a Founding Member →</a>
       </div>
@@ -244,9 +244,7 @@ export function renderDevotionalHtml(dev: Devotional, goodNews: GoodNewsItem[] =
     ${upsellBlock}
     <div style="${S.footer}">
       <strong style="color:#C9A24B;">The Daily Walk</strong><br>
-      Encouragement three mornings a week — Monday, Wednesday &amp; Friday.<br>
-      Missed one? Don't restart — just pick up where you left off.<br>
-      ${esc(prettyDate(dev.date))}<br><br>
+      Encouragement three mornings a week — Monday, Wednesday &amp; Friday.<br><br>
       <a href="${site.url}" style="color:#C9A24B;text-decoration:none;">Today's full plan</a> · <a href="${site.url}/community" style="color:#C9A24B;text-decoration:none;">Community</a> · <a href="${site.url}/subscribe" style="color:#C9A24B;text-decoration:none;">Forward to a friend</a><br><br>
       You're receiving this because you signed up at thedailywalknewsletter.com.<br>
       ${site.mailingAddress ? `${esc(site.mailingAddress)}<br>` : ""}
