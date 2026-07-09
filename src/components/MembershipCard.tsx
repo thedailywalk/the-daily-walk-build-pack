@@ -138,7 +138,7 @@ const TIERS: Record<
         items: [
           "The devotional 3× a week",
           "One honest prayer with each issue",
-          "3 uplifting Good News stories",
+          "An uplifting Good News story",
         ],
       },
       {

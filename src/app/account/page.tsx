@@ -132,7 +132,7 @@ export default async function AccountPage() {
             <div style={{ marginTop: 16, display: GOOD_NEWS_ENABLED ? "block" : "none" }}>
               <div className="rk">Homepage Good News</div>
               <p style={{ color: "#3c4350", fontSize: 15, margin: "8px 0 14px" }}>
-                Pick which three Good News stories appear on the{" "}
+                Pick which Good News stories appear on the{" "}
                 <strong>homepage</strong> — or leave it automatic (it always
                 tries to include a faith story).
               </p>

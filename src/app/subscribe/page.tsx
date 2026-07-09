@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 const included = [
   "A 2-minute devotional — Mon · Wed · Fri",
   "One honest prayer with each issue",
-  "3 uplifting Good News stories",
+  "An uplifting Good News story",
   "Wednesday Pastor's Take",
   "Free community access",
 ];

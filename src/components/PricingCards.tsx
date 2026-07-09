@@ -55,7 +55,7 @@ export default function PricingCards() {
             <ul className="feat">
               <li>The devotional 3× a week — Mon · Wed · Fri</li>
               <li>One honest prayer with each issue</li>
-              <li>3 uplifting &ldquo;Good News&rdquo; stories</li>
+              <li>An uplifting &ldquo;Good News&rdquo; story</li>
               <li>Wednesday &ldquo;Pastor&apos;s Take&rdquo; encouragement</li>
               <li>Free access to the community</li>
             </ul>

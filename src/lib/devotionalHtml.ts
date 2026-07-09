@@ -62,35 +62,33 @@ function paras(s: string | undefined, style = S.p): string {
 
 const rule = `<div style="${S.rule}"></div>`;
 
-/** The "Good News · 3 reasons for hope" grid — branded, email-safe cards. */
+/** Good News — ONE real story of hope (mirrors the premium "Glimpse"). */
 function goodNewsBlock(items: GoodNewsItem[]): string {
-  const list = (items ?? []).slice(0, 3);
-  if (!list.length) return "";
-  const cards = list
-    .map((g) => {
-      const tile = g.image
-        ? `<img src="${esc(g.image)}" alt="" style="width:100%;height:96px;object-fit:cover;display:block;">`
-        : `<div style="height:96px;background:linear-gradient(135deg,#1F3A5F 0%,#2E5481 55%,#C9A24B 100%);"></div>`;
-      const credit = g.image && g.imageCredit
-        ? `<span style="display:block;font-family:Arial,Helvetica,sans-serif;font-size:8px;color:#b3ab97;margin:6px 0 0;line-height:1.35;">Photo: ${esc(g.imageCredit)}</span>`
-        : "";
-      return `<a href="${esc(g.href)}" style="display:inline-block;vertical-align:top;width:31%;margin:0 1% 10px;border:1px solid #E4DAC4;border-radius:10px;overflow:hidden;background:#ffffff;text-decoration:none;color:inherit;">${tile}<div style="padding:10px 11px 11px;">${
-        g.category
-          ? `<span style="font-family:Arial,Helvetica,sans-serif;font-size:8.5px;letter-spacing:1px;text-transform:uppercase;color:#B8902E;border:1px solid #E3C786;padding:2px 7px;border-radius:20px;font-weight:700;">${esc(g.category)}</span>`
-          : ""
-      }<div style="font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#1F3A5F;font-weight:700;line-height:1.28;margin:8px 0 6px;">${esc(g.headline)}</div>${
-        g.summary
-          ? `<p style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#5b5340;line-height:1.5;margin:0 0 7px;">${esc(g.summary)}</p>`
-          : ""
-      }<span style="display:block;font-family:Arial,Helvetica,sans-serif;font-size:9.5px;color:#8a8270;">${esc(g.source)}</span><span style="display:inline-block;margin-top:3px;font-family:Arial,Helvetica,sans-serif;font-size:9.5px;letter-spacing:.5px;text-transform:uppercase;color:#B8902E;font-weight:700;">Read more →</span>${credit}</div></a>`;
-    })
-    .join("");
+  const list = items ?? [];
+  // Prefer a story with a verified free (Wikimedia Commons) photo so the card
+  // always leads with a real, license-cleared picture.
+  const g = list.find((i) => i.image?.trim()) ?? list[0];
+  if (!g) return "";
+  const tile = g.image
+    ? `<img src="${esc(g.image)}" alt="" style="width:100%;height:150px;object-fit:cover;display:block;">`
+    : `<div style="height:120px;background:linear-gradient(135deg,#1F3A5F 0%,#2E5481 55%,#C9A24B 100%);"></div>`;
+  const credit = g.image && g.imageCredit
+    ? `<span style="display:block;font-family:Arial,Helvetica,sans-serif;font-size:8.5px;color:#b3ab97;margin:8px 0 0;line-height:1.35;">Photo: ${esc(g.imageCredit)}</span>`
+    : "";
+  const card = `<a href="${esc(g.href)}" style="display:block;border:1px solid #E4DAC4;border-radius:10px;overflow:hidden;background:#ffffff;text-decoration:none;color:inherit;">${tile}<div style="padding:14px 18px 16px;">${
+    g.category
+      ? `<span style="font-family:Arial,Helvetica,sans-serif;font-size:9px;letter-spacing:1px;text-transform:uppercase;color:#B8902E;border:1px solid #E3C786;padding:2px 8px;border-radius:20px;font-weight:700;">${esc(g.category)}</span>`
+      : ""
+  }<div style="font-family:Arial,Helvetica,sans-serif;font-size:15px;color:#1F3A5F;font-weight:700;line-height:1.32;margin:9px 0 6px;">${esc(g.headline)}</div>${
+    g.summary
+      ? `<p style="font-family:Arial,Helvetica,sans-serif;font-size:12.5px;color:#5b5340;line-height:1.55;margin:0 0 8px;">${esc(g.summary)}</p>`
+      : ""
+  }<span style="display:block;font-family:Arial,Helvetica,sans-serif;font-size:10px;color:#8a8270;">${esc(g.source)}</span><span style="display:inline-block;margin-top:4px;font-family:Arial,Helvetica,sans-serif;font-size:10px;letter-spacing:.5px;text-transform:uppercase;color:#B8902E;font-weight:700;">Read the full story →</span>${credit}</div></a>`;
   return `<div style="${S.pad}">${rule}
       <div style="${S.kicker}">Good News</div>
-      <h2 style="${S.sec}">3 reasons for hope from around the world</h2>
-      <p style="${S.ref}">Real stories · real sources · tap any headline for the full article.</p>
-      <div style="text-align:center;font-size:0;">${cards}</div>
-      <div style="${S.closing}">Even when the world feels heavy, God is still moving. Keep your eyes open today.</div>
+      <h2 style="${S.sec}">One reason for hope today</h2>
+      ${card}
+      <div style="${S.closing}">One real story — a small reminder God is still moving in ordinary people.</div>
       <div style="height:14px;line-height:14px;">&nbsp;</div>
     </div>`;
 }
@@ -98,7 +96,7 @@ function goodNewsBlock(items: GoodNewsItem[]): string {
 /**
  * Render a devotional as the branded "issue" HTML using only inline styles —
  * safe to inject on-page, copy into Beehiiv, and serve in the RSS feed. Pass the
- * day's Good News stories to include the "3 reasons for hope" grid.
+ * day's Good News stories — the issue features ONE story of hope.
  */
 export function renderDevotionalHtml(dev: Devotional, goodNews: GoodNewsItem[] = []): string {
   const d = dev.data;

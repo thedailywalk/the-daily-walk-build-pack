@@ -73,7 +73,7 @@ export default async function GoodNewsStudioPage() {
           Choose the homepage stories
         </h1>
         <p className="muted" style={{ margin: "0 0 8px", maxWidth: 640 }}>
-          These are the three Good News stories shown on the{" "}
+          These are the Good News stories shown on the{" "}
           <strong>homepage</strong>. Leave it <strong>automatic</strong> and it
           picks the day&apos;s best three (always trying to include a ✝ faith
           story) — or tap up to <strong>three</strong> below to feature them

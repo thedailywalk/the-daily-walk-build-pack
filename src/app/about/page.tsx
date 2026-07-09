@@ -64,7 +64,7 @@ export default function AboutPage() {
         <p>
           Everything runs on two rhythms. The <strong>free newsletter</strong>{" "}
           goes out three mornings a week — Monday, Wednesday &amp; Friday — with a
-          short devotional, one honest prayer, three Good News stories, and the
+          short devotional, one honest prayer, a Good News story, and the
           Wednesday Pastor&apos;s Take. The{" "}
           <strong>Bible-in-a-Year journey</strong> (for Founding Members) is
           personal and guided: it starts on your Day 1 and walks you through

@@ -10,9 +10,9 @@ export const metadata: Metadata = {
 const FREE = {
   kicker: "Every day · Free",
   title: "The Daily Walk newsletter",
-  body: "A 5-minute devotional, one honest prayer, three uplifting Good News stories, the Wednesday Pastor's Take, and a Sunday Rest & Reflect.",
+  body: "A 5-minute devotional, one honest prayer, an uplifting Good News story, the Wednesday Pastor's Take, and a Sunday Rest & Reflect.",
   foot: "For anyone who wants daily encouragement, prayer, and hope.",
-  bullets: ["A prayer every day", "3 Good News stories", "Wednesday Pastor's Take", "Sunday Rest & Reflect"],
+  bullets: ["A prayer every day", "A Good News story", "Wednesday Pastor's Take", "Sunday Rest & Reflect"],
 };
 const PREMIUM = {
   kicker: "Go deeper · Premium $5.99",
@@ -37,7 +37,7 @@ const JOURNEY = {
 };
 
 const FAQ = [
-  { q: "Is it really free?", a: "Yes — completely. The daily devotional, the prayer, the three Good News stories, the Wednesday Pastor's Take, and the Sunday Rest & Reflect are free forever, with no card required. Premium is an option, never a wall." },
+  { q: "Is it really free?", a: "Yes — completely. The daily devotional, the prayer, the Good News story, the Wednesday Pastor's Take, and the Sunday Rest & Reflect are free forever, with no card required. Premium is an option, never a wall." },
   { q: "What do I get with Premium?", a: "The Deeper Walk — a richer daily devotional plus The World Through God's Lens (Thursdays), The Weekend Study (Saturdays), and Inside the Circle live sessions with a licensed Christian therapist and guest pastors. You also get the guided Bible-in-a-Year journey and your member dashboard. $5.99/mo or $59/yr." },
   { q: "What's a Founding Member?", a: "Early supporters who help build this. You lock in $5.99/mo for life, get a full year of The Spiritual Wellness Guide free, and are grandfathered into the whole platform as it grows — guided journey, dashboard, and community." },
   { q: "What is the Spiritual Wellness Guide?", a: "A Founding-Member bonus sent three times a week (Mon · Wed · Fri). It pairs faith with grounded neuroscience: a 60-second Peace Practice, the Pattern Breaker, the Prayer Lab, and a question worth sitting with — practical calm, not just inspiration." },

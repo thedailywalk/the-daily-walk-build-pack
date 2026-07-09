@@ -27,7 +27,7 @@ const comparison: Array<
   { group: "The free devotional · 3× a week" },
   { row: "The devotional (Mon · Wed · Fri)", tiers: [1, 1, 1] },
   { row: "One honest prayer with each issue", tiers: [1, 1, 1] },
-  { row: "“Good News” — 3 uplifting stories", tiers: [1, 1, 1] },
+  { row: "“Good News” — an uplifting story", tiers: [1, 1, 1] },
   { row: "Wednesday Pastor's Take", tiers: [1, 1, 1] },
   { row: "Free community access", tiers: [1, 1, 1] },
   { group: "Founding Member · everything, one membership" },
@@ -61,7 +61,7 @@ const comparison: Array<
 const faqs = [
   {
     q: "Is the free version really free forever?",
-    a: "Yes. Three mornings a week (Mon · Wed · Fri) you get the devotional, a prayer, three Good News stories, the Wednesday Pastor's Take, and the community — all free, no card required. Founding Members ($5.99/mo) get everything: the devotional every day, the full guided Bible-in-a-Year journey, the Deeper Walk discipleship newsletter, and the Spiritual Wellness Guide.",
+    a: "Yes. Three mornings a week (Mon · Wed · Fri) you get the devotional, a prayer, a Good News story, the Wednesday Pastor's Take, and the community — all free, no card required. Founding Members ($5.99/mo) get everything: the devotional every day, the full guided Bible-in-a-Year journey, the Deeper Walk discipleship newsletter, and the Spiritual Wellness Guide.",
   },
   {
     q: "When does my Bible-in-a-Year plan start?",
@@ -351,7 +351,7 @@ function FoundingOffer() {
               <ul style={{ listStyle: "none", padding: 0, margin: "0 0 18px" }}>
                 {check("The devotional 3× a week (Mon · Wed · Fri)")}
                 {check("One honest prayer with each issue")}
-                {check("3 uplifting Good News stories")}
+                {check("An uplifting Good News story")}
                 {check("Free community access")}
               </ul>
               <Link href="/subscribe" className="btn btn-ghost" style={{ width: "100%", textAlign: "center" }}>

@@ -79,8 +79,8 @@ export default function HowItWorks() {
               <div className="hiw-box-k">In your inbox</div>
               <h4>The Daily Walk newsletter</h4>
               <p>
-                A 2-minute devotional, one honest prayer, three uplifting Good
-                News stories, and the Wednesday Pastor&apos;s Take — three
+                A 2-minute devotional, one honest prayer, an uplifting Good
+                News story, and the Wednesday Pastor&apos;s Take — three
                 mornings a week. Encouragement that meets you in real life.
               </p>
             </div>
