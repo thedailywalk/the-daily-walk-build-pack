@@ -139,7 +139,7 @@ export default function MissionPage() {
         </div>
 
         <div className="mission-verse" style={{ maxWidth: 720, margin: "44px auto 0" }}>
-          &ldquo;Your word is a lamp to my feet and a light to my path.&rdquo; — Psalm 119:105
+          &ldquo;Your word is a lamp for my feet, a light on my path.&rdquo; — Psalm 119:105
         </div>
 
         <div className="mission-cta">

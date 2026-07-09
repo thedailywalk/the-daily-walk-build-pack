@@ -1312,7 +1312,7 @@ const AUTHORED: Record<number, Omit<StudyDay, "day" | "reading" | "arc" | "autho
       { word: "Lead me", meaning: "A prayer of surrender — admitting you can't find the way yourself. Real direction starts with letting God go first." },
     ],
     verses: [
-      { ref: "Psalm 119:105", text: "Your word is a lamp to my feet, and a light for my path.", meaning: "God's word is a lamp, not a stadium floodlight — it shows the next step, not the whole map. That's enough to keep walking with Him." },
+      { ref: "Psalm 119:105", text: "Your word is a lamp for my feet, a light on my path.", meaning: "God's word is a lamp, not a stadium floodlight — it shows the next step, not the whole map. That's enough to keep walking with Him." },
       { ref: "John 8:12", text: "I am the light of the world. He who follows me will not walk in the darkness, but will have the light of life.", meaning: "Jesus is the light David prayed for. Follow Him and you won't be left fumbling in the dark — He lights the way as you go." },
     ],
     sideReflection: "Where am I trying to navigate by my own feelings instead of asking God to lead with His light and truth?",

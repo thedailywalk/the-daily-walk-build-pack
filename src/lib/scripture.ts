@@ -95,7 +95,7 @@ export const SUGGESTED_VERSES: Record<string, SuggestedVerse[]> = {
   ],
   "Bible Study": [
     { ref: "2 Timothy 3:16", text: "Every Scripture is God-breathed and profitable for teaching, for reproof, for correction." },
-    { ref: "Psalm 119:105", text: "Your word is a lamp to my feet, and a light for my path." },
+    { ref: "Psalm 119:105", text: "Your word is a lamp for my feet, a light on my path." },
     { ref: "Joshua 1:8", text: "This book of the law shall not depart out of your mouth, but you shall meditate on it day and night." },
   ],
   Testimonies: [

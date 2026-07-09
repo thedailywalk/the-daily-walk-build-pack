@@ -12,10 +12,10 @@ export const hero = {
 
 export const rhythms = [
   {
-    tag: "Every day · Free",
+    tag: "Mon · Wed · Fri · Free",
     title: "The Daily Walk newsletter",
-    body: "A 2-minute devotional with a simple Scripture breakdown, one honest prayer, an uplifting Good News story, the Wednesday Pastor's Take, and a Sunday Rest & Reflect. Encouragement that meets you in real life.",
-    who: "For anyone who wants daily encouragement, prayer, and hope.",
+    body: "A 2-minute devotional with a simple Scripture breakdown, one honest prayer, an uplifting Good News story, and the Wednesday Pastor's Take. Encouragement that meets you in real life.",
+    who: "For anyone who wants encouragement, prayer, and hope.",
   },
   {
     tag: "Your Day 1 · Founding Member",
@@ -183,5 +183,5 @@ export const tiers: Tier[] = [
 export const mission = {
   heading: "A daily guide for walking with God in real life.",
   body: "The Daily Walk exists to help people find Jesus — and learn how to build and grow that relationship into a peace that passes all understanding. You're welcome the moment you come, whether you've followed Him for forty years or have never opened a Bible. Every morning: real Scripture in plain words, an honest prayer, and good news to remind you God is still moving — a few honest minutes that meet you right where you are.",
-  verse: "“Your word is a lamp to my feet and a light to my path.” — Psalm 119:105",
+  verse: "“Your word is a lamp for my feet, a light on my path.” — Psalm 119:105",
 };

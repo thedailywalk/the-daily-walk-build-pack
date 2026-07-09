@@ -339,7 +339,7 @@ export default async function HomePage() {
               day at a time.
             </p>
             <div className="verse">
-              &ldquo;Your word is a lamp to my feet and a light to my
+              &ldquo;Your word is a lamp for my feet, a light on my
               path.&rdquo; — Psalm 119:105
             </div>
           </div>
