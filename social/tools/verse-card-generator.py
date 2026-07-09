@@ -4,24 +4,24 @@ STYLE='''<style>
  :root{--navy:#1F3A5F;--gold:#B8902E;--gold-lt:#C9A24B;--cream:#FAF6EE;}
  *{margin:0;box-sizing:border-box;}
  html,body{background:#000;}
- .stage{position:relative;width:1080px;height:1080px;overflow:hidden;
+ .stage{position:relative;width:1080px;height:1350px;overflow:hidden;
    background:radial-gradient(120% 80% at 50% 118%, rgba(201,162,75,.30) 0%, rgba(201,162,75,.10) 34%, rgba(250,246,238,0) 60%),
      radial-gradient(90% 60% at 50% -12%, rgba(31,58,95,.06) 0%, rgba(250,246,238,0) 55%), var(--cream);}
- .top{position:absolute;top:46px;left:0;right:0;text-align:center;}
+ .top{position:absolute;top:74px;left:0;right:0;text-align:center;}
  .kicker{font-family:"Inter",sans-serif;font-weight:600;letter-spacing:5px;font-size:16px;text-transform:uppercase;color:var(--gold);}
- .reference{position:absolute;top:148px;left:0;right:0;text-align:center;font-family:"Playfair Display",serif;font-weight:700;font-size:68px;color:var(--navy);}
- .subtitle{position:absolute;top:246px;left:150px;right:150px;text-align:center;font-family:"Playfair Display",serif;font-style:italic;font-weight:500;font-size:30px;line-height:1.45;color:var(--gold);}
- .verse{position:absolute;top:396px;left:280px;right:280px;text-align:center;font-family:"Playfair Display",serif;font-weight:400;font-size:40px;line-height:1.6;color:var(--navy);}
+ .reference{position:absolute;top:196px;left:0;right:0;text-align:center;font-family:"Playfair Display",serif;font-weight:700;font-size:78px;color:var(--navy);}
+ .subtitle{position:absolute;top:300px;left:150px;right:150px;text-align:center;font-family:"Playfair Display",serif;font-style:italic;font-weight:500;font-size:33px;line-height:1.45;color:var(--gold);}
+ .verse{position:absolute;top:566px;left:300px;right:300px;text-align:center;font-family:"Playfair Display",serif;font-weight:400;font-size:46px;line-height:1.72;color:var(--navy);}
  .ph{border-radius:3px;padding:0 3px;-webkit-box-decoration-break:clone;box-decoration-break:clone;}
- .note{position:absolute;font-family:"Caveat",cursive;font-size:33px;line-height:1.12;}
+ .note{position:absolute;font-family:"Caveat",cursive;font-size:36px;line-height:1.12;}
  .arrows{position:absolute;inset:0;pointer-events:none;}
  .arrows path{fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:3;}
- .sowhat{position:absolute;left:90px;right:90px;bottom:132px;text-align:center;}
+ .sowhat{position:absolute;left:110px;right:110px;bottom:150px;text-align:center;}
  .sowhat .lbl{display:inline-block;margin-bottom:16px;font-family:"Inter",sans-serif;font-weight:700;letter-spacing:3px;font-size:16px;text-transform:uppercase;color:#fff;background:var(--navy);padding:8px 20px;border-radius:22px;}
- .sowhat p{margin:0;font-family:"Playfair Display",serif;font-weight:600;font-size:33px;line-height:1.32;color:var(--gold);}
- .mark{position:absolute;left:0;right:0;bottom:26px;text-align:center;}
- .mark .rule{width:60px;height:2px;background:var(--gold);margin:0 auto 10px;opacity:.7;}
- .mark .name{font-family:"Playfair Display",serif;font-weight:700;font-size:23px;color:var(--navy);}
+ .sowhat p{margin:0;font-family:"Playfair Display",serif;font-weight:600;font-size:38px;line-height:1.34;color:var(--gold);}
+ .mark{position:absolute;left:0;right:0;bottom:60px;text-align:center;}
+ .mark .rule{width:60px;height:2px;background:var(--gold);margin:0 auto 14px;opacity:.7;}
+ .mark .name{font-family:"Playfair Display",serif;font-weight:700;font-size:27px;color:var(--navy);}
  .mark .tag{display:block;margin-top:5px;font-family:"Inter",sans-serif;font-weight:500;letter-spacing:2px;font-size:14px;text-transform:uppercase;color:var(--gold);}
 </style>'''
 ARC='<svg width="132" height="52" viewBox="0 0 132 52" fill="none" stroke="#C9A24B" stroke-width="3" stroke-linecap="round"><path d="M40 44 A 26 26 0 0 1 92 44" fill="none"/><line x1="66" y1="10" x2="66" y2="2"/><line x1="38" y1="20" x2="32" y2="14"/><line x1="94" y1="20" x2="100" y2="14"/><line x1="24" y1="34" x2="15" y2="32"/><line x1="108" y1="34" x2="117" y2="32"/><line x1="10" y1="47" x2="122" y2="47" opacity="0.85"/></svg>'
@@ -42,12 +42,12 @@ function layout(){try{
    return {n:n,c:c,side:side,tr:tr};
  });
  ["left","right"].forEach(function(side){
-   var list=items.filter(function(i){return i.side===side;}).sort(function(a,b){return a.tr.t-b.tr.t;}),last=120;
+   var list=items.filter(function(i){return i.side===side;}).sort(function(a,b){return a.tr.t-b.tr.t;}),last=150;
    list.forEach(function(it){
-     var el=document.createElement("div");el.className="note";el.style.color=it.c.ink;el.style.width="180px";el.style.textAlign=side;
+     var el=document.createElement("div");el.className="note";el.style.color=it.c.ink;el.style.width="196px";el.style.textAlign=side;
      el.innerHTML=it.n.text.split("|").join("<br>");stage.appendChild(el);
      var nh=el.offsetHeight,nw=el.offsetWidth;
-     var ny=Math.max(last+26,it.tr.t-nh/2);ny=Math.min(ny,850-nh);
+     var ny=Math.max(last+26,it.tr.t-nh/2);ny=Math.min(ny,1130-nh);
      el.style.top=ny+"px";if(side==="left")el.style.left="66px";else el.style.right="66px";
      last=ny+nh;it.ny=ny;it.nh=nh;it.nw=nw;
    });
@@ -73,7 +73,7 @@ def make(c):
     body=('<div class="stage" id="stage"><div class="top">'+ARC+'<div class="kicker">'+c["kicker"]+'</div></div>'
       '<div class="reference">'+c["ref"]+'</div><div class="subtitle">'+c["sub"]+'</div>'
       '<div class="verse" id="verse">&ldquo;'+ph(c["verse"])+'&rdquo;</div>'
-      '<svg class="arrows" id="arrows" viewBox="0 0 1080 1080" fill="none"></svg>'
+      '<svg class="arrows" id="arrows" viewBox="0 0 1080 1350" fill="none"></svg>'
       '<div class="sowhat"><span class="lbl">So what — today?</span><p>'+c["take"]+'</p></div>'
       '<div class="mark"><div class="rule"></div><div class="name">The Daily Walk Newsletter</div><span class="tag">Walking with God in real life</span></div></div>')
     html=('<!DOCTYPE html><html><head><meta charset="utf-8"/><style id="tdw-fonts">'+FONTS+'</style>'+STYLE+'</head><body>'
