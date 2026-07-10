@@ -27,7 +27,8 @@ const S = {
   title: "font-family:Arial,Helvetica,sans-serif;color:#ffffff;font-size:30px;font-weight:bold;margin:8px 0 4px;letter-spacing:1px;",
   tag: "font-family:Arial,Helvetica,sans-serif;color:#AFC0D6;font-size:12px;font-style:italic;",
   meta: "font-family:Arial,Helvetica,sans-serif;text-align:center;font-size:12px;color:#8a8270;letter-spacing:1px;text-transform:uppercase;padding:16px 0 4px;",
-  week: "font-family:Arial,Helvetica,sans-serif;text-align:center;font-size:13px;color:#1F3A5F;font-weight:bold;padding-bottom:18px;",
+  weekK: "font-family:Arial,Helvetica,sans-serif;text-align:center;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#B8902E;font-weight:bold;padding:6px 0 3px;",
+  week: "font-family:Georgia,'Times New Roman',serif;font-style:italic;text-align:center;font-size:14.5px;color:#1F3A5F;padding:0 34px 18px;line-height:1.5;",
   kicker: "font-family:Arial,Helvetica,sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#B8902E;font-weight:bold;margin:0 0 6px;",
   sec: "font-family:Arial,Helvetica,sans-serif;font-size:20px;font-weight:bold;color:#1F3A5F;margin:0 0 6px;",
   p: "font-size:16px;line-height:1.62;margin:0 0 14px;",
@@ -246,7 +247,7 @@ export function renderDevotionalHtml(
       <div style="${S.tag}">walking with God in real life</div>
     </div>
     ${metaBits ? `<div style="${S.meta}">${esc(metaBits)}</div>` : ""}
-    ${weekFocus ? `<div style="${S.week}">This Week's Focus: ${esc(weekFocus)}</div>` : `<div style="height:8px;line-height:8px;">&nbsp;</div>`}
+    ${weekFocus ? `<div style="${S.weekK}">This Week&rsquo;s Focus</div><div style="${S.week}">${esc(weekFocus)}</div>` : `<div style="height:8px;line-height:8px;">&nbsp;</div>`}
     <div style="${S.pad}">${blocks.join("")}</div>
     ${pastorBlock}
     ${ctaBlock}
