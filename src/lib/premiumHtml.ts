@@ -348,13 +348,8 @@ export function renderPremiumHtml(issue: PremiumIssue, goodNews: GoodNewsItem[] 
         <div style="height:14px;line-height:14px;">&nbsp;</div>
       </div>`;
 
-  // The closing line only shows here when a distinct "Save this line" quote
-  // already ran above — otherwise the closing line WAS the Save card, so we
-  // don't repeat it.
-  const closingBlock =
-    d.saveLine?.trim() && d.closingLine?.trim()
-      ? `<div style="${S.pad}">${rule}<div style="${S.closing}">${esc(d.closingLine)}</div><div style="height:8px;line-height:8px;">&nbsp;</div></div>`
-      : "";
+  // Closing-line section removed by request. (closingLine still quietly backs
+  // the Save card text when no saveLine is set — see `save` above.)
 
   return `<div style="${S.outer}">
   <div style="${S.wrap}">
@@ -368,7 +363,6 @@ export function renderPremiumHtml(issue: PremiumIssue, goodNews: GoodNewsItem[] 
     ${weekFocus ? `<div style="${S.weekK}">This Week&rsquo;s Focus</div><div style="${S.week}">${esc(weekFocus)}</div>` : `<div style="height:8px;line-height:8px;">&nbsp;</div>`}
     <div style="${S.pad}">${blocks.join(rule)}</div>
     ${partnerCta}
-    ${closingBlock}
     <div style="${S.footer}">
       <strong style="color:#C9A24B;">The Daily Walk · Premium</strong><br>
       Deeper Bible study &amp; discipleship for Founding Members.<br>

@@ -222,9 +222,8 @@ export function renderDevotionalHtml(
       </div>`;
   }
 
-  const closingBlock = d.closingLine?.trim()
-    ? `<div style="${S.pad}">${rule}<div style="${S.closing}">${esc(d.closingLine)}</div><div style="height:8px;line-height:8px;">&nbsp;</div></div>`
-    : "";
+  // Closing-line section removed by request — the issue flows straight from
+  // Good News into the upgrade nudge. (closingLine data is simply ignored.)
 
   // Founding-member upgrade nudge (free issue → the one paid tier). Absolute link for email.
   const upsellBlock = `
@@ -252,7 +251,6 @@ export function renderDevotionalHtml(
     ${pastorBlock}
     ${ctaBlock}
     ${goodNewsBlock(goodNews)}
-    ${closingBlock}
     ${upsellBlock}
     <div style="${S.footer}">
       <strong style="color:#C9A24B;">The Daily Walk</strong><br>
