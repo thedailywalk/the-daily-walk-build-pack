@@ -5,7 +5,7 @@ import { site } from "@/lib/site";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HideOnAdmin from "@/components/HideOnAdmin";
-import JoinModal from "@/components/JoinModal";
+// JoinModal popup paused by request — restore the import + <JoinModal /> below to bring it back.
 import NavProgress from "@/components/NavProgress";
 
 const inter = Inter({
@@ -61,7 +61,7 @@ export default function RootLayout({
         <HideOnAdmin paths={["/admin", "/portal"]}>
           <Footer />
         </HideOnAdmin>
-        <JoinModal />
+        {/* JoinModal popup paused by request — re-add <JoinModal /> to restore. */}
       </body>
     </html>
   );
