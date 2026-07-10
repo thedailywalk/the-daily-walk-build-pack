@@ -24,8 +24,8 @@ type Hand = {
 const STORE_KEY = "tdw_prayed";
 
 // The ways you can react over a prayer — all count as one "pray"; you just pick
-// which one floats up. 🙏 pray · ❤️ love · 🕊️ peace.
-const PRAY_EMOJIS = ["🙏", "❤️", "🕊️"] as const;
+// One reaction: 🙏 — tap the praying hands to say "I prayed for this."
+const PRAY_EMOJIS = ["🙏"] as const;
 
 // Warm, on-brand avatar tints — adds a little color without going loud.
 const AVATAR_COLORS = [
